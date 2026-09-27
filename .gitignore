@@ -1,0 +1,34 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# MATLAB
+*.asv
+*.mex*
+
+# LaTeX
+*.aux
+*.log
+*.out
+*.toc
+*.synctex.gz
+*.fdb_latexmk
+*.fls
+*.bbl
+*.blg
+
+# Sistema
+.DS_Store
+Thumbs.db
+*~
+
+# Metadatos de Windows/WSL
+*:Zone.Identifier
+
+# Bibliografía con derechos de autor (se comparte por fuera del repo)
+bibliografia/*.pdf
+bibliografia/*.djvu
+bibliografia/*.epub
