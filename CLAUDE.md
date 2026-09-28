@@ -9,6 +9,8 @@ proyecto final del curso, apoyado en la bibliografía que va agregando.
 Resolver talleres, desarrollar el proyecto final y acumular apuntes del curso. Cuando exista
 `notas/generalidades-del-curso.md` (programa, calendario, evaluación), **leerlo antes de
 preparar cualquier entregable**.
+Al iniciar una sesión, leer `notas/contexto-proyecto.md` (estado del trabajo, entorno, resultados y
+decisiones pendientes).
 
 ## Estructura
 
