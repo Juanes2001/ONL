@@ -3,6 +3,26 @@
 Registro de cada sesión de trabajo en el repositorio: qué se hizo, qué decisiones se tomaron y
 qué queda pendiente. La entrada más reciente va arriba.
 
+## 2026-09-30 (miércoles) — Tarea 1, punto 4: Saleh 5.2-1 (a)
+
+### Hecho
+- `git pull`: llegó `talleres/taller-01-fundamentos/punto4_cintura_haz.py` (cálculo de la cintura
+  w₀ de un haz gaussiano, trabajado por el usuario en el otro dispositivo).
+- Lectura completa del cap. 5 de Saleh & Teich (§5.1–5.7, pp. 149–195 del libro = pp. 171–217 del
+  PDF). El PDF es escaneado y no tiene texto extraíble: se leyó renderizando las páginas con
+  PyMuPDF. Desfase de páginas: página del PDF = página del libro + 22.
+- Saleh 5.2-1 (a), 𝒫 = ε₀χℰ − a∇×ℰ: lineal, homogéneo, no dispersivo en el tiempo,
+  **espacialmente dispersivo** (P = ε₀χE + j a k×E) e isótropo (supuesto; medio quiral u
+  ópticamente activo). Solución en
+  `talleres/taller-01-fundamentos/solucion-punto4-saleh-5.2-1a.md`.
+- Se comparó con el razonamiento del usuario: coincide en lineal, homogéneo y no dispersivo.
+  Le faltaba la dispersión espacial, y su justificación de la linealidad (que "∇×ℰ es un campo
+  independiente") no era correcta: la linealidad se debe a que ∇× es un operador lineal.
+
+### Pendiente
+- Saleh 5.2-1 (b)–(d), 5.3-1, 5.4-1 y 3.1-4 (este último ya tiene `punto4_cintura_haz.py`).
+- Punto 1 de la Tarea 1; decisiones pendientes de `notas/contexto-proyecto.md` §6.
+
 ## 2026-09-27 (domingo) — Tarea 1, punto 2
 
 ### Hecho

@@ -1,6 +1,6 @@
 # Contexto del proyecto — para retomar el trabajo en otro dispositivo
 
-Última actualización: 2026-09-28. Este archivo resume **todo lo hecho hasta ahora** y lo necesario
+Última actualización: 2026-09-30. Este archivo resume **todo lo hecho hasta ahora** y lo necesario
 para continuar sin la conversación original. Complementa `notas/bitacora-sesiones.md` (registro
 cronológico) y `CLAUDE.md` (convenciones del repo).
 
@@ -15,7 +15,7 @@ cronológico) y `CLAUDE.md` (convenciones del repo).
 | Tarea 1 — punto 1 | **Pendiente** |
 | Tarea 1 — punto 2 (a y b) | **Hecho** (scripts, figuras, PDF) — commit `ae3243c` |
 | Tarea 1 — punto 3 | **Hecho** (script, figura, PDF) — commit `ae3243c` |
-| Tarea 1 — punto 4 (Saleh 5.2-1, 5.3-1, 5.4-1, 3.1-4) | **Pendiente** |
+| Tarea 1 — punto 4 (Saleh 5.2-1, 5.3-1, 5.4-1, 3.1-4) | **En curso**: 5.2-1 (a) hecho; `punto4_cintura_haz.py` (3.1-4) iniciado |
 | Discrepancia del "−1" en la ecuación del diodo | **Decisión pendiente** (ver §6.1) |
 | PDF de terceros en `notas/` y `talleres/` | **Decisión pendiente** (ver §6.2) |
 | `bibliografia/README.md` (tabla de referencias) | Pendiente de llenar |
@@ -133,6 +133,8 @@ Profesor: **Rodrigo Acuña Herrera**.
 | `punto3.m` | Taylor vs. exacto; barrido de la razón vs. V₁; figura |
 | `figuras/*.png` | `punto2a_espectro`, `punto2b_espectro`, `punto2b_espectro_log`, `punto3_taylor_vs_exacto` |
 | `solucion-punto3.md` | Derivación del punto 3 en Markdown |
+| `punto4_cintura_haz.py` | Cintura w₀ de un haz gaussiano dados w₁ y R₁ (Saleh 3.1-4) |
+| `solucion-punto4-saleh-5.2-1a.md` | Saleh 5.2-1 (a): clasificación del medio 𝒫 = ε₀χℰ − a∇×ℰ |
 | `solucion-puntos-2-3.tex` / `.pdf` | Documento completo (20 pp.) con derivaciones, figuras, verificaciones y código |
 
 Parámetros numéricos comunes: f_s = 10 kHz, T = 1 s (N = 10 000, Δf = 1 Hz, número entero de
@@ -162,6 +164,11 @@ i(0); Parseval (RMS 0.72 mA).
 absolutas 10–30× por debajo). Falla porque x ≈ 7.7 ≫ 1 (1 + x + x²/2 + x³/6 = 114 vs. eˣ = 2191).
 Taylor es el límite x ≪ 1 de Bessel (Iₙ ≈ (x/2)ⁿ/n! ⇒ 6/x); error < 10 % solo si V₁ < 63 mV.
 Expandiendo alrededor de v = 0 se obtiene 6(V_T + V₀)/V₁ = 9.78 (peor). Analogía: V_T ↔ E_at.
+
+**4 — Saleh 5.2-1 (a)** — 𝒫 = ε₀χℰ − a∇×ℰ: lineal (∇× es lineal), homogéneo, no dispersivo en
+el tiempo, **espacialmente dispersivo** (con ondas planas, P = ε₀χE + j a k×E: depende de k) e
+isótropo (supuesto; es el modelo de un medio quiral u ópticamente activo). Definiciones: Saleh
+§5.2, p. 156. Nota: el PDF de Saleh es escaneado; página del PDF = página del libro + 22.
 
 ---
 
@@ -196,6 +203,6 @@ dispositivo hay que copiarlos a mano si se necesitan.
 1. Resolver §6.1 (y, si se acepta, añadir el recuadro al PDF y recompilar).
 2. Punto 1 de la Tarea 1 (pulso gaussiano que viaja en +z, polarización x̂;
    **H** = (1/η₀) f(t − z/c₀) ŷ).
-3. Punto 4: problemas de Saleh 5.2-1, 5.3-1, 5.4-1, 3.1-4 (consultar el libro en `bibliografia/`).
+3. Punto 4: Saleh 5.2-1 (b)–(d), 5.3-1, 5.4-1 y 3.1-4 (5.2-1 (a) ya está hecho).
 4. Llenar `bibliografia/README.md` y crear `notas/generalidades-del-curso.md` (usar §3).
 5. Registrar cada sesión en `notas/bitacora-sesiones.md`.
