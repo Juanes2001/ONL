@@ -225,32 +225,6 @@ Por ejemplo, $\cos^3\alpha=\tfrac18(e^{j\alpha}+e^{-j\alpha})^3
 =\tfrac18(e^{3j\alpha}+3e^{j\alpha}+3e^{-j\alpha}+e^{-3j\alpha})=\tfrac14\cos3\alpha+\tfrac34\cos\alpha$,
 la misma identidad que usa Boyd para el tercer armónico (ec.~(1.2.13), p.~11).
 
-\subsection*{Espectro de amplitud y FFT}
-
-Para $x(t)=A\cos(2\pi f_0t)$ la transformada $X(f)=\int x(t)e^{-j2\pi ft}\dd t$ son dos deltas de peso
-$A/2$ en $\pm f_0$. Juntando ambas mitades, el \textbf{espectro de amplitud unilateral} asigna la
-amplitud $A$ a $f_0$ y a la componente DC su valor $A_0$. Así, si la salida se escribe
-$i(t)=A_0+\sum_kA_k\cos(2\pi f_kt+\varphi_k)$, la gráfica pedida son líneas de altura $A_k$ en las
-frecuencias $f_k$.
-
-MATLAB calcula la transformada discreta de $N$ muestras tomadas con frecuencia $f_s$ durante
-$T=N/f_s$:
-\[
-X[k]=\sum_{n=0}^{N-1}x[n]\,e^{-j2\pi kn/N},\qquad f_k=\frac{k}{T},\quad \Delta f=\frac1T .
-\]
-Si $x[n]=A\cos(2\pi k_0n/N)$ con $k_0$ entero, la suma geométrica
-$\sum_ne^{-j2\pi mn/N}$ vale $N$ si $m$ es múltiplo de $N$ y $0$ en otro caso, de modo que
-$X[k_0]=X[N-k_0]=AN/2$ y los demás bins son cero. Por tanto
-\[
-A_k=\frac{2|X[k]|}{N}\quad(k\ge1),\qquad A_0=\frac{|X[0]|}{N}.
-\]
-Se usó $f_s=\SI{10}{kHz}$ y $T=\SI{1}{s}$ ($N=10\,000$, $\Delta f=\SI{1}{Hz}$). La frecuencia más alta
-con amplitud apreciable es del orden de cientos de Hz, muy por debajo de $f_s/2=\SI{5}{kHz}$, así que
-no hay aliasing. Todas las frecuencias involucradas son múltiplos de \SI{10}{Hz} y completan un
-número entero de ciclos en $T$, así que caen exactamente en un bin y no hay fuga espectral. El vector
-de tiempo es \texttt{t = (0:N-1)/fs}, sin incluir $t=T$, porque la DFT supone que la señal se repite con
-periodo $T$.
-
 \subsection{Punto 2a: dispositivo de ley cuadrática}
 
 \[
@@ -400,17 +374,6 @@ estrechos de \SI{2.25}{mA} de pico, uno por ciclo. Abajo: amplitud del espectro 
 de Bessel en rojo).}
 \label{fig:2b}
 \end{figure}
-
-\textbf{¿Por qué hay tantos armónicos?} La corriente (figura~\ref{fig:2b}) no se parece a la entrada:
-es casi cero durante la mayor parte del ciclo y tiene un pico agudo cuando $v$ es máximo. El voltaje
-recorre de \SI{0.1}{V} a \SI{0.5}{V}, es decir $2V_1/\VT\approx15$ escalas térmicas, y la corriente
-cambia en un factor $e^{15.4}\approx5\times10^6$ entre el mínimo y el máximo. Un pulso estrecho en el
-tiempo tiene un espectro ancho en frecuencia. Cerca del máximo, $\cos\theta\approx1-\theta^2/2$ y
-$e^{x\cos\theta}\approx e^xe^{-x\theta^2/2}$: un pulso gaussiano de ancho angular $1/\sqrt x$, o sea
-$\sigma_t=1/(\omega\sqrt x)\approx\SI{1.1}{ms}$. Su espectro también es gaussiano y para $x$ grande
-$I_n(x)/I_0(x)\approx e^{-n^2/(2x)}$, así que los armónicos relevantes son del orden de unos pocos
-múltiplos de $\sqrt x\approx3$ (por ejemplo, $I_3/I_0\approx e^{-9/15.38}=0.56$ frente al exacto
-$0.54$). La figura~\ref{fig:2blog} muestra el decaimiento en escala logarítmica.
 
 \begin{figure}[H]
 \centering
