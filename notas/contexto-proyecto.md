@@ -12,10 +12,11 @@ cronológico) y `CLAUDE.md` (convenciones del repo).
 |---|---|
 | Estructura del repo | Hecha (commit `5f53c0f`) |
 | Lectura de todo `notas/` y del enunciado de la Tarea 1 | Hecha (resúmenes en §4) |
-| Tarea 1 — punto 1 | **Pendiente** |
+| Tarea 1 — punto 1 | **Hecho** (manuscrito del usuario, transcrito al documento final) |
 | Tarea 1 — punto 2 (a y b) | **Hecho** (scripts, figuras, PDF) — commit `ae3243c` |
 | Tarea 1 — punto 3 | **Hecho** (script, figura, PDF) — commit `ae3243c` |
-| Tarea 1 — punto 4 (Saleh 5.2-1, 5.3-1, 5.4-1, 3.1-4) | **En curso**: 5.2-1 (a) hecho; `punto4_cintura_haz.py` (3.1-4) iniciado |
+| Tarea 1 — punto 4 (Saleh 5.2-1, 5.3-1, 5.4-1, 3.1-4) | **Hecho** |
+| Tarea 1 — documento final | **Hecho**, en revisión: `taller-01-fundamentos/Tarea_1_ONL.pdf` (formato de `talleres/Homework_3_PIC.pdf`) |
 | Discrepancia del "−1" en la ecuación del diodo | **Decisión pendiente** (ver §6.1) |
 | PDF de terceros en `notas/` y `talleres/` | **Decisión pendiente** (ver §6.2) |
 | `bibliografia/README.md` (tabla de referencias) | Pendiente de llenar |
@@ -113,7 +114,7 @@ Profesor: **Rodrigo Acuña Herrera**.
 ### 5.1 Enunciado (transcrito de `talleres/Tarea 1.pdf`)
 
 1. Una onda EM en el espacio libre tiene campo eléctrico **E** = f(t − z/c₀) x̂, con
-   f(t) = exp(−t²/τ²) y τ constante. Describa la naturaleza física de la onda (polarización,
+   f(t) = exp(−t²/τ²)·exp(j2πν₀t) y τ constante (es Saleh 5.1-1). Describa la naturaleza física de la onda (polarización,
    dirección de propagación, envolvente, factor de propagación, etc.) y determine el campo magnético.
 2. Use MATLAB para dibujar la amplitud de la transformada de Fourier de la salida vs. frecuencia:
    - (a) dispositivo con ley i = v², entrada v = cos(2π50t) + cos(2π120t);

@@ -3,6 +3,30 @@
 Registro de cada sesión de trabajo en el repositorio: qué se hizo, qué decisiones se tomaron y
 qué queda pendiente. La entrada más reciente va arriba.
 
+## 2026-09-30 (miércoles, tarde) — Tarea 1: documento final
+
+### Hecho
+- Lectura del manuscrito del usuario (`talleres/Tarea1.pdf`, 16 pp.): punto 1 y punto 4
+  (3.1-4, 5.2-1 a, 5.3-1, 5.4-1). Enunciados verificados en Saleh (pp. 195 y 84 del libro).
+- El punto 1 es Saleh 5.1-1: f(t) = exp(−t²/τ²)·exp(j2πν₀t) (con portadora; la transcripción
+  anterior de este repo la omitía).
+- Documento final `talleres/taller-01-fundamentos/Tarea_1_ONL.tex` / `.pdf` (22 pp.) con el
+  formato de `talleres/Homework_3_PIC.pdf`: puntos 1–4 (a pedido del usuario, sin sección de
+  referencias ni apéndice de código; las fuentes se citan en línea).
+  Compila con Tectonic.
+- Redactados en el estilo del inciso (a): Saleh 5.2-1 (b) no lineal/no dispersivo/local/homogéneo,
+  (c) lineal/dispersivo (oscilador de Lorentz)/local/homogéneo, (d) lineal/no dispersivo/local/
+  inhomogéneo.
+- Verificación del manuscrito: punto 1, 3.1-4 y 5.4-1 correctos. **Errores corregidos en 5.3-1**:
+  (a) β = k₀/√2 (no 2π/λ₀: el campo no es onda plana y debe cumplir Helmholtz); (b) H tiene además
+  componente H_z = −j(E₀/√2η₀)cos(βy)e^{−jβz} (el reemplazo ∇ → −jk solo vale para ondas planas).
+  (c) y (d) quedan igual (la potencia promedio va en +z; la parte en y es reactiva).
+- En 2b se incluyó la nota sobre el "−1" del enunciado (se mantiene Shockley; §6.1 del contexto).
+
+### Pendiente
+- Revisión del usuario del documento final; decidir si se sube `Tarea1.pdf`/`Homework_3_PIC.pdf`
+  al repo (PDF de terceros sin versionar).
+
 ## 2026-09-30 (miércoles) — Tarea 1, punto 4: Saleh 5.2-1 (a)
 
 ### Hecho
