@@ -32,3 +32,18 @@ Thumbs.db
 bibliografia/*.pdf
 bibliografia/*.djvu
 bibliografia/*.epub
+
+# Simulaciones Lumerical: archivos pesados fuera del repo
+*.fsp
+*.lms
+*.ldev
+*.icp
+*_p0.log
+__pycache__/
+*.h5
+*.h5.invalido
+*.npz
+
+# Regla del cluster copiada de la tesis: trae IP, cuenta compartida y licencia.
+# El repo es publico: se queda solo en local.
+.claude/rules/fdtd-cluster.md

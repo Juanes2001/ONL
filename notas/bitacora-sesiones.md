@@ -3,6 +3,40 @@
 Registro de cada sesión de trabajo en el repositorio: qué se hizo, qué decisiones se tomaron y
 qué queda pendiente. La entrada más reciente va arriba.
 
+## 2026-10-04 (domingo) — Arranque del proyecto final
+
+### Hecho
+- Tema propuesto: efectos no lineales en Si₃N₄ sobre un anillo add-drop; viabilidad de
+  supercontinuo aplicado a sensado de índice de refracción.
+- Lectura (solo lectura) del repo de tesis `../fotonica-integrada`; resumen en
+  `proyecto-final/contexto-fotonica-integrada.md`.
+- Copiadas de la tesis las 4 skills de Lumerical (`.claude/skills/`), la regla de cluster y la
+  infraestructura de código local (plantilla `proyecto-final/simulaciones/_plantilla/`:
+  entorno lumapi, motor FDTD por subproceso, almacén HDF5/contratos, modos FDE, figuras).
+  Protocolo resumido en `CLAUDE.md` § Simulaciones Lumerical.
+- Regla de prioridad (Juanes): ONL solo corre si el Lumerical local está libre de la tesis; lo
+  pesado va al cluster con la misma regla. Skill `recursos-simulaciones` + `scripts/ram_lumerical.py`
+  (código 4 = OCUPADO): mide la RAM de Windows,
+  atribuye procesos de Lumerical a ONL o a la tesis y da veredicto CABE/AJUSTADO/NO CABE
+  (calibración 40 B/celda en FDTD 3D). Medida de prueba: 0.4 GB disponibles de 7.4 GB y una
+  sesión `fdtd-solutions` huérfana (PID 2568, creada 11:15).
+
+- Búsqueda bibliográfica (3 subagentes, DOI verificados en Crossref): 48 referencias (47 DOI + libro de Boyd) sobre χ⁽³⁾
+  del SiN, supercontinuo, microcombs, χ⁽²⁾ del SiN y sensado, en
+  `proyecto-final/referencias-no-lineal-SiN.txt`. Conclusión: el SC no requiere χ⁽²⁾ (es χ⁽³⁾);
+  con 400 nm de espesor la guía es de dispersión normal → rutas: SC ANDi (Rebolledo-Salgado
+  2022), pulsos oscuros (Xue 2015) o acoplamiento de modos (Kim 2017).
+
+- Decisión: sensado de VOLUMEN (refractómetro, n 1.33→1.37); superficial más adelante.
+- Estudio `proyecto-final/simulaciones/seccion_v1/` escrito (7 pasos: validación, materiales,
+  dispersión H=400, espesor de referencia, curvatura, cifras no lineales, GNLSE). paso01 corrido
+  (controles OK). Pruebas analíticas 6/6 OK y cadena completa probada con Lumerical simulado.
+  `scripts/esperar_lumerical_libre.sh` espera a que el Lumerical local quede libre.
+
+### Pendiente
+- Correr seccion_v1 (paso00 → paso06) cuando el Lumerical local esté libre de la tesis.
+- Definir alcance del proyecto (fuente SC en guía vs. efectos en el anillo).
+
 ## 2026-09-30 (miércoles, tarde) — Tarea 1: documento final
 
 ### Hecho

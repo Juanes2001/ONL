@@ -1,0 +1,351 @@
+REFERENCIAS — Óptica no lineal en nitruro de silicio (Si3N4): χ(3), supercontinuo, χ(2) y sensado
+Proyecto final, Óptica No Lineal (UNAL Medellín, 2026-II) — Juan Esteban Rodríguez Ochoa
+Búsqueda hecha el 2026-10-04 en la web, con tres subagentes en paralelo.
+Todos los DOI se verificaron contra Crossref o doi.org: título, revista, volumen,
+páginas y año coinciden. Las cifras de "Relevancia" salen de los abstracts o de la
+página del editor; las que no se pudieron confirmar en la fuente dicen "(sin verificar)".
+Para buscar un artículo: https://doi.org/<DOI>
+
+======================================================================================
+NOTA PREVIA: ¿se necesita χ(2) para el supercontinuo?
+======================================================================================
+No. El supercontinuo (SC) aparece en medios centrosimétricos, donde χ(2) = 0
+(Boyd, cap. 1), y lo producen procesos de χ(3): automodulación de fase (SPM),
+fisión de solitones, ondas dispersivas, mezcla de cuatro ondas (FWM) y Raman.
+Así se observó en vidrio [G2], en fibra de sílice [A3] y en Si3N4 [D4, D6].
+El χ(2) del SiN es débil y extrínseco: de superficie o de la película (~0.1–2.5 pm/V),
+fotoinducido por efecto fotogalvánico (~0.3–8.6 pm/V) o inducido por un campo DC
+(sub-pm/V). No ensancha el espectro. Se usa para generar segundo armónico (SHG) en el
+chip, por ejemplo para la autorreferencia f-2f o la detección de f_CEO, y para el efecto
+electro-óptico.
+Hay SC "por χ(2)" solo en materiales no centrosimétricos (PPLN de película delgada, AlN),
+con un mecanismo distinto: la cascada χ(2):χ(2) actúa como un Kerr efectivo [G3, G4].
+
+Consecuencia para el proyecto: con 400 nm de espesor, la guía de SiN a 1550 nm está casi
+seguro en dispersión NORMAL. Todos los SC anómalos a 1550 nm usan ~700–1000 nm de
+espesor (Porcel 2017: 0.9 µm). Las rutas viables con 400 nm son:
+  (a) SC coherente en dispersión normal por SPM + optical wave breaking [D9];
+  (b) peines de pulsos oscuros en anillos con dispersión normal [E5];
+  (c) dispersión anómala por acoplamiento de modos en SiN delgado [C1].
+No se encontró ningún trabajo que use SC de SiN en chip para interrogar un anillo sensor
+de índice de refracción. Lo más cercano son [H4] y [H5]: es un hueco en la literatura.
+
+======================================================================================
+A. LIBROS Y REVISIONES GENERALES
+======================================================================================
+[A1] R. W. Boyd, "Nonlinear Optics", 4.ª ed., Academic Press (2020).
+     ISBN 978-0-12-811002-7 (libro, sin DOI). El curso usa la 3.ª ed. (2008).
+     Relevancia: el cap. 1 muestra que χ(2) = 0 en medios con simetría de inversión;
+     el cap. 4 trata el índice dependiente de la intensidad (n2). Las secciones y
+     páginas exactas hay que confirmarlas en la edición del curso.
+
+[A2] G. P. Agrawal, "Nonlinear Fiber Optics", 6.ª ed., Academic Press/Elsevier (2019).
+     ISBN 978-0-12-817042-7. DOI: 10.1016/C2018-0-01168-8
+     Relevancia: NLSE, SPM, orden solitónico N, fisión, optical wave breaking, FWM y
+     Raman. Base para estimar L_D, L_NL y N en la guía de SiN. El curso usa la 5.ª ed. (2012).
+
+[A3] J. M. Dudley, G. Genty, S. Coen, "Supercontinuum generation in photonic crystal
+     fiber", Rev. Mod. Phys. 78, 1135–1184 (2006). DOI: 10.1103/RevModPhys.78.1135
+     Relevancia: revisión estándar de los mecanismos de SC (todos χ(3)), la GNLSE, la
+     coherencia y el bombeo en régimen anómalo frente al normal. Lectura obligatoria.
+
+[A4] D. J. Moss, R. Morandotti, A. L. Gaeta, M. Lipson, "New CMOS-compatible platforms
+     based on silicon nitride and Hydex for nonlinear optics", Nat. Photonics 7,
+     597–607 (2013). DOI: 10.1038/nphoton.2013.183
+     Relevancia: revisión de SiN como plataforma no lineal sin TPA a 1550 nm, con tablas
+     de n2 (~2.5e-19 m²/W, sin verificar).
+
+[A5] D. J. Blumenthal, R. Heideman, D. Geuzebroek, A. Leinse, C. Roeloffzen, "Silicon
+     Nitride in Silicon Photonics", Proc. IEEE 106(12), 2209–2231 (2018).
+     DOI: 10.1109/JPROC.2018.2861576
+     Relevancia: la plataforma SiN (LPCVD/PECVD, espesores, pérdidas). La tesis ya la usa.
+
+[A6] A. L. Gaeta, M. Lipson, T. J. Kippenberg, "Photonic-chip-based frequency combs",
+     Nat. Photonics 13, 158–169 (2019). DOI: 10.1038/s41566-019-0358-x
+     Relevancia: revisión de peines en chip (microanillos y SC en guías), con
+     aplicaciones de espectroscopía y sensado.
+
+[A7] T. J. Kippenberg, A. L. Gaeta, M. Lipson, M. L. Gorodetsky, "Dissipative Kerr
+     solitons in optical microresonators", Science 361, eaan8083 (2018).
+     DOI: 10.1126/science.aan8083
+     Relevancia: ecuación de Lugiato-Lefever, umbral P_th ∝ 1/Q², desintonía,
+     dispersión anómala y normal.
+
+======================================================================================
+B. PROPIEDADES χ(3) DEL SiN (n2, γ, ausencia de TPA)
+======================================================================================
+[B1] K. Ikeda, R. E. Saperstein, N. Alic, Y. Fainman, "Thermal and Kerr nonlinear
+     properties of plasma-deposited silicon nitride/silicon dioxide waveguides",
+     Opt. Express 16(17), 12987 (2008). DOI: 10.1364/OE.16.012987
+     Relevancia: primera medida de n2 = 2.4e-19 m²/W (~10× la sílice; SiN PECVD).
+     Medida en anillos ADD-DROP (Q 12 900) y all-pass, separando el efecto térmico del
+     Kerr: es justo la estructura del proyecto.
+
+[B2] D. T. H. Tan, K. Ikeda, P. C. Sun, Y. Fainman, "Group velocity dispersion and self
+     phase modulation in silicon nitride waveguides", Appl. Phys. Lett. 96(6), 061101
+     (2010). DOI: 10.1063/1.3299008
+     Relevancia: sin pérdida no lineal (no hay TPA) a 1550 nm hasta 12 GW/cm²;
+     γ = 1.4 W⁻¹m⁻¹; GVD de −0.57 a +0.86 ps²/m según la geometría.
+
+[B3] C. J. Krückel, A. Fülöp, T. Klintberg, J. Bengtsson, P. A. Andrekson,
+     V. Torres-Company, "Linear and nonlinear characterization of low-stress
+     high-confinement silicon-rich nitride waveguides", Opt. Express 23(20), 25827
+     (2015). DOI: 10.1364/OE.23.025827
+     (Errata: Opt. Express 25, 7443 (2017), DOI: 10.1364/OE.25.007443)
+     Relevancia: el SiN rico en Si tiene n2 = 1.4e-18 m²/W (~5× el estequiométrico), con
+     capas de 700 nm sin grietas y ~1 dB/cm.
+
+======================================================================================
+C. INGENIERÍA DE DISPERSIÓN Y FABRICACIÓN DE BAJAS PÉRDIDAS
+======================================================================================
+[C1] S. Kim, K. Han, C. Wang et al., "Dispersion engineering and frequency comb
+     generation in thin silicon nitride concentric microresonators", Nat. Commun. 8,
+     372 (2017). DOI: 10.1038/s41467-017-00491-x
+     Relevancia: CLAVE para SiN delgado. Logra dispersión ANÓMALA en SiN de 300 nm con
+     resonadores concéntricos acoplados; Q_int de 1–2 millones; umbral del peine ~0.2 W.
+
+[C2] Y. Okawachi, M. R. E. Lamont, K. Luke et al., "Bandwidth shaping of
+     microresonator-based frequency combs via dispersion engineering", Opt. Lett.
+     39(12), 3535 (2014). DOI: 10.1364/OL.39.003535
+     Relevancia: la geometría de la guía controla la GVD y la dispersión de orden superior
+     (β4 crítica para peines de una octava).
+
+[C3] X. Ji, F. A. S. Barbosa, S. P. Roberts et al., "Ultra-low-loss on-chip resonators
+     with sub-milliwatt parametric oscillation threshold", Optica 4(6), 619–624 (2017).
+     DOI: 10.1364/OPTICA.4.000619
+     Relevancia: Q de 37–67×10⁶ y umbral de OPO < 1 mW. Sirve para escalar P_th ∝ 1/Q²
+     frente al anillo sensor con agua (Q ~ 10⁴).
+
+[C4] J. Liu, G. Huang, R. N. Wang et al., "High-yield, wafer-scale fabrication of
+     ultralow-loss, dispersion-engineered silicon nitride photonic circuits",
+     Nat. Commun. 12, 2236 (2021). DOI: 10.1038/s41467-021-21973-z
+     Relevancia: SiN grueso por proceso Damascene, Q > 30×10⁶, espirales de 1 m con
+     2.4 dB/m.
+
+[C5] K. Luke, A. Dutt, C. B. Poitras, M. Lipson, "Overcoming Si3N4 film stress
+     limitations for high quality factor ring resonators", Opt. Express 21(19), 22829
+     (2013). DOI: 10.1364/OE.21.022829
+     Relevancia: cómo evitar grietas en SiN grueso (necesario para dispersión anómala).
+
+[C6] Y. Xuan, Y. Liu, L. T. Varghese et al., "High-Q silicon nitride microresonators
+     exhibiting low-power frequency comb initiation", Optica 3(11), 1171 (2016).
+     DOI: 10.1364/OPTICA.3.001171
+     Relevancia: Q_int de 17×10⁶; el peine arranca con 2.36 mW.
+
+======================================================================================
+D. SUPERCONTINUO EN GUÍAS DE SiN
+======================================================================================
+[D1] R. Halir, Y. Okawachi, J. S. Levy, M. A. Foster, M. Lipson, A. L. Gaeta,
+     "Ultrabroadband supercontinuum generation in a CMOS-compatible platform",
+     Opt. Lett. 37, 1685 (2012). DOI: 10.1364/OL.37.001685
+     Relevancia: primer SC en SiN: 665–2025 nm (1.6 octavas), 160 pJ, γ ≈ 1.2 W⁻¹m⁻¹.
+
+[D2] A. R. Johnson et al., "Octave-spanning coherent supercontinuum generation in a
+     silicon nitride waveguide", Opt. Lett. 40, 5117 (2015). DOI: 10.1364/OL.40.005117
+     Relevancia: SC coherente de más de una octava, con pulsos < 100 fs a ~1 µm.
+
+[D3] J. P. Epping et al., "On-chip visible-to-infrared supercontinuum generation with
+     more than 495 THz spectral bandwidth", Opt. Express 23, 19596 (2015).
+     DOI: 10.1364/OE.23.019596
+     Relevancia: 470–2130 nm en guías TriPleX de alto confinamiento.
+
+[D4] M. A. G. Porcel et al., "Two-octave spanning supercontinuum generation in
+     stoichiometric silicon nitride waveguides pumped at telecom wavelengths",
+     Opt. Express 25, 1542 (2017). DOI: 10.1364/OE.25.001542
+     Relevancia: el caso más cercano al proyecto: bombeo a 1.56 µm, 120 fs, 1.4 nJ;
+     526 nm a >2.6 µm. Pero con una guía de 1.0 × 0.9 µm (espesor 900 nm para
+     dispersión anómala). Explicado solo por χ(3).
+
+[D5] A. S. Mayer et al., "Frequency comb offset detection using supercontinuum
+     generation in silicon nitride waveguides", Opt. Express 23, 15440 (2015).
+     DOI: 10.1364/OE.23.015440
+     Relevancia: SC coherente de >1.5 octavas con solo 30–36 pJ; detección f-2f.
+
+[D6] D. R. Carlson et al., "Self-referenced frequency combs using high-efficiency
+     silicon-nitride waveguides", Opt. Lett. 42, 2314 (2017).
+     DOI: 10.1364/OL.42.002314
+     Relevancia: dos octavas con 110 pJ desde un peine de fibra a 1550 nm. La f-2f
+     necesita un cristal duplicador EXTERNO porque el SiN no aporta χ(2); con THG
+     (χ(3)) hacen f-3f en el mismo chip.
+
+[D7] D. R. Carlson et al., "Photonic-chip supercontinuum with tailored spectra for
+     counting optical frequencies", Phys. Rev. Applied 8, 014027 (2017).
+     DOI: 10.1103/PhysRevApplied.8.014027
+     Relevancia: dispersión diseñada para colocar ondas dispersivas; SC de dos octavas
+     desde 1550 nm.
+
+[D8] Y. Okawachi, M. Yu, J. Cardenas, X. Ji, A. Klenner et al., "Carrier envelope offset
+     detection via simultaneous supercontinuum and second-harmonic generation in a
+     silicon nitride waveguide", Opt. Lett. 43, 4627 (2018). DOI: 10.1364/OL.43.004627
+     Relevancia: SC de una octava y SHG en la MISMA guía; f_CEO en el chip. El χ(2) sirve
+     para la interferometría, no para el ensanchamiento.
+
+[D9] I. Rebolledo-Salgado et al., "Coherent supercontinuum generation in all-normal
+     dispersion Si3N4 waveguides", Opt. Express 30, 8641 (2022).
+     DOI: 10.1364/OE.450987
+     Relevancia: LA MÁS RELEVANTE para SiN de 400 nm (dispersión normal). SC coherente
+     por SPM + optical wave breaking, de una octava; pide guías largas y de bajas
+     pérdidas.
+
+[D10] K. Ren et al., Opt. Express 32, 8527 (2024). DOI: 10.1364/OE.509430
+     Relevancia: simulación de SC en dispersión normal (all-normal) en SiN, plano entre
+     638 y 1477 nm con 250 fs y 30 kW de pico. Título completo por confirmar al descargarlo.
+
+======================================================================================
+E. MICROCOMBS Y NO LINEALIDADES EN MICROANILLOS DE SiN
+======================================================================================
+[E1] J. S. Levy, A. Gondarenko, M. A. Foster, A. C. Turner-Foster, A. L. Gaeta,
+     M. Lipson, "CMOS-compatible multiple-wavelength oscillator for on-chip optical
+     interconnects", Nat. Photonics 4, 37–40 (2010). DOI: 10.1038/nphoton.2009.259
+     Relevancia: primer OPO/peine Kerr en un anillo de SiN con bombeo CW a 1550 nm.
+
+[E2] Y. Okawachi et al., "Octave-spanning frequency comb generation in a silicon nitride
+     chip", Opt. Lett. 36, 3398 (2011). DOI: 10.1364/OL.36.003398
+     Relevancia: peine de una octava en un microanillo, es decir, "SC" dentro de un
+     resonador.
+
+[E3] V. Brasch et al., "Photonic chip–based optical frequency comb using soliton
+     Cherenkov radiation", Science 351, 357–360 (2016). DOI: 10.1126/science.aad4811
+     Relevancia: solitón de cavidad (DKS) con onda dispersiva (Cherenkov); análogo en
+     cavidad del SC en guía.
+
+[E4] X. Xue, Y. Xuan, Y. Liu et al., "Mode-locked dark pulse Kerr combs in
+     normal-dispersion microresonators", Nat. Photonics 9, 594–600 (2015).
+     DOI: 10.1038/nphoton.2015.137
+     Relevancia: peines de pulsos OSCUROS en dispersión NORMAL, que arrancan por
+     interacción de modos. Es el escenario natural del anillo de 400 nm.
+
+     (Ver también [C1], [C3], [C6] y las revisiones [A6], [A7].)
+
+======================================================================================
+F. χ(2) EN SiN (material amorfo y centrosimétrico)
+======================================================================================
+F.1 Origen del χ(2): superficie, película y composición
+[F1] J. S. Levy, M. A. Foster, A. L. Gaeta, M. Lipson, "Harmonic generation in silicon
+     nitride ring resonators", Opt. Express 19, 11415–11421 (2011).
+     DOI: 10.1364/OE.19.011415
+     Relevancia: primera SHG en anillos de SiN; el χ(2) viene de la ruptura de simetría
+     en interfaces. También muestra THG (χ(3)) a 520 nm.
+
+[F2] T. Ning, H. Pietarinen, O. Hyvärinen, J. Simonen, G. Genty, M. Kauranen, "Strong
+     second-harmonic generation in silicon nitride films", Appl. Phys. Lett. 100,
+     161902 (2012). DOI: 10.1063/1.4704159
+     Relevancia: |χ(2)| ≈ 2.5 pm/V en películas; depende mucho del depósito.
+
+[F3] M. W. Puckett, R. Sharma, H.-H. Lin, M. Yang, F. Vallini, Y. Fainman, "Observation
+     of second-harmonic generation in silicon nitride waveguides through bulk
+     nonlinearities", Opt. Express 24, 16923 (2016). DOI: 10.1364/OE.24.016923
+     Relevancia: χ(2)_yyy = 0.14 ± 0.08 pm/V y χ(2)_xxy = 0.30 ± 0.18 pm/V; SHG sintonizable
+     con bias.
+
+[F4] H.-H. Lin, R. Sharma, A. Friedman, B. Cromey, F. Vallini, M. W. Puckett et al.,
+     "On the observation of dispersion in tunable second-order nonlinearities of
+     silicon-rich nitride thin films", APL Photonics 4, 036101 (2019).
+     DOI: 10.1063/1.5053704
+     Relevancia: χ(2) sintonizable y dispersivo en SiN rico en Si; es extrínseco y depende
+     del material.
+
+F.2 χ(2) fotoinducido (efecto fotogalvánico / all-optical poling)
+[F5] A. Billat, D. Grassani, M. H. P. Pfeiffer, S. Kharitonov, T. J. Kippenberg,
+     C.-S. Brès, "Large second harmonic generation enhancement in Si3N4 waveguides by
+     all-optically induced quasi-phase-matching", Nat. Commun. 8, 1016 (2017).
+     DOI: 10.1038/s41467-017-01110-5
+     Relevancia: rejilla χ(2) inscrita por vía óptica con QPM automático; SHG +30 dB,
+     χ(2) ≈ 0.3 pm/V.
+
+[F6] M. A. G. Porcel, J. Mak, C. Taballione, V. K. Schermerhorn, J. P. Epping,
+     P. J. M. van der Slot, K.-J. Boller, "Photo-induced second-order nonlinearity in
+     stoichiometric silicon nitride waveguides", Opt. Express 25, 33143 (2017).
+     DOI: 10.1364/OE.25.033143
+     Relevancia: SiN LPCVD estequiométrico con χ(2) fotoinducido de hasta ~8.6 pm/V, que
+     persiste días.
+
+[F7] D. D. Hickstein, D. R. Carlson, H. Mundoor, J. B. Khurgin et al., "Self-organized
+     nonlinear gratings for ultrafast nanophotonics", Nat. Photonics 13, 494–499
+     (2019). DOI: 10.1038/s41566-019-0449-8
+     Relevancia: rejillas χ(2) auto-organizadas con pulsos de fs; SC (χ(3)) y SHG (χ(2))
+     en la misma guía para estabilizar un peine.
+
+[F8] X. Lu, G. Moille, A. Rao, D. A. Westly, K. Srinivasan, "Efficient photoinduced
+     second-harmonic generation in silicon nitride photonics", Nat. Photonics 15,
+     131–136 (2021). DOI: 10.1038/s41566-020-00708-4
+     Relevancia: SHG en microanillos de SiN con 2500 %/W y mW de SH.
+
+[F9] E. Nitiss, J. Hu, A. Stroganov, C.-S. Brès, "Optically reconfigurable
+     quasi-phase-matching in silicon nitride microresonators", Nat. Photonics 16,
+     134–141 (2022). DOI: 10.1038/s41566-021-00925-5
+     Relevancia: QPM reconfigurable en microanillos; 12.5 mW de SH y 47.6 %/W.
+
+F.3 χ(2) inducido por campo eléctrico (EFISH) y efecto electro-óptico
+[F10] B. Zabelich, E. Nitiss, A. Stroganov, C.-S. Brès, "Linear Electro-optic Effect in
+     Silicon Nitride Waveguides Enabled by Electric-Field Poling", ACS Photonics 9,
+     3374–3383 (2022). DOI: 10.1021/acsphotonics.2c00888
+     Relevancia: χ(2)_eff = 3χ(3)·E_dc (EFISH) por poling eléctrico, con efecto Pockels en
+     SiN, de nivel sub-pm/V.
+
+======================================================================================
+G. CONTRASTE: SUPERCONTINUO CON χ(2) EN OTROS MATERIALES, Y ORIGEN HISTÓRICO
+======================================================================================
+[G1] (Ver [A3] Dudley 2006: SC en sílice, solo χ(3).)
+
+[G2] R. R. Alfano, S. L. Shapiro, "Observation of Self-Phase Modulation and Small-Scale
+     Filaments in Crystals and Glasses", Phys. Rev. Lett. 24, 592–594 (1970).
+     DOI: 10.1103/PhysRevLett.24.592
+     Relevancia: primer SC observado, en vidrio (χ(2) = 0), producido por SPM.
+
+[G3] D. D. Hickstein, H. Jung, D. R. Carlson, A. Lind et al., "Ultrabroadband
+     Supercontinuum Generation and Frequency-Comb Stabilization Using On-Chip
+     Waveguides with Both Cubic and Quadratic Nonlinearities", Phys. Rev. Applied 8,
+     014025 (2017). DOI: 10.1103/PhysRevApplied.8.014025
+     Relevancia: AlN (no centrosimétrico): SC de 500–4000 nm con SHG, THG y DFG
+     simultáneos; f_CEO medida directamente.
+
+[G4] M. Jankowski, C. Langrock, B. Desiatov, A. Marandi et al., "Ultrabroadband
+     nonlinear optics in nanophotonic periodically poled lithium niobate waveguides",
+     Optica 7, 40–46 (2020). DOI: 10.1364/OPTICA.7.000040
+     Relevancia: SC multi-octava con ~2 pJ por la cascada χ(2):χ(2), que se comporta como
+     un Kerr efectivo. Es otro mecanismo y otro material.
+
+======================================================================================
+H. APLICACIONES A SENSADO (SC y peines en chip)
+======================================================================================
+[H1] D. Grassani et al., "Mid infrared gas spectroscopy using efficient fiber laser
+     driven photonic chip-based supercontinuum", Nat. Commun. 10, 1553 (2019).
+     DOI: 10.1038/s41467-019-09590-3
+     Relevancia: SC en SiN con onda dispersiva en 3–4 µm (35 % de conversión) para detectar
+     C2H2 por absorción.
+
+[H2] X. Ji et al., "Millimeter-scale chip–based supercontinuum generation for optical
+     coherence tomography", Sci. Adv. 7, eabg8869 (2021). DOI: 10.1126/sciadv.abg8869
+     Relevancia: SC en SiN de 1 mm² con 25 pJ; 105 nm planos a 1300 nm; OCT con 105 dB.
+     Ejemplo de SC con pocos pJ como fuente de sensado.
+
+[H3] M.-G. Suh, Q.-F. Yang, K. Y. Yang, X. Yi, K. J. Vahala, "Microresonator soliton
+     dual-comb spectroscopy", Science 354, 600–603 (2016). DOI: 10.1126/science.aah6516
+     Relevancia: espectroscopía dual-comb con microcombs (de sílice, no de SiN).
+
+[H4] G. Choi, A. Gin, J. Su, "Optical frequency combs in aqueous and air environments at
+     visible to near-IR wavelengths", Opt. Express 30, 8690 (2022).
+     DOI: 10.1364/OE.451631
+     Relevancia: peine Kerr en un resonador SUMERGIDO EN AGUA para biosensado. Discute la
+     caída de Q, la inestabilidad térmica y el cambio de dispersión que produce el agua.
+     Muy relevante para el anillo con cladding acuoso.
+
+[H5] A. Diakonov, K. Khrizman, E. Zano, L. Stern, "Broadband cavity-enhanced Kerr comb
+     spectroscopy on chip", npj Nanophotonics 1, 47 (2024).
+     DOI: 10.1038/s44310-024-00047-0
+     Relevancia: un microcomb interroga una microcavidad de alto Q en chip (muchas
+     resonancias a la vez) y propone el sensado evanescente. Es el análogo más cercano a
+     "SC/peine + anillo sensor".
+
+======================================================================================
+ORDEN DE LECTURA SUGERIDO (lo esencial primero)
+======================================================================================
+ 1. [A3] Dudley 2006            mecanismos de SC y GNLSE (base teórica del curso)
+ 2. [A4] Moss 2013              SiN como material no lineal
+ 3. [B1] Ikeda 2008             n2 y efecto térmico frente al Kerr en anillos add-drop
+ 4. [D4] Porcel 2017            SC a 1550 nm en SiN (y por qué necesita 900 nm)
+ 5. [D9] Rebolledo-Salgado 2022 SC en dispersión normal: la ruta para 400 nm
+ 6. [E4] Xue 2015 y [C1] Kim 2017  anillos en dispersión normal / SiN delgado
+ 7. [F1] Levy 2011 y [F5] Billat 2017  qué es (y qué no es) el χ(2) del SiN
+ 8. [H4] Choi 2022 y [H5] Diakonov 2024  peines y sensado en agua / con cavidades

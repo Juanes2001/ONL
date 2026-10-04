@@ -1,0 +1,16 @@
+{
+  "actual": "11c7ccb0eb619451",
+  "firmas": {
+    "11c7ccb0eb619451": {
+      "generado": "2026-10-04T13:58:39-05:00",
+      "config": {
+        "LAMBDA_MIN_UM": 1.0,
+        "LAMBDA_MAX_UM": 2.2,
+        "N_PUNTOS": 241,
+        "ANCLAR_A_TESIS": true,
+        "ANALITO_DISPERSIVO": true,
+        "PERFIL": "completo"
+      }
+    }
+  }
+}

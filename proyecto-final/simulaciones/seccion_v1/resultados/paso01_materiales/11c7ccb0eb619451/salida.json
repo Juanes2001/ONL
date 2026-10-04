@@ -1,0 +1,42 @@
+{
+  "_meta": {
+    "paso": "paso01_materiales",
+    "generado": "2026-10-04T13:58:41-05:00",
+    "perfil": "completo"
+  },
+  "config": {
+    "LAMBDA_MIN_UM": 1.0,
+    "LAMBDA_MAX_UM": 2.2,
+    "N_PUNTOS": 241,
+    "ANCLAR_A_TESIS": true,
+    "ANALITO_DISPERSIVO": true,
+    "PERFIL": "completo"
+  },
+  "resultados": {
+    "controles": {
+      "D_mat_SiO2_1550": {
+        "valor": 21.91069664309483,
+        "ok": true
+      },
+      "alpha_agua_1550_dBcm": {
+        "valor": 47.05182483857961,
+        "ok": true
+      },
+      "residuo_ajuste_agua": {
+        "valor": 0.0009553993328330623,
+        "ok": true
+      }
+    },
+    "valido": true,
+    "n_1550": {
+      "nucleo": 1.99,
+      "silice": 1.4469,
+      "analito": 1.33
+    },
+    "D_mat_1550_ps_nm_km": {
+      "nucleo": -6.5730570172412595,
+      "silice": 21.91069664309483,
+      "analito": 189.02227609404198
+    }
+  }
+}
