@@ -1,0 +1,61 @@
+\documentclass{article}
+
+% Mismo formato que Tarea_1_ONL.tex. Compilar con XeLaTeX o Tectonic:
+%   tectonic Codigo_MATLAB_Tarea_1.tex
+\usepackage[spanish,es-tabla,es-nodecimaldot]{babel}
+\usepackage{fontspec}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor=black, urlcolor=black}
+\setlength{\emergencystretch}{1em}
+
+\lstset{
+  language=Matlab, basicstyle=\ttfamily\scriptsize, frame=single, rulecolor=\color{black!30},
+  keywordstyle=\bfseries, commentstyle=\color{black!55}, stringstyle=\color{black!80},
+  breaklines=true, columns=fullflexible, keepspaces=true, showstringspaces=false,
+  numbers=left, numberstyle=\tiny\color{black!50}, xleftmargin=2em,
+  extendedchars=true,
+  literate={á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1 {ñ}{{\~n}}1
+           {º}{{\textordmasculine}}1 {—}{{---}}1
+}
+
+\title{Tarea 1: Código MATLAB}
+\author{Juan E. Rodriguez Ochoa\\
+Profesor: Rodrigo Acuña Herrera\\
+Óptica No Lineal, Escuela de Física\\
+Universidad Nacional de Colombia, Sede Medellín}
+\date{Octubre 2026}
+
+\begin{document}
+\maketitle
+
+Este documento reúne los scripts de MATLAB con los que se resolvieron los puntos 2 y 3 de la
+Tarea 1. Se ejecutaron con MATLAB R2024b y cada uno guarda sus figuras en la subcarpeta
+\texttt{figuras/}. En los tres se usa una frecuencia de muestreo $f_s=10$ kHz durante $T=1$ s
+($N=10\,000$ muestras, resolución $\Delta f=1$ Hz), y el espectro de amplitud unilateral se obtiene como
+$A_k=2|X[k]|/N$ para $k\ge1$ y $A_0=|X[0]|/N$.
+
+\begin{itemize}
+  \item \texttt{punto2a.m}: espectro de la salida del dispositivo de ley cuadrática $i=v^2$ con
+  entrada $v=\cos(2\pi50t)+\cos(2\pi120t)$, comparado con la solución analítica.
+  \item \texttt{punto2b.m}: espectro de la corriente del diodo mezclador
+  (ecuación de Shockley) con entrada $v=0.3+0.2\cos(2\pi50t)$ V. Se compara con la solución
+  analítica en funciones de Bessel modificadas.
+  \item \texttt{punto3.m}: razón entre el segundo y el tercer armónico estimada con la serie de
+  Taylor hasta orden 3, frente al resultado exacto del punto 2b.
+\end{itemize}
+
+\newpage
+\section{Punto 2a: \texttt{punto2a.m}}
+\lstinputlisting{punto2a.m}
+
+\newpage
+\section{Punto 2b: \texttt{punto2b.m}}
+\lstinputlisting{punto2b.m}
+
+\newpage
+\section{Punto 3: \texttt{punto3.m}}
+\lstinputlisting{punto3.m}
+
+\end{document}
