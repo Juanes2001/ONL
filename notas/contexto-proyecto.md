@@ -1,6 +1,8 @@
 # Contexto del proyecto — para retomar el trabajo en otro dispositivo
 
-Última actualización: 2026-09-30. Este archivo resume **todo lo hecho hasta ahora** y lo necesario
+Para el estado más reciente (2026-11-05), leer primero `notas/retomar-en-otro-dispositivo.md`.
+
+Última actualización de este resumen: 2026-09-30, con añadidos puntuales después. Este archivo resume **todo lo hecho hasta ahora** y lo necesario
 para continuar sin la conversación original. Complementa `notas/bitacora-sesiones.md` (registro
 cronológico) y `CLAUDE.md` (convenciones del repo).
 
@@ -49,6 +51,20 @@ cronológico) y `CLAUDE.md` (convenciones del repo).
 - **Python:** `python3` del sistema sin numpy/scipy. Para leer PDF se usó PyMuPDF en un venv temporal
   (`pip install pymupdf`). No hay `pdftotext`/`pdftoppm`.
 
+### Entorno del segundo dispositivo (distro WSL `kali-linux`, usado desde 2026-10)
+
+- Ruta UNC del repo: `\\wsl.localhost\kali-linux\home\juanes\proyectos\ONL`.
+- **MATLAB R2026b** (`/mnt/c/Program Files/MATLAB/R2026b/bin/matlab.exe`; la carpeta R2025a está
+  vacía). El 2026-11-04 el modo `-batch` falló con el error de licencia 5201 ("Unable to
+  communicate with required MathWorks services"): hay que iniciar sesión en MathWorks desde la
+  interfaz de MATLAB (o tener red) antes de correr scripts. Mientras tanto, el mismo algoritmo
+  del taller 2 se corrió con la réplica `punto4_pulso_dispersion_py.py`.
+- **Python de Windows** `/mnt/c/Users/jero0/AppData/Local/Programs/Python/Python311/python.exe`:
+  tiene numpy, scipy, matplotlib y PyMuPDF (`fitz`); es el que se usa para figuras y para
+  renderizar páginas del Saleh (PDF escaneado, sin texto: página PDF = página del libro + 22).
+- **LaTeX:** sin distribución. Tectonic hay que descargarlo a mano (el agente no puede bajar
+  binarios externos): `curl` del enlace de arriba y `./tectonic Tarea_2_ONL.tex`.
+
 ---
 
 ## 3. El curso (del programa, `notas/Programa Óptica No Lineal_02_2026.pdf`)
@@ -82,7 +98,10 @@ Profesor: **Rodrigo Acuña Herrera**.
 
 ### 4.1 `bibliografia/` (PDF ignorados por git — copiarlos a mano al otro dispositivo)
 
-- Saleh & Teich, *Fundamentals of Photonics*.
+- Saleh & Teich, *Fundamentals of Photonics*, 2.ª ed. Escaneado sin texto; página PDF = página
+  del libro + 22. **Leído completo el 2026-11-05**: apuntes por capítulo en `notas/saleh/`
+  (`README.md` con el mapa de capítulos y páginas). Para citar o resolver talleres, consultar
+  primero esos apuntes; para releer una página, renderizarla con PyMuPDF (Python de Windows).
 - Boyd, *Nonlinear Optics*, 3.ª ed. **Es un escaneo sin capa de texto** (no se puede buscar texto).
   Página del PDF = página del libro + 18 (p. 1 del libro = p. 19 del PDF). Citas ya verificadas:
   ec. (1.1.2) p. 2 (expansión de P); campo atómico E_at = 5.14×10¹¹ V/m p. 3; ec. (1.2.2) p. 5 (SHG);
