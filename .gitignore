@@ -47,3 +47,7 @@ __pycache__/
 # Regla del cluster copiada de la tesis: trae IP, cuenta compartida y licencia.
 # El repo es publico: se queda solo en local.
 .claude/rules/fdtd-cluster.md
+
+# Tectonic (binario y tarball descargados para compilar LaTeX; no van al repo)
+talleres/**/tectonic
+talleres/**/t.tar.gz
