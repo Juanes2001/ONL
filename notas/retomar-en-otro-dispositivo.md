@@ -20,7 +20,7 @@ Para arrancar una sesión de Claude Code:
 
 ## 2. Dónde estamos
 
-- **Foco actual:** Tarea 2 (`talleres/taller-02-dispersion-polarizacion/`), lista salvo lo de §3.
+- **Foco actual:** Tarea 2 (`talleres/taller-02-dispersion-polarizacion/`), revisada; falta lo de §3.
 - **Proyecto final:** en pausa desde el 2026-11-04 para dedicarse al taller 2 (ver §6).
 - **Saleh & Teich, 2.ª ed.:** leído completo; apuntes en `notas/saleh/` (ver §5).
 
@@ -29,27 +29,15 @@ Para arrancar una sesión de Claude Code:
 Documento: `Tarea_2_ONL.tex` → `Tarea_2_ONL.pdf` (20 pp., 8 puntos). Compila sin referencias rotas
 ni desbordes.
 
-**Verificado:** Sellmeier con derivadas analíticas, FFT propia frente a la solución analítica
-(error ~1e-15), Jones, Brewster, walk-off, cadena de polarizadores y sympy con residuo cero en los
-puntos 1, 2, 4 y 7. Hubo dos rondas de revisión más una lectura independiente: se corrigieron
-errores de interpretación y de unidades, y ningún resultado numérico en recuadro cambió.
+**Verificado (2026-11-05):** `punto4_pulso_dispersion.m` corrió en MATLAB R2024b y reproduce la
+Tabla 3; recálculo independiente de los 8 puntos; unas 85 citas cotejadas contra el escaneo; enunciado
+original comparado.
 
-**Pendientes, por orden:**
+**Pendiente:** el dibujo a mano del punto 2, que solo puede hacer Juanes. Guardar el escaneo como
+`figuras/punto2_a_mano.jpg` y recompilar: el documento lo incluye solo.
 
-1. **Ejecutar `punto4_pulso_dispersion.m`.** Nunca se ha ejecutado: MATLAB R2026b falló con el error
-   de licencia 5201. Figuras y Tabla 3 salen de la réplica `punto4_pulso_dispersion_py.py`. Hay que
-   iniciar sesión en MathWorks, correrlo, comparar con la Tabla 3 y quitar del punto 4 y del apéndice
-   la nota de que no se pudo ejecutar. Puede fallar aunque la lógica sea la misma.
-2. **Decidir el dibujo del punto 2.** El enunciado pide "a mano alzada" y el documento trae una
-   figura por computador.
-3. **Leer los puntos 5, 7 y 8.** La segunda revisión halló allí errores que la primera no vio; las
-   frases de interpretación son lo menos blindado.
-4. **Revisar la maquetación.** La p. 16 no se inspeccionó en la versión final y la p. 4 queda medio
-   vacía por una figura flotante.
-
-**Sin verificar del todo:** Fig. 6.3-12(a) y ecuaciones de §6.5 (cotejadas solo con los apuntes),
-numeración de la 1.ª edición del "problema 5.6-3" (suposición) e índices de la calcita (externos al
-libro). El documento aclara estos dos últimos.
+**Sin comprobar:** que el "problema 5.6-3" siga la numeración de la 1.ª edición (no está en
+`bibliografia/`) e índices de la calcita (externos al libro). El documento aclara ambos.
 
 Convenciones del taller (Saleh): $e^{j\omega t}$; $D_\nu=2\pi\beta''$ en s²/m;
 $z_0=\pi\tau_0^2/|D_\nu|$; $\tau_0$ es la semianchura a $1/e$ de la amplitud.
@@ -68,11 +56,11 @@ No volver a subir nada de esto sin que Juanes lo decida (`notas/contexto-proyect
 
 ## 5. Entorno
 
-Compilar la tarea, con Tectonic en la carpeta del taller (enlace de descarga en
+Compilar la tarea con XeLaTeX (dos pasadas) o con Tectonic (enlace en
 `notas/contexto-proyecto.md` §2):
 
 ```bash
-cd talleres/taller-02-dispersion-polarizacion && ./tectonic Tarea_2_ONL.tex
+cd talleres/taller-02-dispersion-polarizacion && xelatex Tarea_2_ONL.tex
 ```
 
 Con babel en español, `\%` en modo matemático y `\max` dentro de un pie de figura rompen la

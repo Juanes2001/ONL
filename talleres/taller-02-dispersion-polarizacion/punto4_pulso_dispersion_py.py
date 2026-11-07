@@ -2,7 +2,8 @@
 
 Sirve para generar las figuras cuando MATLAB no está disponible (licencia) y como control
 cruzado del script de MATLAB, que es el entregable del punto 4.
-  "/mnt/c/Users/jero0/AppData/Local/Programs/Python/Python311/python.exe" punto4_pulso_dispersion_py.py
+  python punto4_pulso_dispersion_py.py      (requiere numpy y matplotlib)
+Sobrescribe las figuras de MATLAB si se ejecuta: el documento usa las del .m.
 """
 import os
 import numpy as np
@@ -51,9 +52,13 @@ a1.set_title("Sílice fundida: Sellmeier (tabla 5.5-1 de Saleh y Teich)")
 a2.plot(lam * 1e6, Dlam * 1e6, "r"); a2.axhline(0, color="k", ls=":")
 for l in [0.8, 1.312, 1.55]:
     _, _, D, _ = dispersion_silice(l * 1e-6)
-    a2.plot(l, D * 1e6, "ko"); a2.text(l + 0.02, D * 1e6, f"{l:g} µm: {D*1e6:.1f}", fontsize=9)
+    a2.plot(l, D * 1e6, "ko")
+    if l > 1.5:
+        a2.text(l - 0.02, D * 1e6, f"{l:g} µm: {D*1e6:.1f}", fontsize=9, ha="right", va="bottom")
+    else:
+        a2.text(l + 0.02, D * 1e6, f"{l:g} µm: {D*1e6:.1f}", fontsize=9, va="top")
 a2.set_xlabel("Longitud de onda $\\lambda_0$ (µm)"); a2.set_ylabel("$D_\\lambda$ (ps/(km·nm))")
-a2.text(0.65, 15, "dispersión anómala ($D_\\lambda>0$)", color="0.3"); a2.text(0.65, -60, "dispersión normal ($D_\\lambda<0$)", color="0.3")
+a2.text(0.65, 15, "dispersión anómala ($D_\\lambda>0$)", color="0.3"); a2.text(1.0, -100, "dispersión normal ($D_\\lambda<0$)", color="0.3")
 fig.tight_layout(); guardar(fig, "punto3_fig_5_6_5")
 
 print(f"{'lam(um)':<8}{'n':<10}{'N':<10}{'Dlam(ps/km/nm)':<17}{'Dnu(s^2/m)':<14}")
@@ -87,7 +92,7 @@ for k, (etq, tau0, lam0) in enumerate(casos):
     ax.set_xlim(-3.2 * tau_an[-1] * 1e12, 3.2 * tau_an[-1] * 1e12)
     ax.set_xlabel("t (ps)"); ax.set_ylabel("|A(z,t)| (u.a.)")
     ax.set_title(f"({etq})  $\\tau_0$ = {tau0*1e12:g} ps,  $\\lambda_0$ = {lam0*1e6:.2f} µm,  "
-                 f"$D_\\lambda$ = {Dl0*1e6:.1f} ps/(km·nm),  $z_0$ = {z0/1e3:.2f} km", fontsize=9)
+                 f"$D_\\lambda$ = {Dl0*1e6:.1f} ps/(km·nm),  $z_0$ = {z0/1e3:.3g} km", fontsize=9)
     ax.legend(loc="upper right"); fig.tight_layout(); guardar(fig, f"punto4_caso_{etq}")
     print(f"{etq:<5}{tau0*1e12:<10g}{lam0*1e6:<9.2f}{Dnu:<13.3e}{z0/1e3:<9.3f}| "
           + "  ".join(f"{a*1e12:.2f}/{b*1e12:.2f}" for a, b in zip(tau_num, tau_an)))

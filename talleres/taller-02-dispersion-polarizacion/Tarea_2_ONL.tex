@@ -1,7 +1,7 @@
 \documentclass{article}
 
 % Formato base: el de la Tarea 1 (article 10 pt, carta, Latin Modern).
-% Compilar con XeLaTeX o Tectonic:  tectonic Tarea_2_ONL.tex
+% Compilar con XeLaTeX (dos pasadas) o con Tectonic:  tectonic Tarea_2_ONL.tex
 \usepackage[spanish,es-tabla,es-nodecimaldot]{babel}
 \usepackage{fontspec}
 \usepackage{amsmath,amssymb,mathtools}
@@ -12,7 +12,7 @@
 \usepackage{float}
 \usepackage{tikz}
 \usetikzlibrary{babel,angles,quotes,arrows.meta,calc}
-\usepackage{listings}
+\usepackage{fancyvrb}
 \usepackage[margin=2.4cm]{geometry}
 \usepackage{hyperref}
 
@@ -20,12 +20,7 @@
 \hypersetup{colorlinks=true, linkcolor=black, citecolor=black, urlcolor=black}
 \graphicspath{{figuras/}}
 
-\lstset{basicstyle=\ttfamily\scriptsize, breaklines=true, columns=fullflexible,
-  keepspaces=true, frame=single, numbers=left, numberstyle=\tiny, numbersep=5pt,
-  commentstyle=\color{green!45!black}, keywordstyle=\color{blue!70!black},
-  language=Matlab, inputencoding=utf8, extendedchars=true,
-  literate={á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1 {ñ}{{\~n}}1
-           {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1 {Ñ}{{\~N}}1 {ü}{{\"u}}1}
+\fvset{fontsize=\scriptsize, frame=single, numbers=left, numbersep=5pt}
 
 % Notación de Saleh: campos reales en caligráfica, amplitudes complejas en negrita.
 \newcommand{\Ec}{\boldsymbol{\mathcal{E}}}
@@ -59,7 +54,7 @@ Universidad Nacional de Colombia, Sede Medellín}
 
 \noindent\textbf{Convenciones.} Se usan unidades SI y la notación de Saleh y Teich,
 \emph{Fundamentals of Photonics}, 2.ª ed. (Wiley, 2007), que es la edición a la que remiten
-los números de ejercicio del enunciado. Los campos reales se escriben $\Ec(\mathbf r,t)$, las
+los números de ejercicio del enunciado (salvo el del punto 3; véase la nota siguiente). Los campos reales se escriben $\Ec(\mathbf r,t)$, las
 amplitudes complejas $\Ev(\mathbf r)$, la dependencia temporal es $e^{j\omega t}$ y
 $j=\sqrt{-1}$. Con esta convención una onda que viaja en $+z$ es $e^{-jkz}$, la
 transformada de Fourier es $F[f](\nu)=\int f(t)\,e^{-j2\pi\nu t}\dd t$ (ec.~A.1-2) y la parte
@@ -156,9 +151,9 @@ $|\chi''||E|^2$, disminuye en ese mismo factor.
 %=====================================================================
 
 \emph{Determinar una expresión para la velocidad de grupo de un medio resonante con índice de
-refracción dado por las ecuaciones (5.5-27), (5.5-23) y (5.5-24). Dibujar a mano alzada la
-velocidad de grupo en función de la frecuencia e identificar regiones de dispersión normal y
-anómala.}
+refracción dado por las ecuaciones de resonancias 5.5-27, 5.5-23 y 5.5-24. Dibujar a mano alzada la
+velocidad de grupo en función de la frecuencia. Identificar regiones de dispersión normal y
+anormal.}
 
 \subsection*{Índice de refracción cerca de la resonancia}
 
@@ -253,7 +248,7 @@ si $n_0^2-n_0<\chi_0Q^2<n_0^2$ supera $c_0$; si $\chi_0Q^2>n_0^2$ el
 índice de grupo es negativo y $v<0$: el pico del pulso parece salir del medio antes de entrar.
 En este último caso $v$ diverge en los dos puntos donde $N=0$ y es negativa entre ellos.
 Nada de esto viola la causalidad porque la velocidad de grupo deja de ser la velocidad de la
-información (§5.6, ``Fast and slow light'').
+información (§5.6, ``Fast and Slow Light in Resonant Media'', pp.~188--189).
 \item \textbf{Extremos de $N$}: $dN/d\delta\propto-f'(\delta)$ con
 $f'(\delta)=-2\delta(3a^2-\delta^2)/(\delta^2+a^2)^3$, que se anula en $\delta=0$ (mínimo de
 $N$) y en $\delta=\pm\sqrt3\,a=\pm\tfrac{\sqrt3}{2}\Delta\nu$, donde $f=-1/8a^2$ y $N$ es
@@ -265,15 +260,15 @@ v_{\min}=\frac{c_0}{n_0+\chi_0Q^2/8n_0}\quad(\text{``luz lenta''; mínimo local 
 \]
 \item $N=n_0$ (y $v=c_0/n_0$) en $\delta=\pm a$, los extremos de $n(\nu)$, donde $dn/d\nu=0$. Los
 puntos de inflexión de $n(\nu)$ están en $\delta=0$ y $\delta=\pm\sqrt3\,a$, que son justamente
-los extremos de $N$; la Fig.~5.6-4 del libro marca con puntos los de $\pm\sqrt3\,a$.
+los extremos de $N$; la Fig.~5.6-4 del libro, trazada en $\lambda/\lambda_0$, marca con puntos los de $\pm\sqrt3\,a$ ($\lambda/\lambda_0\approx0.92$ y $1.09$).
 \end{itemize}
 
-\begin{figure}[H]
+\begin{figure}[!t]
 \centering
 \includegraphics[width=\textwidth]{punto2_velocidad_grupo}
 \caption{Índice $n$, índice de grupo $N$ y velocidad de grupo $v/c_0$ en función de la
-desintonía normalizada, ecs.~\eqref{eq:n_res} y \eqref{eq:N_exacta}, con $n_0=1$. Izquierda:
-acoplamiento débil ($\chi_0Q^2/n_0^2=0.2$), que es el ``dibujo a mano alzada'' genérico.
+desintonía normalizada, trazados por computador con ecs.~\eqref{eq:n_res} y \eqref{eq:N_exacta},
+con $n_0=1$. Izquierda: acoplamiento débil ($\chi_0Q^2/n_0^2=0.2$), el caso genérico.
 Derecha: los parámetros de la Fig.~5.6-4 del libro ($\chi_0=0.05$ y $\Delta\nu/\nu_0=0.1$,
 es decir $Q=10$; p.~187), con los que \eqref{eq:N_res} da $N(\nu_0)=-4$ y $v$ se hace negativa
 (en la figura del libro esa zona queda fuera de escala y aparece sombreada como no significativa).
@@ -283,6 +278,16 @@ anómala en el sentido clásico $dn/d\nu<0$); las líneas verdes marcan
 $\nu_0\pm\tfrac{\sqrt3}{2}\Delta\nu$, donde $v$ tiene mínimos locales.}
 \label{fig:p2}
 \end{figure}
+
+% Dibujo a mano pedido por el enunciado: basta guardar el escaneo como
+% figuras/punto2_a_mano.jpg y recompilar para que aparezca aquí.
+\IfFileExists{figuras/punto2_a_mano.jpg}{%
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{punto2_a_mano.jpg}
+\caption{Dibujo a mano alzada de la velocidad de grupo en función de la frecuencia.}
+\label{fig:p2mano}
+\end{figure}}{}
 
 \subsection*{Regiones de dispersión normal y anómala}
 
@@ -314,7 +319,7 @@ cambia de signo en $\delta=0$ y en $\delta=\pm\sqrt3a$:
 \end{array}
 \]
 Este es exactamente el comportamiento de la Fig.~5.6-4 del libro: lejos de la resonancia y por
-debajo de ella (el caso del vidrio, cuyas resonancias están en el ultravioleta) la dispersión es
+debajo de ella (el caso del vidrio en el visible, por debajo de sus resonancias ultravioletas) la dispersión es
 normal; por encima de la resonancia es anómala; y al acercarse a la línea cada una cambia de
 signo. Como advierte el texto (zona sombreada de la Fig.~5.6-4), muy cerca
 de $\nu_0$ el índice varía tan rápido que $N$ y $D$, definidos por una
@@ -333,10 +338,10 @@ rápida o lenta.
 \section{Punto 3: retardo y ensanchamiento de un pulso gaussiano de \SI{100}{ps} en \SI{1}{km} de fibra}
 %=====================================================================
 
-\emph{Un pulso gaussiano con ancho inicial $\tau_0=\SI{100}{ps}$ viaja una distancia de
-\SI{1}{km} a través de una fibra óptica de sílice con las características de la Fig.~5.6-5
-(p.~189). Estimar el tiempo de retardo $\tau_d$ y el ancho del pulso recibido si la longitud de
-onda es a) \SI{0.8}{\um}, b) \SI{1.312}{\um}, c) \SI{1.55}{\um}.}
+\emph{Un pulso gaussiano con ancho inicial de $\tau_0=\SI{100}{ps}$, viaja una distancia de
+\SI{1}{km} a través de una fibra óptica hecha de silicio con características mostradas en la
+Fig.~5.6-5, pg~189. Estimar el tiempo de retardo $\tau_d$ y el ancho del pulso recibido si la
+longitud de onda es: a) \SI{0.8}{\um}, b) \SI{1.312}{\um}, c) \SI{1.55}{\um}. [Problema 5.6-3].}
 
 \subsection*{Datos de la Fig.~5.6-5}
 
@@ -374,9 +379,9 @@ onda. $\Dnu=-\Dlam\lambda_0^2/c_0$ (de $\Dlam\,d\lambda=\Dnu\,d\nu$, p.~186).}
 El cero de dispersión de la sílice \emph{masiva} según esta Sellmeier está en
 $\lambda_0=\SI{1.273}{\um}$ (el libro cita \SI{1.276}{\um}); el valor de \SI{1.312}{\um} que
 menciona el ejemplo 5.6-1 corresponde a las fibras dopadas (p.~189); en una fibra el cero se
-desplaza por el dopaje y por la dispersión de guía (§9.3). Para el inciso b) se toma entonces $\Dlam\approx0$ como pretende el enunciado, y se anota
+desplaza por el dopaje (p.~189) y por la dispersión de guía (§9.3, p.~355). Para el inciso b) se toma entonces $\Dlam\approx0$ como pretende el enunciado, y se anota
 entre paréntesis el valor residual de la sílice masiva, $+3.8$ \pskmnm, que en cualquier caso es
-treinta veces menor que en a).
+unas 28 veces menor en magnitud que en a).
 
 \subsection*{Tiempo de retardo}
 
@@ -402,8 +407,8 @@ casi plano entre \SI{0.8}{} y \SI{1.6}{\um} (tiene su mínimo en el cero de disp
 
 \subsection*{Ancho del pulso recibido}
 
-\paragraph{Definición del ancho.} Se toma la envolvente gaussiana en la forma de Saleh (§22.3) y
-del punto 4, $A(0,t)=\exp(-t^2/\tau_0^2)$, con $\tau_0$ la semianchura a $1/e$ de la amplitud
+\paragraph{Definición del ancho.} Se toma la envolvente gaussiana en la forma de Saleh (ec.~22.1-7,
+p.~942; §22.3) y del punto 4, $A(0,t)=\exp(-t^2/\tau_0^2)$, con $\tau_0$ la semianchura a $1/e$ de la amplitud
 (la intensidad $|A|^2$ tiene semianchura $\tau_0/\sqrt2$ y anchura total a media altura
 $\sqrt{2\ln2}\,\tau_0=1.18\,\tau_0$). Su espectro es también gaussiano,
 $A(0,\nu)=\sqrt\pi\,\tau_0\exp(-\pi^2\tau_0^2\nu^2)$, con semianchura a $1/e$
@@ -417,12 +422,13 @@ conservando su forma, con semianchura
 z_0=\frac{\pi\tau_0^2}{|\Dnu|},
 \label{eq:tau_z}
 \end{equation}
-donde $z_0$ es la \emph{distancia de dispersión}: a $z=z_0$ el ancho se ha multiplicado por
+donde $z_0$ es la \emph{longitud de dispersión}: a $z=z_0$ el ancho se ha multiplicado por
 $\sqrt2$ (son las ecs.~22.3-10 y 22.3-12 del libro, p.~964, con $D_\nu=2\pi\beta''$, es
 decir $z_0=\tau_0^2/2|\beta''|$). Equivalentemente, $\tau^2(z)=\tau_0^2+\sigma_\tau^2$ con
-$\sigma_\tau=|\Dnu|\,z/\pi\tau_0=|\Dnu|\,\sigma_\nu\,z$: el ensanchamiento añadido es
-justamente la estimación (5.6-5) del libro, $\sigma_\tau=|\Dnu|\sigma_\nu z$, y se combina en
-cuadratura con el ancho inicial.
+$\sigma_\tau=|\Dnu|\,z/\pi\tau_0=|\Dnu|\,\sigma_\nu\,z$: el ensanchamiento añadido coincide con
+la estimación (5.6-5) del libro, $\sigma_\tau=|\Dnu|\sigma_\nu z$, si se toma $\sigma_\nu=1/\pi\tau_0$
+(con el FWHM el libro da $\tau\approx0.85|\Dnu|\Delta\nu\,z$, p.~964), y se combina en cuadratura con
+el ancho inicial.
 
 \paragraph{Estimación con (5.6-8).} En términos de longitud de onda, $\sigma_\tau=|\Dlam|\sigma_\lambda z$
 con $\sigma_\lambda=\lambda_0^2\sigma_\nu/c_0$. Para $\tau_0=\SI{100}{ps}$,
@@ -444,7 +450,7 @@ c) \SI{1.55}{\um}, $\Dlam=+21.9$ & 2.6e-2 & 179  & 0.559 & 100.0016 & 1.6e-5\\
 \end{tabular}
 \end{table}
 
-\paragraph{Resultado.} Con $\tau_0=\SI{100}{ps}$ la distancia de dispersión es de más de
+\paragraph{Resultado.} Con $\tau_0=\SI{100}{ps}$ la longitud de dispersión es de más de
 \SI{100}{km} en los tres casos, así que en \SI{1}{km} ($z\ll z_0$) el pulso llega con su ancho
 prácticamente intacto: el ensanchamiento añadido es de \SI{0.72}{ps} en \SI{0.8}{\um}, nulo (del
 orden de \SI{0.07}{ps} por la dispersión residual) en \SI{1.312}{\um} y \SI{0.56}{ps} en
@@ -463,7 +469,7 @@ $+3.8$ \pskmnm; ahí pesa además la dispersión de orden superior, y con la fas
 Sellmeier resulta $\approx\SI{67}{ps}$. Esa dependencia es la que se explora en el
 punto 4 con pulsos de \SI{10}{ps} y \SI{1}{ps}.
 
-\begin{figure}[H]
+\begin{figure}[!t]
 \centering
 \includegraphics[width=0.8\textwidth]{punto3_fig_5_6_5}
 \caption{Reproducción de la Fig.~5.6-5 con la Sellmeier de la tabla 5.5-1 (programa del punto
@@ -475,13 +481,15 @@ punto 4 con pulsos de \SI{10}{ps} y \SI{1}{ps}.
 \section{Punto 4: programa en MATLAB para la ecuación de la envolvente}
 %=====================================================================
 
-\emph{Escribir un programa en MATLAB que resuelva la ecuación
+\emph{Escribir un programa en matlab que resuelva la ecuación
 $\dfrac{\partial A}{\partial z}=j\dfrac{\Dnu}{4\pi}\dfrac{\partial^2A}{\partial t^2}$
 utilizando el método $A(z,t)=F^{-1}\!\left[H(\nu,z)\,F[A(0,z)]\right]$. Probar el programa
-graficando la amplitud del pulso versus tiempo para $z=0$, $0.2$, $0.4$, $0.6$ y \SI{1}{km}, con
-pulso inicial gaussiano: a) ancho \SI{10}{ps}, $\lambda_0=\SI{0.8}{\um}$; b) \SI{10}{ps},
-\SI{1.55}{\um}; c) \SI{1}{ps}, \SI{0.8}{\um}; d) \SI{1}{ps}, \SI{1.55}{\um}. Utilice la
-Fig.~5.6-5 para calcular la dispersión.}
+graficando la amplitud del pulso versus tiempo, para las distancias $z=0$, $z=\SI{0.2}{km}$,
+$z=\SI{0.4}{km}$, $z=\SI{0.6}{km}$ y $z=\SI{1}{km}$, con los siguientes casos: pulso inicial
+gaussiano con, a) ancho $=\SI{10}{ps}$ y longitud de onda $=\SI{0.8}{\um}$, b) ancho $=\SI{10}{ps}$ y
+longitud de onda $=\SI{1.55}{\um}$, c) ancho $=\SI{1}{ps}$ y longitud de onda $=\SI{0.8}{\um}$,
+d) ancho $=\SI{1}{ps}$ y longitud de onda $=\SI{1.55}{\um}$. Utilice la figura 5.6-5 para calcular
+la dispersión.}
 
 \subsection*{Origen de la ecuación y función de transferencia}
 
@@ -520,7 +528,7 @@ A(z,t)=\frac{1}{\sqrt{1+jz/z_0}}\exp\!\left[-\frac{t^2}{\tau_0^2\,(1+jz/z_0)}\ri
 \quad z_0=\frac{\pi\tau_0^2}{\Dnu},
 \]
 que se obtiene por la transformada inversa de una gaussiana de ``anchura compleja''
-$\tau_0^2(1+jz/z_0)$. Aquí $z_0$ lleva el signo de $\Dnu$, como en (22.3-12); las distancias de
+$\tau_0^2(1+jz/z_0)$. Aquí $z_0$ lleva el signo de $\Dnu$, como en (22.3-12); las longitudes de
 dispersión que se tabulan son su magnitud, la de \eqref{eq:tau_z}. Separando el exponente, $\dfrac{1}{1+jz/z_0}=\dfrac{1-jz/z_0}{1+(z/z_0)^2}$:
 \[
 |A(z,t)|=\frac{1}{[1+(z/z_0)^2]^{1/4}}\exp\!\left[-\frac{t^2}{\tau^2(z)}\right],\qquad
@@ -538,7 +546,7 @@ $\Dnu<0$ (anómala, \SI{1.55}{\um}). El valor absoluto $|A|$ es el mismo para $\
 $\Dnu$ se obtiene de la Fig.~5.6-5 a través de la Sellmeier (Tabla~\ref{tab:p3_sellmeier}):
 $\Dnu=-\Dlam\lambda_0^2/c_0=+\SI{2.271e-25}{s^2/m}$ en \SI{0.8}{\um} y
 $\SI{-1.757e-25}{s^2/m}$ en \SI{1.55}{\um} (en unidades de fibra,
-$\beta''=\Dnu/2\pi=+36.1$ y $-28.0$ \si{ps^2/km}). Con ellos las distancias de dispersión son
+$\beta''=\Dnu/2\pi=+36.1$ y $-28.0$ \si{ps^2/km}). Con ellos las longitudes de dispersión son
 \begin{gather*}
 z_0(\SI{10}{ps},\SI{0.8}{\um})=\SI{1.38}{km},\qquad
 z_0(\SI{10}{ps},\SI{1.55}{\um})=\SI{1.79}{km},\\
@@ -567,10 +575,10 @@ en cero, $\nu_k=k/N_t\Delta t$), multiplica por $H(\nu,z)$ y vuelve al tiempo co
 \item Grafica $|A(z,t)|$, mide la semianchura a $1/e$ del resultado numérico por interpolación y
 la compara con \eqref{eq:tau_z}.
 \end{enumerate}
-Se ejecuta con \texttt{punto4\_pulso\_dispersion} desde la carpeta del taller. El mismo algoritmo
-se escribió línea a línea en Python (\texttt{punto4\_pulso\_dispersion\_py.py}, con
-\texttt{numpy.fft}). Las figuras y la tabla de esta sección provienen de esa réplica, porque el
-programa de MATLAB no se pudo ejecutar en esta máquina por un error de licencia (5201).
+Se ejecuta con \texttt{punto4\_pulso\_dispersion} desde la carpeta del taller. Las figuras y la
+tabla de esta sección son la salida del programa en MATLAB R2024b. Como control cruzado, el mismo
+algoritmo se escribió en Python (\texttt{punto4\_pulso\_dispersion\_py.py}, con \texttt{numpy.fft})
+y da los mismos anchos en todas las cifras de la Tabla~\ref{tab:p4}.
 
 \subsection*{Resultados}
 
@@ -902,7 +910,7 @@ de propagación del rayo) es máximo.} (p.~241.)
 Para la onda ordinaria $\Dv\parallel\Ev$ y $\Sv\parallel\kv$ en cualquier dirección (Fig.~6.3-12a):
 no hay efecto. El ángulo pedido, llamado \emph{walk-off} $\rho$, es propio de la onda
 extraordinaria. Como $\Dv\perp\kv$ y $\Ev\perp\Sv$, y los cuatro vectores están en el mismo plano
-(el formado por $\kv$ y el eje óptico, Fig.~6.3-8), el ángulo entre $\kv$ y $\Sv$ es igual al
+(el formado por $\kv$ y el eje óptico, Figs.~6.3-8 y 6.3-12(b)), el ángulo entre $\kv$ y $\Sv$ es igual al
 ángulo entre $\Dv$ y $\Ev$.
 
 Sea $z$ el eje óptico y $\kv=k(\sin\theta\,\yh+\cos\theta\,\zh)$ en el plano $y$--$z$, con
@@ -911,7 +919,7 @@ $k$--$z$ y es perpendicular a $\kv$:
 \[
 \Dv=D\left(\cos\theta\,\yh-\sin\theta\,\zh\right),
 \]
-y la relación material en ejes principales (6.3-5), $E_y=D_y/\epsilon_0n_o^2$,
+y la relación material en ejes principales (6.3-5)--(6.3-6), $E_y=D_y/\epsilon_0n_o^2$,
 $E_z=D_z/\epsilon_0n_e^2$, da
 \[
 \Ev=\frac{D}{\epsilon_0}\left(\frac{\cos\theta}{n_o^2}\,\yh-\frac{\sin\theta}{n_e^2}\,\zh\right).
@@ -1121,6 +1129,6 @@ $90^\circ$, y su asíntota $e^{-\pi^2/4N}$.}
 Archivo \texttt{punto4\_pulso\_dispersion.m}. Está escrito para generar las figuras \ref{fig:p3},
 \ref{fig:p4} y \ref{fig:p4b} y la Tabla~\ref{tab:p4}.
 
-\lstinputlisting{punto4_pulso_dispersion.m}
+\VerbatimInput{punto4_pulso_dispersion.m}
 
 \end{document}

@@ -22,9 +22,9 @@ function punto4_pulso_dispersion()
 % Salidas (carpeta figuras/): punto4_caso_a..d.png/pdf, punto4_anchos.png/pdf,
 % punto3_fig_5_6_5.png/pdf (reproducción de la Fig. 5.6-5) y una tabla en consola.
 %
-% Uso desde WSL (MATLAB de Windows en modo batch):
-%   "/mnt/c/Program Files/MATLAB/R2026b/bin/matlab.exe" -batch ...
-%     "cd('\\wsl.localhost\kali-linux\home\juanes\proyectos\ONL\talleres\taller-02-dispersion-polarizacion'); punto4_pulso_dispersion"
+% Uso: punto4_pulso_dispersion, desde esta carpeta. Probado en MATLAB R2024b.
+% Desde WSL, en modo batch, con la ruta Windows que da wslpath -w:
+%   matlab.exe -batch "cd('<ruta de esta carpeta>'); punto4_pulso_dispersion"
 
 c0 = 299792458;                                   % m/s
 aqui   = fileparts(mfilename('fullpath'));
@@ -44,11 +44,16 @@ yline(0, 'k:');
 for l = [0.8 1.312 1.55]
     [~, ~, D] = dispersion_silice(l*1e-6, c0);
     plot(l, D*1e6, 'ko', 'MarkerFaceColor', 'k');
-    text(l + 0.02, D*1e6, sprintf('%.3g \\mum: %.1f', l, D*1e6), 'FontSize', 9);
+    etq = sprintf('%.4g \\mum: %.1f', l, D*1e6);
+    if l > 1.5
+        text(l - 0.02, D*1e6, etq, 'FontSize', 9, 'HorizontalAlignment', 'right', 'VerticalAlignment', 'bottom');
+    else
+        text(l + 0.02, D*1e6, etq, 'FontSize', 9, 'VerticalAlignment', 'top');
+    end
 end
 xlabel('Longitud de onda \lambda_0 (\mum)'); ylabel('D_\lambda (ps/(km\cdotnm))')
 text(0.65, 15, 'dispersión anómala (D_\lambda > 0)', 'Color', [0.3 0.3 0.3]);
-text(0.65, -60, 'dispersión normal (D_\lambda < 0)', 'Color', [0.3 0.3 0.3]);
+text(1.0, -100, 'dispersión normal (D_\lambda < 0)', 'Color', [0.3 0.3 0.3]);
 guardar(fig, outdir, 'punto3_fig_5_6_5');
 
 % ------------------------------------------------------- tabla para el punto 3
@@ -71,7 +76,7 @@ figA = figure('Visible', 'off', 'Position', [100 100 760 520]); hold on; grid on
 for k = 1:numel(casos)
     tau0 = casos(k).tau0; lam0 = casos(k).lam;
     [~, ~, ~, Dnu] = dispersion_silice(lam0, c0);
-    z0 = pi*tau0^2/abs(Dnu);                      % distancia de dispersión (Saleh 22.3)
+    z0 = pi*tau0^2/abs(Dnu);                      % longitud de dispersión (Saleh 22.3)
     tau_an = tau0*sqrt(1 + (zs/z0).^2);           % solución analítica gaussiana
 
     % malla temporal: ventana amplia para el pulso final, paso fino para el inicial
@@ -96,7 +101,7 @@ for k = 1:numel(casos)
     end
     xlim([-1 1]*3.2*tau_an(end)*1e12)
     xlabel('t (ps)'); ylabel('|A(z,t)| (u.a.)')
-    title(sprintf('(%s)  \\tau_0 = %g ps,  \\lambda_0 = %.2f \\mum,  D_\\lambda = %.1f ps/(km\\cdotnm),  z_0 = %.2f km', ...
+    title(sprintf('(%s)  \\tau_0 = %g ps,  \\lambda_0 = %.2f \\mum,  D_\\lambda = %.1f ps/(km\\cdotnm),  z_0 = %.3g km', ...
           casos(k).etq, tau0*1e12, lam0*1e6, -Dnu*c0/lam0^2*1e6, z0/1e3));
     legend('Location', 'northeast')
     guardar(fig, outdir, ['punto4_caso_' casos(k).etq]);

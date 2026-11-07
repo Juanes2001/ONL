@@ -1,7 +1,7 @@
 """Figuras de apoyo de la Tarea 2 (puntos 2, 7 y 8).
 
-Se ejecuta con el Python de Windows (el único con numpy/matplotlib en esta máquina):
-  "/mnt/c/Users/jero0/AppData/Local/Programs/Python/Python311/python.exe" figuras_puntos_2_7_8.py
+Se ejecuta con un Python que tenga numpy y matplotlib:
+  python figuras_puntos_2_7_8.py
 
 Punto 2: índice n, índice de grupo N y velocidad de grupo v/c0 de un medio resonante
          diluido (ecs. 5.5-23, 5.5-24 y 5.5-27 de Saleh y Teich) en función de la frecuencia.
@@ -63,11 +63,11 @@ for j, (chi0, Q, titulo) in enumerate([(0.002, 10, r"acoplamiento débil: $\chi_
         ax.axvspan(-0.5, 0.5, color="orange", alpha=0.15)
         ax.axvline(-np.sqrt(3) / 2, color="green", ls="--", lw=0.8)
         ax.axvline(np.sqrt(3) / 2, color="green", ls="--", lw=0.8)
-    axs[0, j].text(0, axs[0, j].get_ylim()[1] * 0.999, r"$dn/d\nu<0$" + "\n(anómala)", ha="center", va="top", fontsize=8)
+    axs[0, j].text(0.42, axs[0, j].get_ylim()[1] * 0.999, r"$dn/d\nu<0$" + "\n(anómala)", ha="center", va="top", fontsize=8)
     axs[0, j].text(-2, axs[0, j].get_ylim()[1] * 0.999, r"$dn/d\nu>0$" + "\n(normal)", ha="center", va="top", fontsize=8)
     axs[0, j].text(2, axs[0, j].get_ylim()[1] * 0.999, r"$dn/d\nu>0$" + "\n(normal)", ha="center", va="top", fontsize=8)
-    axs[2, j].text(np.sqrt(3) / 2 + 0.05, axs[2, j].get_ylim()[0] + 0.05 * np.diff(axs[2, j].get_ylim())[0],
-                   r"mínimos locales de $v$ en $\nu_0\pm\frac{\sqrt{3}}{2}\Delta\nu$", fontsize=8, color="green")
+    axs[2, j].text(3.2, axs[2, j].get_ylim()[0] + 0.05 * np.diff(axs[2, j].get_ylim())[0],
+                   r"mínimos locales de $v$", ha="right", fontsize=8, color="green")
 axs[2, 0].legend(loc="upper right", fontsize=8)
 fig.suptitle(r"Punto 2. Medio resonante diluido: $n=n_0+\chi'(\nu)/2n_0$, $N=n+\nu\,dn/d\nu$, $v=c_0/N$. "
              "Zona naranja: $|\\nu-\\nu_0|<\\Delta\\nu/2$", fontsize=10)
@@ -114,12 +114,14 @@ tg = np.array([-nrm[1], nrm[0]])
 ax2.plot([P[0] - 0.5 * tg[0], P[0] + 0.5 * tg[0]], [P[1] - 0.5 * tg[1], P[1] + 0.5 * tg[1]], "g--", lw=0.8)
 ax2.annotate("", xy=(0, 1.55), xytext=(0, 0), arrowprops=dict(arrowstyle="->", color="k"))
 ax2.text(0.03, 1.5, "eje óptico (z)")
-ax2.text(1.45, 0.03, r"$k_y/k_0$")
+ax2.set_xlabel(r"$k_y/k_0$"); ax2.set_ylabel(r"$k_z/k_0$")
 ax2.text(0.12, 0.42, r"$\theta$", fontsize=11)
-ax2.text(P[0] + 0.08, P[1] + 0.12, r"$\rho$", fontsize=11, color="purple")
+kh = P / np.linalg.norm(P)                       # prolongación de k para que se vea rho
+ax2.plot([P[0], P[0] + 0.45 * kh[0]], [P[1], P[1] + 0.45 * kh[1]], "r:", lw=1.2)
+ax2.text(*(P + 0.36 * (kh + nrm) / np.linalg.norm(kh + nrm)), r"$\rho$", fontsize=11, color="purple", ha="center", va="center")
 ax2.set_aspect("equal"); ax2.set_xlim(-0.05, 1.7); ax2.set_ylim(-0.05, 1.65)
 ax2.set_title("Construcción: S es normal a la superficie k (índices exagerados)", fontsize=9)
-ax2.legend(loc="lower left", fontsize=8)
+ax2.legend(loc="upper right", fontsize=8)
 fig.tight_layout()
 guardar(fig, "punto7_walkoff_cuarzo")
 
@@ -134,7 +136,7 @@ ax.set_ylabel(r"Transmitancia $\mathcal{T}=\cos^{2N}(\pi/2N)$")
 ax.set_title("Punto 8. Rotación de 90° con N polarizadores en cascada")
 for Nn in [1, 2, 3, 10, 100]:
     ax.annotate(f"N={Nn}: {np.cos(np.pi/(2*Nn))**(2*Nn):.3f}", (Nn, np.cos(np.pi / (2 * Nn)) ** (2 * Nn)),
-                (5, -12), textcoords="offset points", fontsize=8)
+                (6, 5) if Nn == 1 else (5, -12), textcoords="offset points", fontsize=8)
 ax.set_ylim(-0.05, 1.05); ax.legend(loc="lower right")
 fig.tight_layout()
 guardar(fig, "punto8_transmitancia")

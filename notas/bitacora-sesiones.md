@@ -3,6 +3,42 @@
 Registro de cada sesión de trabajo en el repositorio: qué se hizo, qué decisiones se tomaron y
 qué queda pendiente. La entrada más reciente va arriba.
 
+## 2026-11-06 (viernes) — Tarea 2: dudas de los puntos 2 y 3; commit de la revisión
+
+### Hecho
+- Se aclaró por qué el punto 2 parte del punto 1 (la ec. 5.5-27 es su resultado), por qué τ_d = z/v
+  (Saleh, pp. 184–185 y 962–963, cotejadas en el escaneo) y por qué en la Tabla 2 los anchos se
+  combinan en cuadratura: 100 ps y σ_τ = 0.723 ps dan 100.0026 ps, no 100.72 ps.
+- Commit y push de la revisión del 2026-11-05 en `taller-02-y-apuntes`, por orden de Juanes.
+
+### Pendiente
+- **Redacción del punto 3 (propuesta, sin aplicar):** en "Solución exacta" y "Resultado", cambiar
+  "ensanchamiento añadido" por "término de dispersión σ_τ" y añadir que el aumento real es 0.0026 ps.
+- **Dibujo a mano del punto 2:** sigue pendiente; el PDF del commit todavía no lo incluye.
+- Decidir si se fusiona la rama en `main` y si se suben los PDF sin seguimiento de `notas/` y `talleres/`.
+
+## 2026-11-05 (jueves, noche) — Tarea 2: revisión final contra el enunciado y el libro
+
+### Hecho
+- Equipo Ubuntu original, rama `taller-02-y-apuntes`. Juanes copió el enunciado a `talleres/`.
+- **`punto4_pulso_dispersion.m` ejecutado por primera vez** (MATLAB R2024b, sin error de licencia):
+  los 20 valores de la Tabla 3 coinciden con el documento y con la solución analítica. Las figuras
+  de los puntos 3 y 4 ya salen de MATLAB. Se quitó del documento la nota de la licencia.
+- Recálculo independiente de los 8 puntos (Sellmeier con derivadas analíticas, FFT con otra malla,
+  Jones, Brewster, walk-off, cadena de polarizadores, sympy): ningún resultado cambió.
+- Cotejo de unas 85 citas contra el escaneo, incluidas Fig. 6.3-12(a) y §6.5: ningún número de
+  ecuación, figura o página mal. Se corrigió un error (resonancias del vidrio, no solo UV) y 9 matices.
+- Enunciados de los puntos 2, 3 y 4 transcritos literalmente; "distancia" pasó a "longitud de
+  dispersión". Figuras de los puntos 2, 7 y 8 corregidas (etiquetas, ejes, leyenda, ρ).
+- El apéndice usa `fancyvrb` en vez de `listings`, porque TinyTeX no trae `listings` y descargar
+  Tectonic quedó bloqueado. Ahora compila con `xelatex` (20 pp., sin desbordes ni referencias rotas).
+
+### Pendiente
+- **Dibujo a mano del punto 2:** solo lo puede hacer Juanes. Guardar el escaneo como
+  `talleres/taller-02-dispersion-polarizacion/figuras/punto2_a_mano.jpg` y recompilar: aparece solo.
+- Decidir si se fusiona la rama en `main`.
+- Errores hallados en `notas/saleh/` y en `seccion_v1` (`paso05`, `main.py`) sin corregir.
+
 ## 2026-11-05 (jueves) — Tarea 2: PDF compilado y revisado; lectura completa del Saleh
 
 ### Hecho
