@@ -1,0 +1,380 @@
+\documentclass[10pt]{article}
+% Taller de repaso para el Examen 1 de Óptica No Lineal (temas 1–4).
+% Compilar con XeLaTeX (dos pasadas) o Tectonic:  tectonic taller-repaso-examen-1.tex
+\usepackage[spanish,es-noshorthands,es-nodecimaldot,es-tabla]{babel}
+\usepackage{fontspec}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage[letterpaper,margin=2.2cm]{geometry}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=black,urlcolor=black}
+
+\definecolor{tema}{RGB}{20,60,120}
+\definecolor{gris}{RGB}{90,90,90}
+\titleformat{\section}{\Large\bfseries\color{tema}}{\thesection}{0.6em}{}
+\titleformat{\subsection}{\large\bfseries\color{tema}}{\thesubsection}{0.5em}{}
+\setlist{itemsep=1pt,topsep=2pt}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.6ex}
+\pagestyle{fancy}\fancyhf{}
+\lhead{\small Óptica No Lineal 2026-II — Taller de repaso, Examen 1}
+\rhead{\small p.~\thepage}
+
+\newcounter{prob}
+\newcommand{\prob}[2]{\par\medskip\refstepcounter{prob}\noindent{\color{tema}\bfseries Problema \theprob.\ #1}\hfill{\small\color{gris}#2}\par\nopagebreak}
+\newcommand{\obj}[1]{{\small\color{gris}\emph{Objetivo:} #1}\par}
+\newcommand{\E}{\mathbf E}
+\newcommand{\Hv}{\mathbf H}
+\newcommand{\kv}{\mathbf k}
+\newcommand{\Ec}{\boldsymbol{\mathcal E}}
+\newcommand{\Pc}{\boldsymbol{\mathcal P}}
+\newcommand{\cc}{\text{c.c.}}
+
+\title{\color{tema}Taller de repaso — Examen 1\\[2pt]\large Temas 1–4: ondas EM, haz gaussiano, absorción y dispersión, pulsos,\\ polarización y cristales, susceptibilidad óptica no lineal}
+\author{Óptica No Lineal · Universidad Nacional de Colombia, Sede Medellín · 2026-II\\
+\small Preparado para Juan E. Rodríguez Ochoa a partir de Saleh \& Teich, \emph{Fundamentals of Photonics}, 2.ª ed. (2007)\\
+\small y Boyd, \emph{Nonlinear Optics}, 3.ª ed. (2008)}
+\date{Noviembre de 2026}
+
+\begin{document}
+\maketitle
+\thispagestyle{fancy}
+
+\section*{Instrucciones}
+\begin{itemize}
+\item El taller sigue el orden del programa. Cada problema indica su fuente (\emph{S} = Saleh, \emph{B} = Boyd) y lo que busca afianzar. Los marcados \textbf{[N]} piden cálculo numérico o un programa (MATLAB o Python), como en las tareas 1 y 2; los marcados \textbf{[$\star$]} son de mayor profundidad.
+\item Los problemas ya resueltos en las tareas 1 y 2 (S 5.1-1, 5.2-1a, 5.3-1, 5.4-1, 3.1-4, Ej.~5.5-1, 6.1-8, 6.2-5, 6.3-2, 6.6-2) \emph{no} se repiten; aquí hay variantes y los que faltaban.
+\item Temas 1–3: convención de Saleh ($e^{j\omega t}$, $\mathcal E=\mathrm{Re}\{Ee^{j\omega t}\}$, $I=|E|^2/2\eta$). Tema 4: convención de Boyd ($\tilde E=Ee^{-i\omega t}+\cc$, $I=2n\epsilon_0c|E|^2$, SI). Si un problema mezcla ambas, dígalo explícitamente.
+\item Al final hay una lista de \emph{respuestas para verificar} (solo resultados numéricos o finales). Intente cada problema antes de mirarla.
+\item Escriba las derivaciones completas, reporte los números con unidades y ponga magnitud y unidades en los ejes de las figuras.
+\end{itemize}
+
+%=====================================================================
+\section{Tema 1 — Ondas electromagnéticas (Saleh 5.1, 5.2, 5.4, 2.2)}
+%=====================================================================
+
+\prob{Ecuación de onda con fuente no lineal}{S §5.2B, ec.~(5.2-25)}
+\obj{saber derivar la ecuación de partida de toda la óptica no lineal y conocer sus supuestos.}
+\begin{enumerate}[label=(\alph*)]
+\item A partir de las ecuaciones de Maxwell en un medio sin cargas ni corrientes libres y no magnético, deduzca
+$\nabla^2\Ec-c_0^{-2}\partial_t^2\Ec=\mu_0\partial_t^2\Pc$. Señale exactamente en qué paso se usa que el medio es homogéneo e isótropo.
+\item Escriba $\Pc=\epsilon_0\chi^{(1)}\Ec+\Pc_{NL}$ y muestre que $\nabla^2\Ec-(n^2/c_0^2)\partial_t^2\Ec=\mu_0\partial_t^2\Pc_{NL}$, con $n^2=1+\chi^{(1)}$. Interprete $\Pc_{NL}$ como una fuente de radiación.
+\item En un medio \emph{anisótropo} lineal, ¿por qué deja de valer $\nabla\cdot\Ec=0$ aunque $\nabla\cdot\mathbf{\mathcal D}=0$? ¿Qué término se desprecia en la práctica y bajo qué condición?
+\item Para un medio débilmente inhomogéneo de índice $n+\Delta n(\mathbf r)$, verifique (5.2-20): la perturbación actúa como una fuente $\Delta\Pc=2\epsilon_0 n\Delta n\,\Ec$.
+\end{enumerate}
+
+\prob{Clasificación de medios}{S Prob.~5.2-1 (b)–(d)}
+\obj{reconocer linealidad, dispersión temporal y espacial, homogeneidad e isotropía en una relación constitutiva.}
+Identifique, en cuanto a linealidad, dispersión, dispersión espacial y homogeneidad, los medios (todos isótropos; $\chi$, $a$, $a_1$, $a_2$ constantes):
+(b) $\Pc+a\Pc^2=\epsilon_0\Ec$; \ (c) $a_1\partial_t^2\Pc+a_2\partial_t\Pc+\Pc=\epsilon_0\chi\Ec$; \ (d) $\Pc=\epsilon_0\{a_1+a_2\exp[-(x^2+y^2)]\}\Ec$.
+Para (b), desarrolle $\Pc$ en potencias de $\Ec$ hasta tercer orden y exprese $\chi^{(1)}$, $\chi^{(2)}$, $\chi^{(3)}$ (convención de Boyd) en función de $a$. Para (c), obtenga $\chi(\nu)$ y relaciónelo con el oscilador de Lorentz (5.5-19): ¿qué son $\nu_0$, $\Delta\nu$ y $\chi_0$?
+
+\prob{Onda estacionaria viajera transversal}{variante de S Prob.~5.3-1}
+\obj{manejar Maxwell monocromático, Poynting complejo y descomposición en ondas planas.}
+En el vacío, $\E(\mathbf r)=E_0\cos(\beta x)\,e^{-jk_zz}\,\hat{\mathbf y}$ a la longitud de onda $\lambda_0$.
+\begin{enumerate}[label=(\alph*)]
+\item ¿Qué relación deben cumplir $\beta$, $k_z$ y $\lambda_0$? \ (b) Halle $\Hv(\mathbf r)$ con $\nabla\times\E=-j\omega\mu_0\Hv$.
+\item[(c)] Calcule $\mathbf S=\frac12\E\times\Hv^*$: ¿hacia dónde fluye la potencia en promedio? ¿Hay flujo neto en $x$? ¿$\mathrm{Re}\{S_x\}$ y $\mathrm{Im}\{S_x\}$?
+\item[(d)] Escriba la onda como suma de dos ondas planas TEM y dé sus direcciones. ¿Qué tiene que ver esto con el modo de una guía de placas paralelas (S §8.1)?
+\end{enumerate}
+
+\prob{Campos de un láser enfocado frente al campo atómico}{S Prob.~5.4-1, §3.1; B §1.1}\label{p:campos}
+\obj{pasar de potencia/energía a intensidad y campo, en las dos convenciones, y estimar cuándo un proceso es no lineal.}
+Un láser Nd:YAG ($\lambda_0=1.064$ µm) emite pulsos de 10 mJ y 10 ns (suponga potencia constante durante el pulso). Se enfoca dentro de un vidrio con $n=1.50$ a una cintura gaussiana $W_0=20$ µm.
+\begin{enumerate}[label=(\alph*)]
+\item Calcule la potencia pico, la intensidad pico en el foco (W/m² y W/cm²) y la fluencia pico (J/cm²).
+\item Calcule la amplitud del campo eléctrico en el centro del foco en la convención de Saleh ($|E|$ = amplitud de pico) y en la de Boyd. Verifique que ambas dan la misma intensidad.
+\item Compare con el campo atómico característico $E_{\rm at}=e/(4\pi\epsilon_0a_0^2)$ (calcúlelo). Use $\chi^{(2)}\sim\chi^{(1)}/E_{\rm at}$ y $\chi^{(3)}\sim\chi^{(1)}/E_{\rm at}^2$ (B §1.1) para estimar la razón $|P^{(2)}|/|P^{(1)}|$ y $|P^{(3)}|/|P^{(1)}|$.
+\item ¿Qué rango de Rayleigh tiene el foco dentro del vidrio? ¿Por qué importa para un experimento de generación de armónicos?
+\end{enumerate}
+
+\prob{Ondas esféricas y cilíndricas}{S Probs.~2.2-3, 2.2-4, 2.2-5}
+\obj{verificar soluciones de Helmholtz y relacionar intensidad con potencia.}
+\begin{enumerate}[label=(\alph*)]
+\item Verifique en coordenadas esféricas que $U=(A_0/r)e^{-jkr}$ cumple $\nabla^2U+k^2U=0$ para $r\ne0$.
+\item Exprese la intensidad de una onda esférica a distancia $r$ en función de la potencia total $P$; calcule $I$ en $r=1$ m para $P=100$ W.
+\item Halle la amplitud compleja y la intensidad de una onda con frentes cilíndricos centrados en el eje $y$ (en el régimen $k\rho\gg1$). ¿Cómo decae $I$ con la distancia y por qué?
+\end{enumerate}
+
+\prob{Helmholtz paraxial y el haz gaussiano}{S Prob.~2.2-6, §3.1A}
+\obj{entender de dónde sale el haz gaussiano y qué aproximación lo sostiene.}
+\begin{enumerate}[label=(\alph*)]
+\item Con $U=A(\mathbf r)e^{-jkz}$ y las aproximaciones (2.2-21)–(2.2-22), derive $\nabla_T^2A-j2k\partial_zA=0$.
+\item Sustituya $A=\frac{A_1}{q(z)}\exp[-jk\rho^2/2q(z)]$ y muestre que es solución si y solo si $dq/dz=1$. Concluya que $q=z+jz_0$ y deduzca $W(z)$, $R(z)$ y $\zeta(z)$ a partir de $1/q=1/R-j\lambda/\pi W^2$.
+\item ¿Hasta qué cintura $W_0$ (en unidades de $\lambda$) es razonable la aproximación paraxial? (Ejercicio 3.1-2: compare $\partial_zA$ con $kA$.)
+\end{enumerate}
+
+\prob{Pulso con chirp en el vacío}{variante de S Prob.~5.1-1}
+\obj{describir una onda pulsada, obtener $\mathcal H$ y la frecuencia instantánea.}
+En el vacío, $\Ec=\mathrm{Re}\{f(t-z/c_0)\}\hat{\mathbf x}$ con $f(t)=\exp(-t^2/\tau^2)\exp(j2\pi\nu_0t+jbt^2)$.
+(a) Describa la onda (polarización, dirección, envolvente, portadora). (b) Halle $\boldsymbol{\mathcal H}$. (c) Calcule la frecuencia instantánea $\nu_i(t)=\frac{1}{2\pi}\frac{d\phi}{dt}$; ¿es \emph{up-chirp} o \emph{down-chirp} si $b>0$? (d) Con $\tau=20$ fs, $\nu_0=375$ THz y $b=5\times10^{27}$ s$^{-2}$, ¿cuánto cambia $\nu_i$ entre $t=-\tau$ y $t=+\tau$? (e) Escriba la intensidad instantánea promediada en un ciclo, $I(z,t)$.
+
+%=====================================================================
+\section{Tema 2 — Haz gaussiano, absorción y dispersión, pulsos (Saleh 3.1, 5.5, 5.6)}
+%=====================================================================
+
+\prob{Parámetros de un haz}{S Prob.~3.1-6}
+Un Nd:YAG ($\lambda=1.06$ µm, $P=1$ W) tiene divergencia total $2\theta_0=1$ mrad. Halle $W_0$, la profundidad de foco, la intensidad máxima y la intensidad en el eje a $z=100$ cm de la cintura.
+
+\prob{Identificación de un haz con dos anchos}{S Prob.~3.1-7}
+\obj{resolver el problema inverso del haz gaussiano.}
+Un haz de CO$_2$ ($\lambda_0=10.6$ µm) tiene radios $W_1=1.699$ mm y $W_2=3.380$ mm en dos planos separados $d=10$ cm. Localice la cintura y halle $W_0$. \textbf{[N]} Resuelva también numéricamente y discuta si la solución es única.
+
+\prob{Enfoque y refracción de un haz}{S Probs.~3.2-6, 3.2-8}
+\obj{controlar la cintura en el foco, que fija la intensidad en un experimento no lineal.}
+\begin{enumerate}[label=(\alph*)]
+\item Un láser de argón ($\lambda=488$ nm) con $W_0=0.5$ mm debe enfocarse a una mancha de 100 µm de diámetro con una sola lente. ¿Cuál es la focal más corta admisible? (Use $1/q_2=1/q_1-1/f$.)
+\item Un haz con su cintura sobre una interfaz plana aire–vidrio ($n=1.5$) normal al eje tiene divergencia de 1 mrad en aire. ¿Cuál es la divergencia en el vidrio? ¿Y el rango de Rayleigh?
+\item \textbf{[N]} Con $z_0=50$ cm, $\lambda=488$ nm y $f=5$ cm, grafique $W_0'$ y la distancia de la lente a la nueva cintura en función de la distancia $z$ de la cintura original a la lente (S Prob.~3.2-7).
+\end{enumerate}
+
+\prob{Fase de Gouy}{S §3.1B}
+\obj{entender la fase axial anómala del haz gaussiano, que reaparece en la generación de armónicos con haces enfocados (B §2.10).}
+(a) Grafique $\zeta(z)$ y la fase en el eje $kz-\zeta(z)$ menos la de una onda plana, para $-5z_0<z<5z_0$. (b) Muestre que el desfase total al atravesar el foco es $\pi$. (c) Para un modo Hermite–Gauss $(l,m)$ la fase de Gouy es $(l+m+1)\zeta(z)$; ¿qué consecuencia tiene esto para las frecuencias de un resonador? (S Prob.~3.3-4.)
+
+\prob{Absorción débil y fuerte; medios conductores}{S §5.5A, §5.5D}
+\obj{usar $n-j\alpha/2k_0=\sqrt{1+\chi}$ en todos sus regímenes.}
+\begin{enumerate}[label=(\alph*)]
+\item A $\lambda_0=1$ µm, calcule $n$ y $\alpha$ exactos y con la aproximación débil para $\chi=1.25-j\,0.01$. Exprese $\alpha$ en cm$^{-1}$ y en dB/cm.
+\item Repita para $\chi=-0.5-j\,40$ con la aproximación de absorción fuerte.
+\item Para el aluminio ($N\approx1.8\times10^{29}$ m$^{-3}$ electrones libres, $\tau\approx8$ fs), calcule $\omega_p$, la longitud de onda de plasma y $\epsilon_e/\epsilon_0$ a 1.55 µm con Drude. ¿Es buen espejo en el visible?
+\item Silicio dopado tipo n con $N=10^{20}$ cm$^{-3}$ ($m^*=0.26m_e$, fondo $\epsilon=11.7\epsilon_0$): ¿en qué longitud de onda $\mathrm{Re}\,\epsilon_e=0$? (Útil para entender pérdidas por portadores libres en guías de Si.)
+\end{enumerate}
+
+\prob{Modelo de Lorentz y Kramers–Kronig numérico}{S §5.5B–C}\label{p:lorentz}
+\obj{conectar el modelo microscópico con $n(\nu)$, $\alpha(\nu)$ y la causalidad.}
+\begin{enumerate}[label=(\alph*)]
+\item A partir de $\ddot x+\sigma\dot x+\omega_0^2x=-(e/m)\mathcal E$, deduzca (5.5-19) y las expresiones de $\chi'$ y $\chi''$. Muestre que cerca de resonancia $\chi''$ es lorentziana de ancho $\Delta\nu=\sigma/2\pi$ y que $\chi'=2\frac{\nu-\nu_0}{\Delta\nu}\chi''$.
+\item \textbf{[N]} Para un gas diluido en un huésped con $n_0=1$, $\chi_0=10^{-4}$, $\nu_0=500$ THz y $\Delta\nu=5$ THz, grafique $n(\nu)-1$ y $\alpha(\nu)$ entre 400 y 600 THz.
+\item \textbf{[N]} Calcule numéricamente $\chi'(\nu)$ a partir de $\chi''(\nu)$ con la integral de Kramers–Kronig (5.5-13) (cuide el valor principal) y compárelo con la expresión analítica. ¿Qué pasa si trunca la integral en $\pm3\Delta\nu$ alrededor de $\nu_0$?
+\item Con (5.6-2) obtenga el índice de grupo $N(\nu)$ y señale dónde la luz es ``rápida'' ($N<1$ o $N<0$). ¿Viola esto la causalidad?
+\end{enumerate}
+
+\prob{Onda modulada en amplitud en un medio dispersivo}{S Prob.~5.5-2}
+\obj{ver cómo la dispersión convierte modulación de amplitud en modulación de fase.}
+Una onda $\mathcal A(t)=[1+m\cos(2\pi f_st)]e^{j2\pi\nu_0t}$ en $z=0$ ($f_s\ll\nu_0$) recorre $z$ en un medio sin pérdidas con $\beta(\nu_0)=\beta_0$, $\beta(\nu_0\mp f_s)=\beta_{1,2}$. Halle la envolvente compleja transmitida y muestre que a ciertas distancias la onda está modulada en amplitud sin modulación de fase. Exprese esas distancias en función de $\beta''$ cuando $\beta$ se aproxima por Taylor hasta segundo orden. \emph{(Es el fenómeno del ``desvanecimiento'' de la portadora RF en enlaces de fibra.)}
+
+\prob{Sellmeier, índice de grupo y GVD}{S Prob.~5.6-1}\label{p:sellmeier}
+\begin{enumerate}[label=(\alph*)]
+\item Derive expresiones analíticas para $N(\lambda)$ y $D_\lambda(\lambda)$ a partir de (5.5-28).
+\item \textbf{[N]} Grafique $n$, $N$ y $D_\lambda$ de la sílice fundida entre 0.25 y 3.5 µm (parámetros del Ej.~5.6-1) y verifique la Fig.~5.6-5: ¿en qué $\lambda$ se anula $D_\lambda$?
+\item \textbf{[N]} Haga lo mismo para el GaAs entre 1.5 y 10.5 µm (Sellmeier de 3 términos: $\lambda_i=0$, 0.4082, 37.17 µm; pesos 3.5, 7.4969, 1.9347). Compare con la sílice.
+\item Calcule $\beta_2=\beta''$ (ps²/km) de la sílice a 1.55 µm y la relación con $D_\lambda$.
+\end{enumerate}
+
+\prob{Índice del aire; velocidad de grupo en un metal}{S Probs.~5.6-2, 5.6-3}
+(a) Con $n-1=2.672$, $2.669$ y $2.665\times10^{-4}$ a 0.76, 0.81 y 0.86 µm, ajuste una parábola y obtenga $v(\lambda)$ y $D_\lambda$ (ps/km·nm). Compare con la fibra de sílice. (b) Muestre que en un medio de Drude (5.5-39) la velocidad de fase por la de grupo es $c_0^2$.
+
+\prob{Pulsos gaussianos: ensanchamiento, chirp y compresión}{S §5.6, §22.3}\label{p:pulsos}
+\obj{dominar $z_0=\pi\tau_0^2/|D_\nu|$ y el signo del chirp, base de la automodulación de fase (temas 7–9).}
+\begin{enumerate}[label=(\alph*)]
+\item Un pulso gaussiano sin chirp de 100 fs FWHM a 800 nm atraviesa 1 cm de sílice fundida. Con la Sellmeier del Prob.~\ref{p:sellmeier}, calcule $N$, el retardo de grupo, $\beta''$ (fs²/mm), $z_0$ y el ancho FWHM de salida. Repita para 20 fs. ¿Por qué el resultado es tan distinto?
+\item Un pulso de 10 ps FWHM a 1.55 µm se propaga en fibra estándar ($D_\lambda=17$ ps/km·nm). Calcule $z_0$ y el ancho tras 10 km y 100 km.
+\item ¿Hacia qué lado del pulso quedan las frecuencias altas tras propagarse en dispersión normal? ¿Y en anómala? Justifique con la frecuencia instantánea.
+\item \textbf{[N]} Programe la solución $A(z,t)=\mathcal F^{-1}\{e^{-j\pi D_\nu\nu^2z}\mathcal F\{A(0,t)\}\}$ y verifique (a). Luego tome un pulso con chirp inicial $A(0,t)=\exp[-(1+ja)t^2/\tau_0^2]$, $a=-3$, y halle la distancia de máxima compresión en un medio de dispersión normal y el ancho mínimo. Compare con la fórmula analítica $\tau_{\min}=\tau_0/\sqrt{1+a^2}$.
+\end{enumerate}
+
+%=====================================================================
+\section{Tema 3 — Polarización y cristales ópticos (Saleh cap.~6)}
+%=====================================================================
+
+\prob{Elipse, Stokes y Poincaré}{S §6.1A}
+\obj{pasar con soltura entre vector de Jones, elipse, parámetros de Stokes y esfera de Poincaré.}
+Para $\mathbf J=\frac{1}{\sqrt5}(1,\;2e^{j\pi/3})^T$: (a) calcule $\mathsf r$, $\varphi$, el ángulo de orientación $\psi$ y la elipticidad $\chi$; (b) diga si es derecha o izquierda; (c) calcule $(S_0,S_1,S_2,S_3)$ y verifique $S_1^2+S_2^2+S_3^2=S_0^2$; (d) ubíquelo en la esfera de Poincaré; (e) halle el vector de Jones del estado ortogonal y verifique (Prob.~6.1-5) que su elipse tiene el eje mayor perpendicular y sentido de giro opuesto.
+
+\prob{Retardadores y rotadores}{S Probs.~6.1-6, 6.1-7; Ej.~6.1-4}
+\begin{enumerate}[label=(\alph*)]
+\item Muestre que la matriz de Jones de un rotador es invariante ante rotaciones de coordenadas.
+\item Luz LP a un ángulo $\theta$ del eje rápido de un retardador $\lambda/2$ sale LP a $-\theta$. ¿Por qué un retardador $\lambda/2$ \emph{no} es un rotador? (Pruebe con luz circular.)
+\item Halle modos normales y autovalores de: un retardador de retardo $\Gamma$ con eje rápido a $30^\circ$; un rotador de ángulo $\theta$; un polarizador a $45^\circ$.
+\item Un retardador de $\Gamma$ con eje rápido a $45^\circ$, seguido de un polarizador en $y$, recibe luz LP en $x$. Halle la transmitancia en función de $\Gamma$ y compárela con (6.6-1).
+\end{enumerate}
+
+\prob{Reflexión de luz circular y pantalla antirreflejo}{S Probs.~6.1-9, 6.1-10}
+(a) Muestre que la luz circular cambia de sentido al reflejarse en un espejo (cuidado con el sistema de coordenadas de la onda reflejada). (b) Muestre que un polarizador lineal seguido de un retardador $\lambda/4$ a $45^\circ$ elimina el reflejo de la luz de fondo en una ventana. ¿Es un aislador óptico? Compare con el aislador de Faraday.
+
+\prob{Fresnel: reflectancias y desfases}{S Probs.~6.2-3, 6.2-4, 6.2-6}
+\begin{enumerate}[label=(\alph*)]
+\item Derive (6.2-6) para TE a partir de la continuidad de $E_t$ y $H_t$.
+\item Aire $\to$ vidrio ($n=1.5$) a $45^\circ$: calcule $\mathcal R_{TE}$, $\mathcal R_{TM}$ y la reflectancia de luz no polarizada.
+\item Retardo TE–TM en reflexión total interna vidrio ($n=1.5$)–aire a $\theta=1.2\theta_c$ (S Prob.~6.2-6). Calcúlelo \emph{directamente} con (6.2-8)–(6.2-9), tomando $\cos\theta_2=-j\sqrt{\sin^2\theta_1/\sin^2\theta_c-1}$. Luego evalúe la fórmula impresa (6.2-13) en $\theta_1=\theta_c$ y compárela con la Fig.~6.2-5 (que muestra $\varphi_y=\pi$ en $\theta_c$): ¿son consistentes? ¿Qué cambia si se usa la convención de Born \& Wolf para $r_{TM}$ (signo opuesto)?
+\item \textbf{[N]} \emph{Rombo de Fresnel:} grafique el retardo $\varphi_{TE}-\varphi_{TM}$ vs. ángulo para $n=1.51$ y halle el(los) ángulo(s) en que equivale a un cuarto de onda por cada dos reflexiones ($45^\circ$ por reflexión en la convención de Born \& Wolf); así se hace un retardador $\lambda/4$ acromático.
+\item \textbf{[N]} Grafique $\mathcal R_{TE}$ y $\mathcal R_{TM}$ vs. $\theta$ para aire–silicio ($n=3.48$) y aire–Si$_3$N$_4$ ($n=1.99$) a 1.55 µm; indique $\theta_B$.
+\end{enumerate}
+
+\prob{Goos–Hänchen y medio absorbente [$\star$]}{S Probs.~6.2-7, 6.2-8}
+(a) Para dos ondas TE en RTI a $\theta$ y $\theta+d\theta$, con $d\varphi=\xi d\theta$, halle $\xi$ y argumente que un haz reflejado se desplaza lateralmente una distancia $\propto\xi$. Estime la penetración $1/\gamma$ de la onda evanescente para vidrio–aire a $\theta=1.2\theta_c$ y $\lambda_0=633$ nm.
+(b) Muestre que en incidencia normal sobre un medio de índice $n$ y absorción $\alpha$, $r=[(n-j\alpha c_0/2\omega)-1]/[(n-j\alpha c_0/2\omega)+1]$.
+
+\prob{Cristales uniaxiales: retardo, doble refracción y walk-off}{S Probs.~6.3-1, 6.3-3, 6.3-5}
+\begin{enumerate}[label=(\alph*)]
+\item Cuarzo ($n_e=1.553$, $n_o=1.544$), 633 nm: retardo máximo por mm y espesores de cuarto de onda.
+\item Luz no polarizada incide desde el vacío sobre cuarzo a $30^\circ$, con el eje óptico en el plano de incidencia y perpendicular a la dirección incidente. Halle las direcciones de $\kv$ y de los rayos de las dos ondas refractadas.
+\item Lámina de LiNbO$_3$ ($n_e=2.29$, $n_o=2.20$, 633 nm) de 1 cm, eje óptico a $45^\circ$ de la normal, incidencia normal: desplazamiento lateral y retardo entre o y e.
+\end{enumerate}
+
+\prob{Elipsoide de índices: puente hacia el ajuste de fase}{S §6.3C; B §2.3}\label{p:bbo}
+\obj{usar $n(\theta)$ (6.3-15) en el problema que más lo necesita en óptica no lineal.}
+En generación de segundo armónico (tema 5) se necesita que la onda armónica y la fundamental tengan el mismo índice. En BBO (uniaxial negativo) a 1064/532 nm: $n_o(1064)=1.6551$, $n_e(1064)=1.5425$, $n_o(532)=1.6749$, $n_e(532)=1.5555$.
+\begin{enumerate}[label=(\alph*)]
+\item ¿Por qué no se puede tener $n(\omega)=n(2\omega)$ en un medio isótropo con dispersión normal?
+\item Halle el ángulo $\theta$ con el eje óptico para el cual $n_e(532,\theta)=n_o(1064)$ (ajuste de fase tipo I, \emph{ooe}).
+\item Calcule el ángulo de walk-off de la onda extraordinaria a ese $\theta$ y la separación lateral tras 5 mm de cristal.
+\item ¿Qué es $\Delta k=k_{2\omega}-2k_\omega$ si se usa $\theta=0$? Calcule la longitud de coherencia $L_c=\pi/|\Delta k|$.
+\end{enumerate}
+
+\prob{Cristal biaxial}{S §6.3C–D}
+KTP a 1064 nm tiene $n_x=1.7377$, $n_y=1.7453$, $n_z=1.8297$. (a) Escriba el elipsoide de índices. (b) Para propagación en el plano $x$–$z$ a un ángulo $\theta$ de $z$, halle los dos índices de los modos normales. (c) Halle el ángulo $V_z$ entre cada eje óptico y el eje $z$, usando $\sin V_z=\frac{n_z}{n_y}\sqrt{\frac{n_y^2-n_x^2}{n_z^2-n_x^2}}$ (derívela de la condición $n_a=n_b$).
+
+\prob{Actividad óptica y aislador de Faraday}{S §6.4, §6.6D}
+(a) ¿Qué espesor de cuarzo rota $90^\circ$ el plano de polarización a 500 nm ($\rho\approx31^\circ$/mm)? Si la luz atraviesa la lámina, se refleja y vuelve, ¿cuál es la rotación neta? (b) Un aislador usa TGG con constante de Verdet $\mathfrak V=-40$ rad/(T·m) a 1064 nm en un imán de 1 T: ¿qué longitud da $45^\circ$? Escriba las matrices de Jones del aislador en ida y en vuelta y muestre que la vuelta queda bloqueada. (c) Explique por qué una lámina $\lambda/2$ o un rotador ópticamente activo no sirven como aislador.
+
+\prob{Nemático torcido por matrices de Jones}{S §6.5}
+\obj{verificar numéricamente el régimen adiabático (Mauguin) de un rotador de cristal líquido.}
+\textbf{[N]} Divida una celda de nemático torcido $90^\circ$ de espesor $d$ en $N=200$ capas con la ec.~(6.5-6). Para luz incidente LP en $x$, grafique la fracción de potencia que sale LP en $y$ en función del parámetro $\beta/\alpha$ (de 0.1 a 50). Muestre que tiende a 1 cuando $\beta\gg\alpha$ y compare con la expresión analítica de Gooch–Tarry, $1-\dfrac{\sin^2\!\big(\frac{\pi}{2}\sqrt{1+u^2}\big)}{1+u^2}$, con $u=\beta d/\pi$ y torsión $\alpha d=\pi/2$.
+
+%=====================================================================
+\section{Tema 4 — Susceptibilidad óptica no lineal (Boyd cap.~1)}
+%=====================================================================
+
+\prob{Amplitudes de la polarización no lineal y factores de degeneración}{B §1.2, ecs.~(1.2.5)–(1.2.17)}
+\obj{saber expandir $\tilde E^2$ y $\tilde E^3$ sin perder factores 2, 3, 6.}
+\begin{enumerate}[label=(\alph*)]
+\item Con $\tilde E=E_1e^{-i\omega_1t}+E_2e^{-i\omega_2t}+\cc$, desarrolle $\epsilon_0\chi^{(2)}\tilde E^2$ y obtenga (1.2.7). ¿Por qué SFG lleva un factor 2 y SHG no, aun si $\omega_2\to\omega_1$?
+\item Repita (a) con la convención $\tilde E=\frac12(E_1'e^{-i\omega_1t}+\cc)$, $\tilde P=\frac12(P'e^{-i\omega t}+\cc)$ y muestre que todas las amplitudes ganan un factor $\frac12$.
+\item Con tres frecuencias, deduzca $P(\omega_1)$, $P(2\omega_1-\omega_2)$ y $P(\omega_1+\omega_2-\omega_3)$ en (1.2.17). Explique por qué la modulación de fase cruzada es el doble de la automodulación.
+\item \textbf{[N]} Escriba un programa que enumere todas las ternas $(\pm\omega_a,\pm\omega_b,\pm\omega_c)$ con $\omega_{a,b,c}\in\{\omega_1,\omega_2,\omega_3\}$ (use valores inconmensurables, p.~ej. 1, $\sqrt2$, $\sqrt5$), agrupe por frecuencia suma y verifique que salen 44 frecuencias distintas y los factores 1, 3, 6.
+\item \emph{Analogía con la Tarea 1:} en el punto 2a de la Tarea 1, $i=v^2$ con $v=\cos(2\pi50t)+\cos(2\pi120t)$. Identifique cada línea del espectro con SHG, SFG, DFG u OR y verifique sus amplitudes con (1.2.7).
+\end{enumerate}
+
+\prob{Estimaciones numéricas y unidades}{B Probs.~1.1 y 1.2; §1.1; apéndice}
+\begin{enumerate}[label=(\alph*)]
+\item Para la proustita, $\chi^{(2)}_{yyy}=1.3\times10^{-7}$ cm/statvolt (gaussianas). Páselo a SI.
+\item Un haz de 1 W se enfoca a una mancha de 30 µm de diámetro en un cristal con $n=2$ y $\chi^{(2)}=4\times10^{-11}$ m/V. Calcule $|E(\omega)|$ (convención de Boyd), $P(2\omega)$, el momento dipolar por átomo $\mu(2\omega)$ (con $N=10^{28}$ m$^{-3}$) en unidades de $ea_0$, y compárelos con $P(\omega)$ y $\mu(\omega)$ (use $\chi^{(1)}=n^2-1$).
+\item Calcule $E_{\rm at}$, $\chi^{(2)}\sim1/E_{\rm at}$, $\chi^{(3)}\sim1/E_{\rm at}^2$ e $I_{\rm at}$, y diga por qué se usa el factor $\frac12$ en $I_{\rm at}=\frac12\epsilon_0cE_{\rm at}^2$.
+\item \emph{Saleh $\leftrightarrow$ Boyd:} partiendo de $\mathcal P_{NL}=2\mathrm d\,\mathcal E^2$ con $\mathcal E=\mathrm{Re}\{Ee^{j\omega t}\}$, muestre que la amplitud de Saleh es $P_S(2\omega)=\mathrm dE_S^2$ y que, con $E_S=2E_B$ y $P_S=2P_B$, se obtiene $\mathrm d_{\rm Saleh}=\epsilon_0\chi^{(2)}/2=\epsilon_0d_{\rm Boyd}$. Convierta $\mathrm d=3\times10^{-23}$ C/V² a pm/V. Haga lo mismo para $\chi^{(3)}$.
+\end{enumerate}
+
+\prob{Oscilador anarmónico no centrosimétrico}{B §1.4.1–1.4.2; Prob.~1.3}\label{p:anar}
+\obj{reproducir la derivación central del capítulo y entender la regla de Miller.}
+\begin{enumerate}[label=(\alph*)]
+\item A partir de (1.4.1) y la expansión perturbativa, escriba las ecuaciones de orden $\lambda$, $\lambda^2$ y $\lambda^3$. Explique por qué no hace falta el término $\lambda^0\tilde x^{(0)}$ (Prob.~1.3).
+\item Obtenga $x^{(1)}(\omega_j)$, $\chi^{(1)}(\omega)$ y luego $x^{(2)}$ en $2\omega_1$, $\omega_1+\omega_2$, $\omega_1-\omega_2$ y $0$. Identifique $\chi^{(2)}$ en cada caso usando la definición (1.3.12) con el factor $D$ correcto.
+\item Exprese $\chi^{(2)}(\omega_1+\omega_2,\omega_1,\omega_2)$ en términos de $\chi^{(1)}$ (1.4.25) y enuncie la regla de Miller. ¿Qué cantidades se suponen casi universales y por qué?
+\item Con $a=\omega_0^2/d$, $N=1/d^3$, $\omega_0=10^{16}$ rad/s y $d=3$ Å, calcule $\chi^{(2)}$ no resonante y compárelo con la Tabla 1.5.3.
+\item ¿Para qué frecuencias $\chi^{(2)}(2\omega;\omega,\omega)$ es resonante? Grafique $|\chi^{(2)}(2\omega)|$ en función de $\omega/\omega_0$ con $\gamma=0.02\,\omega_0$ y explique los dos picos.
+\end{enumerate}
+
+\prob{Contribución de tercer orden del oscilador no centrosimétrico [$\star$]}{B Prob.~1.5}
+Para (1.4.1), obtenga $\tilde x^{(3)}$ y $\chi^{(3)}_{1111}(\omega_q,\omega_m,\omega_n,\omega_p)$ (resulta $\propto a^2$, y el paso intermedio por $x^{(2)}$ introduce factores $1/D(\omega_m+\omega_n)$, incluido $1/D(0)$ cuando $\omega_n=-\omega_m$). Compárelo con (1.4.52) para el medio centrosimétrico y estime con $a=\omega_0^2/d$, $b=\omega_0^2/d^2$ cuál contribución domina en un medio no centrosimétrico.
+
+\prob{Simulación numérica del oscilador anarmónico}{B §1.4; análogo a la Tarea 1, punto 2}\label{p:simul}
+\obj{ver la teoría de perturbaciones ``funcionar'' y fallar, igual que la serie de Taylor del diodo en la Tarea 1.}
+\textbf{[N]} En unidades normalizadas ($\omega_0=1$, $e/m=1$), integre $\ddot x+2\gamma\dot x+x+ax^2=-F[\cos\omega_1t+\cos\omega_2t]$ con $\gamma=0.05$, $a=0.3$, $\omega_1=0.3$, $\omega_2=0.42$ (RK4 o \texttt{ode45}/\texttt{solve\_ivp}), espere a que muera el transitorio y calcule el espectro de $x(t)$ con FFT (ventana con número entero de periodos).
+\begin{enumerate}[label=(\alph*)]
+\item Para $F=10^{-3}$, compare las amplitudes en $2\omega_1$, $\omega_1+\omega_2$, $\omega_2-\omega_1$ y DC con (1.4.13)–(1.4.14) (recuerde que $\tilde F\cos\omega t$ corresponde a $E=F/2$).
+\item Barra $F$ en escala logarítmica y grafique la amplitud en $\omega_1+\omega_2$ vs. $F$: verifique la pendiente 2 y halle a partir de qué $F$ la teoría de segundo orden se desvía más de un 10\,\%.
+\item Cambie a una fuerza centrosimétrica, $-bx^3$ en lugar de $+ax^2$, y muestre que desaparecen los armónicos pares y el DC (Fig.~1.5.2).
+\end{enumerate}
+
+\prob{Tensor $\chi^{(3)}$ isótropo y polarización elíptica}{B Prob.~1.4; Tabla 1.5.4; §4.2}
+\begin{enumerate}[label=(\alph*)]
+\item A partir de (1.4.52), muestre que $\chi_{1122}=\chi_{1212}=\chi_{1221}=\frac13\chi_{1111}$ (y permutaciones) y que los demás elementos son nulos. Dé un argumento físico de por qué se anulan, p.~ej., $\chi_{1112}$, y de por qué hay elementos fuera de la diagonal aunque el medio sea isótropo.
+\item Para un medio isótropo general, demuestre $\chi_{1111}=\chi_{1122}+\chi_{1212}+\chi_{1221}$ exigiendo que la respuesta no cambie bajo una rotación de $45^\circ$ alrededor de $z$.
+\item Con $\mathbf P=\epsilon_0A(\mathbf E\cdot\mathbf E^*)\mathbf E+\frac12\epsilon_0B(\mathbf E\cdot\mathbf E)\mathbf E^*$, calcule $\mathbf P$ para luz lineal y para luz circular. Muestre que el cambio de índice para circular es $A/(A+B/2)$ veces el de lineal y evalúelo para respuesta electrónica no resonante ($B/A=1$) y orientación molecular ($B/A=6$).
+\end{enumerate}
+
+\prob{Simetrías formales y notación contraída}{B §1.5.1–1.5.6; Probs.~1.7 y 1.9}
+\begin{enumerate}[label=(\alph*)]
+\item Demuestre la condición de realidad (1.5.5) y la de permutación intrínseca (1.5.6). ¿Cuál de las dos es física y cuál convencional?
+\item Escriba las versiones de (1.5.1), (1.5.5), (1.5.6), (1.5.8), (1.5.9) y (1.5.19) para $\chi^{(3)}$ (Prob.~1.7).
+\item Explique la cadena 324 $\to$ 81 $\to$ 27 $\to$ 18 $\to$ 10 elementos independientes de $\chi^{(2)}$.
+\item Con Kleinman, deduzca la matriz (1.5.25) a partir de (1.5.23): muestre al menos $d_{21}=d_{16}$, $d_{24}=d_{32}$, $d_{14}=d_{25}=d_{36}$.
+\item \emph{Clase 432} (Prob.~1.9): la Tabla 1.5.2 da elementos no nulos ($xyz=-xzy=\dots$) pero $d_{il}\equiv0$. Explique la aparente contradicción.
+\end{enumerate}
+
+\prob{Cálculo de $d_{\rm eff}$}{B §1.5.7, Prob.~1.6}
+\begin{enumerate}[label=(\alph*)]
+\item Verifique (1.5.30a) para un cristal 3m uniaxial negativo en SHG tipo I: escriba el campo ordinario a frecuencia $\omega$ para $\mathbf k$ con ángulos $(\theta,\phi)$, calcule $\mathbf P(2\omega)$ con la matriz 3m y proyéctelo sobre la dirección extraordinaria.
+\item Con los datos de BBO del Prob.~\ref{p:bbo} ($\theta_{pm}\approx22.9^\circ$, $d_{22}=2.2$ pm/V, desprecie $d_{31}$), ¿qué $\phi$ maximiza $|d_{\rm eff}|$ y cuánto vale?
+\item GaAs ($\bar43m$, $d_{14}=d_{25}=d_{36}=370$ pm/V): calcule $\mathbf P(2\omega)$ para un campo a lo largo de $[100]$, $[110]$ y $[111]$. ¿En cuál dirección $\mathbf P\parallel\mathbf E$ y cuánto vale $d_{\rm eff}$?
+\end{enumerate}
+
+\prob{Simetría de inversión}{B §1.5.10, §1.5.13–1.5.14}
+\begin{enumerate}[label=(\alph*)]
+\item Demuestre que en un medio centrosimétrico todas las susceptibilidades de orden par se anulan. Interprete con la Fig.~1.5.2: descomponga en serie de Fourier $\sin\omega t-0.25\sin3\omega t$ y $-0.2+\sin\omega t+0.2\cos2\omega t$.
+\item Diga si pueden tener $\chi^{(2)}$ volumétrico y por qué: agua, vidrio de sílice, Si$_3$N$_4$ amorfo, cuarzo, Si cristalino, GaAs, LiNbO$_3$, un cristal líquido nemático. ¿Por qué se mide SHG débil en guías de SiN y de Si? (Piense en superficies e interfaces, campos DC y deformación.)
+\item ¿Por qué GaAs, a pesar de su $d_{36}$ enorme, no sirve para ajuste de fase por birrefringencia?
+\end{enumerate}
+
+\prob{Respuesta temporal y Kramers–Kronig [$\star$]}{B §1.6–1.7; Probs.~1.10 y 1.11}
+\begin{enumerate}[label=(\alph*)]
+\item Muestre que una respuesta instantánea, $R^{(1)}(\tau)=\chi\,\delta(\tau)$, da $\chi^{(1)}(\omega)$ constante y explique por qué un medio así no puede tener absorción.
+\item Para una respuesta de Debye $R^{(1)}(\tau)=(\chi_0/\tau_r)e^{-\tau/\tau_r}\Theta(\tau)$, calcule $\chi^{(1)}(\omega)$, ubique su polo y verifique explícitamente (1.7.9).
+\item Para el oscilador de (1.4.20), muestre que $\chi^{(2)}(2\omega;\omega,\omega)$ tiene todos sus polos en el semiplano inferior de $\omega$ y por eso cumple (1.7.12). Muestre que $\chi^{(2)}(\omega_1;\omega_3,-\omega_2)$, vista como función de $\omega_2$, tiene un polo en el semiplano superior.
+\item Explique por qué no hay relación de Kramers–Kronig para el índice autoinducido $\chi^{(3)}(\omega;\omega,\omega,-\omega)$ pero sí para el inducido por un haz auxiliar $\chi^{(3)}(\omega;\omega,\omega_1,-\omega_1)$.
+\end{enumerate}
+
+\prob{Índice no lineal: del $\chi^{(3)}$ a números de laboratorio}{B §1.2.8, §4.1; Prob.~1.12}\label{p:n2}
+\begin{enumerate}[label=(\alph*)]
+\item Derive $n_2=3\chi^{(3)}/(4n_0^2\epsilon_0c)$ de $P(\omega)=3\epsilon_0\chi^{(3)}|E|^2E$ e $I=2n_0\epsilon_0c|E|^2$. Rehaga la cuenta con la amplitud real $\mathcal E$ e $I=\frac12n_0\epsilon_0c\mathcal E^2$ y decida si (1.2.14b), que imprime $3/(2n_0^2\epsilon_0c)$, es correcta.
+\item Muestre que $n_2[\mathrm{m^2/W}]=283\,\chi^{(3)}[\mathrm{m^2/V^2}]/n_0^2$. Calcule $n_2$ de la sílice ($\chi^{(3)}=1.8\times10^{-22}$ m²/V², $n_0=1.45$) y $\chi^{(3)}$ del Si$_3$N$_4$ ($n_2\approx2.4\times10^{-19}$ m²/W, $n_0=2.0$) y del Si ($n_2\approx4.5\times10^{-18}$ m²/W, $n_0=3.48$). Compare con $1/E_{\rm at}^2$ y con la estimación (1.4.56).
+\item ¿Qué $\Delta n$ produce $I=1$ GW/cm² en sílice? ¿Qué fase no lineal acumula en 1 cm a 1.064 µm? Compare con la fase del Prob.~\ref{p:campos}.
+\item Un campo $E=E_1e^{i\mathbf k_1\cdot\mathbf r}+E_2e^{i\mathbf k_2\cdot\mathbf r}$ con $|E_2|\ll|E_1|$: calcule $P^{(3)}(\omega)$ a primer orden en $E_2$ e interprete cada término (SPM, XPM con su factor 2, onda en $2\mathbf k_1-\mathbf k_2$) (Prob.~1.12).
+\end{enumerate}
+
+\prob{Problema integrador: del oscilador al cristal [$\star$]}{B caps.~1–2; S §6.3}
+Un cristal uniaxial ``modelo'' tiene electrones con $\omega_0=1.2\times10^{16}$ rad/s, $N=5\times10^{28}$ m$^{-3}$ y constante de red $d=3.5$ Å.
+\begin{enumerate}[label=(\alph*)]
+\item Con el modelo de Lorentz (sin amortiguamiento) calcule $n(\lambda)$ a 1064 nm y 532 nm. ¿Hay dispersión normal?
+\item Estime $\chi^{(2)}(2\omega;\omega,\omega)$ con (1.4.20) y $a=\omega_0^2/d$, tanto con la fórmula completa como con la no resonante. ¿Cuánto cambia por la dispersión?
+\item Si el cristal tuviera $n_e(532)$ suficientemente menor que $n_o(532)$, ¿qué ángulo de ajuste de fase tipo I necesitaría? (Plantee la ecuación, como en el Prob.~\ref{p:bbo}.)
+\item Con el $d_{\rm eff}$ resultante y el haz del Prob.~1.2 de Boyd, estime $P(2\omega)$.
+\end{enumerate}
+
+%=====================================================================
+\clearpage
+\section*{Respuestas para verificar}
+%=====================================================================
+{\small
+Calculadas con $c_0=2.998\times10^8$ m/s, $\epsilon_0=8.854\times10^{-12}$ F/m. Los problemas de demostración no tienen respuesta aquí; el enunciado ya dice el resultado.
+
+\begin{description}[leftmargin=1.2em,itemsep=2pt]
+\item[2.] (b) $\chi^{(1)}=1$, $\chi^{(2)}=-a\epsilon_0$, $\chi^{(3)}=2a^2\epsilon_0^2$ (de $\mathcal P=\epsilon_0\mathcal E-a\epsilon_0^2\mathcal E^2+2a^2\epsilon_0^3\mathcal E^3-\dots$). (c) $\nu_0=1/(2\pi\sqrt{a_1})$, $\Delta\nu=a_2/(2\pi a_1)$, $\chi_0=\chi$.
+\item[3.] $\beta^2+k_z^2=k_0^2$; $\mathrm{Re}\{S_x\}=0$ (en $x$ solo hay flujo reactivo): dos ondas planas a $\pm\theta$, $\sin\theta=\beta/k_0$.
+\item[4.] $P=1$ MW; $I_0=1.59\times10^{15}$ W/m² $=1.59\times10^{11}$ W/cm²; fluencia $1.59\times10^3$ J/cm² (¡por encima del daño!); $|E_S|=8.94\times10^8$ V/m, $|E_B|=4.47\times10^8$ V/m; $E_{\rm at}=5.14\times10^{11}$ V/m; $P^{(2)}/P^{(1)}\sim1.7\times10^{-3}$, $P^{(3)}/P^{(1)}\sim3\times10^{-6}$; $z_0=1.77$ mm.
+\item[5.] (b) $I=P/4\pi r^2=7.96$ W/m². (c) $U\approx\frac{A}{\sqrt\rho}e^{-jk\rho}$, $I\propto1/\rho$.
+\item[7.] $\nu_i=\nu_0+bt/\pi$: \emph{up-chirp}; $\Delta\nu=2b\tau/\pi=63.7$ THz.
+\item[8.] $W_0=0.675$ mm; $2z_0=2.70$ m; $I_0=1.40\times10^6$ W/m² (140 W/cm²); $I(0,1\,\mathrm m)=90.3$ W/cm².
+\item[9.] Cintura a 10.0 cm antes del primer plano; $W_0=0.200$ mm ($z_0=1.19$ cm). Solución única con $W_2>W_1$ y los dos planos del mismo lado.
+\item[10.] (a) $z_0=1.61$ m; $f_{\min}=W_0'z_0/W_0=16.1$ cm (con la lente a $z=f$ de la cintura). (b) $0.667$ mrad; $z_0$ crece en un factor $n$.
+\item[12.] (a) $n=1.5000$, $\alpha=4.19\times10^4$ m$^{-1}$ $=419$ cm$^{-1}$ $=1.82\times10^3$ dB/cm (débil: igual). (b) Exacto $n=4.50$, $\alpha=5.58\times10^7$ m$^{-1}$; fuerte: $n\approx4.47$, $\alpha\approx5.62\times10^7$ m$^{-1}$. (c) $\omega_p=2.39\times10^{16}$ rad/s, $\lambda_p=78.7$ nm; $\epsilon_e/\epsilon_0=-383-39.5j$ a 1.55 µm ($-47.8-1.8j$ a 550 nm): buen espejo. (d) $\lambda\approx5.8$ µm.
+\item[14.] Envolvente $\propto1+m\,e^{-j\Phi}\cos(2\pi f_st-\Psi)$, $\Phi=(\beta_1+\beta_2-2\beta_0)z/2$, $\Psi=(\beta_2-\beta_1)z/2$; AM pura si $\Phi=q\pi$: $z_q=2q\pi/(\beta_1+\beta_2-2\beta_0)\approx q/(2\pi\beta''f_s^2)$.
+\item[15.] Sílice: $D_\lambda=0$ en $1.273$ µm; a 0.8 µm $N=1.4671$, $D_\lambda=-106$ ps/(km·nm); a 1.55 µm $N=1.4626$, $D_\lambda=+21.9$ ps/(km·nm), $\beta_2=-28.0$ ps²/km. GaAs: $D_\lambda=0$ en $6.84$ µm ($D_\lambda=-506$ a 2 µm, $+17.3$ a 10 µm).
+\item[16.] $N(0.81\,\mu\mathrm m)=1.000273$; $D_\lambda\approx+0.108$ ps/(km·nm) (unas 200 veces menor que la fibra a 1.55 µm).
+\item[17.] (a) $N=1.4671$; retardo 48.9 ps; $\beta''=36.1$ fs²/mm; 100 fs: $z_0=99.8$ mm, sale con 100.5 fs; 20 fs: $z_0=3.99$ mm, sale con 53.9 fs. (b) $D_\nu=-1.36\times10^{-25}$ s²/m, $z_0=1.66$ km; 60.9 ps (10 km) y 601 ps (100 km). (d) $a=3$ es \emph{down-chirp} en $e^{j\omega t}$; se comprime en dispersión normal a $z=\frac{a}{1+a^2}z_0=0.3z_0$ hasta $\tau_0/\sqrt{10}=0.316\tau_0$.
+\item[18.] $\mathsf r=2$, $\varphi=60^\circ$, $\psi=73.2^\circ$, $\chi=21.9^\circ$ (derecha); $S=(1,-0.6,0.4,0.693)$.
+\item[19.] (c) Retardador a $30^\circ$: modos LP a $30^\circ$ y $120^\circ$, $\mu=1,e^{-j\Gamma}$; rotador: R y L, $e^{\mp j\theta}$; polarizador a $45^\circ$: LP a $45^\circ$ ($\mu=1$) y $135^\circ$ ($\mu=0$). (d) $\sin^2(\Gamma/2)$.
+\item[21.] (b) $\mathcal R_{TE}=0.0920$, $\mathcal R_{TM}=0.0085$, promedio $0.0502$. (c) $\theta_c=41.8^\circ$, $\theta=50.2^\circ$: $\varphi_{TE}=+61.5^\circ$, $\varphi_{TM}=-73.5^\circ$, diferencia $135.0^\circ$ ($=45.0^\circ$ en la convención de Born \& Wolf); (6.2-13) impresa da $\varphi_y=0$ en $\theta_c$, contra la figura ($\pi$): úsese Fresnel directamente. (d) $n=1.51$: $48.6^\circ$ y $54.6^\circ$ (retardo extremo $45.9^\circ$ en $51.3^\circ$). (e) $\theta_B=74.0^\circ$ (Si), $63.3^\circ$ (Si$_3$N$_4$).
+\item[22.] Penetración $1/\gamma=176$ nm.
+\item[23.] (a) $89.3$ rad/mm; $\lambda/4$ en $17.6$, $87.9$, $158$ µm, … (b) Onda o: $\theta_o=18.89^\circ$; onda e: $\kv$ a $18.79^\circ$ ($n=1.5527$), rayo a $18.66^\circ$. (c) $n(45^\circ)=2.2436$, walk-off $2.29^\circ$, desplazamiento $0.40$ mm, retardo $4.33\times10^3$ rad ($\approx689.5$ ondas).
+\item[24.] $\theta=22.9^\circ$; walk-off $3.19^\circ$ (55.7 mrad), separación $279$ µm en 5 mm; $\Delta k=2.34\times10^5$ m$^{-1}$, $L_c=13.4$ µm.
+\item[25.] $V_z=17.3^\circ$.
+\item[26.] (a) 2.90 mm; rotación neta nula (recíproco). (b) $L=19.6$ mm.
+\item[27.] Gooch–Tarry: transmisión 0.23 ($u=0.5$), 0.68 ($u=1$), 1 en $u=\sqrt3$ (primer mínimo de Gooch–Tarry), $\to1$ para $u\gg1$.
+\item[28.] (e) Líneas de la Tarea 1: 0 Hz (OR, 1), 70 Hz (DFG, 1), 100 y 240 Hz (SHG, 0.5), 170 Hz (SFG, 1).
+\item[29.] (a) $5.4\times10^{-11}$ m/V. (b) $|E|=3.65\times10^5$ V/m; $P(2\omega)=4.72\times10^{-11}$ C/m²; $\mu(2\omega)=4.7\times10^{-39}$ C·m $=5.6\times10^{-10}ea_0$; $P(\omega)=9.70\times10^{-6}$ C/m², $\mu(\omega)=1.14\times10^{-4}ea_0$; razón $4.9\times10^{-6}$. (c) $1.94\times10^{-12}$ m/V, $3.78\times10^{-24}$ m²/V², $3.5\times10^{16}$ W/cm². (d) $3.39$ pm/V; $\chi^{(3)}_{\rm Boyd}=4\chi^{(3)}_{\rm Saleh}/\epsilon_0$.
+\item[30.] (d) $\chi^{(2)}\approx6.9\times10^{-12}$ m/V. (e) Picos en $\omega=\omega_0/2$ (resonancia de dos fotones, $D(2\omega)$) y $\omega=\omega_0$ ($D^2(\omega)$).
+\item[33.] (c) Lineal: $\mathbf P=\epsilon_0(A+\frac B2)|E|^2\mathbf E$; circular: $\epsilon_0A|E|^2\mathbf E$; razón $2/3$ ($B/A=1$) y $1/4$ ($B/A=6$).
+\item[35.] (b) $\phi=-30^\circ$ (o $90^\circ$): $|d_{\rm eff}|=d_{22}\cos\theta=2.03$ pm/V. (c) $[100]$: $\mathbf P=0$; $[110]$: $\mathbf P\parallel\hat z$, $|P|=2\epsilon_0d_{36}E^2$; $[111]$: $\mathbf P\parallel\mathbf E$, $d_{\rm eff}=2d_{14}/\sqrt3=427$ pm/V.
+\item[37.] (b) $\chi^{(1)}=\chi_0/(1-i\omega\tau_r)$, polo en $\omega=-i/\tau_r$ (semiplano inferior).
+\item[38.] (a) (1.2.14b) es errata: $n_2=3\chi^{(3)}/(4n_0^2\epsilon_0c)$ por ambos caminos. (b) Sílice $n_2=2.4\times10^{-20}$ m²/W; Si$_3$N$_4$ $\chi^{(3)}=3.4\times10^{-21}$ m²/V²; Si $1.9\times10^{-19}$ m²/V². (c) $\Delta n=2.4\times10^{-7}$; $\phi_{NL}=0.014$ rad.
+\item[39.] (a) $n(1064)=1.459$, $n(532)=1.487$ (sí, normal). (b) $\chi^{(2)}=4.4\times10^{-12}$ m/V completa contra $3.9\times10^{-12}$ no resonante (14\,\% más). (d) Con $d_{\rm eff}=\chi^{(2)}/2$: $P(2\omega)\approx7\times10^{-12}$ C/m².
+\end{description}
+}
+
+\end{document}

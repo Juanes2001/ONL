@@ -3,6 +3,75 @@
 Registro de cada sesión de trabajo en el repositorio: qué se hizo, qué decisiones se tomaron y
 qué queda pendiente. La entrada más reciente va arriba.
 
+## 2026-11-14 (sábado) → 2026-11-15 (domingo) — Preparación del Examen 1 (temas 1–4) y lectura completa del Boyd
+
+El resumen detallado para retomar está en `notas/resumen-sesion-2026-11-15-examen-1.md`.
+
+### Hecho
+- **Programa del curso leído.** El Examen 1 es el miércoles 2026-11-18 y cubre los temas 1–4
+  (Saleh 5.1, 5.2, 5.4, 2.2; 3.1, 5.5, 5.6; cap. 6; Boyd cap. 1). Se repasaron los apuntes del
+  Saleh de esos temas: caps. 2, 3, 5 y 6.
+- **Boyd, 3.ª ed., leído completo.**
+  - 632 pp. de escaneo; PDF = libro + 18.
+  - Lo leyeron 9 agentes en paralelo, uno por tramo.
+  - Apuntes en `notas/boyd/`: 13 capítulos más `apendices.md` (front matter, tabla de contenido,
+    unidades SI y gaussianas, conversión $\chi^{(n)}$, constantes), unas 10 000 líneas.
+  - Llevan las ecuaciones numeradas, todos los problemas transcritos (104) y las erratas marcadas.
+  - El índice está en `notas/boyd/README.md`, con el mapa de páginas reales y las erratas clave.
+- **Resumen para el examen:** `notas/examen-1/resumen-examen-1.tex` → `.pdf`.
+  - 4 pp., dos columnas.
+  - Abre con las constantes y la tabla de convenciones Saleh ↔ Boyd.
+  - Sigue con las fórmulas y la teoría de cada tema, citando ecuación y página.
+- **Taller de repaso:** `notas/examen-1/taller-repaso-examen-1.tex` → `.pdf`.
+  - 10 pp., 39 problemas (7, 10, 10 y 12 por tema), con fuente y objetivo.
+  - Incluye problemas numéricos y de programación al estilo de las tareas 1 y 2: oscilador
+    anarmónico con FFT, Kramers–Kronig numérico, Sellmeier, compresión de pulsos con chirp,
+    rombo de Fresnel, nemático torcido.
+  - Al final van las respuestas numéricas.
+  - No repite los problemas ya resueltos en las tareas 1 y 2.
+- **Erratas clave:**
+  - Boyd (1.2.14b): sobra un factor 2 en $n_2$; lo correcto es la (4.1.19).
+  - Boyd, Tabla 1.5.3: KDP es de la clase $\bar42m$, y en LiNbO₃ el coeficiente es $d_{33}$, no $d_{32}$.
+  - Saleh (6.2-13): da $\varphi_y=0$ en $\theta_c$, mientras que la Fig. 6.2-5 muestra $\pi$ (verificado en la página).
+- Se actualizaron `bibliografia/README.md` (Boyd leído completo) y la memoria local de Claude Code.
+
+### Pendiente
+- Resolver el taller de repaso antes del examen y verificar las respuestas, que Claude calculó con
+  scripts no guardados.
+- Decidir si se hace commit de `notas/boyd/`, `notas/examen-1/` y los resúmenes de sesión. Nada se
+  ha subido a git todavía.
+- Después del examen: caps. 2, 4 y 7 del Boyd para los temas 5–6.
+- Siguen los pendientes del proyecto final (entrada siguiente).
+
+## 2026-11-12 (jueves) → 2026-11-14 (sábado) — Proyecto final: estado del arte, propiedades no lineales de SiN y Si, referencias
+
+Resumen detallado para retomar: `notas/resumen-sesion-2026-11-14-proyecto-final.md`.
+
+### Hecho
+- Recontextualización del proyecto final (supercontinuo en anillos de SiN, add-drop sensor de
+  volumen). Lista de lectura por bloques: `proyecto-final/lectura-estado-del-arte.md`.
+- Supercontinuo en el Agrawal local (4.ª ed., PDF = libro + 4): §12.3 pp. 469–477 y §12.4
+  pp. 477–495; requisitos §2.3, §3.3, §4.1–4.2, §5.2, §5.5, §11.1.
+- Repaso de Lumerical para no lineal: sin LLE en ninguna versión; v202 tiene χ⁽³⁾ en FDTD/varFDTD
+  y FDE; v261 añade `NLSE_WGD` y `NL_RING` (Kerr solo con R1.3+, sin comprobar en el cluster).
+- Búsqueda profunda nov-2021 → nov-2026 (4 frentes): `proyecto-final/reports/Propiedades no
+  lineales SiN y Si.md` + notas en `research_notes/`. n₂(Si₃N₄) = 2.2–2.4×10⁻¹⁹ m²/W (Gao 2022,
+  Tian 2026), sin TPA; Si: n₂ = 5.2×10⁻¹⁸ m²/W, β_TPA = 0.76 cm/GW (Sinclair 2019); única octava en
+  SiN de 400 nm con TeO₂ (Mbonde 2023); ningún supercontinuo en SiN con agua.
+- 10 DOI pendientes cotejados en Crossref (todos bien). Corregida la autoría de *Opt. Express* 21,
+  32192 (2013): T. Wang et al., no "Gai".
+- Lista única de descargas: `proyecto-final/referencias-a-descargar.md` (67 refs, 22 ★, enlaces y
+  acceso) y su PDF `proyecto-final/referencias-a-descargar.pdf`.
+
+### Pendiente
+- Descargar las 22 referencias ★ (ninguna bajada aún) y registrarlas en `bibliografia/README.md`.
+- Escribir el protocolo de cálculo de supercontinuo en SiN (FDE → β(ω), γ escalar/vectorial → GNLSE)
+  y su versión para Si (TPA, portadores).
+- Correr `seccion_v1` cuando el Lumerical local esté libre de la tesis.
+- Cotejar los valores [NV] del informe; extraer tablas de Lafforgue 2022 y Brès 2023.
+- Confirmar el service pack de la v261 del cluster.
+- Commit de todo lo de esta sesión cuando Juanes lo pida.
+
 ## 2026-11-06 (viernes) — Tarea 2: dudas de los puntos 2 y 3; commit de la revisión
 
 ### Hecho

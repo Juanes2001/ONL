@@ -21,8 +21,12 @@ Para arrancar una sesión de Claude Code:
 ## 2. Dónde estamos
 
 - **Foco actual:** Tarea 2 (`talleres/taller-02-dispersion-polarizacion/`), revisada; falta lo de §3.
-- **Proyecto final:** en pausa desde el 2026-11-04 para dedicarse al taller 2 (ver §6).
+- **Proyecto final:** retomado el 2026-11-12 (estado del arte, propiedades no lineales de SiN y Si,
+  lista de descargas). Leer `notas/resumen-sesion-2026-11-14-proyecto-final.md`.
 - **Saleh & Teich, 2.ª ed.:** leído completo; apuntes en `notas/saleh/` (ver §5).
+- **Boyd, 3.ª ed.:** leído completo el 2026-11-14; apuntes en `notas/boyd/` (índice en su `README.md`).
+- **Examen 1 (miércoles 2026-11-18, temas 1–4):** el resumen para consultar y el taller de repaso
+  están en `notas/examen-1/`. Leer `notas/resumen-sesion-2026-11-15-examen-1.md`.
 
 ## 3. Tarea 2: estado y pendientes
 
