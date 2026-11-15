@@ -1,37 +1,36 @@
-\documentclass[9pt]{extarticle}
+\documentclass[10pt]{article}
 % Resumen para consultar durante el Examen 1 de Óptica No Lineal (temas 1–4).
-% Compilar con XeLaTeX (dos pasadas) o Tectonic:  tectonic resumen-examen-1.tex
+% Versión de una columna, con explicación de cada tema (2026-11-15).
+% Compilar con XeLaTeX (dos pasadas):  xelatex resumen-examen-1.tex
 \usepackage[spanish,es-noshorthands,es-nodecimaldot,es-tabla]{babel}
 \usepackage{fontspec}
 \usepackage{amsmath,amssymb,mathtools}
 \usepackage{booktabs,array}
-\usepackage{multicol}
 \usepackage{xcolor}
 \usepackage{enumitem}
-\usepackage[letterpaper,margin=1.25cm,top=1.2cm,bottom=1.4cm]{geometry}
+\usepackage[letterpaper,margin=2cm,top=2cm,bottom=2cm]{geometry}
 \usepackage{titlesec}
 \usepackage{fancyhdr}
+\usepackage[most]{tcolorbox}
 \usepackage{hyperref}
 \hypersetup{colorlinks=true,linkcolor=black,urlcolor=black}
 
 \definecolor{tema}{RGB}{20,60,120}
 \definecolor{caja}{RGB}{235,241,250}
+\definecolor{idea}{RGB}{245,245,235}
 \definecolor{alerta}{RGB}{170,30,30}
-\titleformat{\section}{\large\bfseries\color{tema}}{\thesection}{0.5em}{}[\vspace{-0.6ex}\color{tema}\rule{\linewidth}{0.6pt}]
-\titleformat{\subsection}{\normalsize\bfseries\color{tema}}{\thesubsection}{0.4em}{}
-\titlespacing*{\section}{0pt}{1.2ex}{0.8ex}
-\titlespacing*{\subsection}{0pt}{1.0ex}{0.4ex}
-\setlist{nosep,leftmargin=1.1em}
-\setlength{\columnsep}{0.55cm}
-\setlength{\columnseprule}{0.2pt}
+\titleformat{\section}{\Large\bfseries\color{tema}}{\thesection.}{0.5em}{}[\vspace{-0.4ex}\color{tema}\rule{\linewidth}{0.8pt}]
+\titleformat{\subsection}{\large\bfseries\color{tema}}{\thesubsection}{0.5em}{}
+\titlespacing*{\section}{0pt}{3ex}{1.5ex}
+\titlespacing*{\subsection}{0pt}{2.2ex}{0.8ex}
+\setlist{itemsep=0.3ex,topsep=0.6ex,leftmargin=1.5em}
 \setlength{\parindent}{0pt}
-\setlength{\parskip}{0.35ex}
-\setlength{\abovedisplayskip}{2pt}\setlength{\belowdisplayskip}{2pt}
-\setlength{\abovedisplayshortskip}{1pt}\setlength{\belowdisplayshortskip}{1pt}
+\setlength{\parskip}{0.8ex}
 \pagestyle{fancy}\fancyhf{}
-\lhead{\footnotesize Óptica No Lineal 2026-II — Resumen Examen 1 (temas 1–4)}
-\rhead{\footnotesize p.~\thepage}
-\renewcommand{\headrulewidth}{0.3pt}
+\lhead{\small Óptica No Lineal 2026-II — Resumen Examen 1 (temas 1–4)}
+\rhead{\small p.~\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\setlength{\headheight}{14pt}
 
 \newcommand{\Ec}{\boldsymbol{\mathcal E}}
 \newcommand{\Hc}{\boldsymbol{\mathcal H}}
@@ -50,303 +49,750 @@
 \newcommand{\ud}{\hat{\mathbf u}}
 \newcommand{\cc}{\text{c.c.}}
 \newcommand{\ojo}[1]{{\color{alerta}\textbf{Ojo:} #1}}
-\newcommand{\cajita}[1]{\par\noindent\colorbox{caja}{\parbox{\dimexpr\linewidth-2\fboxsep}{#1}}\par}
+
+% Caja de fórmulas clave
+\newtcolorbox{clave}[1][]{enhanced,breakable,colback=caja,colframe=tema,boxrule=0.5pt,arc=2pt,
+  left=6pt,right=6pt,top=4pt,bottom=4pt,fonttitle=\bfseries\small,#1}
+% Caja de idea física (qué significa, por qué importa)
+\newtcolorbox{idea}{enhanced,breakable,colback=idea,colframe=black!25,boxrule=0.4pt,arc=2pt,
+  left=6pt,right=6pt,top=3pt,bottom=3pt,title={Idea física},fonttitle=\bfseries\small,
+  coltitle=black,colbacktitle=black!8}
 
 \begin{document}
 
 \begin{center}
-{\Large\bfseries\color{tema} Óptica No Lineal — Resumen para el Examen 1}\\[0.3ex]
-{\small Temas 1–4: ondas EM (Saleh 5.1, 5.2, 5.4, 2.2) · haz gaussiano, absorción y dispersión, pulsos (Saleh 3.1, 5.5, 5.6) · polarización y cristales (Saleh cap.~6) · susceptibilidad no lineal (Boyd cap.~1)}\\[0.2ex]
-{\footnotesize Juan E. Rodríguez Ochoa · UNAL Medellín · Prof. R. Acuña Herrera · Saleh \& Teich, \emph{Fundamentals of Photonics}, 2.ª ed. (2007); Boyd, \emph{Nonlinear Optics}, 3.ª ed. (2008). Páginas = páginas del libro.}
+{\LARGE\bfseries\color{tema} Óptica No Lineal — Resumen para el Examen 1}\\[1ex]
+{\normalsize Temas 1–4: ondas electromagnéticas (Saleh 5.1, 5.2, 5.4, 2.2) · haz gaussiano, absorción y dispersión, pulsos (Saleh 3.1, 5.5, 5.6) · polarización y cristales (Saleh cap.~6) · susceptibilidad no lineal (Boyd cap.~1)}\\[1ex]
+{\small Juan E. Rodríguez Ochoa · UNAL · Prof. R. Acuña Herrera\\
+Saleh \& Teich, \emph{Fundamentals of Photonics}, 2.ª ed. (2007); Boyd, \emph{Nonlinear Optics}, 3.ª ed. (2008).\\
+Los números entre paréntesis, p.~ej. (5.2-25) o (1.4.24), son ecuaciones del libro correspondiente.}
 \end{center}
 
-\begin{multicols}{2}
+\tableofcontents
 
 %=====================================================================
-\section*{0. Constantes y convenciones (¡leer primero!)}
+\section*{0. Constantes y convenciones (leer primero)}
+\addcontentsline{toc}{section}{0. Constantes y convenciones}
 %=====================================================================
-$c_0=2.99792458\times10^{8}$ m/s; $\epsilon_0=8.854\times10^{-12}$ F/m; $\mu_0=4\pi\times10^{-7}$ H/m;
-$\eta_0=\sqrt{\mu_0/\epsilon_0}=376.73\ \Omega\approx120\pi$; $e=1.602\times10^{-19}$ C;
-$m_e=9.109\times10^{-31}$ kg; $\hbar=1.0546\times10^{-34}$ J·s; $h=6.626\times10^{-34}$ J·s;
-$a_0=0.529$ Å; $1/(4\pi\epsilon_0)=8.988\times10^{9}$ N·m²/C²; $k_B=1.381\times10^{-23}$ J/K.
-$\omega=2\pi\nu$, $k_0=\omega/c_0=2\pi/\lambda_0$, $k=nk_0$, $\lambda=\lambda_0/n$, $c=c_0/n$.
 
-\medskip
-{\footnotesize\setlength{\tabcolsep}{3pt}\begin{tabular}{@{}p{0.16\linewidth}p{0.39\linewidth}p{0.4\linewidth}@{}}
+\subsection*{Constantes físicas}
+\begin{center}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{@{}ll@{\qquad}ll@{}}
+\toprule
+$c_0$ & $2.99792458\times10^{8}$ m/s & $e$ & $1.602\times10^{-19}$ C\\
+$\epsilon_0$ & $8.854\times10^{-12}$ F/m & $m_e$ & $9.109\times10^{-31}$ kg\\
+$\mu_0$ & $4\pi\times10^{-7}$ H/m & $h$ & $6.626\times10^{-34}$ J·s\\
+$\eta_0=\sqrt{\mu_0/\epsilon_0}$ & $376.73\ \Omega\approx120\pi\ \Omega$ & $\hbar$ & $1.0546\times10^{-34}$ J·s\\
+$1/(4\pi\epsilon_0)$ & $8.988\times10^{9}$ N·m²/C² & $a_0$ (radio de Bohr) & $0.529$ Å\\
+ & & $k_B$ & $1.381\times10^{-23}$ J/K\\
+\bottomrule
+\end{tabular}
+\end{center}
+Relaciones básicas: $\omega=2\pi\nu$, \ $k_0=\omega/c_0=2\pi/\lambda_0$; en un medio de índice $n$: $k=nk_0$, $\lambda=\lambda_0/n$, $c=c_0/n$.
+
+\subsection*{Las dos convenciones: Saleh frente a Boyd}
+Los temas 1–3 usan el Saleh y el tema 4 usa el Boyd. Los dos libros escriben los campos complejos de forma distinta, así que una fórmula copiada de uno al otro sin convertir sale con un factor 2 o un signo equivocado. La tabla resume las diferencias:
+
+\begin{center}
+\renewcommand{\arraystretch}{1.35}
+\begin{tabular}{@{}p{0.16\linewidth}p{0.38\linewidth}p{0.38\linewidth}@{}}
 \toprule
  & \textbf{Saleh (temas 1–3)} & \textbf{Boyd (tema 4)}\\\midrule
-Tiempo & $e^{+j\omega t}$, onda $+z$: $e^{-jkz}$ & $e^{-i\omega t}$, onda $+z$: $e^{+ikz}$\\
-Campo real & $\Ec=\mathrm{Re}\{\E e^{j\omega t}\}$ ($\E$ = pico) & $\tilde E=Ee^{-i\omega t}+\cc$ ($|E|$ = ½ pico)\\
+Dependencia temporal & $e^{+j\omega t}$; onda hacia $+z$: $e^{-jkz}$ & $e^{-i\omega t}$; onda hacia $+z$: $e^{+ikz}$\\
+Campo real & $\Ec=\mathrm{Re}\{\E e^{j\omega t}\}$ ($\E$ es la amplitud pico) & $\tilde E=Ee^{-i\omega t}+\cc$ ($|E|$ es la mitad del pico)\\
 Intensidad & $I=|E|^2/2\eta$ & $I=2n\epsilon_0c|E|^2$\\
 Absorción & $\chi''<0\Rightarrow\alpha>0$ & $\mathrm{Im}\,\chi>0\Rightarrow$ absorbe\\
-No lineal & $\mathcal P_{NL}=2\mathrm d\,\mathcal E^2+4\chi^{(3)}_S\mathcal E^3$ & $\tilde P=\epsilon_0[\chi^{(1)}\tilde E+\chi^{(2)}\tilde E^2+\chi^{(3)}\tilde E^3]$\\
+Polarización no lineal & $\mathcal P_{NL}=2\mathrm d\,\mathcal E^2+4\chi^{(3)}_S\mathcal E^3$ & $\tilde P=\epsilon_0[\chi^{(1)}\tilde E+\chi^{(2)}\tilde E^2+\chi^{(3)}\tilde E^3]$\\
 \bottomrule
-\end{tabular}}
+\end{tabular}
+\end{center}
 
-\smallskip
-Equivalencias: $E_{\rm Saleh}=2E_{\rm Boyd}$; $j\leftrightarrow -i$; $\mathrm d_{\rm Saleh}=\tfrac12\epsilon_0\chi^{(2)}=\epsilon_0d_{\rm Boyd}$;
-$\chi^{(3)}_{\rm Saleh}=\tfrac14\epsilon_0\chi^{(3)}_{\rm Boyd}$; $n_2$ [m²/W] es el mismo en ambos.
-\ojo{al pasar de un libro al otro cambia el signo de la parte imaginaria de $\chi$ y el factor 2 de las amplitudes.}
+\begin{clave}[title={Equivalencias}]
+$E_{\rm Saleh}=2E_{\rm Boyd}$; \quad $j\leftrightarrow -i$; \quad $\mathrm d_{\rm Saleh}=\tfrac12\epsilon_0\chi^{(2)}=\epsilon_0d_{\rm Boyd}$; \quad
+$\chi^{(3)}_{\rm Saleh}=\tfrac14\epsilon_0\chi^{(3)}_{\rm Boyd}$; \quad $n_2$ [m²/W] es el mismo en ambos libros.
+\end{clave}
+\ojo{al pasar de un libro al otro cambia el signo de la parte imaginaria de $\chi$ (porque $j\to-i$) y aparece el factor 2 en las amplitudes.}
 
 %=====================================================================
 \section{Ondas electromagnéticas (Saleh 5.1–5.4, 2.2)}
 %=====================================================================
-\subsection*{Maxwell, constitutivas, frontera, energía (§5.1)}
-Medio sin fuentes:
-$\nabla\times\Hc=\partial_t\Dc$, $\nabla\times\Ec=-\partial_t\Bc$, $\nabla\cdot\Dc=0$, $\nabla\cdot\Bc=0$ (5.1-7)–(5.1-10);
-$\Dc=\epsilon_0\Ec+\Pc$, $\Bc=\mu_0\Hc+\mu_0\boldsymbol{\mathcal M}$ (5.1-11,12).
-Vacío: cada componente cumple $\nabla^2u-c_0^{-2}\partial_t^2u=0$, $c_0=1/\sqrt{\epsilon_0\mu_0}$ (5.1-5,6).
-\textbf{Frontera} (sin cargas/corrientes libres): continuas $\mathcal E_t$, $\mathcal H_t$, $\mathcal D_n$, $\mathcal B_n$; en conductor perfecto $\mathcal E_t=0$ (espejo: desfase $\pi$).
-\textbf{Poynting} $\Sc=\Ec\times\Hc$ (5.1-13); $I=|\langle\Sc\rangle|$;
-$\nabla\cdot\Sc=-\partial_t(\tfrac12\epsilon_0\mathcal E^2+\tfrac12\mu_0\mathcal H^2)-\Ec\cdot\partial_t\Pc-\mu_0\Hc\cdot\partial_t\boldsymbol{\mathcal M}$ (teorema de Poynting, cf.~5.1-14: los dos últimos términos son la potencia por unidad de volumen entregada a los dipolos del medio).
-Momento: $\epsilon_0\Ec\times\Bc=\Sc/c^2$; presión de radiación $\langle S\rangle/c$ (absorción), $2\langle S\rangle/c$ (reflexión total).
 
-\subsection*{Clasificación del medio (§5.2)}
-\textbf{Lineal} (superposición) · \textbf{no dispersivo} (respuesta instantánea) · \textbf{homogéneo} (no depende de $\rv$) · \textbf{isótropo} ($\Pc\parallel\Ec$) · \textbf{espacialmente no dispersivo} (local).
+\begin{idea}
+La luz es una onda electromagnética. Todo lo que pasa en un material (refracción, absorción, dispersión, birrefringencia y los efectos no lineales) entra en las ecuaciones de Maxwell por un único término: la \textbf{polarización} $\Pc$, el momento dipolar por unidad de volumen que el campo induce en el medio. Este tema construye la ecuación de onda con $\Pc$ como fuente; los temas siguientes solo cambian la relación entre $\Pc$ y $\Ec$.
+\end{idea}
+
+\subsection{Ecuaciones de Maxwell, condiciones de frontera y energía (§5.1)}
+En un medio sin cargas ni corrientes libres:
+\[
+\nabla\times\Hc=\frac{\partial\Dc}{\partial t},\qquad
+\nabla\times\Ec=-\frac{\partial\Bc}{\partial t},\qquad
+\nabla\cdot\Dc=0,\qquad \nabla\cdot\Bc=0 \qquad(5.1\text{-}7\ \text{a}\ 5.1\text{-}10)
+\]
+Las relaciones constitutivas dicen cómo responde el medio:
+\[
+\Dc=\epsilon_0\Ec+\Pc,\qquad \Bc=\mu_0\Hc+\mu_0\boldsymbol{\mathcal M}\qquad(5.1\text{-}11,\,12)
+\]
+En óptica casi siempre $\boldsymbol{\mathcal M}=0$ (medio no magnético). En el vacío ($\Pc=0$) cada componente del campo cumple la ecuación de onda $\nabla^2u-c_0^{-2}\partial_t^2u=0$, con $c_0=1/\sqrt{\epsilon_0\mu_0}$ (5.1-5, 6).
+
+\textbf{Condiciones de frontera} (sin cargas ni corrientes libres en la interfaz): son continuas las componentes tangenciales $\mathcal E_t$, $\mathcal H_t$ y las normales $\mathcal D_n$, $\mathcal B_n$. En un conductor perfecto $\mathcal E_t=0$; por eso un espejo metálico refleja con desfase $\pi$. Estas condiciones son las que dan las fórmulas de Fresnel (§3.3).
+
+\textbf{Energía: vector de Poynting.} El flujo de potencia por unidad de área es $\Sc=\Ec\times\Hc$ (5.1-13), y la intensidad es su promedio temporal, $I=|\langle\Sc\rangle|$. El teorema de Poynting es un balance de energía:
+\[
+\nabla\cdot\Sc=-\frac{\partial}{\partial t}\Big(\tfrac12\epsilon_0\mathcal E^2+\tfrac12\mu_0\mathcal H^2\Big)-\Ec\cdot\frac{\partial\Pc}{\partial t}-\mu_0\Hc\cdot\frac{\partial\boldsymbol{\mathcal M}}{\partial t}
+\]
+Se lee así: la potencia que sale de un volumen es igual a lo que pierde la energía almacenada en el campo, menos la potencia que el campo entrega a los dipolos del medio (los dos últimos términos). Esos términos son los responsables de la absorción.
+
+La luz también lleva momento, con densidad $\epsilon_0\Ec\times\Bc=\Sc/c^2$. La presión de radiación es $\langle S\rangle/c$ sobre una superficie que absorbe y $2\langle S\rangle/c$ sobre una que refleja totalmente.
+
+\subsection{Clasificación de los medios dieléctricos (§5.2)}
+Un medio se describe por la relación entre $\Pc$ y $\Ec$. Cinco propiedades independientes:
 \begin{itemize}
-\item LNHI: $\Pc=\epsilon_0\chi\Ec$, $\epsilon=\epsilon_0(1+\chi)$, $n=\sqrt{\epsilon/\epsilon_0}=\sqrt{1+\chi}$ (5.2-1,3,13); $c=1/\sqrt{\epsilon\mu}$; $\mathcal W=\tfrac12\epsilon\mathcal E^2+\tfrac12\mu\mathcal H^2$.
-\item Inhomogéneo: $\nabla^2\Ec+\nabla(\tfrac1\epsilon\nabla\epsilon\cdot\Ec)-\mu_0\epsilon\partial_t^2\Ec=0$ (5.2-18); si $\epsilon$ varía lento: $\nabla^2\Ec-\partial_t^2\Ec/c^2(\rv)\approx0$. Perturbación $\Delta n$: fuente $\Delta\Pc=2\epsilon_0n\Delta n\,\Ec$ (5.2-20).
-\item Anisótropo: $\mathcal P_i=\epsilon_0\sum_j\chi_{ij}\mathcal E_j$ (5.2-21).
-\item Dispersivo: $\Pc(t)=\epsilon_0\!\int x(t-t')\Ec(t')dt'$ (5.2-23), causal ($x(t)=0$, $t<0$); $\chi(\nu)=\mathcal F\{x(t)\}$.
-\item No lineal: $\Pc=\Psi(\Ec)$ $\Rightarrow$ no hay superposición.
+\item \textbf{Lineal}: $\Pc$ es proporcional a $\Ec$, así que vale la superposición.
+\item \textbf{No dispersivo}: la respuesta es instantánea; $\Pc(t)$ depende solo de $\Ec(t)$.
+\item \textbf{Homogéneo}: la relación no depende de la posición $\rv$.
+\item \textbf{Isótropo}: la relación no depende de la dirección de $\Ec$, así que $\Pc\parallel\Ec$.
+\item \textbf{Espacialmente no dispersivo}: $\Pc$ en $\rv$ depende solo de $\Ec$ en $\rv$ (respuesta local).
 \end{itemize}
-\cajita{\textbf{Ecuación de onda general} (medio homogéneo e isótropo, lineal o no, dispersivo o no):
-$\displaystyle\nabla^2\Ec-\frac{1}{c_0^2}\frac{\partial^2\Ec}{\partial t^2}=\mu_0\frac{\partial^2\Pc}{\partial t^2}$ (5.2-25).
-Derivación: rotacional de Faraday + Ampère, $\nabla\times\nabla\times=\nabla(\nabla\cdot)-\nabla^2$, $\nabla\cdot\Ec=0$.
-Con $\Pc=\epsilon_0\chi\Ec+\Pc_{NL}$: $\nabla^2\Ec-\frac{n^2}{c_0^2}\partial_t^2\Ec=\mu_0\partial_t^2\Pc_{NL}$ (fuente de radiación).}
 
-\subsection*{Monocromático (§5.3)}
-$\Ec=\mathrm{Re}\{\E(\rv)e^{j\omega t}\}$; $\partial_t\to j\omega$: $\nabla\times\Hv=j\omega\D$, $\nabla\times\E=-j\omega\mathbf B$.
-\textbf{Poynting complejo} $\mathbf S=\tfrac12\E\times\Hv^*$, $\langle\Sc\rangle=\mathrm{Re}\{\mathbf S\}$ (5.3-10).
-Helmholtz $\nabla^2U+k^2U=0$, $k=nk_0=\omega\sqrt{\epsilon\mu}$ (5.3-16). Dispersivo: $\mathbf P=\epsilon_0\chi(\nu)\E$, $\epsilon(\nu)=\epsilon_0[1+\chi(\nu)]$, $k=\omega\sqrt{\epsilon(\nu)\mu_0}$.
-
-\subsection*{Ondas elementales (§5.4)}
-\textbf{Onda plana TEM}: $\E=\E_0e^{-j\kv\cdot\rv}$; $\kv\times\Hv_0=-\omega\epsilon\E_0$, $\kv\times\E_0=\omega\mu\Hv_0$ $\Rightarrow$ $\E\perp\Hv\perp\kv$;
-$\eta=E_0/H_0=\sqrt{\mu/\epsilon}=\eta_0/n$ (5.4-5,6);
-\cajita{$I=\dfrac{|E_0|^2}{2\eta}=\dfrac{n|E_0|^2}{2\eta_0}=\tfrac12 n\epsilon_0c_0|E_0|^2,\quad W=\tfrac12\epsilon|E_0|^2,\quad I=cW$ (5.4-8–10).
-Ej.: $10$ W/cm² en vacío $\leftrightarrow E_0\approx87$ V/cm. Campo real $\Ec$, $\Hc=\frac1{\eta}\hat{\kv}\times\Ec$.}
-\textbf{Dipolo} (lejos, $kr\gg1$): $\E\approx E_0\sin\theta\,U\hat{\boldsymbol\theta}$, $\Hv\approx H_0\sin\theta\,U\hat{\boldsymbol\phi}$, $U=e^{-jkr}/r$; patrón $\propto\sin^2\theta$.
-\textbf{Gaussiano vectorial}: $\E=E_0(-\hat{\mathbf x}+\frac{x}{z+jz_0}\hat{\mathbf z})U$ (5.4-20): hay componente longitudinal fuera del eje.
-Relación escalar–EM: $U=E/\sqrt{2\eta}$ (iguala intensidades); la teoría escalar falla con polarización, Fresnel y guías (porque $U$ es discontinuo donde cambia $\eta$).
-\textbf{Haces vectoriales}: azimutal/radial (dona, nulo en el eje); radial enfocado → foco más chico.
-
-\subsection*{Óptica ondulatoria escalar (§2.2)}
-$u=\mathrm{Re}\{U(\rv)e^{j2\pi\nu t}\}$, $I=|U|^2$ (2.2-10) (en óptica escalar). Helmholtz (2.2-7).
+Lo que cambia según el caso:
 \begin{itemize}
-\item Plana: $U=Ae^{-j\kv\cdot\rv}$, frentes planos separados $\lambda$.
-\item Esférica: $U=\frac{A_0}{r}e^{-jkr}$ (2.2-15), $I=|A_0|^2/r^2$.
-\item Aprox. de Fresnel (paraboloidal), $\theta\ll1$: $r\approx z+\frac{x^2+y^2}{2z}$, $U\approx\frac{A_0}{z}e^{-jkz}e^{-jk\frac{x^2+y^2}{2z}}$ (2.2-17); válida si $N_F\theta_m^2/4\ll1$, $N_F=a^2/\lambda z$ (número de Fresnel).
-\item Onda paraxial $U=A(\rv)e^{-jkz}$, $A$ lenta: $|\partial_zA|\ll k|A|$, $|\partial_z^2A|\ll k^2|A|$ $\Rightarrow$
-\cajita{\textbf{Helmholtz paraxial}: $\nabla_T^2A-j2k\,\partial_zA=0$ (2.2-23). Soluciones: paraboloidal, gaussiano, Hermite–Gauss.}
+\item \textbf{Lineal, no dispersivo, homogéneo e isótropo}: $\Pc=\epsilon_0\chi\Ec$, con $\chi$ la susceptibilidad eléctrica. Entonces $\Dc=\epsilon\Ec$ con $\epsilon=\epsilon_0(1+\chi)$, y el índice es $n=\sqrt{\epsilon/\epsilon_0}=\sqrt{1+\chi}$ (5.2-1, 3, 13). La velocidad es $c=1/\sqrt{\epsilon\mu_0}=c_0/n$ y la densidad de energía $\mathcal W=\tfrac12\epsilon\mathcal E^2+\tfrac12\mu_0\mathcal H^2$.
+\item \textbf{Inhomogéneo}, $\epsilon(\rv)$: $\nabla^2\Ec+\nabla\big(\tfrac1\epsilon\nabla\epsilon\cdot\Ec\big)-\mu_0\epsilon\,\partial_t^2\Ec=0$ (5.2-18). Si $\epsilon$ varía despacio frente a $\lambda$, el término central es despreciable y queda $\nabla^2\Ec-\partial_t^2\Ec/c^2(\rv)\approx0$. Una perturbación pequeña del índice, $\Delta n$, actúa como una fuente de radiación $\Delta\Pc=2\epsilon_0n\,\Delta n\,\Ec$ (5.2-20).
+\item \textbf{Anisótropo}: cada componente de $\Pc$ depende de todas las de $\Ec$: $\mathcal P_i=\epsilon_0\sum_j\chi_{ij}\mathcal E_j$ (5.2-21). Es la base de los cristales (tema 3).
+\item \textbf{Dispersivo}: el medio tiene memoria. $\Pc(t)=\epsilon_0\!\int x(t-t')\,\Ec(t')\,dt'$ (5.2-23), con $x(t)$ la respuesta al impulso. Por causalidad $x(t)=0$ para $t<0$. En frecuencia, $\chi(\nu)=\mathcal F\{x(t)\}$: cada frecuencia ve un índice distinto.
+\item \textbf{No lineal}: $\Pc=\Psi(\Ec)$ con $\Psi$ no lineal, así que ya no vale la superposición. Es el objeto del curso (tema 4).
 \end{itemize}
+
+\begin{clave}[title={Ecuación de onda general (medio homogéneo e isótropo, lineal o no, dispersivo o no)}]
+\[
+\nabla^2\Ec-\frac{1}{c_0^2}\frac{\partial^2\Ec}{\partial t^2}=\mu_0\frac{\partial^2\Pc}{\partial t^2}\qquad(5.2\text{-}25)
+\]
+\textbf{Derivación}: tomar el rotacional de la ley de Faraday, sustituir la ley de Ampère, usar $\nabla\times\nabla\times\Ec=\nabla(\nabla\cdot\Ec)-\nabla^2\Ec$ y $\nabla\cdot\Ec=0$.
+
+\textbf{Uso en óptica no lineal}: se separa $\Pc=\epsilon_0\chi\Ec+\Pc_{NL}$. La parte lineal pasa al lado izquierdo y cambia $c_0$ por $c=c_0/n$:
+\[
+\nabla^2\Ec-\frac{n^2}{c_0^2}\frac{\partial^2\Ec}{\partial t^2}=\mu_0\frac{\partial^2\Pc_{NL}}{\partial t^2}
+\]
+La polarización no lineal es una \emph{fuente} que radia campo a frecuencias nuevas.
+\end{clave}
+
+\subsection{Ondas monocromáticas (§5.3)}
+Si todos los campos oscilan a una sola frecuencia, $\Ec=\mathrm{Re}\{\E(\rv)e^{j\omega t}\}$, cada derivada temporal se reemplaza por $j\omega$:
+\[
+\nabla\times\Hv=j\omega\D,\qquad \nabla\times\E=-j\omega\mathbf B .
+\]
+\textbf{Poynting complejo}: $\mathbf S=\tfrac12\E\times\Hv^*$, y la intensidad promedio es $\langle\Sc\rangle=\mathrm{Re}\{\mathbf S\}$ (5.3-10).
+
+Cada componente cumple la \textbf{ecuación de Helmholtz} $\nabla^2U+k^2U=0$, con $k=nk_0=\omega\sqrt{\epsilon\mu_0}$ (5.3-16). En un medio dispersivo basta con dejar que todo dependa de la frecuencia: $\mathbf P=\epsilon_0\chi(\nu)\E$, $\epsilon(\nu)=\epsilon_0[1+\chi(\nu)]$, $k=\omega\sqrt{\epsilon(\nu)\mu_0}$.
+
+\subsection{Ondas electromagnéticas elementales (§5.4)}
+\textbf{Onda plana TEM.} $\E=\E_0e^{-j\kv\cdot\rv}$. Al sustituir en Maxwell salen $\kv\times\Hv_0=-\omega\epsilon\E_0$ y $\kv\times\E_0=\omega\mu_0\Hv_0$. Por tanto $\E$, $\Hv$ y $\kv$ son mutuamente perpendiculares (onda transversal electromagnética). La razón entre los campos es la \textbf{impedancia} del medio:
+\[
+\eta=\frac{E_0}{H_0}=\sqrt{\frac{\mu_0}{\epsilon}}=\frac{\eta_0}{n}\qquad(5.4\text{-}5,\,6)
+\]
+
+\begin{clave}[title={Intensidad y energía de una onda plana (5.4-8 a 5.4-10)}]
+\[
+I=\frac{|E_0|^2}{2\eta}=\frac{n|E_0|^2}{2\eta_0}=\tfrac12 n\epsilon_0c_0|E_0|^2,\qquad W=\tfrac12\epsilon|E_0|^2,\qquad I=cW
+\]
+Ejemplo: $10$ W/cm² en el vacío corresponde a $E_0\approx87$ V/cm. Campo magnético real: $\Hc=\frac1{\eta}\,\hat{\kv}\times\Ec$.
+\end{clave}
+
+\textbf{Dipolo oscilante} (lejos de él, $kr\gg1$): $\E\approx E_0\sin\theta\,U\,\hat{\boldsymbol\theta}$ y $\Hv\approx H_0\sin\theta\,U\,\hat{\boldsymbol\phi}$, con $U=e^{-jkr}/r$. El patrón de intensidad va como $\sin^2\theta$: no radia a lo largo de su eje. Es el modelo de cómo radia cada dipolo del medio inducido por $\Pc$.
+
+\textbf{Haz gaussiano vectorial}: $\E=E_0\big(-\hat{\mathbf x}+\frac{x}{z+jz_0}\hat{\mathbf z}\big)U$ (5.4-20). Fuera del eje aparece una componente longitudinal ($z$): un haz de ancho finito no es exactamente transversal.
+
+\textbf{Relación entre la teoría escalar y la electromagnética}: se identifica $U=E/\sqrt{2\eta}$ para que las intensidades coincidan. La teoría escalar falla cuando importa la polarización (Fresnel, guías de onda), porque $U$ se vuelve discontinuo donde cambia $\eta$.
+
+\textbf{Haces vectoriales} (azimutal y radial): tienen forma de dona, con un nulo en el eje. Un haz con polarización radial enfocado da un foco más pequeño que uno con polarización lineal.
+
+\subsection{Óptica ondulatoria escalar (§2.2)}
+En la teoría escalar la luz se describe con una función de onda $u=\mathrm{Re}\{U(\rv)e^{j2\pi\nu t}\}$, con intensidad $I=|U|^2$ (2.2-10). $U$ cumple la ecuación de Helmholtz (2.2-7). Las soluciones básicas son:
+\begin{itemize}
+\item \textbf{Onda plana}: $U=Ae^{-j\kv\cdot\rv}$, frentes de onda planos separados $\lambda$.
+\item \textbf{Onda esférica}: $U=\frac{A_0}{r}e^{-jkr}$ (2.2-15). La intensidad $I=|A_0|^2/r^2$ cae con el cuadrado de la distancia.
+\item \textbf{Aproximación de Fresnel} (onda paraboloidal): cerca del eje ($\theta\ll1$), $r\approx z+\frac{x^2+y^2}{2z}$, y
+\[
+U\approx\frac{A_0}{z}e^{-jkz}\exp\!\Big[-jk\frac{x^2+y^2}{2z}\Big]\qquad(2.2\text{-}17)
+\]
+Vale si $N_F\theta_m^2/4\ll1$, donde $N_F=a^2/\lambda z$ es el número de Fresnel ($a$ el radio de la zona observada).
+\item \textbf{Onda paraxial}: una onda plana modulada por una envolvente que varía despacio, $U=A(\rv)e^{-jkz}$, con $|\partial_zA|\ll k|A|$ y $|\partial_z^2A|\ll k^2|A|$ (la envolvente apenas cambia en una longitud de onda).
+\end{itemize}
+\begin{clave}[title={Ecuación de Helmholtz paraxial}]
+\[
+\nabla_T^2A-j2k\,\frac{\partial A}{\partial z}=0\qquad(2.2\text{-}23),\qquad \nabla_T^2=\partial_x^2+\partial_y^2
+\]
+Se obtiene al despreciar $\partial_z^2A$. Sus soluciones son la onda paraboloidal, el haz gaussiano (tema 2) y los haces de Hermite–Gauss.
+\end{clave}
 
 %=====================================================================
 \section{Haz gaussiano; absorción y dispersión; pulsos}
 %=====================================================================
-\subsection*{Haz gaussiano (Saleh §3.1)}
-Paraboloidal con $z\to q(z)=z+jz_0$: $A=\frac{A_1}{q}\exp[-jk\rho^2/2q]$, $\frac1q=\frac1R-j\frac{\lambda}{\pi W^2}$ (3.1-6).
-\cajita{$U=A_0\dfrac{W_0}{W(z)}\exp\!\Big[-\dfrac{\rho^2}{W^2(z)}\Big]\exp\!\Big[-jkz-jk\dfrac{\rho^2}{2R(z)}+j\zeta(z)\Big]$ (3.1-7)\\[2pt]
-$W(z)=W_0\sqrt{1+(z/z_0)^2}$, $R(z)=z[1+(z_0/z)^2]$, $\zeta(z)=\tan^{-1}(z/z_0)$, $W_0=\sqrt{\lambda z_0/\pi}$, $z_0=\pi W_0^2/\lambda$ ($\lambda=\lambda_0/n$).}
+
+\begin{idea}
+Tres ideas. (1) El haz gaussiano es la forma real de un haz láser: se enfoca hasta un radio mínimo y luego diverge, y la intensidad en el foco es la que controla los efectos no lineales. (2) La susceptibilidad es compleja: la parte real da el índice y la imaginaria da la absorción, y las dos están ligadas por la causalidad (Kramers–Kronig). (3) Como el índice depende de la frecuencia, cada componente espectral de un pulso viaja a distinta velocidad y el pulso se ensancha.
+\end{idea}
+
+\subsection{Haz gaussiano (Saleh §3.1)}
+Se obtiene de la onda paraboloidal reemplazando $z$ por el parámetro complejo $q(z)=z+jz_0$:
+\[
+A=\frac{A_1}{q}\exp\!\Big[-jk\frac{\rho^2}{2q}\Big],\qquad \frac1{q(z)}=\frac1{R(z)}-j\frac{\lambda}{\pi W^2(z)}\qquad(3.1\text{-}6)
+\]
+La parte real de $1/q$ da la curvatura del frente de onda y la imaginaria da el ancho del haz.
+
+\begin{clave}[title={Amplitud compleja del haz gaussiano (3.1-7)}]
+\[
+U(\rho,z)=A_0\frac{W_0}{W(z)}\exp\!\Big[-\frac{\rho^2}{W^2(z)}\Big]\exp\!\Big[-jkz-jk\frac{\rho^2}{2R(z)}+j\zeta(z)\Big]
+\]
+\[
+W(z)=W_0\sqrt{1+(z/z_0)^2},\qquad R(z)=z\big[1+(z_0/z)^2\big],\qquad \zeta(z)=\tan^{-1}(z/z_0),
+\]
+\[
+W_0=\sqrt{\lambda z_0/\pi},\qquad z_0=\pi W_0^2/\lambda\qquad(\lambda=\lambda_0/n).
+\]
+$W(z)$: radio del haz (donde la amplitud cae a $1/e$). $W_0$: cintura (radio mínimo, en $z=0$). $z_0$: rango de Rayleigh. $R(z)$: radio de curvatura del frente de onda. $\zeta(z)$: fase de Gouy.
+\end{clave}
+
+Propiedades:
 \begin{itemize}
-\item $I(\rho,z)=I_0\big(\frac{W_0}{W}\big)^2e^{-2\rho^2/W^2}=\frac{2P}{\pi W^2}e^{-2\rho^2/W^2}$; $P=\frac12I_0\pi W_0^2$; en el eje $I_0/[1+(z/z_0)^2]$.
-\item Fracción de potencia en $\rho_0$: $1-e^{-2\rho_0^2/W^2}$ (86\,\% en $W$; 99\,\% en $1.5W$).
-\item Divergencia (semiángulo) $\theta_0=\lambda/\pi W_0$ (3.1-20); profundidad de foco $2z_0=2\pi W_0^2/\lambda$.
-\item Fase en el eje $kz-\zeta(z)$: \textbf{Gouy} total $\pi$ de $-\infty$ a $\infty$; $\zeta(z_0)=\pi/4$. $R_{\min}=2z_0$ en $z=z_0$; $R(0)=\infty$.
-\item En $z_0$: $W=\sqrt2W_0$, $I$ en eje = ½ pico.
-\item Dados $W$, $R$ en un punto: $z=\frac{R}{1+(\lambda R/\pi W^2)^2}$, $W_0=\frac{W}{\sqrt{1+(\pi W^2/\lambda R)^2}}$ (3.1-25,26).
-\item Calidad: $M^2=\theta_m/\theta_0=\frac{2W_m\,2\theta_m}{4\lambda/\pi}\ge1$.
-\item Lente delgada (§3.2): $\frac1{q_2}=\frac1{q_1}-\frac1f$; ABCD: $q_2=\frac{Aq_1+B}{Cq_1+D}$. Foco de un haz colimado ($z_0\gg f$): $W_0'\approx\frac{\lambda}{\pi W_0}f=\theta_0f$.
+\item \textbf{Intensidad}: $I(\rho,z)=I_0\big(\frac{W_0}{W}\big)^2e^{-2\rho^2/W^2}=\frac{2P}{\pi W^2}e^{-2\rho^2/W^2}$, con potencia total $P=\frac12I_0\pi W_0^2$. En el eje, $I=I_0/[1+(z/z_0)^2]$.
+\item \textbf{Potencia dentro de un círculo} de radio $\rho_0$: fracción $1-e^{-2\rho_0^2/W^2}$ (86\,\% dentro de $W$; 99\,\% dentro de $1.5W$).
+\item \textbf{Divergencia}: lejos del foco el haz se abre con semiángulo $\theta_0=\lambda/\pi W_0$ (3.1-20). Cuanto más pequeña la cintura, más diverge. La \textbf{profundidad de foco} es $2z_0=2\pi W_0^2/\lambda$.
+\item \textbf{En $z=z_0$}: $W=\sqrt2W_0$ (el área se duplica) y la intensidad en el eje es la mitad del pico. Ahí la curvatura es máxima, $R_{\min}=2z_0$. En la cintura el frente es plano, $R(0)=\infty$.
+\item \textbf{Fase de Gouy}: la fase en el eje es $kz-\zeta(z)$. El término $\zeta$ es un retraso extra respecto a una onda plana, con total $\pi$ al pasar de $z=-\infty$ a $+\infty$; vale $\zeta(z_0)=\pi/4$.
+\item \textbf{Problema inverso}: si en un punto se conocen $W$ y $R$, la cintura y su posición son
+$z=\dfrac{R}{1+(\lambda R/\pi W^2)^2}$, \ $W_0=\dfrac{W}{\sqrt{1+(\pi W^2/\lambda R)^2}}$ (3.1-25, 26).
+\item \textbf{Calidad del haz}: $M^2=\theta_m/\theta_0=\dfrac{2W_m\cdot2\theta_m}{4\lambda/\pi}\ge1$. $M^2=1$ es un gaussiano ideal; un haz real diverge $M^2$ veces más.
+\item \textbf{Lentes y sistemas ópticos} (§3.2): una lente delgada transforma $\frac1{q_2}=\frac1{q_1}-\frac1f$. Un sistema con matriz ABCD: $q_2=\frac{Aq_1+B}{Cq_1+D}$. Un haz colimado ($z_0\gg f$) se enfoca a una cintura $W_0'\approx\frac{\lambda}{\pi W_0}f=\theta_0f$.
 \end{itemize}
 
-\subsection*{Absorción (Saleh §5.5A)}
-$\chi=\chi'+j\chi''$, $k=\beta-j\frac{\alpha}{2}=k_0\sqrt{1+\chi}$; $U\propto e^{-\alpha z/2}e^{-j\beta z}$, $I\propto e^{-\alpha z}$; $\beta=nk_0$.
-\cajita{$n-j\dfrac{\alpha}{2k_0}=\sqrt{1+\chi'+j\chi''}$ (5.5-5) (raíz del 4.º cuadrante). $\eta=\eta_0/\sqrt{1+\chi}$.\\
-Débil ($|\chi''|\ll1+\chi'$): $n\approx\sqrt{1+\chi'}$, $\alpha\approx-\frac{k_0}{n}\chi''$.\quad
-Fuerte ($|\chi''|\gg|1+\chi'|$): $n\approx\sqrt{-\chi''/2}$, $\alpha\approx2k_0\sqrt{-\chi''/2}$.\\
-Diluido en huésped $n_0$: $\chi_{\rm tot}=n_0^2-1+\chi$; $n\approx n_0+\frac{\chi'}{2n_0}$, $\alpha\approx-\frac{k_0\chi''}{n_0}$.}
-Ganancia: $\chi''>0\Rightarrow\alpha<0$, $\gamma=-\alpha$. Unidades: dB/km $=4.343\,\alpha$[km$^{-1}$].
+\subsection{Absorción (Saleh §5.5A)}
+Cuando el medio absorbe, la susceptibilidad es compleja, $\chi=\chi'+j\chi''$, y también lo es el número de onda:
+\[
+k=k_0\sqrt{1+\chi}=\beta-j\frac{\alpha}{2}.
+\]
+La onda queda $U\propto e^{-\alpha z/2}e^{-j\beta z}$: la parte real $\beta=nk_0$ da la fase (el índice) y la parte imaginaria la atenuación. La amplitud decae con $\alpha/2$ y la intensidad con $\alpha$, $I\propto e^{-\alpha z}$ ($\alpha$ es el coeficiente de absorción).
 
-\subsection*{Kramers–Kronig (§5.5B)}
-Sistema lineal, causal, invariante, respuesta real ($\chi(-\nu)=\chi^*(\nu)$):
-$\chi'(\nu)=\frac2\pi\!\int_0^\infty\!\frac{s\chi''(s)}{s^2-\nu^2}ds$, \ $\chi''(\nu)=\frac2\pi\!\int_0^\infty\!\frac{\nu\chi'(s)}{\nu^2-s^2}ds$ (valor principal). \emph{Todo medio dispersivo es absorbente.}
-Número de Abbe $\mathbb V=(n_d-1)/(n_F-n_C)$ ($486.1$, $587.6$, $656.3$ nm).
+\begin{clave}[title={Índice y absorción a partir de $\chi$}]
+\[
+n-j\frac{\alpha}{2k_0}=\sqrt{1+\chi'+j\chi''}\qquad(5.5\text{-}5)\qquad(\text{raíz del 4.º cuadrante});\qquad \eta=\frac{\eta_0}{\sqrt{1+\chi}}
+\]
+\begin{itemize}[leftmargin=1.2em]
+\item \textbf{Absorción débil} ($|\chi''|\ll1+\chi'$): $n\approx\sqrt{1+\chi'}$, \ $\alpha\approx-\dfrac{k_0}{n}\chi''$.
+\item \textbf{Absorción fuerte} ($|\chi''|\gg|1+\chi'|$): $n\approx\sqrt{-\chi''/2}$, \ $\alpha\approx2k_0\sqrt{-\chi''/2}$.
+\item \textbf{Absorbente diluido en un huésped} de índice $n_0$: $\chi_{\rm tot}=n_0^2-1+\chi$, y entonces $n\approx n_0+\dfrac{\chi'}{2n_0}$, \ $\alpha\approx-\dfrac{k_0\chi''}{n_0}$.
+\end{itemize}
+\end{clave}
+En la convención del Saleh, $\chi''<0$ significa absorción. Si $\chi''>0$ el medio \textbf{amplifica}: $\alpha<0$ y se define la ganancia $\gamma=-\alpha$ (medio láser). Atenuación en dB: dB/km $=4.343\,\alpha$ [km$^{-1}$].
 
-\subsection*{Medio resonante — Lorentz (§5.5C)}
-$\ddot{\mathcal P}+\sigma\dot{\mathcal P}+\omega_0^2\mathcal P=\omega_0^2\epsilon_0\chi_0\mathcal E$; de $\ddot x+\sigma\dot x+\omega_0^2x=F/m$, $\mathcal P=-Nex$:
-$\chi_0=\frac{Ne^2}{\epsilon_0m\omega_0^2}$ (5.5-17).
-\cajita{$\chi(\nu)=\chi_0\dfrac{\nu_0^2}{\nu_0^2-\nu^2+j\nu\Delta\nu}$,\ $\Delta\nu=\sigma/2\pi$ (5.5-19)\\
-$\chi'=\chi_0\frac{\nu_0^2(\nu_0^2-\nu^2)}{(\nu_0^2-\nu^2)^2+(\nu\Delta\nu)^2}$,\quad $\chi''=-\chi_0\frac{\nu_0^2\nu\Delta\nu}{(\nu_0^2-\nu^2)^2+(\nu\Delta\nu)^2}$\\
-Cerca de $\nu_0$: $\chi\approx\chi_0\frac{\nu_0/2}{(\nu_0-\nu)+j\Delta\nu/2}$; $\chi''\approx-\chi_0\frac{\nu_0\Delta\nu}{4}\frac{1}{(\nu_0-\nu)^2+(\Delta\nu/2)^2}$ (lorentziana, FWHM $\Delta\nu$); $\chi'=2\frac{\nu-\nu_0}{\Delta\nu}\chi''$.}
-$-\chi''(\nu_0)=\chi_0Q$, $Q=\nu_0/\Delta\nu$; $\chi'$ extremos $\approx\pm\chi_0Q/2$ en $\nu_0(1\mp\frac1{2Q})$. Lejos de resonancia $\chi\approx\chi_0\nu_0^2/(\nu_0^2-\nu^2)$ (real).
-Diluido: $\alpha(\nu)\approx-\frac{2\pi\nu}{n_0c_0}\chi''$, $n\approx n_0+\frac{\chi'}{2n_0}$.
-\textbf{Sellmeier}: $n^2=1+\sum_i\chi_{0i}\frac{\lambda^2}{\lambda^2-\lambda_i^2}$ (5.5-28). Sílice: $\lambda_i=0.06840,\,0.1162,\,9.8962$ µm; $\chi_{0i}=0.6962,\,0.4079,\,0.8975$.
+\subsection{Relaciones de Kramers–Kronig (§5.5B)}
+Si el sistema es lineal, causal, invariante en el tiempo y de respuesta real ($\chi(-\nu)=\chi^*(\nu)$), las partes real e imaginaria de $\chi$ no son independientes: conocida una en todo el espectro, se calcula la otra.
+\[
+\chi'(\nu)=\frac2\pi\int_0^\infty\frac{s\,\chi''(s)}{s^2-\nu^2}\,ds,\qquad
+\chi''(\nu)=\frac2\pi\int_0^\infty\frac{\nu\,\chi'(s)}{\nu^2-s^2}\,ds\qquad(\text{valor principal})
+\]
+\textbf{Consecuencia}: todo medio dispersivo ($\chi'$ varía con $\nu$) es también absorbente en alguna región del espectro.
 
-\subsection*{Medios conductores (§5.5D)}
-$\epsilon_e=\epsilon+\sigma/j\omega$; si $\sigma\gg\omega\epsilon$: $n\approx\sqrt{\sigma/2\omega\epsilon_0}$, $\alpha\approx\sqrt{2\omega\mu_0\sigma}$, $d_p=1/\alpha$ (Cu, 1 µm: $d_p=1.9$ nm).
-Drude: $\sigma=\frac{\sigma_0}{1+j\omega\tau}$, $\epsilon_e=\epsilon_0(1-\omega_p^2/\omega^2)$, $\omega_p=\sqrt{Ne^2/\epsilon_0m}$, $\sigma_0=Ne^2\tau/m$.
-$\omega<\omega_p$: $\epsilon_e<0$, evanescente, refleja; $\omega>\omega_p$: $n=\sqrt{1-\omega_p^2/\omega^2}<1$.
+La dispersión de los vidrios se caracteriza con el \textbf{número de Abbe} $\mathbb V=(n_d-1)/(n_F-n_C)$, con las líneas $d$, $F$, $C$ en $587.6$, $486.1$ y $656.3$ nm. Un $\mathbb V$ grande significa poca dispersión.
 
-\subsection*{Pulsos en medios dispersivos (§5.6; §22.3)}
-$\beta(\omega)=\omega n(\omega)/c_0\approx\beta_0+\beta'\Omega+\frac12\beta''\Omega^2$, $\Omega=\omega-\omega_0$.
-\cajita{Velocidad de grupo $v=1/\beta'$, índice de grupo $N=n-\lambda_0\frac{dn}{d\lambda_0}=n+\omega\frac{dn}{d\omega}$, $v=c_0/N$; retardo $\tau_d=z/v=Nz/c_0$.\\
-$D_\nu=\frac{d}{d\nu}\frac1v=2\pi\beta''=\frac{\lambda_0^3}{c_0^2}\frac{d^2n}{d\lambda_0^2}$ [s/(m·Hz)];\quad
-$D_\lambda=-\frac{\lambda_0}{c_0}\frac{d^2n}{d\lambda_0^2}=-\frac{c_0}{\lambda_0^2}D_\nu$ [ps/(km·nm)].\\
-Ensanchamiento (fuente ancha): $\sigma_\tau=|D_\nu|\sigma_\nu z=|D_\lambda|\sigma_\lambda z$.}
-\textbf{Normal}: $\beta''>0$, $D_\nu>0$, $D_\lambda<0$ (azul más lento, llega después). \textbf{Anómala}: al revés.
-Sílice: $D_\lambda=0$ en $1.276$ µm ($N$ mínimo); fibra estándar $\approx1.312$ µm; $D_\lambda\approx+17$ ps/(km·nm) a 1.55 µm.
-Relación $\beta_2$ (Agrawal) $=\beta''$; $D_\lambda=-\frac{2\pi c_0}{\lambda_0^2}\beta_2$.
+\subsection{Medio resonante: modelo de Lorentz (§5.5C)}
+Cada electrón ligado se modela como un oscilador amortiguado forzado por el campo: $\ddot x+\sigma\dot x+\omega_0^2x=F/m$, con $F=-e\mathcal E$. Con $N$ electrones por unidad de volumen, $\mathcal P=-Nex$, y la polarización cumple
+\[
+\ddot{\mathcal P}+\sigma\dot{\mathcal P}+\omega_0^2\mathcal P=\omega_0^2\epsilon_0\chi_0\mathcal E,\qquad \chi_0=\frac{Ne^2}{\epsilon_0m\omega_0^2}\quad(5.5\text{-}17)
+\]
+($\chi_0$ es la susceptibilidad a frecuencia cero.) Para una onda armónica sale:
 
-\textbf{Ecuación de la envolvente} (marco retardado $t\to t-z/v$):
-$\partial_zA=j\frac{\beta''}{2}\partial_t^2A=j\frac{D_\nu}{4\pi}\partial_t^2A$. Solución: $A(z,\nu)=A(0,\nu)e^{-j\pi D_\nu\nu^2z}$ (filtro de fase pura; $|A(\nu)|^2$ no cambia).
-\cajita{\textbf{Pulso gaussiano} $A(0,t)=e^{-t^2/\tau_0^2}$ ($\tau_0$: semiancho a $1/e$ de la amplitud; $\tau_{\rm FWHM}=\sqrt{2\ln2}\,\tau_0=1.177\tau_0$):\\
-$\tau(z)=\tau_0\sqrt{1+(z/z_0)^2}$, $z_0=\dfrac{\pi\tau_0^2}{|D_\nu|}=\dfrac{\tau_0^2}{2|\beta''|}$; chirp $a(z)=\pm z/z_0$; para $z\gg z_0$: $\tau\approx\frac{|D_\nu|z}{\pi\tau_0}$.\\
-Agrawal: $e^{-T^2/2T_0^2}$, $L_D=T_0^2/|\beta_2|$ ($\tau_0=\sqrt2T_0$, mismo $z_0$). Gaussiano sin chirp: $\tau_{\rm FWHM}\Delta\nu=0.44$.}
-Luz rápida/lenta: cerca de resonancia $N$ puede ser $\gg1$, $<1$ o $<0$; la velocidad de la información nunca supera $c_0$.
+\begin{clave}[title={Susceptibilidad de Lorentz (5.5-19)}]
+\[
+\chi(\nu)=\chi_0\frac{\nu_0^2}{\nu_0^2-\nu^2+j\nu\Delta\nu},\qquad \Delta\nu=\frac{\sigma}{2\pi}
+\]
+\[
+\chi'=\chi_0\frac{\nu_0^2(\nu_0^2-\nu^2)}{(\nu_0^2-\nu^2)^2+(\nu\Delta\nu)^2},\qquad
+\chi''=-\chi_0\frac{\nu_0^2\,\nu\Delta\nu}{(\nu_0^2-\nu^2)^2+(\nu\Delta\nu)^2}
+\]
+\textbf{Cerca de la resonancia} ($\nu\approx\nu_0$): $\chi\approx\chi_0\dfrac{\nu_0/2}{(\nu_0-\nu)+j\Delta\nu/2}$, de modo que
+\[
+\chi''\approx-\chi_0\frac{\nu_0\Delta\nu}{4}\,\frac{1}{(\nu_0-\nu)^2+(\Delta\nu/2)^2}\quad(\text{lorentziana de ancho FWHM }\Delta\nu),\qquad \chi'=2\frac{\nu-\nu_0}{\Delta\nu}\chi''.
+\]
+\end{clave}
+Interpretación: la absorción ($-\chi''$) es un pico en $\nu_0$ con altura $-\chi''(\nu_0)=\chi_0Q$, donde $Q=\nu_0/\Delta\nu$. El índice ($\chi'$) cambia de signo en la resonancia, con extremos $\approx\pm\chi_0Q/2$ en $\nu_0(1\mp\frac1{2Q})$. Lejos de la resonancia $\chi\approx\chi_0\nu_0^2/(\nu_0^2-\nu^2)$ es real: el medio es transparente y solo dispersa.
+
+Diluido en un huésped: $\alpha(\nu)\approx-\dfrac{2\pi\nu}{n_0c_0}\chi''$, \ $n\approx n_0+\dfrac{\chi'}{2n_0}$.
+
+\textbf{Ecuación de Sellmeier}: un material real tiene varias resonancias; lejos de todas ellas,
+\[
+n^2=1+\sum_i\chi_{0i}\frac{\lambda^2}{\lambda^2-\lambda_i^2}\qquad(5.5\text{-}28).
+\]
+Sílice: $\lambda_i=0.06840,\ 0.1162,\ 9.8962$ µm; \ $\chi_{0i}=0.6962,\ 0.4079,\ 0.8975$.
+
+\subsection{Medios conductores (§5.5D)}
+Una conductividad $\sigma$ entra como una permitividad efectiva compleja, $\epsilon_e=\epsilon+\sigma/j\omega$. En un buen conductor ($\sigma\gg\omega\epsilon$):
+\[
+n\approx\sqrt{\sigma/2\omega\epsilon_0},\qquad \alpha\approx\sqrt{2\omega\mu_0\sigma},\qquad d_p=1/\alpha\ (\text{profundidad de penetración}).
+\]
+Ejemplo: cobre a 1 µm, $d_p=1.9$ nm; la luz casi no penetra en un metal.
+
+\textbf{Modelo de Drude} (electrones libres con tiempo de colisión $\tau$): $\sigma=\dfrac{\sigma_0}{1+j\omega\tau}$, con $\sigma_0=Ne^2\tau/m$. A alta frecuencia, $\epsilon_e=\epsilon_0\big(1-\omega_p^2/\omega^2\big)$, con frecuencia de plasma $\omega_p=\sqrt{Ne^2/\epsilon_0m}$.
+\begin{itemize}
+\item $\omega<\omega_p$: $\epsilon_e<0$, la onda es evanescente y el metal refleja.
+\item $\omega>\omega_p$: el metal se vuelve transparente, con $n=\sqrt{1-\omega_p^2/\omega^2}<1$.
+\end{itemize}
+
+\subsection{Pulsos en medios dispersivos (§5.6; §22.3)}
+Un pulso contiene una banda de frecuencias alrededor de $\omega_0$. Se expande la constante de propagación $\beta(\omega)=\omega n(\omega)/c_0$ en serie de Taylor, con $\Omega=\omega-\omega_0$:
+\[
+\beta(\omega)\approx\beta_0+\beta'\Omega+\tfrac12\beta''\Omega^2 .
+\]
+Cada término tiene un papel: $\beta_0$ da la fase de la portadora, $\beta'$ el retardo de la envolvente (velocidad de grupo) y $\beta''$ el ensanchamiento (dispersión de la velocidad de grupo).
+
+\begin{clave}[title={Velocidad de grupo y coeficientes de dispersión}]
+Velocidad de grupo $v=1/\beta'$; índice de grupo $N=n-\lambda_0\dfrac{dn}{d\lambda_0}=n+\omega\dfrac{dn}{d\omega}$; \ $v=c_0/N$; retardo $\tau_d=z/v=Nz/c_0$.
+\[
+D_\nu=\frac{d}{d\nu}\Big(\frac1v\Big)=2\pi\beta''=\frac{\lambda_0^3}{c_0^2}\frac{d^2n}{d\lambda_0^2}\ \ [\mathrm{s/(m\cdot Hz)}],\qquad
+D_\lambda=-\frac{\lambda_0}{c_0}\frac{d^2n}{d\lambda_0^2}=-\frac{c_0}{\lambda_0^2}D_\nu\ \ [\mathrm{ps/(km\cdot nm)}]
+\]
+Ensanchamiento de un pulso emitido por una fuente de ancho espectral grande: $\sigma_\tau=|D_\nu|\sigma_\nu z=|D_\lambda|\sigma_\lambda z$.
+\end{clave}
+\begin{itemize}
+\item \textbf{Dispersión normal}: $\beta''>0$, $D_\nu>0$, $D_\lambda<0$. El azul viaja más lento que el rojo y llega después.
+\item \textbf{Dispersión anómala}: $\beta''<0$, $D_\lambda>0$; el azul llega antes.
+\item Sílice: $D_\lambda=0$ en $1.276$ µm (mínimo de $N$); fibra estándar $\approx1.312$ µm; $D_\lambda\approx+17$ ps/(km·nm) a 1.55 µm (anómala).
+\item Notación de Agrawal (fibras): $\beta_2=\beta''$, \ $D_\lambda=-\dfrac{2\pi c_0}{\lambda_0^2}\beta_2$.
+\end{itemize}
+
+\textbf{Ecuación de la envolvente.} En un marco que viaja con el pulso ($t\to t-z/v$), la envolvente $A(z,t)$ cumple
+\[
+\frac{\partial A}{\partial z}=j\frac{\beta''}{2}\frac{\partial^2A}{\partial t^2}=j\frac{D_\nu}{4\pi}\frac{\partial^2A}{\partial t^2}.
+\]
+Es la misma forma que la ecuación paraxial: la dispersión ensancha el pulso en el tiempo igual que la difracción ensancha el haz en el espacio. En frecuencia la solución es $A(z,\nu)=A(0,\nu)e^{-j\pi D_\nu\nu^2z}$: un filtro de fase pura que no cambia el espectro $|A(\nu)|^2$, solo las fases relativas.
+
+\begin{clave}[title={Pulso gaussiano en un medio dispersivo}]
+Entrada $A(0,t)=e^{-t^2/\tau_0^2}$, con $\tau_0$ el semiancho a $1/e$ de la amplitud ($\tau_{\rm FWHM}=\sqrt{2\ln2}\,\tau_0=1.177\tau_0$).
+\[
+\tau(z)=\tau_0\sqrt{1+(z/z_0)^2},\qquad z_0=\frac{\pi\tau_0^2}{|D_\nu|}=\frac{\tau_0^2}{2|\beta''|};\qquad \text{chirp }a(z)=\pm z/z_0;\qquad \tau\approx\frac{|D_\nu|z}{\pi\tau_0}\ (z\gg z_0).
+\]
+Notación de Agrawal: $e^{-T^2/2T_0^2}$ y longitud de dispersión $L_D=T_0^2/|\beta_2|$ (con $\tau_0=\sqrt2T_0$ es el mismo $z_0$). Un gaussiano sin chirp cumple $\tau_{\rm FWHM}\Delta\nu=0.44$ (límite de transformada).
+\end{clave}
+El pulso adquiere \emph{chirp}: su frecuencia instantánea cambia a lo largo del pulso. Cuanto más corto es el pulso de entrada, más rápido se ensancha ($z_0\propto\tau_0^2$).
+
+\textbf{Luz rápida y lenta}: cerca de una resonancia, $N$ puede ser $\gg1$, menor que 1 o incluso negativo. Aun así, la velocidad a la que viaja la información nunca supera $c_0$.
 
 %=====================================================================
 \section{Polarización y cristales (Saleh cap.~6)}
 %=====================================================================
-\subsection*{Estados de polarización (§6.1A)}
-$\Ec=\mathrm{Re}\{(A_x\hat x+A_y\hat y)e^{j\omega(t-z/c)}\}$, $A_{x,y}=\mathsf a_{x,y}e^{j\varphi_{x,y}}$, $\varphi=\varphi_y-\varphi_x$, $\mathsf r=\mathsf a_y/\mathsf a_x$.
-Elipse: $\frac{\mathcal E_x^2}{\mathsf a_x^2}+\frac{\mathcal E_y^2}{\mathsf a_y^2}-2\cos\varphi\frac{\mathcal E_x\mathcal E_y}{\mathsf a_x\mathsf a_y}=\sin^2\varphi$ (6.1-5).
-$\tan2\psi=\frac{2\mathsf r}{1-\mathsf r^2}\cos\varphi$ (orientación), $\sin2\chi=\frac{2\mathsf r}{1+\mathsf r^2}\sin\varphi$ (elipticidad, $\tan\chi=b/a$).
-Lineal: $\varphi=0,\pi$. Circular: $\mathsf a_x=\mathsf a_y$, $\varphi=+\pi/2$ \textbf{derecha} (horario visto de frente, hacia la fuente), $-\pi/2$ izquierda.
-\textbf{Stokes}: $S_0=|A_x|^2+|A_y|^2$, $S_1=|A_x|^2-|A_y|^2$, $S_2=2\mathrm{Re}\{A_x^*A_y\}=|A_{45}|^2-|A_{135}|^2$, $S_3=2\mathrm{Im}\{A_x^*A_y\}=|A_R|^2-|A_L|^2$; $S_1^2+S_2^2+S_3^2=S_0^2$.
-Poincaré: $(S_1,S_2,S_3)/S_0=(\cos2\chi\cos2\psi,\cos2\chi\sin2\psi,\sin2\chi)$; ecuador = lineales, polos = circulares (norte: R).
 
-\subsection*{Jones (§6.1B)}
-$\J=(A_x,A_y)^T$; $I=(|A_x|^2+|A_y|^2)/2\eta$. LP $\theta$: $(\cos\theta,\sin\theta)$; R: $\frac1{\sqrt2}(1,j)$; L: $\frac1{\sqrt2}(1,-j)$. Ortogonalidad $A_{1x}A_{2x}^*+A_{1y}A_{2y}^*=0$.
-$A_R=\frac{A_x-jA_y}{\sqrt2}$, $A_L=\frac{A_x+jA_y}{\sqrt2}$; $A_{45}=\frac{A_x+A_y}{\sqrt2}$, $A_{135}=\frac{A_y-A_x}{\sqrt2}$.
-\cajita{Polarizador en $x$: $\begin{psmallmatrix}1&0\\0&0\end{psmallmatrix}$; a $\theta$: $\begin{psmallmatrix}\cos^2\theta&\sin\theta\cos\theta\\ \sin\theta\cos\theta&\sin^2\theta\end{psmallmatrix}$;
-retardador (rápido en $x$): $\begin{psmallmatrix}1&0\\0&e^{-j\Gamma}\end{psmallmatrix}$; rotador: $\begin{psmallmatrix}\cos\theta&-\sin\theta\\ \sin\theta&\cos\theta\end{psmallmatrix}$.\\
-Rotación de ejes: $\J'=\R(\theta)\J$, $\R(\theta)=\begin{psmallmatrix}\cos\theta&\sin\theta\\-\sin\theta&\cos\theta\end{psmallmatrix}$; $\T'=\R(\theta)\T\R(-\theta)$, $\T=\R(-\theta)\T'\R(\theta)$.\\
-Cascada: $\T=\T_N\cdots\T_2\T_1$ (el primero a la derecha). Modos normales: autovectores $\T\J=\mu\J$.}
-$\lambda/4$ ($\Gamma=\pi/2$): LP a 45° $\leftrightarrow$ circular. $\lambda/2$ ($\Gamma=\pi$): LP a $\theta$ → LP a $-\theta$ respecto al eje rápido; R$\leftrightarrow$L.
-Malus: $I=I_0\cos^2\theta$. $N$ polarizadores a pasos $\pi/2N$: amplitud $\cos^N(\pi/2N)\to1$.
-Retardador entre polarizadores cruzados a 45°: $\mathcal T=\sin^2(\Gamma/2)$ (6.6-1).
+\begin{idea}
+La polarización es la dirección en que oscila $\Ec$. En los cristales anisótropos el índice depende de esa dirección, así que dos polarizaciones viajan a velocidades distintas (birrefringencia). Esto importa para el curso porque la birrefringencia es la herramienta estándar para lograr el ajuste de fase en la generación de segundo armónico, y porque $d_{\rm eff}$ depende de las polarizaciones de las ondas.
+\end{idea}
 
-\subsection*{Reflexión y refracción (§6.2)}
-Snell $n_1\sin\theta_1=n_2\sin\theta_2$; TE = s = $\perp$ al plano de incidencia; TM = p = $\parallel$.
-\cajita{$r_{TE}=\dfrac{n_1\cos\theta_1-n_2\cos\theta_2}{n_1\cos\theta_1+n_2\cos\theta_2}$, $t_{TE}=1+r_{TE}$;\\
-$r_{TM}=\dfrac{n_1\sec\theta_1-n_2\sec\theta_2}{n_1\sec\theta_1+n_2\sec\theta_2}$, $t_{TM}=(1+r_{TM})\frac{\cos\theta_1}{\cos\theta_2}$ (convención de Saleh).\\
-$\mathcal R=|r|^2$, $\mathcal T=\frac{n_2\cos\theta_2}{n_1\cos\theta_1}|t|^2=1-\mathcal R$; normal: $\mathcal R=\big(\frac{n_1-n_2}{n_1+n_2}\big)^2$.}
-Brewster $\theta_B=\tan^{-1}(n_2/n_1)$ ($r_{TM}=0$; $\theta_1+\theta_2=90^\circ$). Crítico $\theta_c=\sin^{-1}(n_2/n_1)$; RTI: $|r|=1$,
-$\tan\frac{\varphi_{TE}}2=\sqrt{\frac{\cos^2\theta_c}{\cos^2\theta_1}-1}$, $\tan\frac{\varphi_{TM}}2=\frac{-1}{\sin^2\theta_c}\sqrt{\frac{\cos^2\theta_c}{\cos^2\theta_1}-1}$; onda evanescente con $\gamma=k_0\sqrt{n_1^2\sin^2\theta_1-n_2^2}$.
-Vidrio 4\,\%, GaAs 32\,\%; lámina $\mathcal R(1+\mathcal T^2)$. Conductor: Hagen–Rubens $\mathcal R\approx1-2\sqrt{2\epsilon_0\omega/\sigma}$.
+\subsection{Estados de polarización (§6.1A)}
+Una onda plana hacia $+z$: $\Ec=\mathrm{Re}\{(A_x\hat x+A_y\hat y)e^{j\omega(t-z/c)}\}$, con $A_{x,y}=\mathsf a_{x,y}e^{j\varphi_{x,y}}$. Lo que importa es el desfase $\varphi=\varphi_y-\varphi_x$ y la razón de amplitudes $\mathsf r=\mathsf a_y/\mathsf a_x$. En general la punta de $\Ec$ dibuja una elipse:
+\[
+\frac{\mathcal E_x^2}{\mathsf a_x^2}+\frac{\mathcal E_y^2}{\mathsf a_y^2}-2\cos\varphi\,\frac{\mathcal E_x\mathcal E_y}{\mathsf a_x\mathsf a_y}=\sin^2\varphi\qquad(6.1\text{-}5)
+\]
+La elipse se caracteriza por su orientación $\psi$ y su elipticidad $\chi$ ($\tan\chi=b/a$, razón de semiejes):
+\[
+\tan2\psi=\frac{2\mathsf r}{1-\mathsf r^2}\cos\varphi,\qquad \sin2\chi=\frac{2\mathsf r}{1+\mathsf r^2}\sin\varphi .
+\]
+Casos particulares: \textbf{lineal} si $\varphi=0$ o $\pi$; \textbf{circular} si $\mathsf a_x=\mathsf a_y$ y $\varphi=\pm\pi/2$. Con $\varphi=+\pi/2$ es circular \textbf{derecha} (gira en sentido horario visto de frente, mirando hacia la fuente); con $-\pi/2$, izquierda.
 
-\subsection*{Medios anisótropos (§6.3)}
-$\D=\boldsymbol\epsilon\E$, tensor simétrico; ejes principales: $D_i=\epsilon_iE_i$, $n_i=\sqrt{\epsilon_i/\epsilon_0}$. Biaxial (3 índices), uniaxial ($n_1=n_2=n_o$, $n_3=n_e$; positivo si $n_e>n_o$; eje óptico $z$), isótropo (cúbico).
-\cajita{\textbf{Elipsoide de índices}: $\frac{x_1^2}{n_1^2}+\frac{x_2^2}{n_2^2}+\frac{x_3^2}{n_3^2}=1$. Para dirección $\ud$: la elipse de corte normal a $\ud$ da $n_a$, $n_b$ (semiejes) y las direcciones de $\D_a$, $\D_b$.\\
-Uniaxial, $\ud$ a $\theta$ del eje óptico: $\dfrac{1}{n^2(\theta)}=\dfrac{\cos^2\theta}{n_o^2}+\dfrac{\sin^2\theta}{n_e^2}$ (6.3-15).\\
-Onda o: $n_o$, $\D\perp$ plano ($\kv$, eje), $\E\parallel\D$, $\Sc\parallel\kv$. Onda e: $n(\theta)$, $\D$ en el plano, $\E\not\parallel\D$, $\Sc\not\parallel\kv$.}
-$\D\perp\kv$, $\E\perp\Sc$; $\D,\E,\kv,\Sc$ coplanares. Superficie $\kv$: $\sum_j\frac{u_j^2k^2}{k^2-n_j^2k_0^2}=1$; uniaxial: $(k^2-n_o^2k_0^2)\big(\frac{k_1^2+k_2^2}{n_e^2}+\frac{k_3^2}{n_o^2}-k_0^2\big)=0$. Rayo/energía normal a la superficie $\kv$.
-\textbf{Walk-off} (ángulo $\kv$–$\Sc$): $\tan\theta_S=\frac{n_o^2}{n_e^2}\tan\theta$, $\rho=\theta-\theta_S$, $\tan\rho=\frac{(n_e^2-n_o^2)\sin\theta\cos\theta}{n_e^2\cos^2\theta+n_o^2\sin^2\theta}$; máximo $\tan\rho_{\max}=\frac{n_e^2-n_o^2}{2n_en_o}$ en $\tan\theta=n_e/n_o$.
-\textbf{Doble refracción}: $\sin\theta_1=n_o\sin\theta_o$; $\sin\theta_1=n(\theta_a+\theta_e)\sin\theta_e$. Incidencia normal con eje oblicuo → rayo e desviado (divisor polarizador).
-Retardo de una lámina: $\Gamma=(n_2-n_1)k_0d=2\pi\Delta n\,d/\lambda_0$ (mica 633 nm: 63.3 µm $\to\lambda/2$).
+\textbf{Parámetros de Stokes}: describen la polarización con cantidades medibles (intensidades):
+\[
+S_0=|A_x|^2+|A_y|^2,\quad S_1=|A_x|^2-|A_y|^2,\quad S_2=2\mathrm{Re}\{A_x^*A_y\}=|A_{45}|^2-|A_{135}|^2,\quad S_3=2\mathrm{Im}\{A_x^*A_y\}=|A_R|^2-|A_L|^2,
+\]
+con $S_1^2+S_2^2+S_3^2=S_0^2$ para luz totalmente polarizada. $S_1$ compara horizontal con vertical, $S_2$ las diagonales y $S_3$ las circulares.
 
-\subsection*{Actividad óptica, Faraday, cristal líquido (§6.4–6.6)}
-Activo: modos circulares $n_\pm=\sqrt{n^2\pm G}$, $\D=\boldsymbol\epsilon\E+j\epsilon_0\mathbf G\times\E$, $\mathbf G=\xi\kv$; potencia rotatoria $\rho=\frac{\pi}{\lambda_0}(n_--n_+)\approx-\frac{\pi G}{\lambda_0n}$; recíproco (ida y vuelta: 0). Cuarzo $\approx31^\circ$/mm a 500 nm.
-Faraday: $\rho=\mathfrak VB$, $\mathbf G=\gamma\mathbf B$, \textbf{no recíproco} (ida y vuelta: doble) → aislador (polarizador–Faraday 45°–polarizador a 45°).
-Nemático torcido: $\theta=\alpha z$, $\beta=(n_e-n_o)k_0\gg\alpha$ $\Rightarrow$ la LP sigue la torsión (rotador; $\T=\R(-\alpha d)\,\mathrm{diag}(e^{-j\beta d/2},e^{j\beta d/2})$).
-Polarizadores: dicroicos (Polaroid, rejilla), Brewster, prismas (Wollaston, Rochon, Glan–Thompson).
+\textbf{Esfera de Poincaré}: el punto $(S_1,S_2,S_3)/S_0=(\cos2\chi\cos2\psi,\ \cos2\chi\sin2\psi,\ \sin2\chi)$ representa cada estado. El ecuador contiene los estados lineales y los polos los circulares (norte: derecha).
+
+\subsection{Matrices de Jones (§6.1B)}
+La polarización se representa con el vector de Jones $\J=(A_x,A_y)^T$; la intensidad es $I=(|A_x|^2+|A_y|^2)/2\eta$. Cada elemento óptico es una matriz $2\times2$ que actúa sobre $\J$.
+
+Vectores básicos: lineal a ángulo $\theta$: $(\cos\theta,\sin\theta)$; circular derecha: $\frac1{\sqrt2}(1,j)$; circular izquierda: $\frac1{\sqrt2}(1,-j)$. Dos estados son ortogonales si $A_{1x}A_{2x}^*+A_{1y}A_{2y}^*=0$.
+
+Cambio de base: $A_R=\frac{A_x-jA_y}{\sqrt2}$, $A_L=\frac{A_x+jA_y}{\sqrt2}$; \ $A_{45}=\frac{A_x+A_y}{\sqrt2}$, $A_{135}=\frac{A_y-A_x}{\sqrt2}$.
+
+\begin{clave}[title={Matrices de Jones de los elementos básicos}]
+\renewcommand{\arraystretch}{1.6}
+\begin{tabular}{@{}ll@{}}
+Polarizador lineal en $x$ & $\begin{pmatrix}1&0\\0&0\end{pmatrix}$\\
+Polarizador lineal a ángulo $\theta$ & $\begin{pmatrix}\cos^2\theta&\sin\theta\cos\theta\\ \sin\theta\cos\theta&\sin^2\theta\end{pmatrix}$\\
+Retardador de onda (eje rápido en $x$) & $\begin{pmatrix}1&0\\0&e^{-j\Gamma}\end{pmatrix}$\\
+Rotador de polarización & $\begin{pmatrix}\cos\theta&-\sin\theta\\ \sin\theta&\cos\theta\end{pmatrix}$
+\end{tabular}
+
+\textbf{Rotación de ejes}: $\J'=\R(\theta)\J$ con $\R(\theta)=\begin{psmallmatrix}\cos\theta&\sin\theta\\-\sin\theta&\cos\theta\end{psmallmatrix}$. Para un elemento girado: $\T'=\R(\theta)\T\R(-\theta)$ y $\T=\R(-\theta)\T'\R(\theta)$.
+
+\textbf{Cascada}: $\T=\T_N\cdots\T_2\T_1$ (el primer elemento que atraviesa la luz va a la derecha).
+
+\textbf{Modos normales}: los autovectores de $\T$ ($\T\J=\mu\J$) son los estados que atraviesan el elemento sin cambiar de polarización.
+\end{clave}
+Resultados útiles:
+\begin{itemize}
+\item Lámina $\lambda/4$ ($\Gamma=\pi/2$): convierte luz lineal a 45° de los ejes en circular, y viceversa.
+\item Lámina $\lambda/2$ ($\Gamma=\pi$): convierte lineal a $\theta$ en lineal a $-\theta$ respecto al eje rápido (gira la polarización $2\theta$), e intercambia circular derecha e izquierda.
+\item Ley de Malus: $I=I_0\cos^2\theta$. Con $N$ polarizadores a pasos de $\pi/2N$, la amplitud transmitida es $\cos^N(\pi/2N)\to1$ cuando $N\to\infty$: se puede girar la polarización 90° casi sin pérdidas.
+\item Retardador entre polarizadores cruzados, con sus ejes a 45°: transmitancia $\mathcal T=\sin^2(\Gamma/2)$ (6.6-1). Es el principio del modulador electroóptico.
+\end{itemize}
+
+\subsection{Reflexión y refracción (§6.2)}
+En una interfaz plana entre índices $n_1$ y $n_2$ vale la ley de Snell, $n_1\sin\theta_1=n_2\sin\theta_2$. La reflexión depende de la polarización, que se separa en dos casos: \textbf{TE} (o s), con $\E$ perpendicular al plano de incidencia, y \textbf{TM} (o p), con $\E$ en el plano de incidencia.
+
+\begin{clave}[title={Ecuaciones de Fresnel (convención del Saleh)}]
+\[
+r_{TE}=\frac{n_1\cos\theta_1-n_2\cos\theta_2}{n_1\cos\theta_1+n_2\cos\theta_2},\qquad t_{TE}=1+r_{TE}
+\]
+\[
+r_{TM}=\frac{n_1\sec\theta_1-n_2\sec\theta_2}{n_1\sec\theta_1+n_2\sec\theta_2},\qquad t_{TM}=(1+r_{TM})\frac{\cos\theta_1}{\cos\theta_2}
+\]
+Reflectancia $\mathcal R=|r|^2$; transmitancia $\mathcal T=\dfrac{n_2\cos\theta_2}{n_1\cos\theta_1}|t|^2=1-\mathcal R$. A incidencia normal: $\mathcal R=\Big(\dfrac{n_1-n_2}{n_1+n_2}\Big)^2$.
+\end{clave}
+\begin{itemize}
+\item \textbf{Ángulo de Brewster} $\theta_B=\tan^{-1}(n_2/n_1)$: la onda TM no se refleja ($r_{TM}=0$) y $\theta_1+\theta_2=90^\circ$. La luz reflejada a ese ángulo sale polarizada TE.
+\item \textbf{Reflexión total interna} (de más a menos denso, $n_1>n_2$): por encima del ángulo crítico $\theta_c=\sin^{-1}(n_2/n_1)$, $|r|=1$ y solo cambia la fase:
+\[
+\tan\frac{\varphi_{TE}}2=\sqrt{\frac{\cos^2\theta_c}{\cos^2\theta_1}-1},\qquad \tan\frac{\varphi_{TM}}2=-\frac{1}{\sin^2\theta_c}\sqrt{\frac{\cos^2\theta_c}{\cos^2\theta_1}-1}.
+\]
+Al otro lado queda una onda evanescente que decae como $e^{-\gamma y}$, con $\gamma=k_0\sqrt{n_1^2\sin^2\theta_1-n_2^2}$. Es el mecanismo de guiado en guías de onda y fibras.
+\item Valores: vidrio refleja 4\,\%, GaAs 32\,\%. Una lámina con dos caras: $\mathcal R(1+\mathcal T^2)$. Un conductor (Hagen–Rubens): $\mathcal R\approx1-2\sqrt{2\epsilon_0\omega/\sigma}$.
+\end{itemize}
+
+\subsection{Medios anisótropos (§6.3)}
+En un cristal anisótropo $\D=\boldsymbol\epsilon\E$, con $\boldsymbol\epsilon$ un tensor simétrico. Siempre existen tres \textbf{ejes principales} en los que el tensor es diagonal: $D_i=\epsilon_iE_i$, y cada eje tiene su índice $n_i=\sqrt{\epsilon_i/\epsilon_0}$. Según cuántos índices distintos hay:
+\begin{itemize}
+\item \textbf{Biaxial}: tres índices distintos.
+\item \textbf{Uniaxial}: $n_1=n_2=n_o$ (ordinario) y $n_3=n_e$ (extraordinario). El eje $z$ es el \textbf{eje óptico}. Es positivo si $n_e>n_o$ y negativo si $n_e<n_o$.
+\item \textbf{Isótropo}: un solo índice (cristales cúbicos).
+\end{itemize}
+
+\begin{clave}[title={Elipsoide de índices y cristal uniaxial}]
+\textbf{Elipsoide de índices}: $\dfrac{x_1^2}{n_1^2}+\dfrac{x_2^2}{n_2^2}+\dfrac{x_3^2}{n_3^2}=1$. \textbf{Receta}: para una onda que viaja en la dirección $\ud$, se corta el elipsoide con el plano normal a $\ud$. La elipse resultante tiene semiejes $n_a$ y $n_b$, que son los índices de los dos modos que pueden propagarse, y sus ejes dan las direcciones de $\D_a$ y $\D_b$.
+
+\textbf{Uniaxial}, con $\ud$ a un ángulo $\theta$ del eje óptico:
+\[
+\frac{1}{n^2(\theta)}=\frac{\cos^2\theta}{n_o^2}+\frac{\sin^2\theta}{n_e^2}\qquad(6.3\text{-}15)
+\]
+\begin{itemize}[leftmargin=1.2em]
+\item \textbf{Onda ordinaria (o)}: índice $n_o$ para cualquier $\theta$; $\D$ perpendicular al plano que forman $\kv$ y el eje óptico; $\E\parallel\D$ y la energía viaja paralela a $\kv$.
+\item \textbf{Onda extraordinaria (e)}: índice $n(\theta)$, entre $n_o$ ($\theta=0$) y $n_e$ ($\theta=90^\circ$); $\D$ en ese plano; $\E\not\parallel\D$, de modo que la energía ($\Sc$) no viaja paralela a $\kv$.
+\end{itemize}
+\end{clave}
+
+Geometría general: $\D\perp\kv$ y $\E\perp\Sc$; los cuatro vectores $\D,\E,\kv,\Sc$ son coplanares. La \textbf{superficie de números de onda} es $\sum_j\frac{u_j^2k^2}{k^2-n_j^2k_0^2}=1$; para el uniaxial se factoriza en una esfera (onda o) y un elipsoide (onda e):
+\[
+(k^2-n_o^2k_0^2)\Big(\frac{k_1^2+k_2^2}{n_e^2}+\frac{k_3^2}{n_o^2}-k_0^2\Big)=0 .
+\]
+La dirección del rayo (energía) es normal a esta superficie.
+
+\textbf{Walk-off} (separación espacial entre $\kv$ y $\Sc$ en la onda e): con $\theta_S$ el ángulo de $\Sc$ respecto al eje,
+\[
+\tan\theta_S=\frac{n_o^2}{n_e^2}\tan\theta,\qquad \rho=\theta-\theta_S,\qquad
+\tan\rho=\frac{(n_e^2-n_o^2)\sin\theta\cos\theta}{n_e^2\cos^2\theta+n_o^2\sin^2\theta}.
+\]
+El máximo es $\tan\rho_{\max}=\frac{n_e^2-n_o^2}{2n_en_o}$, en $\tan\theta=n_e/n_o$. En óptica no lineal el walk-off separa los haces fundamental y armónico y limita la longitud útil del cristal.
+
+\textbf{Doble refracción}: en la superficie del cristal, la onda o cumple $\sin\theta_1=n_o\sin\theta_o$ y la onda e cumple $\sin\theta_1=n(\theta_a+\theta_e)\sin\theta_e$ ($\theta_a$: ángulo del eje óptico con la normal). Incluso a incidencia normal, con el eje oblicuo, el rayo e se desvía: así funcionan los divisores de polarización.
+
+\textbf{Lámina retardadora}: una lámina de espesor $d$ con los dos índices $n_1$, $n_2$ introduce un retardo $\Gamma=(n_2-n_1)k_0d=2\pi\,\Delta n\,d/\lambda_0$. Ejemplo: mica a 633 nm, $d=63.3$ µm da $\lambda/2$.
+
+\subsection{Actividad óptica, efecto Faraday y cristales líquidos (§6.4–6.6)}
+\textbf{Actividad óptica}: en algunos materiales (cuarzo, soluciones de azúcar) los modos normales son las dos polarizaciones circulares, con índices $n_\pm=\sqrt{n^2\pm G}$. Constitutivamente, $\D=\boldsymbol\epsilon\E+j\epsilon_0\mathbf G\times\E$, con $\mathbf G=\xi\kv$. Como las dos circulares se desfasan, una polarización lineal gira a razón de
+\[
+\rho=\frac{\pi}{\lambda_0}(n_--n_+)\approx-\frac{\pi G}{\lambda_0n}\quad[\text{rad/m}].
+\]
+Es un efecto \textbf{recíproco}: al ir y volver, la rotación total es cero. Cuarzo: $\approx31^\circ$/mm a 500 nm.
+
+\textbf{Efecto Faraday}: un campo magnético $\mathbf B$ a lo largo de la propagación produce la misma rotación, con $\rho=\mathfrak VB$ ($\mathfrak V$: constante de Verdet) y $\mathbf G=\gamma\mathbf B$. La diferencia es que es \textbf{no recíproco}: al ir y volver la rotación se duplica. Con esto se construye el \textbf{aislador óptico}: polarizador, rotador de Faraday de 45° y polarizador a 45°; la luz reflejada vuelve girada 90° y queda bloqueada.
+
+\textbf{Cristal líquido nemático torcido}: las moléculas giran con la profundidad, $\theta=\alpha z$. Si la birrefringencia domina sobre la torsión ($\beta=(n_e-n_o)k_0\gg\alpha$), la polarización lineal sigue la torsión y el cristal actúa como rotador. Matriz: $\T=\R(-\alpha d)\,\mathrm{diag}(e^{-j\beta d/2},e^{j\beta d/2})$.
+
+\textbf{Polarizadores}: dicroicos (Polaroid, rejilla de alambres), por ángulo de Brewster, y prismas birrefringentes (Wollaston, Rochon, Glan–Thompson).
 
 %=====================================================================
 \section{Susceptibilidad óptica no lineal (Boyd cap.~1)}
 %=====================================================================
-Convención de Boyd: $\tilde E(t)=Ee^{-i\omega t}+\cc=\sum_nE(\omega_n)e^{-i\omega_nt}$, $E(-\omega)=E(\omega)^*$; si $\tilde E=\mathcal E\cos\omega t$, entonces $E=\mathcal E/2$. $I=2n\epsilon_0c|E|^2=\frac12n\epsilon_0c\mathcal E^2$.
 
-\subsection*{Expansión y órdenes de magnitud (§1.1)}
-\cajita{$\tilde P(t)=\epsilon_0[\chi^{(1)}\tilde E+\chi^{(2)}\tilde E^2+\chi^{(3)}\tilde E^3+\cdots]$ (1.1.2) (instantánea $\Rightarrow$ sin pérdidas ni dispersión).
-Unidades SI: $\chi^{(1)}$ adim., $\chi^{(2)}$ [m/V], $\chi^{(3)}$ [m²/V²].\\
-$E_{\rm at}=\dfrac{e}{4\pi\epsilon_0a_0^2}=5.14\times10^{11}$ V/m; $\chi^{(2)}\sim\dfrac{1}{E_{\rm at}}\approx1.94\times10^{-12}$ m/V; $\chi^{(3)}\sim\dfrac{1}{E_{\rm at}^2}\approx3.78\times10^{-24}$ m²/V².\\
-$I_{\rm at}=\frac12\epsilon_0cE_{\rm at}^2=3.5\times10^{20}$ W/m² $=3.5\times10^{16}$ W/cm². Razón $P^{(n+1)}/P^{(n)}\sim\mathcal E/E_{\rm at}$.}
-Onda: $\nabla^2\tilde E-\frac{n^2}{c^2}\partial_t^2\tilde E=\frac{1}{\epsilon_0c^2}\partial_t^2\tilde P^{NL}$ (1.1.5) ($\frac1{\epsilon_0c^2}=\mu_0$). $\chi^{(2)}\ne0$ solo en cristales \textbf{no centrosimétricos}; $\chi^{(3)}$ en todos.
+\begin{idea}
+Con campos débiles los electrones oscilan en la zona parabólica del potencial y $\Pc$ es proporcional a $\Ec$. Con campos intensos (láseres) el potencial deja de ser parabólico y $\Pc$ adquiere términos en $\Ec^2$, $\Ec^3$, etc. Como $\cos^2\omega t$ contiene $\cos2\omega t$, el medio radia a frecuencias que no estaban en el haz incidente: segundo armónico, suma y diferencia de frecuencias, tercer armónico. El término cúbico también modifica el índice a la misma frecuencia (efecto Kerr). Las simetrías del material deciden qué términos sobreviven: sin $\chi^{(2)}$ en medios centrosimétricos, $\chi^{(3)}$ en todos.
+\end{idea}
 
-\subsection*{Procesos de 2.º orden (§1.2)}
-Con $\tilde E=E_1e^{-i\omega_1t}+E_2e^{-i\omega_2t}+\cc$ y $\tilde P^{(2)}=\sum P(\omega_n)e^{-i\omega_nt}$:
-\cajita{$P(2\omega_1)=\epsilon_0\chi^{(2)}E_1^2$ (SHG);\quad $P(\omega_1+\omega_2)=2\epsilon_0\chi^{(2)}E_1E_2$ (SFG);\\
-$P(\omega_1-\omega_2)=2\epsilon_0\chi^{(2)}E_1E_2^*$ (DFG);\quad $P(0)=2\epsilon_0\chi^{(2)}(|E_1|^2+|E_2|^2)$ (OR) (1.2.7).\\
-Un solo haz: $\tilde P^{(2)}=2\epsilon_0\chi^{(2)}|E|^2+(\epsilon_0\chi^{(2)}E^2e^{-2i\omega t}+\cc)$ (1.2.2).}
-Convención alternativa $\tilde E=\frac12(E'e^{-i\omega t}+\cc)$ ($E'=2E$, Saleh): todas las $P'$ llevan un factor $\tfrac12$ (p.~7).
-Solo radia con fuerza el proceso con \emph{ajuste de fase}. DFG = amplificación paramétrica (cada fotón $\omega_3$ creado destruye uno $\omega_1$ y crea otro $\omega_2$); sin semilla: fluorescencia paramétrica; en cavidad: OPO (bombeo, señal, idler). OR crea un campo DC (no radia).
-Niveles \emph{virtuales}: no son autoestados; el proceso es paramétrico si los estados inicial y final son iguales ($\chi$ real), no paramétrico si hay transferencia de población ($\chi$ compleja: absorción saturable $\alpha=\alpha_0/(1+I/I_s)$, TPA $\sigma=\sigma^{(2)}I$ con tasa $R=\sigma^{(2)}I^2/\hbar\omega$, Raman estimulado).
+\textbf{Convención del Boyd}: $\tilde E(t)=Ee^{-i\omega t}+\cc=\sum_nE(\omega_n)e^{-i\omega_nt}$, con $E(-\omega)=E(\omega)^*$. Si el campo real es $\tilde E=\mathcal E\cos\omega t$, entonces $E=\mathcal E/2$. Intensidad: $I=2n\epsilon_0c|E|^2=\frac12n\epsilon_0c\mathcal E^2$.
 
-\subsection*{Procesos de 3.er orden (§1.2.6–1.2.9)}
-$\cos^3\omega t=\frac14\cos3\omega t+\frac34\cos\omega t\Rightarrow\tilde P^{(3)}=\frac14\epsilon_0\chi^{(3)}\mathcal E^3\cos3\omega t+\frac34\epsilon_0\chi^{(3)}\mathcal E^3\cos\omega t$: THG y Kerr.
-\cajita{$P(\omega)=3\epsilon_0\chi^{(3)}|E|^2E$ $\Rightarrow$ $n=n_0+\bar n_2\langle\tilde E^2\rangle=n_0+2\bar n_2|E|^2=n_0+n_2I$;\\
-$\bar n_2=\dfrac{3\chi^{(3)}}{4n_0}$,\quad $\boxed{n_2=\dfrac{3\chi^{(3)}}{4n_0^2\epsilon_0c}}$ (4.1.19); $n_2[\mathrm{m^2/W}]=283\,\chi^{(3)}[\mathrm{m^2/V^2}]/n_0^2$.\\
-\ojo{(1.2.14b) imprime $3/(2n_0^2\epsilon_0c)$: errata (sobra un factor 2).} XPM sobre sonda: $6\epsilon_0\chi^{(3)}|E|^2E'$ $\Rightarrow$ $\bar n_2^{\rm cross}=2\bar n_2$.}
-Tres frecuencias: 44 componentes ($22\times2$). Regla: $P(\omega_\sigma)=D\,\epsilon_0\chi^{(3)}E_aE_bE_c$, con $\omega_\sigma$ = suma de las frecuencias (conjugada $\leftrightarrow$ frecuencia negativa) y $D$ = número de permutaciones distintas: $P(3\omega_1)=\epsilon_0\chi^{(3)}E_1^3$; $P(2\omega_1\pm\omega_2)=3\epsilon_0\chi^{(3)}E_1^2E_2^{(*)}$; $P(\omega_1+\omega_2\pm\omega_3)=6\epsilon_0\chi^{(3)}E_1E_2E_3^{(*)}$; $P(\omega_1)=\epsilon_0\chi^{(3)}(3|E_1|^2+6|E_2|^2+6|E_3|^2)E_1$.
-Autoenfoque: $n_2>0$ y perfil gaussiano $\to$ lente positiva.
+\subsection{Expansión de la polarización y órdenes de magnitud (§1.1)}
+\begin{clave}[title={Polarización no lineal (1.1.2)}]
+\[
+\tilde P(t)=\epsilon_0\big[\chi^{(1)}\tilde E(t)+\chi^{(2)}\tilde E^2(t)+\chi^{(3)}\tilde E^3(t)+\cdots\big]\equiv\tilde P^{(1)}+\tilde P^{(2)}+\tilde P^{(3)}+\cdots
+\]
+Esta forma escalar supone respuesta instantánea, lo que implica un medio sin pérdidas ni dispersión. Unidades SI: $\chi^{(1)}$ adimensional, $\chi^{(2)}$ en m/V, $\chi^{(3)}$ en m²/V².
+\end{clave}
 
-\subsection*{Definición tensorial (§1.3)}
-$\tilde{\mathbf E}=\sum_n\mathbf E(\omega_n)e^{-i\omega_nt}$, $\mathbf E(\omega_n)=\mathbf A_ne^{i\mathbf k_n\cdot\mathbf r}$.
-\cajita{$P_i(\omega_n+\omega_m)=\epsilon_0\sum_{jk}\sum_{(nm)}\chi^{(2)}_{ijk}(\omega_n+\omega_m,\omega_n,\omega_m)E_j(\omega_n)E_k(\omega_m)$ (1.3.12)\\
-$\Rightarrow P_i(\omega_n+\omega_m)=\epsilon_0D\sum_{jk}\chi^{(2)}_{ijk}E_jE_k$; SFG: $D=2$; SHG: $D=1$ (aunque $\omega_2\to\omega_1$).\\
-$P_i(\omega_\sigma)=\epsilon_0D\sum_{jkl}\chi^{(3)}_{ijkl}(\omega_\sigma,\omega_o,\omega_n,\omega_m)E_jE_kE_l$, $D=1,3,6$ (1.3.21).}
+\textbf{¿Cuándo importan los términos no lineales?} La escala natural es el campo que liga al electrón con el núcleo en el átomo de hidrógeno:
+\[
+E_{\rm at}=\frac{e}{4\pi\epsilon_0a_0^2}=5.14\times10^{11}\ \mathrm{V/m}.
+\]
+Cada orden es menor que el anterior en un factor $\mathcal E/E_{\rm at}$: $P^{(n+1)}/P^{(n)}\sim\mathcal E/E_{\rm at}$. De ahí las estimaciones (fuera de resonancia)
+\[
+\chi^{(2)}\sim\frac{1}{E_{\rm at}}\approx1.94\times10^{-12}\ \mathrm{m/V},\qquad \chi^{(3)}\sim\frac{1}{E_{\rm at}^2}\approx3.78\times10^{-24}\ \mathrm{m^2/V^2}.
+\]
+La intensidad correspondiente es $I_{\rm at}=\frac12\epsilon_0cE_{\rm at}^2=3.5\times10^{20}$ W/m² $=3.5\times10^{16}$ W/cm². Por eso la óptica no lineal necesita láseres.
 
-\subsection*{Oscilador anarmónico no centrosimétrico (§1.4.1)}
-$\ddot x+2\gamma\dot x+\omega_0^2x+ax^2=-e\tilde E/m$ (1.4.1); $U=\frac12m\omega_0^2x^2+\frac13max^3$. Perturbación $\tilde E\to\lambda\tilde E$, $x=\lambda x^{(1)}+\lambda^2x^{(2)}+\dots$:
-$L[x^{(1)}]=-e\tilde E/m$, \ $L[x^{(2)}]=-a(x^{(1)})^2$, \ $L[x^{(3)}]=-2ax^{(1)}x^{(2)}$, con $L=\partial_t^2+2\gamma\partial_t+\omega_0^2$.
-\cajita{$D(\omega)=\omega_0^2-\omega^2-2i\omega\gamma$;\quad $x^{(1)}(\omega_j)=-\dfrac{e}{m}\dfrac{E_j}{D(\omega_j)}$;\quad $\chi^{(1)}(\omega)=\dfrac{Ne^2/m}{\epsilon_0D(\omega)}$ (1.4.17)\\[2pt]
-$x^{(2)}(2\omega_1)=\dfrac{-a(e/m)^2E_1^2}{D(2\omega_1)D^2(\omega_1)}$;\quad $x^{(2)}(\omega_1+\omega_2)=\dfrac{-2a(e/m)^2E_1E_2}{D(\omega_1+\omega_2)D(\omega_1)D(\omega_2)}$\\[2pt]
-$\chi^{(2)}(\omega_1+\omega_2,\omega_1,\omega_2)=\dfrac{N(e^3/m^2)a}{\epsilon_0D(\omega_1+\omega_2)D(\omega_1)D(\omega_2)}=\dfrac{\epsilon_0^2ma}{N^2e^3}\chi^{(1)}(\omega_1+\omega_2)\chi^{(1)}(\omega_1)\chi^{(1)}(\omega_2)$ (1.4.24–25)}
-SHG: $\chi^{(2)}(2\omega)=\frac{N(e^3/m^2)a}{\epsilon_0D(2\omega)D^2(\omega)}$. DFG: $D(\omega_1-\omega_2)D(\omega_1)D(-\omega_2)$; OR: $D(0)D(\omega)D(-\omega)$. Un factor $1/D$ por cada frecuencia (entradas y salida): resuena si cualquiera se acerca a $\omega_0$. $D(-\omega)=D(\omega)^*$.
-\textbf{Regla de Miller}: $\chi^{(2)}/[\chi^{(1)}(\omega_3)\chi^{(1)}(\omega_1)\chi^{(1)}(\omega_2)]\approx$ cte. ($=\epsilon_0^2ma/N^2e^3$). Con $a=\omega_0^2/d$ ($m\omega_0^2d=mad^2$), $N=1/d^3$, $D\to\omega_0^2$:
-$\chi^{(2)}=\frac{e^3}{\epsilon_0m^2\omega_0^4d^4}\approx6.9$ pm/V ($\omega_0=10^{16}$ s$^{-1}$, $d=3$ Å).
+\textbf{Ecuación de onda} con fuente no lineal (1.1.5):
+\[
+\nabla^2\tilde E-\frac{n^2}{c^2}\frac{\partial^2\tilde E}{\partial t^2}=\frac{1}{\epsilon_0c^2}\frac{\partial^2\tilde P^{NL}}{\partial t^2}\qquad\Big(\frac1{\epsilon_0c^2}=\mu_0\Big).
+\]
+Un $\tilde P^{NL}$ que oscila a una frecuencia nueva actúa como fuente y radia luz a esa frecuencia (comparar con la ecuación de onda del tema 1).
 
-\subsection*{Oscilador centrosimétrico e isótropo (§1.4.3)}
-$\mathbf F=-m\omega_0^2\mathbf r+mb(\mathbf r\cdot\mathbf r)\mathbf r$, $U=\frac12m\omega_0^2x^2-\frac14mbx^4$. Orden 2: ecuación homogénea $\Rightarrow\mathbf r^{(2)}=0$ (no hay $\chi^{(2)}$).
-\cajita{$\mathbf r^{(3)}(\omega_q)=-\sum_{(mnp)}\dfrac{be^3[\mathbf E(\omega_m)\cdot\mathbf E(\omega_n)]\mathbf E(\omega_p)}{m^3D(\omega_q)D(\omega_m)D(\omega_n)D(\omega_p)}$,\ $\mathbf P^{(3)}=-Ne\mathbf r^{(3)}$\\[2pt]
-$\chi^{(3)}_{ijkl}=\dfrac{Nbe^4[\delta_{ij}\delta_{kl}+\delta_{ik}\delta_{jl}+\delta_{il}\delta_{jk}]}{3\epsilon_0m^3D(\omega_q)D(\omega_m)D(\omega_n)D(\omega_p)}$ (1.4.52) (simetrizado)\\[2pt]
-$=\frac{bm\epsilon_0^3}{3N^3e^4}\chi^{(1)}(\omega_q)\chi^{(1)}(\omega_m)\chi^{(1)}(\omega_n)\chi^{(1)}(\omega_p)[\cdots]$;\ $b=\omega_0^2/d^2$;\ $\chi^{(3)}\approx\frac{e^4}{\epsilon_0m^3\omega_0^6d^5}\approx344$ pm²/V² ($\omega_0=7\times10^{15}$).}
-Consecuencia (Prob.~1.4): $\chi_{1122}=\chi_{1212}=\chi_{1221}=\frac13\chi_{1111}$; elementos con un índice impar (p.~ej. $\chi_{1112}$) $=0$.
+\textbf{Simetría}: $\chi^{(2)}\ne0$ solo en cristales \textbf{no centrosimétricos}; $\chi^{(3)}$ existe en todos los materiales.
 
-\subsection*{Simetrías de $\chi^{(2)}$ (§1.5.1–1.5.5)}
+\subsection{Procesos de segundo orden (§1.2)}
+\textbf{Un solo haz}: con $\tilde E=Ee^{-i\omega t}+\cc$, al elevar al cuadrado,
+\[
+\tilde P^{(2)}=2\epsilon_0\chi^{(2)}|E|^2+\big(\epsilon_0\chi^{(2)}E^2e^{-2i\omega t}+\cc\big)\qquad(1.2.2).
+\]
+El primer término es constante (rectificación óptica) y el segundo oscila a $2\omega$ (generación de segundo armónico).
+
+\textbf{Dos haces}: con $\tilde E=E_1e^{-i\omega_1t}+E_2e^{-i\omega_2t}+\cc$, al expandir el cuadrado y escribir $\tilde P^{(2)}=\sum_n P(\omega_n)e^{-i\omega_nt}$:
+\begin{clave}[title={Componentes de la polarización de segundo orden (1.2.7)}]
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{@{}ll@{}}
+$P(2\omega_1)=\epsilon_0\chi^{(2)}E_1^2$ & generación de segundo armónico (SHG)\\
+$P(2\omega_2)=\epsilon_0\chi^{(2)}E_2^2$ & SHG\\
+$P(\omega_1+\omega_2)=2\epsilon_0\chi^{(2)}E_1E_2$ & suma de frecuencias (SFG)\\
+$P(\omega_1-\omega_2)=2\epsilon_0\chi^{(2)}E_1E_2^*$ & diferencia de frecuencias (DFG)\\
+$P(0)=2\epsilon_0\chi^{(2)}\big(|E_1|^2+|E_2|^2\big)$ & rectificación óptica (OR)
+\end{tabular}
+\end{clave}
+Los factores 2 en SFG y DFG aparecen porque los productos cruzados $E_1E_2$ y $E_2E_1$ salen dos veces al expandir el cuadrado. Si se usa la convención $\tilde E=\frac12(E'e^{-i\omega t}+\cc)$ (la del Saleh, $E'=2E$), todas las $P'$ llevan un factor $\tfrac12$ adicional (p.~7).
+
+Puntos clave:
 \begin{itemize}
-\item \textbf{Realidad}: $\chi_{ijk}(-\omega_n-\omega_m,-\omega_n,-\omega_m)=\chi_{ijk}(\omega_n+\omega_m,\omega_n,\omega_m)^*$.
-\item \textbf{Permutación intrínseca} (siempre; convención): $\chi_{ijk}(\omega_n+\omega_m,\omega_n,\omega_m)=\chi_{ikj}(\omega_n+\omega_m,\omega_m,\omega_n)$.
-\item \textbf{Sin pérdidas}: $\chi$ real y \textbf{permutación total}: $\chi_{ijk}(\omega_3=\omega_1+\omega_2)=\chi_{jki}(\omega_1=-\omega_2+\omega_3)=\chi_{kij}(\omega_2=\omega_3-\omega_1)$ (de la energía $U$, $P_i=\partial U/\partial E_i^*$).
-\item \textbf{Kleinman} (sin dispersión, $\omega\ll\omega_0$): se permutan los índices sin permutar frecuencias: $\chi_{ijk}=\chi_{jki}=\chi_{kij}=\chi_{ikj}=\chi_{jik}=\chi_{kji}$.
-\item Conteo: 324 complejos $\to$ 81 $\to$ 27 (sin pérdidas) $\to$ 18 (SHG, $d_{il}$) $\to$ 10 (Kleinman) $\to$ menos por la clase cristalina.
+\item Aunque la polarización tiene todas estas componentes, en la práctica solo una radia con eficiencia: aquella para la que se cumple el \textbf{ajuste de fase} (tema 5).
+\item \textbf{Amplificación paramétrica} (DFG): por cada fotón de $\omega_3$ que se destruye se crean uno de $\omega_1$ y otro de $\omega_2$; la onda débil se amplifica. Sin semilla aparece la fluorescencia paramétrica; dentro de una cavidad se tiene el \textbf{OPO} (con ondas de bombeo, señal e \emph{idler}).
+\item La rectificación óptica crea un campo eléctrico constante en el cristal, que no radia.
+\item \textbf{Niveles virtuales}: en los diagramas de energía, los niveles intermedios no son autoestados del átomo. Un proceso es \textbf{paramétrico} si el estado cuántico final es igual al inicial (no hay transferencia de energía al medio y $\chi$ es real). Es \textbf{no paramétrico} si hay transferencia de población ($\chi$ compleja): absorción saturable $\alpha=\alpha_0/(1+I/I_s)$, absorción de dos fotones (sección eficaz $\sigma=\sigma^{(2)}I$, tasa $R=\sigma^{(2)}I^2/\hbar\omega$) y Raman estimulado.
 \end{itemize}
 
-\subsection*{Notación contraída y $d_{\rm eff}$ (§1.5.6–1.5.7)}
-$d_{ijk}=\frac12\chi^{(2)}_{ijk}$; $jk\to l$: $11\to1$, $22\to2$, $33\to3$, $23,32\to4$, $13,31\to5$, $12,21\to6$.
-\cajita{SHG: $\begin{psmallmatrix}P_x\\P_y\\P_z\end{psmallmatrix}_{2\omega}=2\epsilon_0[d_{il}]\big(E_x^2,E_y^2,E_z^2,2E_yE_z,2E_xE_z,2E_xE_y\big)^T$ (1.5.26)\\
-SFG: $4\epsilon_0[d_{il}](E_{1x}E_{2x},E_{1y}E_{2y},E_{1z}E_{2z},E_{1y}E_{2z}+E_{1z}E_{2y},\ldots)^T$ (1.5.27)\\
-$P(2\omega)=2\epsilon_0d_{\rm eff}E(\omega)^2$;\quad $P(\omega_3)=4\epsilon_0d_{\rm eff}E(\omega_1)E(\omega_2)$ (1.5.28–29).}
-Kleinman: $d_{21}=d_{16}$, $d_{24}=d_{32}$, $d_{31}=d_{15}$, $d_{14}=d_{25}=d_{36}$, $d_{23}=d_{34}$, $d_{12}=d_{26}$, $d_{13}=d_{35}$ (10 independientes).
-\textbf{Clase 3m} (LiNbO$_3$, BBO): $d=\begin{psmallmatrix}0&0&0&0&d_{31}&-d_{22}\\-d_{22}&d_{22}&0&d_{31}&0&0\\d_{31}&d_{31}&d_{33}&0&0&0\end{psmallmatrix}$;
-uniaxial negativo: tipo I ($oo\to e$) $d_{\rm eff}=d_{31}\sin\theta-d_{22}\cos\theta\sin3\phi$; tipo II $d_{\rm eff}=d_{22}\cos^2\theta\cos3\phi$ (1.5.30). Receta: $\mathbf E$ de entrada en ejes del cristal $\to\mathbf P$ con $[d]$ $\to$ proyectar sobre la polarización de salida.
-$\bar42m$ (KDP): $d_{14}=d_{25}$, $d_{36}$. $\bar43m$ (GaAs) y 23: $d_{14}=d_{25}=d_{36}$. 432: $d_{il}\equiv0$.
+\subsection{Procesos de tercer orden (§1.2.6–1.2.9)}
+\textbf{Un solo haz} $\tilde E=\mathcal E\cos\omega t$: con la identidad $\cos^3\omega t=\frac14\cos3\omega t+\frac34\cos\omega t$,
+\[
+\tilde P^{(3)}=\tfrac14\epsilon_0\chi^{(3)}\mathcal E^3\cos3\omega t+\tfrac34\epsilon_0\chi^{(3)}\mathcal E^3\cos\omega t .
+\]
+El primer término es la \textbf{generación de tercer armónico} (THG). El segundo oscila a la misma frecuencia que el haz y se suma a la polarización lineal: cambia el índice de refracción (\textbf{efecto Kerr óptico}).
 
-\subsection*{Simetría espacial (§1.5.8–1.5.15)}
-\textbf{Inversión} $\Rightarrow\chi^{(2)}=0$: $-\tilde P=\epsilon_0\chi^{(2)}(-\tilde E)^2=\tilde P$. 32 clases: 11 centrosimétricas, 21 no centrosimétricas; polares (dipolo permanente): 1, 2, 3, 4, 6, m, mm2, 3m, 4mm, 6mm.
-Respuesta no lineal: centrosimétrica $\to$ solo armónicos impares, promedio nulo; no centrosimétrica $\to$ pares e impares y DC.
-$\chi^{(1)}$: cúbico/isótropo (isótropo óptico); tetragonal, trigonal, hexagonal = uniaxiales; ortorrómbico, monoclínico, triclínico = biaxiales.
-GaAs (zincblenda $\bar43m$): $d_{36}=370$ pm/V, cúbico $\Rightarrow$ sin birrefringencia (no hay ajuste de fase por birrefringencia). Si (diamante $m3m$): $\chi^{(2)}_{\rm bulk}=0$.
-Valores (Tabla 1.5.3, pm/V): BBO $d_{22}=2.2$; KDP $d_{36}=0.43$; LiNbO$_3$ $d_{31}=-5.9$, $d_{33}\approx-30$ (la tabla imprime "$d_{32}$"); CdS $d_{33}=78$; cuarzo $d_{11}=0.3$; AgGaSe$_2$ $d_{36}=33$.
-\textbf{$\chi^{(3)}$ isótropo}: 21 elementos no nulos, 3 independientes; $\chi_{1111}=\chi_{1122}+\chi_{1212}+\chi_{1221}$.
-Maker–Terhune: $\mathbf P^{(3)}(\omega)=\epsilon_0A(\mathbf E\cdot\mathbf E^*)\mathbf E+\frac12\epsilon_0B(\mathbf E\cdot\mathbf E)\mathbf E^*$, $A=6\chi_{1122}$, $B=6\chi_{1221}$ (§4.2); $B/A=1$ electrónico no resonante, 6 orientación molecular, 0 electrostricción. Cúbico (Si, GaAs): 4 independientes ($\chi_{xxxx}$ independiente: anisotropía).
+\begin{clave}[title={Índice no lineal}]
+En la convención del Boyd, $P(\omega)=3\epsilon_0\chi^{(3)}|E|^2E$. Esto equivale a un índice que depende de la intensidad:
+\[
+n=n_0+\bar n_2\langle\tilde E^2\rangle=n_0+2\bar n_2|E|^2=n_0+n_2I,
+\]
+\[
+\bar n_2=\frac{3\chi^{(3)}}{4n_0},\qquad \boxed{n_2=\frac{3\chi^{(3)}}{4n_0^2\epsilon_0c}}\quad(4.1.19);\qquad n_2[\mathrm{m^2/W}]=\frac{283\,\chi^{(3)}[\mathrm{m^2/V^2}]}{n_0^2}.
+\]
+\ojo{la ecuación (1.2.14b) imprime $3/(2n_0^2\epsilon_0c)$: es una errata del libro (sobra un factor 2); la correcta es (4.1.19).}
 
-\subsection*{Dominio del tiempo y Kramers–Kronig (§1.6–1.7)}
-$\tilde P^{(1)}(t)=\epsilon_0\!\int_0^\infty\! R^{(1)}(\tau)\tilde E(t-\tau)d\tau$ (causal); $\chi^{(1)}(\omega)=\int_0^\infty R^{(1)}(\tau)e^{i\omega\tau}d\tau$; $\chi^{(2)}(\omega_\sigma;\omega_1,\omega_2)=\iint R^{(2)}(\tau_1,\tau_2)e^{i(\omega_1\tau_1+\omega_2\tau_2)}$. TF: $E(\omega)=\int\tilde Ee^{i\omega t}dt$. Respuesta instantánea $\leftrightarrow R\propto\delta$ $\leftrightarrow\chi$ constante.
-$\chi(\omega)$ analítica en $\mathrm{Im}\,\omega>0$ $\Rightarrow$ $\chi(\omega)=\frac{-i}{\pi}\mathrm{P}\!\!\int\frac{\chi(\omega')}{\omega'-\omega}d\omega'$;
-\cajita{$\mathrm{Re}\chi^{(1)}(\omega)=\frac2\pi\mathrm P\!\int_0^\infty\frac{\omega'\mathrm{Im}\chi^{(1)}(\omega')}{\omega'^2-\omega^2}d\omega'$,\quad $\mathrm{Im}\chi^{(1)}(\omega)=-\frac{2\omega}\pi\mathrm P\!\int_0^\infty\frac{\mathrm{Re}\chi^{(1)}(\omega')}{\omega'^2-\omega^2}d\omega'$ (1.7.9).}
-No lineal: valen si la respuesta es lineal en la frecuencia que se integra (todas las $p_i\ge0$): SHG $\chi^{(2)}(2\omega;\omega,\omega)$, THG, índice inducido por haz auxiliar $\chi^{(3)}(\omega;\omega,\omega_1,-\omega_1)$. \textbf{No} valen para el autoinducido $\chi^{(3)}(\omega;\omega,\omega,-\omega)$ ni para $\chi^{(2)}(\omega_1;\omega_3,-\omega_2)$.
+\textbf{Modulación de fase cruzada (XPM)}: un haz fuerte $E$ cambia el índice que ve una sonda débil $E'$: $P=6\epsilon_0\chi^{(3)}|E|^2E'$, así que $\bar n_2^{\rm cross}=2\bar n_2$ (el doble que la automodulación).
+\end{clave}
 
-\subsection*{Conversión de unidades (Boyd, apéndice)}
-$\chi^{(1)}_{SI}=4\pi\chi^{(1)}_{G}$; $\chi^{(2)}[\mathrm{m/V}]=\frac{4\pi}{3\times10^4}\chi^{(2)}[\mathrm{esu}]=4.19\times10^{-4}\chi^{(2)}_G$; $\chi^{(3)}[\mathrm{m^2/V^2}]=\frac{4\pi}{9\times10^8}\chi^{(3)}_G=1.40\times10^{-8}\chi^{(3)}_G$; $d[\mathrm{esu}]=2.386\times10^{-9}\,d[\mathrm{pm/V}]$; $n_2[\mathrm{cm^2/W}]=0.0395\,\chi^{(3)}_G/n_0^2$. Ej.: proustita $1.3\times10^{-7}$ esu $\to5.4\times10^{-11}$ m/V.
+\textbf{Tres frecuencias distintas}: el término $\tilde E^3$ produce 44 componentes de frecuencia (22 positivas y sus conjugadas). Regla para escribir cualquiera:
+\[
+P(\omega_\sigma)=D\,\epsilon_0\chi^{(3)}E_aE_bE_c ,
+\]
+donde $\omega_\sigma$ es la suma de las tres frecuencias (un campo conjugado aporta frecuencia negativa) y $D$ es el número de permutaciones distintas de los tres campos. Ejemplos:
+\begin{itemize}
+\item $P(3\omega_1)=\epsilon_0\chi^{(3)}E_1^3$ \quad ($D=1$, los tres campos iguales);
+\item $P(2\omega_1\pm\omega_2)=3\epsilon_0\chi^{(3)}E_1^2E_2^{(*)}$ \quad ($D=3$, dos iguales);
+\item $P(\omega_1+\omega_2\pm\omega_3)=6\epsilon_0\chi^{(3)}E_1E_2E_3^{(*)}$ \quad ($D=6$, todos distintos);
+\item $P(\omega_1)=\epsilon_0\chi^{(3)}\big(3|E_1|^2+6|E_2|^2+6|E_3|^2\big)E_1$ \quad (automodulación más modulación cruzada).
+\end{itemize}
 
-\subsection*{Cómo atacar un problema típico}
+\textbf{Autoenfoque}: si $n_2>0$ y el haz es gaussiano, el centro (más intenso) ve un índice mayor que los bordes. El medio actúa como una lente positiva y el haz se enfoca solo.
+
+\subsection{Definición tensorial de la susceptibilidad (§1.3)}
+En general $\mathbf P$ y $\mathbf E$ son vectores y $\chi^{(n)}$ es un tensor de rango $n+1$ que depende de las frecuencias. El campo se escribe $\tilde{\mathbf E}=\sum_n\mathbf E(\omega_n)e^{-i\omega_nt}$, con $\mathbf E(\omega_n)=\mathbf A_ne^{i\mathbf k_n\cdot\mathbf r}$.
+
+\begin{clave}[title={Definición de $\chi^{(2)}_{ijk}$ y $\chi^{(3)}_{ijkl}$}]
+\[
+P_i(\omega_n+\omega_m)=\epsilon_0\sum_{jk}\sum_{(nm)}\chi^{(2)}_{ijk}(\omega_n+\omega_m,\omega_n,\omega_m)\,E_j(\omega_n)E_k(\omega_m)\qquad(1.3.12)
+\]
+La suma $(nm)$ recorre todas las combinaciones de frecuencias con suma $\omega_n+\omega_m$ fija. En la práctica se resume como
+\[
+P_i(\omega_n+\omega_m)=\epsilon_0D\sum_{jk}\chi^{(2)}_{ijk}E_jE_k,\qquad D=2\ (\text{SFG}),\quad D=1\ (\text{SHG}).
+\]
+Para tercer orden: $P_i(\omega_\sigma)=\epsilon_0D\sum_{jkl}\chi^{(3)}_{ijkl}(\omega_\sigma,\omega_o,\omega_n,\omega_m)E_jE_kE_l$, con $D=1,3,6$ (1.3.21).
+\end{clave}
+\ojo{en el límite $\omega_2\to\omega_1$, la SFG no se convierte en SHG de forma continua: $D$ pasa de 2 a 1.}
+
+\subsection{Modelo clásico: oscilador anarmónico no centrosimétrico (§1.4.1)}
+El modelo de Lorentz con una corrección cuadrática en la fuerza de restauración:
+\[
+\ddot x+2\gamma\dot x+\omega_0^2x+ax^2=-\frac{e\tilde E(t)}{m}\qquad(1.4.1),\qquad U(x)=\tfrac12m\omega_0^2x^2+\tfrac13max^3 .
+\]
+El término $x^3$ en el potencial lo hace asimétrico: el electrón se desplaza más fácil hacia un lado que hacia el otro. Esto solo es posible en un medio sin centro de inversión.
+
+\textbf{Método de perturbaciones}: se reemplaza $\tilde E\to\lambda\tilde E$, se propone $x=\lambda x^{(1)}+\lambda^2x^{(2)}+\lambda^3x^{(3)}+\dots$ y se igualan potencias de $\lambda$. Con el operador $L=\partial_t^2+2\gamma\partial_t+\omega_0^2$ queda una ecuación lineal por orden:
+\[
+L[x^{(1)}]=-\frac{e\tilde E}{m},\qquad L[x^{(2)}]=-a\big(x^{(1)}\big)^2,\qquad L[x^{(3)}]=-2a\,x^{(1)}x^{(2)} .
+\]
+Cada orden se resuelve con la solución del anterior como fuente. Al final, $P=-Nex$.
+
+\begin{clave}[title={Resultados del oscilador anarmónico}]
+Denominador resonante: $D(\omega)=\omega_0^2-\omega^2-2i\omega\gamma$ (con $D(-\omega)=D(\omega)^*$).
+\[
+x^{(1)}(\omega_j)=-\frac{e}{m}\frac{E_j}{D(\omega_j)},\qquad \chi^{(1)}(\omega)=\frac{Ne^2/m}{\epsilon_0D(\omega)}\qquad(1.4.17)
+\]
+\[
+x^{(2)}(2\omega_1)=\frac{-a(e/m)^2E_1^2}{D(2\omega_1)D^2(\omega_1)},\qquad x^{(2)}(\omega_1+\omega_2)=\frac{-2a(e/m)^2E_1E_2}{D(\omega_1+\omega_2)D(\omega_1)D(\omega_2)}
+\]
+\[
+\chi^{(2)}(\omega_1+\omega_2,\omega_1,\omega_2)=\frac{N(e^3/m^2)\,a}{\epsilon_0D(\omega_1+\omega_2)D(\omega_1)D(\omega_2)}=\frac{\epsilon_0^2ma}{N^2e^3}\,\chi^{(1)}(\omega_1+\omega_2)\chi^{(1)}(\omega_1)\chi^{(1)}(\omega_2)\quad(1.4.24\text{–}25)
+\]
+\end{clave}
+Otros procesos:
+\[
+\chi^{(2)}(2\omega,\omega,\omega)=\frac{N(e^3/m^2)a}{\epsilon_0D(2\omega)D^2(\omega)}\quad(\text{SHG});
+\]
+DFG, denominadores $D(\omega_1-\omega_2)D(\omega_1)D(-\omega_2)$; OR, $D(0)D(\omega)D(-\omega)$. \textbf{Regla general}: aparece un factor $1/D$ por cada frecuencia que interviene (las de entrada y la de salida). Por eso $\chi^{(2)}$ crece mucho si cualquiera de ellas se acerca a $\omega_0$.
+
+\textbf{Regla de Miller}: el cociente
+\[
+\frac{\chi^{(2)}(\omega_3,\omega_1,\omega_2)}{\chi^{(1)}(\omega_3)\chi^{(1)}(\omega_1)\chi^{(1)}(\omega_2)}=\frac{\epsilon_0^2ma}{N^2e^3}
+\]
+es casi el mismo para todos los cristales. Es decir, los materiales con índice alto tienden a tener $\chi^{(2)}$ grande.
+
+\textbf{Estimación de $\chi^{(2)}$}: si a un desplazamiento igual a la distancia interatómica $d$ los términos lineal y no lineal de la fuerza son comparables, $m\omega_0^2d=mad^2$, entonces $a=\omega_0^2/d$. Con $N=1/d^3$ y $D\to\omega_0^2$ (fuera de resonancia):
+\[
+\chi^{(2)}=\frac{e^3}{\epsilon_0m^2\omega_0^4d^4}\approx6.9\ \mathrm{pm/V}\qquad(\omega_0=10^{16}\ \mathrm{s^{-1}},\ d=3\ \text{Å}),
+\]
+del orden de lo medido en cristales reales.
+
+\subsection{Oscilador centrosimétrico e isótropo (§1.4.3)}
+En un medio con centro de inversión el potencial debe ser simétrico, así que la primera corrección es cúbica en la fuerza:
+\[
+\mathbf F=-m\omega_0^2\mathbf r+mb(\mathbf r\cdot\mathbf r)\mathbf r,\qquad U=\tfrac12m\omega_0^2x^2-\tfrac14mbx^4 .
+\]
+A segundo orden la ecuación para $\mathbf r^{(2)}$ queda homogénea (sin fuente), así que $\mathbf r^{(2)}=0$: no hay $\chi^{(2)}$, como exige la simetría. El primer término no lineal es de tercer orden:
+\begin{clave}[title={$\chi^{(3)}$ del oscilador centrosimétrico}]
+\[
+\mathbf r^{(3)}(\omega_q)=-\sum_{(mnp)}\frac{b\,e^3\,[\mathbf E(\omega_m)\cdot\mathbf E(\omega_n)]\,\mathbf E(\omega_p)}{m^3D(\omega_q)D(\omega_m)D(\omega_n)D(\omega_p)},\qquad \mathbf P^{(3)}=-Ne\,\mathbf r^{(3)}
+\]
+\[
+\chi^{(3)}_{ijkl}=\frac{Nbe^4\,[\delta_{ij}\delta_{kl}+\delta_{ik}\delta_{jl}+\delta_{il}\delta_{jk}]}{3\epsilon_0m^3D(\omega_q)D(\omega_m)D(\omega_n)D(\omega_p)}\qquad(1.4.52)\ (\text{forma simetrizada})
+\]
+\[
+=\frac{bm\epsilon_0^3}{3N^3e^4}\,\chi^{(1)}(\omega_q)\chi^{(1)}(\omega_m)\chi^{(1)}(\omega_n)\chi^{(1)}(\omega_p)\,[\delta_{ij}\delta_{kl}+\delta_{ik}\delta_{jl}+\delta_{il}\delta_{jk}].
+\]
+Estimación con $b=\omega_0^2/d^2$: $\chi^{(3)}\approx\dfrac{e^4}{\epsilon_0m^3\omega_0^6d^5}\approx344$ pm²/V² ($\omega_0=7\times10^{15}$ s$^{-1}$, $d=3$ Å).
+\end{clave}
+Consecuencia de la estructura con deltas (Prob.~1.4): $\chi_{1122}=\chi_{1212}=\chi_{1221}=\frac13\chi_{1111}$, y todo elemento con un índice repetido un número impar de veces (p.~ej.\ $\chi_{1112}$) es cero.
+
+\subsection{Propiedades de simetría de $\chi^{(2)}$ (§1.5.1–1.5.5)}
+Las simetrías reducen mucho el número de elementos independientes del tensor.
+\begin{itemize}
+\item \textbf{Realidad de los campos}: como $\tilde P$ y $\tilde E$ son reales, $\chi_{ijk}(-\omega_n-\omega_m,-\omega_n,-\omega_m)=\chi_{ijk}(\omega_n+\omega_m,\omega_n,\omega_m)^*$.
+\item \textbf{Permutación intrínseca} (siempre válida; es una convención): se pueden intercambiar a la vez el par índice–frecuencia de los dos campos de entrada, $\chi_{ijk}(\omega_n+\omega_m,\omega_n,\omega_m)=\chi_{ikj}(\omega_n+\omega_m,\omega_m,\omega_n)$.
+\item \textbf{Medio sin pérdidas}: $\chi$ es real y vale la \textbf{permutación total}: se pueden permutar los tres pares índice–frecuencia, incluido el de salida (cambiando el signo de las frecuencias según corresponda):
+$\chi_{ijk}(\omega_3=\omega_1+\omega_2)=\chi_{jki}(\omega_1=-\omega_2+\omega_3)=\chi_{kij}(\omega_2=\omega_3-\omega_1)$. Se demuestra a partir de la energía almacenada $U$, con $P_i=\partial U/\partial E_i^*$.
+\item \textbf{Simetría de Kleinman}: si además las frecuencias están muy por debajo de las resonancias ($\omega\ll\omega_0$), $\chi$ casi no depende de la frecuencia y se pueden permutar los índices sin permutar las frecuencias:
+$\chi_{ijk}=\chi_{jki}=\chi_{kij}=\chi_{ikj}=\chi_{jik}=\chi_{kji}$.
+\item \textbf{Conteo de elementos}: 324 complejos en general $\to$ 81 $\to$ 27 (sin pérdidas) $\to$ 18 (SHG, matriz $d_{il}$) $\to$ 10 (Kleinman) $\to$ aún menos según la clase cristalina.
+\end{itemize}
+
+\subsection{Notación contraída y coeficiente efectivo $d_{\rm eff}$ (§1.5.6–1.5.7)}
+Cuando vale la permutación intrínseca, $\chi_{ijk}$ es simétrico en $j,k$, y se define $d_{ijk}=\frac12\chi^{(2)}_{ijk}$. El par $jk$ se contrae en un solo índice $l$:
+\[
+11\to1,\quad22\to2,\quad33\to3,\quad23,32\to4,\quad13,31\to5,\quad12,21\to6 .
+\]
+Así $d_{ijk}$ se vuelve una matriz $3\times6$, $d_{il}$.
+
+\begin{clave}[title={Polarización en notación contraída (1.5.26–1.5.29)}]
+\textbf{SHG}:
+\[
+\begin{pmatrix}P_x\\P_y\\P_z\end{pmatrix}_{2\omega}=2\epsilon_0\,[d_{il}]\begin{pmatrix}E_x^2\\E_y^2\\E_z^2\\2E_yE_z\\2E_xE_z\\2E_xE_y\end{pmatrix}
+\]
+\textbf{SFG}: $\mathbf P(\omega_3)=4\epsilon_0[d_{il}]\big(E_{1x}E_{2x},\ E_{1y}E_{2y},\ E_{1z}E_{2z},\ E_{1y}E_{2z}+E_{1z}E_{2y},\ \ldots\big)^T$.
+
+Para polarizaciones y dirección fijas, todo se reduce a un número, $d_{\rm eff}$:
+\[
+P(2\omega)=2\epsilon_0d_{\rm eff}E(\omega)^2,\qquad P(\omega_3)=4\epsilon_0d_{\rm eff}E(\omega_1)E(\omega_2).
+\]
+\end{clave}
+\textbf{Kleinman en notación contraída}: $d_{21}=d_{16}$, $d_{24}=d_{32}$, $d_{31}=d_{15}$, $d_{14}=d_{25}=d_{36}$, $d_{23}=d_{34}$, $d_{12}=d_{26}$, $d_{13}=d_{35}$; quedan 10 elementos independientes.
+
+\textbf{Clase 3m} (LiNbO$_3$, BBO):
+\[
+d=\begin{pmatrix}0&0&0&0&d_{31}&-d_{22}\\-d_{22}&d_{22}&0&d_{31}&0&0\\d_{31}&d_{31}&d_{33}&0&0&0\end{pmatrix}.
+\]
+Para un cristal uniaxial negativo:
+tipo I ($o+o\to e$): $d_{\rm eff}=d_{31}\sin\theta-d_{22}\cos\theta\sin3\phi$; \ tipo II: $d_{\rm eff}=d_{22}\cos^2\theta\cos3\phi$ (1.5.30).
+
+\textbf{Receta para calcular $d_{\rm eff}$}: (1) escribir los campos de entrada en los ejes del cristal según su polarización (o, e) y la dirección $(\theta,\phi)$; (2) calcular $\mathbf P$ con la matriz $[d]$; (3) proyectar $\mathbf P$ sobre la polarización de la onda de salida.
+
+Otras clases: $\bar42m$ (KDP): $d_{14}=d_{25}$ y $d_{36}$. \ $\bar43m$ (GaAs) y 23: $d_{14}=d_{25}=d_{36}$. \ 432: todos los $d_{il}=0$.
+
+\subsection{Simetría espacial del medio (§1.5.8–1.5.15)}
+\textbf{Inversión implica $\chi^{(2)}=0$}: si el medio tiene centro de inversión, al invertir el campo se debe invertir la polarización: $-\tilde P=\epsilon_0\chi^{(2)}(-\tilde E)^2=\epsilon_0\chi^{(2)}\tilde E^2=\tilde P$. Solo se cumple si $\chi^{(2)}=0$.
+
+De las 32 clases cristalinas, 11 son centrosimétricas y 21 no lo son. Las \textbf{polares} (con dipolo permanente) son 1, 2, 3, 4, 6, m, mm2, 3m, 4mm y 6mm.
+
+Forma de la respuesta: un medio centrosimétrico solo genera armónicos impares y su respuesta promedio es nula; uno no centrosimétrico genera armónicos pares e impares y una componente DC.
+
+Clasificación óptica lineal ($\chi^{(1)}$): cúbicos e isótropos son ópticamente isótropos; tetragonales, trigonales y hexagonales son uniaxiales; ortorrómbicos, monoclínicos y triclínicos son biaxiales.
+
+Ejemplos: GaAs (zincblenda, $\bar43m$) tiene $d_{36}=370$ pm/V, pero como es cúbico no tiene birrefringencia y no se puede usar para ajuste de fase por birrefringencia. El Si (diamante, $m3m$) es centrosimétrico: $\chi^{(2)}_{\rm bulk}=0$.
+
+\begin{center}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{@{}lll@{}}
+\toprule
+Cristal & Coeficiente & Valor (pm/V), Tabla 1.5.3\\\midrule
+BBO & $d_{22}$ & 2.2\\
+KDP & $d_{36}$ & 0.43\\
+LiNbO$_3$ & $d_{31}$, $d_{33}$ & $-5.9$, \ $\approx-30$ (la tabla imprime “$d_{32}$”)\\
+CdS & $d_{33}$ & 78\\
+Cuarzo & $d_{11}$ & 0.3\\
+AgGaSe$_2$ & $d_{36}$ & 33\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{$\chi^{(3)}$ en un medio isótropo}: 21 elementos no nulos y solo 3 independientes, ligados por $\chi_{1111}=\chi_{1122}+\chi_{1212}+\chi_{1221}$. Forma de Maker–Terhune (§4.2):
+\[
+\mathbf P^{(3)}(\omega)=\epsilon_0A(\mathbf E\cdot\mathbf E^*)\mathbf E+\tfrac12\epsilon_0B(\mathbf E\cdot\mathbf E)\mathbf E^*,\qquad A=6\chi_{1122},\quad B=6\chi_{1221}.
+\]
+El cociente $B/A$ revela el mecanismo físico: 1 para respuesta electrónica no resonante, 6 para orientación molecular, 0 para electrostricción. En cristales cúbicos (Si, GaAs) hay 4 elementos independientes: $\chi_{xxxx}$ ya no está fijado por los otros (anisotropía).
+
+\subsection{Dominio del tiempo y relaciones de Kramers–Kronig (§1.6–1.7)}
+Una respuesta no instantánea se describe con una función respuesta causal:
+\[
+\tilde P^{(1)}(t)=\epsilon_0\int_0^\infty R^{(1)}(\tau)\,\tilde E(t-\tau)\,d\tau,\qquad \chi^{(1)}(\omega)=\int_0^\infty R^{(1)}(\tau)e^{i\omega\tau}d\tau .
+\]
+A segundo orden, $\chi^{(2)}(\omega_\sigma;\omega_1,\omega_2)=\iint R^{(2)}(\tau_1,\tau_2)e^{i(\omega_1\tau_1+\omega_2\tau_2)}d\tau_1d\tau_2$. Transformada de Fourier en la convención del Boyd: $E(\omega)=\int\tilde E(t)e^{i\omega t}dt$. Una respuesta instantánea corresponde a $R\propto\delta(\tau)$, es decir, a $\chi$ independiente de la frecuencia.
+
+Como $R(\tau)=0$ para $\tau<0$, $\chi(\omega)$ es analítica en el semiplano superior ($\mathrm{Im}\,\omega>0$) y cumple $\chi(\omega)=\frac{-i}{\pi}\mathrm{P}\!\int\frac{\chi(\omega')}{\omega'-\omega}d\omega'$. Separando partes real e imaginaria:
+\begin{clave}[title={Kramers–Kronig en la convención del Boyd (1.7.9)}]
+\[
+\mathrm{Re}\,\chi^{(1)}(\omega)=\frac2\pi\,\mathrm P\!\int_0^\infty\frac{\omega'\,\mathrm{Im}\,\chi^{(1)}(\omega')}{\omega'^2-\omega^2}\,d\omega',\qquad
+\mathrm{Im}\,\chi^{(1)}(\omega)=-\frac{2\omega}\pi\,\mathrm P\!\int_0^\infty\frac{\mathrm{Re}\,\chi^{(1)}(\omega')}{\omega'^2-\omega^2}\,d\omega'.
+\]
+\end{clave}
+\textbf{Caso no lineal}: las relaciones valen si la respuesta es lineal en la frecuencia sobre la que se integra (todas las frecuencias de entrada se mueven juntas y son positivas). Valen para SHG $\chi^{(2)}(2\omega;\omega,\omega)$, THG y el índice inducido por un haz auxiliar $\chi^{(3)}(\omega;\omega,\omega_1,-\omega_1)$. \textbf{No} valen para el índice autoinducido $\chi^{(3)}(\omega;\omega,\omega,-\omega)$ ni para $\chi^{(2)}(\omega_1;\omega_3,-\omega_2)$.
+
+\subsection{Conversión de unidades SI–gaussianas (Boyd, apéndice)}
+Mucha literatura antigua usa unidades gaussianas (esu):
+\begin{itemize}
+\item $\chi^{(1)}_{SI}=4\pi\chi^{(1)}_{G}$;
+\item $\chi^{(2)}[\mathrm{m/V}]=\dfrac{4\pi}{3\times10^4}\chi^{(2)}[\mathrm{esu}]=4.19\times10^{-4}\chi^{(2)}_G$;
+\item $\chi^{(3)}[\mathrm{m^2/V^2}]=\dfrac{4\pi}{9\times10^8}\chi^{(3)}_G=1.40\times10^{-8}\chi^{(3)}_G$;
+\item $d[\mathrm{esu}]=2.386\times10^{-9}\,d[\mathrm{pm/V}]$; \ $n_2[\mathrm{cm^2/W}]=0.0395\,\chi^{(3)}_G/n_0^2$.
+\end{itemize}
+Ejemplo: proustita, $1.3\times10^{-7}$ esu $\to5.4\times10^{-11}$ m/V.
+
+\subsection{Cómo atacar un problema típico}
 \begin{enumerate}
-\item Escriba el campo en la convención de Boyd (cuidado con $\mathcal E=2|E|$).
-\item Identifique la frecuencia de salida y el factor de degeneración $D$.
-\item Si es un tensor: lleve los campos a ejes del cristal, aplique $[d_{il}]$ o $\chi_{ijkl}$ con las simetrías de la clase y proyecte.
-\item Para modelos (oscilador): perturbación en $\lambda$, una ecuación por orden, $\mathbf P=-Ne\mathbf x$, identifique $\chi$ con la definición (1.3.12) incluyendo $D$.
-\item Revise unidades y órdenes de magnitud ($E/E_{\rm at}$).
+\item Escribir el campo en la convención del Boyd (cuidado: $\mathcal E=2|E|$).
+\item Identificar la frecuencia de salida $\omega_\sigma$ y el factor de degeneración $D$.
+\item Si hay tensores: llevar los campos a los ejes del cristal, aplicar $[d_{il}]$ o $\chi_{ijkl}$ con las simetrías de la clase, y proyectar sobre la polarización de salida.
+\item Para modelos (oscilador): perturbación en $\lambda$, una ecuación por orden, $\mathbf P=-Ne\mathbf x$, e identificar $\chi$ con la definición (1.3.12) incluyendo $D$.
+\item Revisar unidades y órdenes de magnitud (comparar con $E/E_{\rm at}$).
 \end{enumerate}
 
-\end{multicols}
 \end{document}
