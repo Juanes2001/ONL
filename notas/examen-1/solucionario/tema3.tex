@@ -1,0 +1,892 @@
+% =====================================================================
+% Tema 3 — Polarización y cristales ópticos (Saleh cap. 6). Problemas 18 a 27.
+% Convención de Saleh: e^{j\omega t}, \mathcal E = Re{E e^{j\omega t}}, onda viajera e^{-jkz}.
+% =====================================================================
+
+\textbf{Convención de todo el tema.} Se usa la de Saleh y Teich: dependencia temporal
+$e^{j\omega t}$, campo real $\Ec=\mathrm{Re}\{\mathbf A\,e^{j\omega t}\}$, onda que avanza en $+z$
+con factor espacial $e^{-jkz}$, vector de Jones $\J=(A_x,A_y)^T$ y fase relativa
+$\varphi=\varphi_y-\varphi_x$ (Saleh, §6.1A, ecs.~6.1-1 a 6.1-5, pp.~199--200). Una onda es
+\emph{circular derecha} si $\varphi=+\pi/2$ y gira en sentido horario para un observador que la
+ve venir (Saleh, p.~201). Las matrices que más se usan son:
+\[
+\R(\theta)=\begin{bmatrix}\cos\theta&\sin\theta\\-\sin\theta&\cos\theta\end{bmatrix}\ (6.1\text{-}22),\qquad
+\T_{\rm rot}(\theta)=\begin{bmatrix}\cos\theta&-\sin\theta\\ \sin\theta&\cos\theta\end{bmatrix}\ (6.1\text{-}20),\qquad
+\T_{\rm ret}=\begin{bmatrix}1&0\\0&e^{-j\Gamma}\end{bmatrix}\ (6.1\text{-}19),
+\]
+y un elemento de matriz $\T'$ en ejes girados $\theta$ vale $\T=\R(-\theta)\T'\R(\theta)$ en los ejes
+$x$--$y$ (ec.~6.1-24, p.~208). Para un retardador de retardo $\Gamma$ con eje rápido a $\theta$, con
+$c=\cos\theta$, $s=\sin\theta$ y $e\equiv e^{-j\Gamma}$, el producto da
+\begin{equation}
+\T_{\rm ret}(\Gamma,\theta)=\R(-\theta)\begin{bmatrix}1&0\\0&e\end{bmatrix}\R(\theta)
+=\begin{bmatrix}c^2+s^2e & cs(1-e)\\ cs(1-e) & s^2+c^2e\end{bmatrix}.
+\label{eq:t3_retgen}
+\end{equation}
+(Se comprueba multiplicando: $\T'\R(\theta)=\left[\begin{smallmatrix}c&s\\-se&ce\end{smallmatrix}\right]$ y luego
+$\R(-\theta)$ por la izquierda.)
+
+%---------------------------------------------------------------------
+\sol{18}{Elipse, Stokes y Poincaré}{Saleh, §6.1A, ecs.~6.1-6 a 6.1-9, pp.~200--203; Prob.~6.1-5, p.~240.}
+\label{sol:18}
+
+El vector es $\J=\frac{1}{\sqrt5}\,(1,\;2e^{j\pi/3})^T$, normalizado: $|A_x|^2+|A_y|^2=\frac{1}{5}+\frac45=1$.
+
+\inc{a} Con $A_x=\mathsf a_xe^{j\varphi_x}$ y $A_y=\mathsf a_ye^{j\varphi_y}$:
+$\mathsf a_x=1/\sqrt5$, $\varphi_x=0$, $\mathsf a_y=2/\sqrt5$, $\varphi_y=\pi/3$. Por tanto
+\[
+\mathsf r=\frac{\mathsf a_y}{\mathsf a_x}=2,\qquad \varphi=\varphi_y-\varphi_x=60^\circ .
+\]
+La orientación sale de (Saleh, ec.~6.1-6, p.~200):
+\[
+\tan2\psi=\frac{2\mathsf r}{1-\mathsf r^2}\cos\varphi=\frac{2\cdot2}{1-4}\cdot\frac12=-\frac23 .
+\]
+La tangente no fija el cuadrante: $2\psi=-33.69^\circ$ o $2\psi=146.31^\circ$. Para elegir se usan
+los signos de $\cos2\psi$ y $\sin2\psi$, que son los de $\mathsf S_1$ y $\mathsf S_2$ (ecs.~6.1-8a,b, abajo):
+$\mathsf S_1<0$ y $\mathsf S_2>0$, así que $2\psi$ está en el segundo cuadrante, $2\psi=146.31^\circ$.
+Comprobación física: como $\mathsf a_y=2\mathsf a_x$, la elipse es alargada en $y$, y su eje mayor
+debe estar más cerca del eje $y$ que del $x$; en efecto, $\psi=73.15^\circ$.
+La elipticidad sale de (Saleh, ec.~6.1-7, p.~200):
+\[
+\sin2\chi=\frac{2\mathsf r}{1+\mathsf r^2}\sin\varphi=\frac{4}{5}\cdot\frac{\sqrt3}{2}=0.6928
+\;\Rightarrow\;2\chi=43.85^\circ,\quad \chi=21.93^\circ .
+\]
+Los semiejes cumplen $b/a=\tan\chi=0.403$ y $a^2+b^2=1$, de donde $a=0.928$ y $b=0.374$.
+\resultado{$\mathsf r=2$, $\varphi=60^\circ$, $\psi=73.2^\circ$, $\chi=21.9^\circ$.}
+
+\inc{b} $0<\varphi<\pi$ (es decir, $\sin\varphi>0$ y $\chi>0$): la polarización es \textbf{derecha}.
+Comprobación directa con el campo real en $z=0$, $\Ec_x=\frac{1}{\sqrt5}\cos\omega t$,
+$\Ec_y=\frac{2}{\sqrt5}\cos(\omega t+60^\circ)$: en $\omega t=0$ el campo es
+$(0.447,\,0.447)$; en $\omega t=30^\circ$ es $(0.387,\,0)$. El extremo baja del primer cuadrante al eje
+$x$: gira en sentido horario visto con $x$ a la derecha, $y$ arriba y la onda viniendo hacia el lector.
+Según Saleh (p.~201), eso es derecha.
+\resultado{Elíptica derecha.}
+
+\inc{c} Con las ecs.~6.1-9 (Saleh, p.~202), y $A_x^*A_y=\frac{2}{5}e^{j\pi/3}$:
+\begin{align*}
+\mathsf S_0&=|A_x|^2+|A_y|^2=1, &
+\mathsf S_1&=|A_x|^2-|A_y|^2=\tfrac15-\tfrac45=-0.6,\\
+\mathsf S_2&=2\,\mathrm{Re}\{A_x^*A_y\}=\tfrac45\cos60^\circ=0.4, &
+\mathsf S_3&=2\,\mathrm{Im}\{A_x^*A_y\}=\tfrac45\sin60^\circ=0.6928 .
+\end{align*}
+Verificación: $\mathsf S_1^2+\mathsf S_2^2+\mathsf S_3^2=0.36+0.16+0.48=1.00=\mathsf S_0^2$. Es lo esperado para
+luz totalmente polarizada (Saleh, p.~203).
+Las ecs.~6.1-8 dan lo mismo: $\cos2\chi\cos2\psi=0.7211\cdot(-0.8321)=-0.600$ y
+$\cos2\chi\sin2\psi=0.7211\cdot0.5547=0.400$.
+\resultado{$\mathbf S=(1,\,-0.6,\,0.4,\,0.693)$; $\ \mathsf S_1^2+\mathsf S_2^2+\mathsf S_3^2=\mathsf S_0^2$.}
+
+\inc{d} En la esfera de Poincaré el punto tiene coordenadas esféricas $(1,\ 90^\circ-2\chi,\ 2\psi)$
+(Saleh, p.~201), es decir, ángulo polar $46.15^\circ$ y azimut $146.31^\circ$. Sus coordenadas
+cartesianas son $(\mathsf S_1,\mathsf S_2,\mathsf S_3)/\mathsf S_0=(-0.6,\,0.4,\,0.693)$. Está en el
+hemisferio norte (derecha), a $43.85^\circ$ de latitud, con azimut entre LP a $45^\circ$
+($2\psi=90^\circ$) y LP$_y$ ($2\psi=180^\circ$), más cerca de LP$_y$. Ver la Fig.~\ref{fig:t3_p18}.
+
+\inc{e} \emph{Estado ortogonal.} Se busca $\J_\perp$ con $(\J,\J_\perp)=A_xA_{\perp x}^*+A_yA_{\perp y}^*=0$
+(Saleh, ec.~6.1-11, p.~203). Para cualquier $\J=(A_x,A_y)$ normalizado, el vector
+$\J_\perp=(-A_y^*,\,A_x^*)$ cumple
+$A_x(-A_y^*)^*+A_y(A_x^*)^*=-A_xA_y+A_yA_x=0$. Aquí
+$\J_\perp=\frac{1}{\sqrt5}(-2e^{-j\pi/3},\,1)$; multiplicando por la fase global $-e^{j\pi/3}$,
+que no cambia el estado,
+\[
+\J_\perp=\frac{1}{\sqrt5}\begin{bmatrix}2\\ -e^{j\pi/3}\end{bmatrix}=\frac{1}{\sqrt5}\begin{bmatrix}2\\ e^{-j2\pi/3}\end{bmatrix}.
+\]
+Entonces $\mathsf r_\perp=1/2$, $\varphi_\perp=-120^\circ$ y
+$\tan2\psi_\perp=\frac{2(1/2)}{1-1/4}\cos(-120^\circ)=-\frac23$, con $\mathsf S_{1}=+0.6$ y
+$\mathsf S_{2}=-0.4$. Por tanto $2\psi_\perp=-33.69^\circ$ y $\psi_\perp=-16.85^\circ\equiv163.15^\circ$.
+La elipticidad es $\sin2\chi_\perp=\frac{2(1/2)}{5/4}\sin(-120^\circ)=-0.6928$, es decir,
+$\chi_\perp=-21.93^\circ$. Se cumple:
+\begin{itemize}
+\item $\psi-\psi_\perp=73.15^\circ-(-16.85^\circ)=90^\circ$: los ejes mayores son perpendiculares;
+\item $\chi_\perp=-\chi$: misma forma de elipse y sentido de giro opuesto (izquierda).
+\end{itemize}
+\emph{Demostración general (Prob.~6.1-5).} Con $\J_\perp=(-A_y^*,A_x^*)$:
+$\mathsf S_{1\perp}=|A_y|^2-|A_x|^2=-\mathsf S_1$ y
+$A_{\perp x}^*A_{\perp y}=(-A_y)(A_x^*)=-A_x^*A_y$, de modo que $\mathsf S_{2\perp}=-\mathsf S_2$ y
+$\mathsf S_{3\perp}=-\mathsf S_3$. Dos estados ortogonales son \emph{antípodas} en la esfera. Las
+ecs.~6.1-8 dicen entonces que $\sin2\chi_\perp=-\sin2\chi$, de donde $\chi_\perp=-\chi$ (giro opuesto), y que
+$(\cos2\psi_\perp,\sin2\psi_\perp)=-(\cos2\psi,\sin2\psi)$, de donde $2\psi_\perp=2\psi\pm180^\circ$ y
+$\psi_\perp=\psi\pm90^\circ$ (ejes mayores perpendiculares). $\blacksquare$
+\resultado{$\J_\perp=\frac{1}{\sqrt5}(2,\,-e^{j\pi/3})^T$: $\psi_\perp=163.2^\circ=\psi+90^\circ$, $\chi_\perp=-21.9^\circ$ (izquierda), $\mathbf S_\perp=(1,\,0.6,\,-0.4,\,-0.693)$.}
+
+\codigo{t3_p18_elipse_poincare.py}
+\begin{figure}[H]\centering
+\includegraphics[width=0.95\linewidth]{t3_p18_elipse_poincare.png}
+\caption{Problema 18. Izquierda: elipses de $\J$ (derecha, giro horario) y de $\J_\perp$ (izquierda,
+giro antihorario) en $z=0$, con la onda viniendo hacia el lector; las líneas punteadas son los ejes
+mayores, a $73.2^\circ$ y $163.2^\circ$. Derecha: los dos estados son puntos antípodas en la esfera
+de Poincaré.}
+\label{fig:t3_p18}
+\end{figure}
+
+\idea{(i) $\tan2\psi$ tiene dos soluciones; el cuadrante lo dan los signos de $\mathsf S_1$ (que va
+con $\cos2\psi$) y $\mathsf S_2$ (que va con $\sin2\psi$). (ii) Para el sentido de giro, en Saleh basta el signo de
+$\sin\varphi$ ($\mathsf S_3>0$: derecha, hemisferio norte). Otros textos (ingeniería, Boyd con
+$e^{-i\omega t}$) usan el nombre contrario: antes de decir ``derecha'' hay que fijar la convención. (iii) Ortogonal significa antípoda
+en Poincaré: ejes perpendiculares y giro opuesto. El estado ortogonal de $(A_x,A_y)$ es
+$(-A_y^*,A_x^*)$; no olvide el conjugado.}
+
+%---------------------------------------------------------------------
+\sol{19}{Retardadores y rotadores}{Saleh, §6.1B, ecs.~6.1-19 a 6.1-26, pp.~206--209; Probs.~6.1-6, 6.1-7, p.~240; Ej.~6.1-4, p.~209; ec.~6.6-1, p.~237.}
+\label{sol:19}
+
+\inc{a} Comparando (6.1-20) con (6.1-22) se ve que el rotador de ángulo $\theta$ es
+$\T_{\rm rot}(\theta)=\R(-\theta)$. Las matrices de rotación en el plano se componen sumando
+ángulos:
+\[
+\R(a)\R(b)=\begin{bmatrix}\cos a\cos b-\sin a\sin b & \cos a\sin b+\sin a\cos b\\
+-\sin a\cos b-\cos a\sin b & -\sin a\sin b+\cos a\cos b\end{bmatrix}
+=\begin{bmatrix}\cos(a+b)&\sin(a+b)\\-\sin(a+b)&\cos(a+b)\end{bmatrix}=\R(a+b),
+\]
+y por eso conmutan. En unos ejes girados un ángulo $\phi$, la matriz del rotador es (ec.~6.1-23)
+\[
+\T'=\R(\phi)\,\T_{\rm rot}(\theta)\,\R(-\phi)=\R(\phi)\R(-\theta)\R(-\phi)=\R(\phi-\theta-\phi)=\R(-\theta)=\T_{\rm rot}(\theta).
+\]
+\resultado{La matriz del rotador no depende de la orientación de los ejes: un rotador no tiene
+``eje'' privilegiado.}
+
+\inc{b} Con el eje rápido en $x$, el retardador $\lambda/2$ ($\Gamma=\pi$) es
+$\T=\mathrm{diag}(1,e^{-j\pi})=\mathrm{diag}(1,-1)$. Si la luz es LP a un ángulo $\theta$ del eje rápido:
+\[
+\begin{bmatrix}1&0\\0&-1\end{bmatrix}\begin{bmatrix}\cos\theta\\ \sin\theta\end{bmatrix}
+=\begin{bmatrix}\cos\theta\\ -\sin\theta\end{bmatrix}=\begin{bmatrix}\cos(-\theta)\\ \sin(-\theta)\end{bmatrix}:
+\]
+sale LP a $-\theta$, es decir, girada $2\theta$ (hacia el otro lado del eje rápido).
+\emph{Por qué no es un rotador:}
+\begin{itemize}
+\item El ángulo girado, $2\theta$, depende de la polarización de entrada; un rotador gira
+\emph{toda} LP el mismo ángulo. La lámina $\lambda/2$ hace un \emph{reflejo} respecto al eje rápido,
+no una rotación: $\det\T=-1$, mientras que $\det\T_{\rm rot}=+1$.
+\item Con luz circular: $\mathrm{diag}(1,-1)\,(1,j)^T=(1,-j)^T$. La RCP sale LCP: la lámina invierte
+el sentido de giro. Un rotador deja la circular intacta (salvo una fase):
+$\T_{\rm rot}(\theta)(1,j)^T=(\cos\theta-j\sin\theta,\ \sin\theta+j\cos\theta)^T=e^{-j\theta}(1,j)^T$.
+\end{itemize}
+\resultado{La lámina $\lambda/2$ refleja la polarización respecto a su eje rápido ($\theta\to-\theta$, R$\leftrightarrow$L); el rotador gira todo el mismo ángulo y conserva la circularidad.}
+
+\inc{c} Los modos normales son los autovectores, $\T\J=\mu\J$ (ec.~6.1-26). Los autovalores
+salen de $\mu^2-(\mathrm{tr}\,\T)\mu+\det\T=0$.
+
+\emph{Retardador $\Gamma$ con eje rápido a $30^\circ$.} De \eqref{eq:t3_retgen} con $c=\sqrt3/2$, $s=1/2$:
+\[
+\T=\begin{bmatrix}\frac34+\frac14e^{-j\Gamma} & \frac{\sqrt3}{4}(1-e^{-j\Gamma})\\[2pt]
+\frac{\sqrt3}{4}(1-e^{-j\Gamma}) & \frac14+\frac34e^{-j\Gamma}\end{bmatrix},\qquad
+\mathrm{tr}\,\T=1+e^{-j\Gamma},\quad \det\T=e^{-j\Gamma}.
+\]
+Entonces $\mu^2-(1+e^{-j\Gamma})\mu+e^{-j\Gamma}=(\mu-1)(\mu-e^{-j\Gamma})=0$, y $\mu_1=1$,
+$\mu_2=e^{-j\Gamma}$. Los autovectores salen sin cuentas: $\J_1=(\cos30^\circ,\sin30^\circ)=\R(-30^\circ)\hat e_x$, y
+$\T\J_1=\R(-30^\circ)\,\mathrm{diag}(1,e^{-j\Gamma})\,\R(30^\circ)\R(-30^\circ)\hat e_x=\R(-30^\circ)\hat e_x=\J_1$.
+Del mismo modo, $\J_2=\R(-30^\circ)\hat e_y=(-\sin30^\circ,\cos30^\circ)$, LP a $120^\circ$, con
+$\mu_2=e^{-j\Gamma}$.
+
+\emph{Rotador de ángulo $\theta$.} $\mathrm{tr}=2\cos\theta$ y $\det=1$, así que
+$\mu^2-2\mu\cos\theta+1=0$ y $\mu=\cos\theta\pm j\sin\theta=e^{\pm j\theta}$.
+Para $\mu=e^{-j\theta}$, la primera fila da $(\cos\theta-e^{-j\theta})A_x-\sin\theta A_y=0$, es decir,
+$j\sin\theta\,A_x=\sin\theta\,A_y$, y por tanto $A_y=jA_x$: \textbf{RCP}. Para
+$\mu=e^{+j\theta}$: $A_y=-jA_x$, \textbf{LCP}. (Coincide con lo visto en (b).)
+
+\emph{Polarizador a $45^\circ$.} De (6.1-25), $\T=\frac12\left[\begin{smallmatrix}1&1\\1&1\end{smallmatrix}\right]$:
+$\mathrm{tr}=1$ y $\det=0$, así que $\mu(\mu-1)=0$. Para $\mu=1$, $\J=\frac{1}{\sqrt2}(1,1)$ (LP a $45^\circ$,
+pasa entera); para $\mu=0$, $\J=\frac{1}{\sqrt2}(-1,1)$ (LP a $135^\circ$, se bloquea).
+\resultado{Retardador a $30^\circ$: LP a $30^\circ$ ($\mu=1$) y a $120^\circ$ ($\mu=e^{-j\Gamma}$).
+Rotador: RCP ($\mu=e^{-j\theta}$) y LCP ($\mu=e^{+j\theta}$). Polarizador a $45^\circ$: LP a $45^\circ$ ($\mu=1$) y a $135^\circ$ ($\mu=0$).}
+
+\inc{d} El retardador está a $45^\circ$, y por \eqref{eq:t3_retgen} con $c=s=1/\sqrt2$:
+\[
+\T_{\rm ret}=\frac12\begin{bmatrix}1+e^{-j\Gamma} & 1-e^{-j\Gamma}\\ 1-e^{-j\Gamma} & 1+e^{-j\Gamma}\end{bmatrix},
+\qquad \T_{\rm pol\,y}=\begin{bmatrix}0&0\\0&1\end{bmatrix}.
+\]
+La cascada es $\T=\T_{\rm pol\,y}\T_{\rm ret}$ (el primer elemento atravesado va a la derecha, Saleh, p.~207).
+Con entrada $(1,0)^T$:
+\[
+\J_{\rm sal}=\T_{\rm pol\,y}\,\frac12\begin{bmatrix}1+e^{-j\Gamma}\\ 1-e^{-j\Gamma}\end{bmatrix}
+=\begin{bmatrix}0\\ \tfrac12(1-e^{-j\Gamma})\end{bmatrix}
+=\begin{bmatrix}0\\ \tfrac12e^{-j\Gamma/2}(e^{j\Gamma/2}-e^{-j\Gamma/2})\end{bmatrix}
+=\begin{bmatrix}0\\ j\,e^{-j\Gamma/2}\sin(\Gamma/2)\end{bmatrix}.
+\]
+La transmitancia de potencia es $\mathcal T=|J_{{\rm sal},y}|^2/|J_{\rm ent}|^2=\sin^2(\Gamma/2)$.
+\resultado{$\mathcal T=\sin^2(\Gamma/2)$, idéntica a (6.6-1) (Saleh, p.~237). Es el mismo montaje:
+la luz LP en $x$ hace las veces del primer polarizador, el polarizador en $y$ está cruzado con él, y el
+retardador está a $45^\circ$ de ambos.}
+
+\idea{Para modos normales y autovalores use traza y determinante: $\mu_1+\mu_2=\mathrm{tr}\,\T$ y
+$\mu_1\mu_2=\det\T$. Retardador: modos LP en sus ejes. Rotador: modos circulares. Polarizador:
+$\mu=1,0$. El orden de la cascada es de derecha a izquierda. La lámina $\lambda/2$ ``parece'' un rotador
+para \emph{una} LP dada, pero es un reflejo ($\det=-1$) e invierte R$\leftrightarrow$L.}
+
+%---------------------------------------------------------------------
+\sol{20}{Reflexión de luz circular y pantalla antirreflejo}{Saleh, Probs.~6.1-9 y 6.1-10, p.~241; §6.2, Fig.~6.2-1, pp.~209--211; §6.6D, p.~238.}
+\label{sol:20}
+
+\inc{a} \emph{La trampa de los ejes.} El sentido ``derecho/izquierdo'' se define respecto a la
+dirección de propagación: el observador mira la onda que \emph{viene hacia él} (Saleh, p.~201). Para
+la onda reflejada esa dirección es la contraria, y hay que describirla en un sistema dextrógiro
+$(x',y',z')$ con $z'=-z$, por ejemplo $x'=x$, $y'=-y$ (se verifica que $\hat x'\times\hat y'=\hat x\times(-\hat y)=-\hat z=\hat z'$).
+
+\emph{Cálculo.} Sea una RCP que incide normalmente desde $z<0$ sobre un espejo perfecto en $z=0$:
+$\mathbf E_1=A(\hat x+j\hat y)e^{-jkz}$. En la superficie de un conductor perfecto el campo eléctrico tangencial
+total se anula (Saleh, Ej.~6.2-2: $\mathcal R\to1$ si $\sigma\to\infty$; con
+(6.2-8), (6.2-9) y $n_2\to\infty$, $\mathsf r_x=\mathsf r_y=-1$ en incidencia normal). Entonces, en
+ejes del laboratorio,
+\[
+\mathbf E_3=-A(\hat x+j\hat y)e^{+jkz}.
+\]
+Escrita en los ejes $(x',y')$ propios de la onda reflejada, $E_{3x'}=E_{3x}=-A$ y
+$E_{3y'}=-E_{3y}=+jA$, es decir,
+\[
+\J_3'=-A\begin{bmatrix}1\\-j\end{bmatrix}\ \Rightarrow\ \varphi'=-\pi/2:\ \text{LCP}.
+\]
+\emph{Por qué.} En el laboratorio el campo en $z=0$ sigue girando en el mismo sentido: con
+$\Ec_3=-A(\cos\omega t,\,-\sin\omega t)$, el campo pasa de $(-A,0)$ a $(0,A)$, horario visto desde $+z$.
+Pero ahora la onda viaja hacia $-z$, y quien la recibe la mira desde $-z$, donde ese mismo giro es
+antihorario. El giro en el espacio se conserva y la dirección de propagación se invierte, así que
+la helicidad cambia. Lo mismo pasa en incidencia normal sobre cualquier dieléctrico, porque
+$\mathsf r_x=\mathsf r_y$ (Saleh, p.~213).
+
+\emph{Nota sobre los ejes de Saleh.} En incidencia normal, la Fig.~6.2-1 usa para la onda reflejada
+los mismos $x$ e $y$ del laboratorio, y por eso obtiene $\mathsf r_x=\mathsf r_y=(n_1-n_2)/(n_1+n_2)$.
+Ese sistema es \emph{levógiro} respecto a $\kv_3$. Si se usa $\J_3=\mathbf r\J_1$ tal cual, el vector
+$(1,j)$ parece seguir siendo ``RCP'', y eso es falso. Esta misma elección de ejes explica el $\pi$ extra
+de $\mathsf r_y$ frente a la convención de Born \& Wolf en el Problema~21(c).
+\resultado{Una RCP se refleja como LCP (y viceversa): el sentido de giro en el espacio se
+conserva, la dirección de propagación se invierte.}
+
+\inc{b} \emph{Montaje.} De afuera hacia la ventana: polarizador lineal en $x$ y lámina $\lambda/4$
+con eje rápido a $45^\circ$. Todo se escribe en ejes fijos del laboratorio, los mismos para la ida y
+para la vuelta. En esos ejes, un elemento \emph{recíproco} tiene como matriz de vuelta la
+\emph{transpuesta} de la de ida (si la onda vuelve, recorre los cambios al revés, Saleh §6.6D,
+p.~238). Polarizador y retardador tienen matrices simétricas, de modo que la matriz de vuelta es la misma.
+
+Por \eqref{eq:t3_retgen} con $\theta=45^\circ$ y $e=e^{-j\pi/2}=-j$:
+\[
+\T_Q=\frac12\begin{bmatrix}1-j&1+j\\1+j&1-j\end{bmatrix},\qquad
+\T_Q^2=\T_{\rm ret}(\pi,45^\circ)=\begin{bmatrix}0&1\\1&0\end{bmatrix}.
+\]
+\emph{Ida.} La luz de fondo (no polarizada) atraviesa el polarizador, $\J=(1,0)^T$ con la mitad de la
+potencia, y luego la lámina:
+$\T_Q(1,0)^T=\frac12(1-j,\,1+j)^T=\frac{1-j}{2}(1,\,j)^T$, pues $(1+j)/(1-j)=j$. Sale RCP.
+
+\emph{Reflexión en la ventana} (casi normal): $\mathsf r_x=\mathsf r_y=\mathsf r\approx-0.2$, igual para las dos
+componentes del laboratorio. Por (a), la onda vuelve como LCP respecto a su propia dirección.
+
+\emph{Vuelta.} La lámina convierte $(1,j)$ en
+$\T_Q(1,j)^T=\frac12\big((1-j)+j(1+j),\ (1+j)+j(1-j)\big)^T=(0,\ 1+j)^T$, que es LP en $y$, y el polarizador en $x$ la bloquea.
+De un solo golpe: $\T_{\rm total}=\mathsf r\,\T_{\rm pol\,x}\T_Q^2\T_{\rm pol\,x}
+=\mathsf r\left[\begin{smallmatrix}1&0\\0&0\end{smallmatrix}\right]\left[\begin{smallmatrix}0&1\\1&0\end{smallmatrix}\right]\left[\begin{smallmatrix}1&0\\0&0\end{smallmatrix}\right]=0$.
+La ida y la vuelta por la $\lambda/4$ equivalen a una $\lambda/2$ a $45^\circ$, que lleva $x$ a $y$.
+La luz del objeto autoluminoso, en cambio, cruza la ventana una sola vez hacia el observador y pasa
+(con la mitad de su potencia si es no polarizada).
+
+\emph{¿Es un aislador óptico?} Solo en un sentido restringido. Bloquea la luz que vuelve después de
+reflejarse en un reflector que conserva el vector de Jones del laboratorio (incidencia casi normal, espejos).
+Pero es un dispositivo recíproco. Una onda que llegue desde la ventana en el estado de laboratorio
+$(1,-j)$ pasa entera: $\T_Q(1,-j)^T=(1-j,\,0)^T$, que el polarizador transmite. Además, en incidencia oblicua
+$\mathsf r_{TE}\neq\mathsf r_{TM}$, la onda reflejada ya no es circular y el bloqueo es parcial. El aislador de
+Faraday (Saleh, Fig.~6.6-5, p.~238) bloquea \emph{cualquier} onda que regrese, sin importar su
+polarización ni cómo se generó, porque el rotador de Faraday no es recíproco (Problema~26).
+\resultado{Polarizador + $\lambda/4$ a $45^\circ$: ida y vuelta equivalen a una $\lambda/2$ a $45^\circ$
+($x\to y$), y el reflejo se bloquea. No es un aislador verdadero: es recíproco y solo funciona porque la
+reflexión invierte la helicidad. El de Faraday bloquea todo lo que regresa.}
+
+\idea{Para ida y vuelta, trabaje en ejes \emph{fijos} del laboratorio. Elemento recíproco: matriz
+de vuelta $=\T^T$. Faraday: la misma $\T$. Para decidir ``derecha/izquierda'' después de una
+reflexión, cambie a un sistema dextrógiro de la onda reflejada (invierta un eje).}
+
+%---------------------------------------------------------------------
+\sol{21}{Fresnel: reflectancias y desfases}{Saleh, §6.2, ecs.~6.2-1 a 6.2-17, pp.~209--214; Probs.~6.2-3, 6.2-4, 6.2-6, p.~241.}
+\label{sol:21}
+
+\inc{a} \emph{Geometría.} Frontera $z=0$, medio 1 en $z<0$, plano de incidencia $y$--$z$. La onda
+TE tiene $\mathbf E\parallel\hat x$ (perpendicular al plano de incidencia). Los vectores unitarios de
+propagación son
+\[
+\hat k_1=\sin\theta_1\hat y+\cos\theta_1\hat z,\quad
+\hat k_3=\sin\theta_1\hat y-\cos\theta_1\hat z,\quad
+\hat k_2=\sin\theta_2\hat y+\cos\theta_2\hat z .
+\]
+Los campos son $\mathbf E_i=A_{ix}\hat x\,e^{-j\kv_i\cdot\rv}$, y para ondas planas
+$\Hv=\hat k\times\mathbf E/\eta$ (Saleh, §5.4, ec.~5.4-5). El ajuste de fase en $z=0$, para todo $y$, exige
+$k_1\sin\theta_1=k_2\sin\theta_2$ (Snell, 6.2-1) y $\theta_3=\theta_1$.
+
+\emph{Componentes tangenciales} ($x$ para $\mathbf E$, $y$ para $\Hv$). Como
+$\hat k\times\hat x=(\sin\theta\,\hat y+\cos\theta\,\hat z)\times\hat x=-\sin\theta\,\hat z+\cos\theta\,\hat y$,
+\[
+H_{1y}=\frac{\cos\theta_1}{\eta_1}A_{1x},\qquad H_{3y}=-\frac{\cos\theta_1}{\eta_1}A_{3x},\qquad
+H_{2y}=\frac{\cos\theta_2}{\eta_2}A_{2x}.
+\]
+\emph{Continuidad} en $z=0$ (Saleh, p.~210):
+\begin{align*}
+E_t:&\quad A_{1x}+A_{3x}=A_{2x},\\
+H_t:&\quad \frac{\cos\theta_1}{\eta_1}(A_{1x}-A_{3x})=\frac{\cos\theta_2}{\eta_2}A_{2x}.
+\end{align*}
+Se sustituye la primera en la segunda:
+$\frac{\cos\theta_1}{\eta_1}(A_{1x}-A_{3x})=\frac{\cos\theta_2}{\eta_2}(A_{1x}+A_{3x})$, y se agrupa:
+\[
+A_{1x}\Big(\frac{\cos\theta_1}{\eta_1}-\frac{\cos\theta_2}{\eta_2}\Big)=A_{3x}\Big(\frac{\cos\theta_1}{\eta_1}+\frac{\cos\theta_2}{\eta_2}\Big)
+\;\Rightarrow\;
+\mathsf r_x=\frac{A_{3x}}{A_{1x}}=\frac{\cos\theta_1/\eta_1-\cos\theta_2/\eta_2}{\cos\theta_1/\eta_1+\cos\theta_2/\eta_2}.
+\]
+Multiplicando numerador y denominador por $\eta_1\eta_2\sec\theta_1\sec\theta_2$:
+\[
+\boxed{\mathsf r_x=\frac{\eta_2\sec\theta_2-\eta_1\sec\theta_1}{\eta_2\sec\theta_2+\eta_1\sec\theta_1}},\qquad
+\mathsf t_x=\frac{A_{2x}}{A_{1x}}=1+\mathsf r_x ,
+\]
+que es (6.2-6). Con $\eta=\eta_0/n$ resulta
+$\mathsf r_x=(n_1\cos\theta_1-n_2\cos\theta_2)/(n_1\cos\theta_1+n_2\cos\theta_2)$, la ec.~(6.2-8).
+(Si la luz es un haz y no una onda plana, se descompone en ondas planas, se aplica $\mathsf r(\theta)$ a cada una
+y se resuma; de ahí sale el Goos--Hänchen del Problema~22.)
+\resultado{$\mathsf r_x=(\eta_2\sec\theta_2-\eta_1\sec\theta_1)/(\eta_2\sec\theta_2+\eta_1\sec\theta_1)$, $\mathsf t_x=1+\mathsf r_x$ (6.2-6).}
+
+\inc{b} $n_1=1$, $n_2=1.5$, $\theta_1=45^\circ$. Por Snell, $\sin\theta_2=0.7071/1.5=0.4714$ y
+$\cos\theta_2=0.8819$.
+\begin{align*}
+\mathsf r_{TE}&=\frac{1\cdot0.7071-1.5\cdot0.8819}{0.7071+1.3229}=\frac{-0.6158}{2.0300}=-0.3033,
+&\mathcal R_{TE}&=|\mathsf r_{TE}|^2=0.0920,\\
+\mathsf r_{TM}&=\frac{1/0.7071-1.5/0.8819}{1/0.7071+1.5/0.8819}=\frac{1.4142-1.7008}{1.4142+1.7008}=-0.0920,
+&\mathcal R_{TM}&=0.0085 .
+\end{align*}
+Luz no polarizada, con TE y TM de igual intensidad: $\bar{\mathcal R}=\frac12(0.0920+0.0085)=0.0502$.
+Comprobación: a $45^\circ$ se cumple la identidad $\mathsf r_{TM}=\mathsf r_{TE}^2$ ($0.3033^2=0.0920$).
+Orden de magnitud: en incidencia normal $\mathcal R=0.04$ (6.2-15); a $45^\circ$ la TE sube y la TM baja,
+porque se acerca a Brewster ($56.3^\circ$).
+\resultado{$\mathcal R_{TE}=0.0920$, $\mathcal R_{TM}=0.0085$, $\bar{\mathcal R}=0.0502$ (5.0\,\%).}
+
+\inc{c} \emph{Datos.} $\theta_c=\sin^{-1}(1/1.5)=41.81^\circ$ y $\theta_1=1.2\theta_c=50.17^\circ$. Con la rama de
+Saleh (p.~212, nota al pie),
+\[
+\cos\theta_2=-j\sqrt{\frac{\sin^2\theta_1}{\sin^2\theta_c}-1}=-j\sqrt{\Big(\frac{0.7682}{0.6667}\Big)^2-1}=-0.5719\,j .
+\]
+(Esa rama hace que la onda transmitida, $\propto e^{-jk_2z\cos\theta_2}=e^{-k_2(0.5719)z}$, \emph{decaiga}.)
+
+\emph{TE} (6.2-8), con $a=n_1\cos\theta_1=1.5\cdot0.6405=0.9607$ y $b=n_2\cdot0.5719=0.5719$:
+\[
+\mathsf r_x=\frac{a-n_2\cos\theta_2}{a+n_2\cos\theta_2}=\frac{a+jb}{a-jb}\ \Rightarrow\ |\mathsf r_x|=1,\quad
+\varphi_{TE}=2\tan^{-1}\frac{b}{a}=2\tan^{-1}(0.5952)=+61.53^\circ .
+\]
+Coincide con (6.2-11), $\tan(\varphi_x/2)=\sqrt{\cos^2\theta_c/\cos^2\theta_1-1}\equiv X=0.5952$, porque
+\[
+b/a=\sqrt{\sin^2\theta_1-\sin^2\theta_c}\,/\cos\theta_1=\sqrt{\cos^2\theta_c-\cos^2\theta_1}\,/\cos\theta_1=X .
+\]
+
+\emph{TM} (6.2-9). $\sec\theta_2=1/(-0.5719j)=+1.7486\,j$ y $n_1\sec\theta_1=1.5/0.6405=2.3420$:
+\[
+\mathsf r_y=\frac{2.3420-1.7486\,j}{2.3420+1.7486\,j}\ \Rightarrow\ |\mathsf r_y|=1,\quad
+\varphi_{TM}=-2\tan^{-1}\frac{1.7486}{2.3420}=-2\tan^{-1}(0.7466)=-73.50^\circ .
+\]
+En forma cerrada: el cociente es $\dfrac{n_2|\sec\theta_2|}{n_1\sec\theta_1}=\dfrac{\sin^2\theta_c\cos\theta_1}{\sqrt{\cos^2\theta_c-\cos^2\theta_1}}=\dfrac{\sin^2\theta_c}{X}$, de modo que
+\begin{equation}
+\tan\frac{\varphi_{TM}}{2}=-\frac{\sin^2\theta_c}{\sqrt{\cos^2\theta_c/\cos^2\theta_1-1}}\qquad\text{(forma que sale de 6.2-9)}.
+\label{eq:t3_tm}
+\end{equation}
+\emph{Retardo:} $\varphi_{TE}-\varphi_{TM}=61.53^\circ-(-73.50^\circ)=135.0^\circ$.
+
+\emph{La fórmula impresa (6.2-13).} Saleh imprime (p.~213)
+$\tan(\varphi_y/2)=-\dfrac{1}{\sin^2\theta_c}\sqrt{\cos^2\theta_c/\cos^2\theta_1-1}$, que es el
+\emph{inverso} del cociente de \eqref{eq:t3_tm}. Las dos expresiones no son equivalentes:
+\begin{itemize}
+\item En $\theta_1=\theta_c$, $X=0$: la impresa da $\tan(\varphi_y/2)=0$, es decir, $\varphi_y=0$. Pero
+directamente, $\cos\theta_2=0$ hace $\sec\theta_2\to\infty$ y $\mathsf r_y\to-1$, es decir, $\varphi_y=\pm\pi$.
+Eso es lo que muestra la Fig.~6.2-5 (p.~213): la fase vale $\pi$ en $\theta_c$ y baja a 0 en
+$90^\circ$. También lo dice el texto de la misma página: $\mathsf r_y$ es negativo y llega a $|\mathsf r_y|=1$
+en $\theta_c$.
+\item En $1.2\theta_c$ la impresa da $\varphi_y=2\tan^{-1}(-X/\sin^2\theta_c)=-106.5^\circ$; la directa,
+$-73.5^\circ$. Llamando $P$ a la fase impresa y $D$ a la directa, $\tan(P/2)\tan(D/2)=1$, y por eso $P=-\pi-D$.
+\item La magnitud de la curva de la figura en $50.2^\circ$ es $\approx0.41\pi=73^\circ$, que coincide con
+$|\varphi_{TM}|$ directo. La figura dibuja la fase como un retraso positivo de $\pi$ a 0; la curva
+directa vale $-\pi\equiv\pi$ en $\theta_c$ y 0 en $90^\circ$, así que coincide con la figura en magnitud y en los extremos.
+\end{itemize}
+Conclusión: la (6.2-13) impresa \emph{no} es consistente con (6.2-9) ni con la Fig.~6.2-5. Para el
+examen, calcule las fases directamente con Fresnel (6.2-8)--(6.2-9) y la rama
+$\cos\theta_2=-j\sqrt{\cdots}$, o use \eqref{eq:t3_tm}.
+
+\emph{Convención de Born \& Wolf.} Saleh orienta los ejes $y$ de las ondas incidente y reflejada
+de modo que sus componentes paralelas a la frontera coincidan (Fig.~6.2-1). Por eso en incidencia
+normal $\mathsf r_x=\mathsf r_y$ (ver Problema~20(a)). Born \& Wolf usan ejes dextrógiros para cada
+onda, y su $r_{TM}$ tiene el signo opuesto: $r_{TM}^{BW}=-\mathsf r_y$, es decir,
+$\varphi_{TM}^{BW}=\varphi_{TM}+\pi=106.5^\circ$. Entonces
+\[
+\delta\equiv\varphi_{TE}-\varphi_{TM}^{BW}=61.53^\circ-106.50^\circ=-45.0^\circ,\qquad |\delta|=45.0^\circ .
+\]
+Con las expresiones cerradas, $\delta/2=\tan^{-1}X+\tan^{-1}(\sin^2\theta_c/X)-\pi/2=\tan^{-1}X-\tan^{-1}(X/\sin^2\theta_c)$, y
+\[
+\tan\frac{\delta}{2}=\frac{X-X/s^2}{1+X^2/s^2}=-\frac{X\cos^2\theta_c}{s^2+X^2}
+=-\frac{\cos\theta_1\sqrt{\sin^2\theta_1-\sin^2\theta_c}}{\sin^2\theta_1}\qquad(s\equiv\sin\theta_c),
+\]
+donde se usó $s^2+X^2=\cos^2\theta_c\sin^2\theta_1/\cos^2\theta_1$ y $X\cos\theta_1=\sqrt{\sin^2\theta_1-s^2}$.
+Es la fórmula clásica del retardo en RTI. Numéricamente:
+$\cos\theta_1\sqrt{\sin^2\theta_1-s^2}/\sin^2\theta_1=0.6405\cdot0.3817/0.5901=0.4143=\tan22.5^\circ$, así que $|\delta|=45.0^\circ$.
+La diferencia entre $135^\circ$ y $45^\circ$ es solo el $\pi$ de la convención (con el signo); la física es la misma.
+\resultado{$\theta_c=41.8^\circ$, $\theta_1=50.2^\circ$: $\varphi_{TE}=+61.5^\circ$, $\varphi_{TM}=-73.5^\circ$,
+$\varphi_{TE}-\varphi_{TM}=135.0^\circ$ (Saleh), es decir, $45.0^\circ$ en la convención de Born \& Wolf. La (6.2-13) impresa da
+$\varphi_y=0$ en $\theta_c$, contra el $\pi$ de la figura y de (6.2-9): está invertida; use \eqref{eq:t3_tm}.}
+
+\inc{d} \textbf{[N]} \emph{Rombo de Fresnel.} Se calcula $\delta(\theta)=\varphi_{TE}-\varphi_{TM}-\pi$ con Fresnel
+directo para $n=1.51$ y se compara con la fórmula cerrada anterior; coinciden con un error de $10^{-11}$
+grados. El retardo vale 0 en $\theta_c=41.47^\circ$ y en $90^\circ$, y tiene un máximo de
+$45.94^\circ$ en $51.3^\circ$. Como el máximo apenas pasa de $45^\circ$, hay dos ángulos con
+$\delta=45^\circ$:
+\[
+\theta=48.6^\circ\quad\text{y}\quad\theta=54.6^\circ .
+\]
+Con dos reflexiones a uno de esos ángulos, el retardo total es $90^\circ$: un retardador $\lambda/4$. En la
+convención de Saleh cada reflexión da $135^\circ$ y dos dan $270^\circ\equiv-90^\circ$. También es
+cuarto de onda, porque el $\pi$ extra de cada reflexión suma $2\pi$. El rombo comercial usa $54.6^\circ$:
+cerca de él, $d\delta/d\theta$ es pequeña y el ángulo exacto importa menos. Es \emph{acromático}
+porque $\delta$ depende solo de $n$, que varía poco con $\lambda$, y no de un espesor dividido entre
+$\lambda$, como en una lámina birrefringente ($\Gamma=2\pi\Delta n\,d/\lambda_0$).
+
+\codigo{t3_p21_fresnel.py}
+\begin{figure}[H]\centering
+\includegraphics[width=0.75\linewidth]{t3_p21_rombo_fresnel.png}
+\caption{Problema 21(d). Retardo por reflexión total interna (convención de Born \& Wolf) contra el ángulo
+interno, para $n=1.51$. La recta a $45^\circ$ corta la curva en $48.6^\circ$ y $54.6^\circ$.}
+\end{figure}
+\resultado{$n=1.51$: $\delta=45^\circ$ por reflexión en $48.6^\circ$ y $54.6^\circ$ (máximo de $45.9^\circ$ en $51.3^\circ$).}
+
+\inc{e} \textbf{[N]} Con (6.2-8)--(6.2-9) y $\mathcal R=|\mathsf r|^2$ (6.2-14) para $n_2=3.48$ (Si) y $1.99$
+(Si$_3$N$_4$):
+\[
+\theta_B=\tan^{-1}n_2:\quad 74.0^\circ\ (\text{Si}),\qquad 63.3^\circ\ (\text{Si}_3\text{N}_4);\qquad
+\mathcal R(0)=\Big(\frac{n_2-1}{n_2+1}\Big)^2=0.306\ (\text{Si}),\ 0.110\ (\text{Si}_3\text{N}_4).
+\]
+La TE crece de forma monótona hasta 1 en incidencia rasante. La TM baja hasta anularse en $\theta_B$ y luego sube
+bruscamente. El Si refleja casi un tercio de la luz en incidencia normal; por eso las facetas de
+chips de Si necesitan antirreflejo, o la luz se acopla con rejillas.
+\begin{figure}[H]\centering
+\includegraphics[width=0.75\linewidth]{t3_p21_reflectancias.png}
+\caption{Problema 21(e). Reflectancias de potencia TE (continua) y TM (discontinua) contra el ángulo de incidencia
+para aire--Si ($n=3.48$) y aire--Si$_3$N$_4$ ($n=1.99$) a $\lambda_0=\SI{1.55}{\micro\metre}$.}
+\end{figure}
+\resultado{$\theta_B=74.0^\circ$ (Si) y $63.3^\circ$ (Si$_3$N$_4$); $\mathcal R(0)=30.6$\,\% y $11.0$\,\%.}
+
+\idea{(i) En RTI $|\mathsf r|=1$ y solo importa la fase; tome $\cos\theta_2=-j\sqrt{\cdots}$ (onda
+evanescente que decae). (ii) La fase TM de Saleh tiene un $\pi$ de diferencia con la de Born \& Wolf por la
+orientación de los ejes $y$; un retardo de ``$135^\circ$'' en Saleh es ``$45^\circ$'' en B\&W. (iii) La
+(6.2-13) impresa está invertida: verifique siempre una fórmula en un punto conocido ($\theta_c$:
+$\mathsf r_y=-1$). (iv) Luz no polarizada: promedie las \emph{reflectancias}, no las amplitudes.}
+
+%---------------------------------------------------------------------
+\sol{22}{Goos--Hänchen y medio absorbente}{Saleh, Probs.~6.2-7 y 6.2-8, p.~241; ec.~6.2-11, p.~212; §5.5A, ecs.~5.5-2 a 5.5-5, pp.~171--172.}
+\label{sol:22}
+
+\inc{a} \emph{Coeficiente $\xi$.} La fase TE en RTI es $\varphi(\theta)=2\tan^{-1}X$, con
+$X=\sqrt{\cos^2\theta_c/\cos^2\theta-1}=\sqrt{\sin^2\theta-\sin^2\theta_c}/\cos\theta$ (6.2-11). Se deriva:
+\[
+\frac{d\varphi}{d\theta}=\frac{2}{1+X^2}\frac{dX}{d\theta},\qquad 1+X^2=\frac{\cos^2\theta_c}{\cos^2\theta}.
+\]
+Con $\sigma\equiv\sqrt{\sin^2\theta-\sin^2\theta_c}$ y la regla del cociente:
+\[
+\frac{dX}{d\theta}=\frac{\dfrac{\sin\theta\cos\theta}{\sigma}\cos\theta+\sigma\sin\theta}{\cos^2\theta}
+=\frac{\sin\theta\,(\cos^2\theta+\sin^2\theta-\sin^2\theta_c)}{\sigma\cos^2\theta}
+=\frac{\sin\theta\cos^2\theta_c}{\sigma\cos^2\theta}.
+\]
+Por tanto
+\[
+\boxed{\xi=\frac{d\varphi}{d\theta}=\frac{2\cos^2\theta}{\cos^2\theta_c}\cdot\frac{\sin\theta\cos^2\theta_c}{\sigma\cos^2\theta}
+=\frac{2\sin\theta}{\sqrt{\sin^2\theta-\sin^2\theta_c}}}
+\]
+(adimensional, rad/rad). Diverge en $\theta_c$ y tiende a $2/\cos\theta_c$ en incidencia rasante. Para vidrio--aire a
+$1.2\theta_c$: $\xi=2(0.7682)/\sqrt{0.5901-0.4444}=4.03$ (la derivada numérica del script da lo mismo).
+
+\emph{Desplazamiento lateral.} Dos ondas planas incidentes a $\theta$ y $\theta+d\theta$, con
+amplitudes iguales y fase espacial $e^{-jk_1y\sin\theta}$ a lo largo de la frontera, interfieren con un patrón
+$\propto1+\cos(\Delta k_y\,y)$, donde $\Delta k_y=k_1\cos\theta\,d\theta$ (franjas de periodo
+$2\pi/\Delta k_y$). Las dos reflejadas llevan además las fases $\varphi(\theta)$ y
+$\varphi(\theta)+\xi d\theta$, y su patrón es $\propto1+\cos(\Delta k_y\,y-\xi\,d\theta)$. Es el mismo
+patrón corrido una distancia $\Delta y=\xi d\theta/\Delta k_y$ sobre la frontera:
+\[
+\Delta y=\frac{\xi}{k_1\cos\theta}=\frac{2\tan\theta}{\gamma},\qquad \gamma=k_1\sqrt{\sin^2\theta-\sin^2\theta_c},
+\]
+independiente de $d\theta$. Un haz es una superposición de muchas ondas planas en torno a $\theta$; cada par
+se corre lo mismo, y el haz reflejado sale desplazado $\Delta y$ sobre la frontera, es decir,
+$D=\Delta y\cos\theta=\xi/k_1$ perpendicular al haz. El desplazamiento es $\propto\xi$: el haz ``entra'' una
+distancia del orden de $1/\gamma$ en el medio menos denso antes de volver.
+
+\emph{Penetración.} En el aire,
+$\mathbf E_2\propto e^{-jk_2(y\sin\theta_2+z\cos\theta_2)}=e^{-jk_1y\sin\theta}\,e^{-\gamma z}$, con
+\[
+\gamma=k_0\sqrt{n_1^2\sin^2\theta-n_2^2}=\frac{2\pi}{\SI{633}{nm}}\sqrt{1.5^2(0.7682)^2-1}
+=(\SI{9.926e6}{m^{-1}})(0.5719)=\SI{5.68e6}{m^{-1}} .
+\]
+\resultado{$\xi=2\sin\theta/\sqrt{\sin^2\theta-\sin^2\theta_c}=4.03$; penetración del campo
+$1/\gamma=\SI{176}{nm}$ ($\SI{88}{nm}$ para la intensidad). Corrimiento sobre la frontera
+$\Delta y=2\tan\theta/\gamma=\SI{422}{nm}$, desplazamiento del haz $D=\xi/k_1=\SI{271}{nm}\approx0.4\lambda_0$:
+del orden de la longitud de onda, como se esperaba.}
+\codigo{t3_p22_goos_hanchen.py}
+
+\inc{b} \emph{Índice complejo.} En un medio absorbente $k=\beta-\frac{j}{2}\alpha$ (Saleh, ec.~5.5-3), con
+$\beta=nk_0$ (5.5-4), y la onda es $Ae^{-\alpha z/2}e^{-j\beta z}$. Se define
+\[
+N\equiv\frac{k}{k_0}=n-j\frac{\alpha}{2k_0}=n-j\frac{\alpha c_0}{2\omega}\qquad(k_0=\omega/c_0),
+\]
+que es (5.5-5): $N=\sqrt{\epsilon/\epsilon_0}$.
+
+\emph{Campos.} Incidencia normal desde el vacío ($z<0$) sobre el medio ($z>0$), con $\mathbf E\parallel\hat x$.
+De Faraday, $\nabla\times\mathbf E=-j\omega\mu_0\Hv$; para $\mathbf E=\hat xEe^{\mp jkz}$ se obtiene
+$\Hv=\pm\hat y\,(k/\omega\mu_0)E$. Con $k/\omega\mu_0=N/\eta_0$:
+\begin{align*}
+z<0:&\quad E_x=E_1e^{-jk_0z}+E_3e^{+jk_0z},\qquad H_y=\frac{1}{\eta_0}\big(E_1e^{-jk_0z}-E_3e^{+jk_0z}\big),\\
+z>0:&\quad E_x=E_2e^{-jNk_0z},\qquad\qquad\quad\ \ H_y=\frac{N}{\eta_0}E_2e^{-jNk_0z}.
+\end{align*}
+\emph{Continuidad} de $E_x$ y $H_y$ en $z=0$: $E_1+E_3=E_2$ y $E_1-E_3=NE_2$. Restando,
+$E_1-E_3=N(E_1+E_3)$, es decir, $E_1(1-N)=E_3(1+N)$:
+\[
+\mathsf r\equiv\frac{E_3}{E_1}=\frac{1-N}{1+N}=\frac{1-(n-j\alpha c_0/2\omega)}{1+(n-j\alpha c_0/2\omega)},\qquad
+\mathcal R=|\mathsf r|^2=\frac{(n-1)^2+(\alpha c_0/2\omega)^2}{(n+1)^2+(\alpha c_0/2\omega)^2}.
+\]
+\emph{Discrepancia de signo con el enunciado.} El enunciado (copiado del Prob.~6.2-8 de Saleh) pide
+$\mathsf r=[(n-j\alpha c_0/2\omega)-1]/[(n-j\alpha c_0/2\omega)+1]=-\,(1-N)/(1+N)$. Para el campo
+eléctrico, y con la convención de la propia ec.~6.2-8 en $\theta=0$ ($\mathsf r=(n_1-n_2)/(n_1+n_2)$), el
+resultado correcto es $(1-N)/(1+N)$. La expresión del enunciado es el coeficiente de reflexión del
+campo \emph{magnético}, $H_3/H_1=(-E_3/\eta_0)/(E_1/\eta_0)=-\mathsf r$, o el de $\mathbf E$ con la
+orientación de ejes de Born \& Wolf para TM. La diferencia es un desfase global de $\pi$ y no cambia
+$\mathcal R$. Límite de control: si $\alpha=0$, $\mathsf r=(1-n)/(1+n)$, la conocida (6.2-15).
+\resultado{$\mathsf r_E=\dfrac{1-(n-j\alpha c_0/2\omega)}{1+(n-j\alpha c_0/2\omega)}$; el del enunciado,
+$[(n-j\alpha c_0/2\omega)-1]/[(n-j\alpha c_0/2\omega)+1]$, es $-\mathsf r_E$ (coeficiente de $\Hv$). $\mathcal R$ es el mismo.}
+
+\idea{Goos--Hänchen: un desfase que depende del ángulo, $d\varphi/d\theta\neq0$, corre el haz (igual que
+$d\varphi/d\omega$ retrasa un pulso). El tamaño del corrimiento es $\sim\tan\theta/\gamma$, del orden
+de la penetración evanescente, unos cientos de nm. Medio absorbente: basta reemplazar $n\to N=n-j\alpha/2k_0$
+en las fórmulas de Fresnel (Saleh: $\mathrm{Im}\,k=-\alpha/2$, con signo menos por $e^{j\omega t}$).
+Cuidado con el signo global de $\mathsf r$: depende de si se refiere a $\mathbf E$ o a $\Hv$.}
+
+%---------------------------------------------------------------------
+\sol{23}{Cristales uniaxiales: retardo, doble refracción y walk-off}{Saleh, §6.3B--E, ecs.~6.3-15, 6.3-21, 6.3-23 a 6.3-25, pp.~219--227; §6.6B, p.~236; Probs.~6.3-1, 6.3-3, 6.3-5, pp.~241--242.}
+\label{sol:23}
+
+\inc{a} El retardo de una lámina es $\Gamma=(n_2-n_1)k_0d$ (Saleh, §6.3B, p.~219; §6.6B, p.~236).
+Es máximo cuando $\kv\perp$ eje óptico, porque entonces los dos modos tienen índices $n_o$ y
+$n(90^\circ)=n_e$, la mayor diferencia posible (6.3-15). Por unidad de longitud:
+\[
+\frac{\Gamma}{d}=\frac{2\pi(n_e-n_o)}{\lambda_0}=\frac{2\pi(0.009)}{\SI{633e-9}{m}}=\SI{8.93e4}{rad/m}=\SI{89.3}{rad/mm}\ (14.2\ \text{ondas/mm}).
+\]
+\emph{Cuarto de onda:} $\Gamma=\pi/2+2\pi m$ da
+$d=\frac{\lambda_0}{4\Delta n}(1+4m)=\SI{17.58}{\micro\metre}+m(\SI{70.33}{\micro\metre})$, es decir, $17.6$,
+$87.9$, $158.3\ \um$\ldots{} También actúa como $\lambda/4$ el retardo $\Gamma=3\pi/2+2\pi m\equiv-\pi/2$
+($52.8$, $123.1$, $193.4\ \um$\ldots), con los papeles de los ejes rápido y lento intercambiados (la LP
+a $45^\circ$ sale circular del sentido opuesto). En total, $d=(2m+1)\,\SI{17.58}{\micro\metre}$.
+Las láminas de \emph{orden cero} ($\SI{17.6}{\micro\metre}$) son frágiles; por eso se fabrican de orden
+múltiple, que son más sensibles a $\lambda$ y a la temperatura.
+\resultado{$\Gamma/d=\SI{89.3}{rad/mm}$; $\lambda/4$ en $17.6$, $87.9$, $158\ \um$, \ldots{} (y, con ejes intercambiados, $52.8$, $123\ \um$, \ldots).}
+
+\inc{b} \emph{Geometría.} En el plano de incidencia, sea $\hat z'$ la normal hacia el cristal y
+$\hat x'$ la tangente. La onda incidente va en $(\sin30^\circ,\cos30^\circ)$ y el eje óptico es
+perpendicular a ella, $\hat c=(\cos30^\circ,-\sin30^\circ)$: forma $\theta_a=60^\circ$ con la normal, del
+lado opuesto. Una onda refractada a $\theta$ de la normal forma con el eje un ángulo $\psi$ tal que
+$\cos\psi=\sin\theta\cos30^\circ-\cos\theta\sin30^\circ=\sin(\theta-30^\circ)$, de donde
+$\psi=120^\circ-\theta$. Como $n(\psi)$ depende de $\cos^2\psi$, es lo mismo usar
+$\theta_a+\theta=60^\circ+\theta$, que es la forma de (6.3-25).
+
+\emph{Onda ordinaria} (polarización perpendicular al plano de incidencia, TE), por (6.3-24):
+$\sin\theta_o=\sin30^\circ/n_o=0.5/1.544=0.32383$, de donde $\theta_o=18.89^\circ$. Para ella $\Sv\parallel\kv$,
+así que el rayo va también a $18.89^\circ$.
+
+\emph{Onda extraordinaria} (polarización en el plano de incidencia). Hay que resolver (6.3-25),
+$\sin30^\circ=n(60^\circ+\theta_e)\sin\theta_e$, con
+$1/n^2(\psi)=\cos^2\psi/n_o^2+\sin^2\psi/n_e^2$ (6.3-15). Por iteración:
+\begin{enumerate}
+\item Se arranca con $\theta_e\approx\theta_o=18.89^\circ$, de modo que $\psi=78.89^\circ$:
+$1/n^2=0.03709/2.38394+0.96291/2.41181=0.414806$, y $n=1.55267$.
+\item $\sin\theta_e=0.5/1.55267=0.32202$, es decir, $\theta_e=18.786^\circ$ y $\psi=78.786^\circ$; al recalcular,
+$n=1.55266$. Converge.
+\end{enumerate}
+\emph{Rayo extraordinario.} Es normal a la superficie $\kv$, el elipsoide (6.3-21). Con $\psi$ medido
+desde el eje, la dirección del rayo forma con el eje el ángulo $\psi_S$ dado por
+$\tan\psi_S=(n_o^2/n_e^2)\tan\psi=0.98844\cdot5.0444=4.9861$, es decir, $\psi_S=78.659^\circ$. El rayo
+está a $60^\circ+\theta_S$ del eje, de donde $\theta_S=18.66^\circ$ de la normal. El walk-off es
+$\psi-\psi_S=0.13^\circ$: el cuarzo es positivo y el rayo se inclina \emph{hacia} el eje óptico.
+\resultado{Onda o: $\kv$ y rayo a $18.89^\circ$ de la normal ($n_o=1.544$). Onda e: $\kv$ a $18.79^\circ$
+($n=1.5527$) y rayo a $18.66^\circ$ (walk-off $0.13^\circ$). Los rayos o y e se separan $0.24^\circ$.}
+
+\inc{c} En incidencia normal los dos $\kv$ refractados son normales a la cara (Snell con
+$\sin\theta_1=0$), y $\kv$ forma $45^\circ$ con el eje.
+\[
+\frac{1}{n^2(45^\circ)}=\frac{\cos^245^\circ}{2.20^2}+\frac{\sin^245^\circ}{2.29^2}=\frac12(0.206612+0.190686)=0.198649
+\;\Rightarrow\;n(45^\circ)=2.2436 .
+\]
+\emph{Walk-off.} El rayo e forma con el eje el ángulo $\theta_S$, con
+$\tan\theta_S=(n_o^2/n_e^2)\tan45^\circ=4.84/5.2441=0.92294$, es decir, $\theta_S=42.70^\circ$. Entonces
+$\rho=45^\circ-42.70^\circ=2.30^\circ$ ($\SI{40.0}{mrad}$), con el rayo inclinado hacia el eje (Saleh, Fig.~6.3-14,
+p.~227: ``la incidencia normal produce refracción oblicua''). Forma equivalente:
+$\tan\rho=\frac{n^2}{2}\big(\frac{1}{n_o^2}-\frac{1}{n_e^2}\big)\sin2\theta$.
+
+\emph{Desplazamiento.} El rayo o sigue la normal y el e se desvía $\rho$; al salir, los dos vuelven a
+ser normales a la cara (sus frentes siguen paralelos a las caras) y quedan separados
+\[
+\Delta x=L\tan\rho=(\SI{10}{mm})\tan2.30^\circ=\SI{0.40}{mm},
+\]
+con polarizaciones ortogonales: la lámina es un divisor de haz polarizador (Saleh, Fig.~6.3-15).
+
+\emph{Retardo.} La fase de cada onda la fija $\kv\cdot\rv$ (los frentes son paralelos a las caras), así que
+\[
+\Gamma=(n(45^\circ)-n_o)k_0L=(0.04365)\frac{2\pi}{\SI{633e-9}{m}}(\SI{0.01}{m})=\SI{4.33e3}{rad}\approx689.5\ \text{ondas}.
+\]
+La parte fraccionaria ($0.53$ ondas, $191^\circ$) cambia con variaciones de espesor de apenas
+$\lambda_0/\Delta n\approx\SI{15}{\micro\metre}$ por onda, o con la temperatura: en la práctica, la
+polarización de salida de una lámina gruesa es impredecible.
+\resultado{$n(45^\circ)=2.2436$; walk-off $\rho=2.30^\circ$; desplazamiento $\SI{0.40}{mm}$; retardo $\SI{4.33e3}{rad}$ ($\approx689.5$ ondas).}
+
+\codigo{t3_p23_uniaxiales.py}
+\begin{figure}[H]\centering
+\includegraphics[width=0.55\linewidth]{t3_p23_superficie_k.png}
+\caption{Problema 23(c). Superficie $\kv$ de un uniaxial positivo con el eje a $45^\circ$ de la normal ($n_e-n_o$
+exagerado 5 veces para que se vea). $\kv$ es normal a la cara; el rayo extraordinario $\Sv$ es normal a la elipse
+y se inclina hacia el eje óptico.}
+\end{figure}
+
+\idea{Snell vale para $\kv$, no para los rayos. El rayo e es normal a la superficie $\kv$:
+$\tan\theta_S=(n_o^2/n_e^2)\tan\theta$. En un uniaxial positivo se acerca al eje; en uno negativo, se aleja.
+En la doble refracción, el ángulo de $\kv$ con el eje depende del propio ángulo de refracción: hay que iterar
+(6.3-25). Retardo máximo con $\kv\perp$ eje; un ``cuarto de onda'' admite $\Gamma=\pm\pi/2$ (mod $2\pi$).}
+
+%---------------------------------------------------------------------
+\sol{24}{Elipsoide de índices: puente hacia el ajuste de fase}{Saleh, §6.3C, ec.~6.3-15, p.~221; Fig.~6.3-12, p.~225; Boyd, §2.3, ecs.~2.3.5 y 2.3.8--2.3.11, pp.~80--84.}
+\label{sol:24}
+
+\inc{a} Para SHG eficiente hace falta $\Delta k=k_{2\omega}-2k_\omega=\frac{2\omega}{c_0}[n(2\omega)-n(\omega)]=0$, es decir,
+$n(2\omega)=n(\omega)$ (Boyd, ec.~2.3.5, p.~81). En un medio isótropo hay un solo índice para cada
+frecuencia. Con dispersión normal ($dn/d\omega>0$ entre $\omega$ y $2\omega$, lejos de resonancias),
+$n(\omega)$ es estrictamente creciente, así que $n(2\omega)>n(\omega)$ siempre. Solo con una
+resonancia entre $\omega$ y $2\omega$ (dispersión anómala) se podría compensar, al precio de mucha
+absorción. La birrefringencia da la salida: la onda $2\omega$ viaja con la polarización ``lenta'' de
+índice menor (aquí, extraordinaria en un negativo) y la fundamental con la ordinaria.
+
+\inc{b} Tipo I \emph{ooe}: dos fotones ordinarios a $\omega$ dan uno extraordinario a $2\omega$. La condición es
+$n_e(532,\theta)=n_o(1064)$ (Boyd, ec.~2.3.9). Con (6.3-15) (equivalente a Boyd 2.3.8),
+$\frac{1}{n_o(1064)^2}=\frac{\cos^2\theta}{n_o(532)^2}+\frac{\sin^2\theta}{n_e(532)^2}$. Usando $\cos^2\theta=1-\sin^2\theta$ y
+despejando:
+\[
+\sin^2\theta=\frac{n_o(1064)^{-2}-n_o(532)^{-2}}{n_e(532)^{-2}-n_o(532)^{-2}}
+=\frac{0.365050-0.356467}{0.413295-0.356467}=\frac{0.008583}{0.056828}=0.15099,
+\]
+de donde $\sin\theta=0.38858$ y $\theta=22.87^\circ$ (Boyd, ec.~2.3.11). Existe solución porque
+$n_e(532)=1.5555<n_o(1064)=1.6551<n_o(532)=1.6749$: la curva $n_e(532,\theta)$ baja de $1.6749$
+a $1.5555$ y cruza el valor objetivo (Fig.~\ref{fig:t3_p24}).
+\resultado{$\theta_{pm}=22.9^\circ$.}
+
+\inc{c} La onda $2\omega$ es extraordinaria. Su rayo forma con el eje el ángulo $\theta_S$ con
+\[
+\tan\theta_S=\frac{n_o^2}{n_e^2}\tan\theta=\Big(\frac{1.6749}{1.5555}\Big)^2(0.42173)=1.15942\cdot0.42173=0.48896,
+\]
+es decir, $\theta_S=26.06^\circ$. El walk-off vale
+\[
+\rho=\theta_S-\theta=26.06^\circ-22.87^\circ=3.19^\circ=\SI{55.7}{mrad};
+\]
+en un cristal negativo el rayo e se \emph{aleja} del eje. Con la fórmula
+$\tan\rho=\frac{n^2(\theta)}{2}\big(\frac{1}{n_e^2}-\frac{1}{n_o^2}\big)\sin2\theta$ sale lo mismo. Tras $L=\SI{5}{mm}$, el haz
+armónico se separa del fundamental (ordinario, que va por $\kv$)
+\[
+\Delta x=L\tan\rho=(\SI{5}{mm})(0.0557)=\SI{279}{\micro\metre}.
+\]
+Con haces enfocados de algunos cientos de micras o menos, dejan de solaparse: el walk-off limita la
+longitud útil del cristal (Boyd, p.~83).
+\resultado{$\rho=3.19^\circ$ ($\SI{55.7}{mrad}$); separación $\SI{279}{\micro\metre}$ en $\SI{5}{mm}$.}
+
+\inc{d} En $\theta=0$ ($\kv$ a lo largo del eje) los dos modos ven $n_o$, así que el armónico tiene $n_o(532)$:
+\[
+\Delta k=\frac{2\pi n_o(532)}{\lambda_{532}}-2\frac{2\pi n_o(1064)}{\lambda_{1064}}=\frac{2\pi}{\SI{532}{nm}}[n_o(532)-n_o(1064)]
+=\frac{2\pi(0.0198)}{\SI{532e-9}{m}}=\SI{2.34e5}{m^{-1}},
+\]
+\[
+L_c=\frac{\pi}{|\Delta k|}=\frac{\lambda_{1064}}{4[n_o(532)-n_o(1064)]}=\SI{13.4}{\micro\metre}.
+\]
+Más allá de $L_c$ la potencia armónica deja de crecer y vuelve a bajar (oscila con periodo $2L_c$, Boyd
+ec.~2.3.2): sin ajuste de fase, un cristal de \SI{5}{mm} no rinde más que una capa de \SI{13}{\micro\metre}.
+\resultado{$\Delta k=\SI{2.34e5}{m^{-1}}$, $L_c=\SI{13.4}{\micro\metre}$.}
+
+\codigo{t3_p24_bbo.py}
+\begin{figure}[H]\centering
+\includegraphics[width=0.75\linewidth]{t3_p24_bbo.png}
+\caption{Problema 24. Índices ordinario y extraordinario del BBO a 1064 y 532 nm contra el ángulo con el eje óptico.
+El ajuste de fase tipo I (ooe) ocurre donde $n_e(532,\theta)$ (verde discontinua) corta a $n_o(1064)$ (azul continua):
+$\theta_{pm}=22.9^\circ$.}
+\label{fig:t3_p24}
+\end{figure}
+
+\idea{Fórmula de examen: $\sin^2\theta_{pm}=(n_o(\omega)^{-2}-n_o(2\omega)^{-2})/(n_e(2\omega)^{-2}-n_o(2\omega)^{-2})$
+(negativo, tipo I). No confunda $n_e$, el valor principal, con $n_e(\theta)$, el de (6.3-15). El walk-off
+es el precio del ajuste por ángulo, y es nulo solo en $\theta=90^\circ$ (ajuste no crítico, por temperatura).
+$L_c=\lambda_\omega/[4\Delta n]$ es del orden de micras: sin ajuste de fase no hay SHG útil.}
+
+%---------------------------------------------------------------------
+\sol{25}{Cristal biaxial}{Saleh, §6.3A, ec.~6.3-8, p.~218; §6.3C, construcción del elipsoide, pp.~220--221; §6.3D, Fig.~6.3-9, p.~223.}
+\label{sol:25}
+
+\inc{a} En los ejes principales (Saleh, ec.~6.3-8):
+\[
+\frac{x^2}{n_x^2}+\frac{y^2}{n_y^2}+\frac{z^2}{n_z^2}=1,\qquad \frac{x^2}{1.7377^2}+\frac{y^2}{1.7453^2}+\frac{z^2}{1.8297^2}=1,
+\]
+con semiejes $n_x<n_y<n_z$: biaxial positivo.
+
+\inc{b} Sea $\hat u=(\sin\theta,0,\cos\theta)$. El plano normal a $\hat u$ por el origen contiene al eje $y$ y a
+la dirección $\hat v=(\cos\theta,0,-\sin\theta)$. Como el elipsoide es simétrico ante $y\to-y$, la elipse
+de intersección tiene sus ejes a lo largo de $\hat y$ y de $\hat v$ (Saleh, pasos 1--3, p.~220):
+\begin{itemize}
+\item a lo largo de $\hat y$, el punto $(0,r,0)$ está en el elipsoide si $r=n_y$: modo con $\D\parallel\hat y$
+e índice $n_a=n_y$, independiente de $\theta$ (es un ``ordinario'' dentro de este plano);
+\item a lo largo de $\hat v$, el punto $r\hat v$ cumple $r^2\big(\frac{\cos^2\theta}{n_x^2}+\frac{\sin^2\theta}{n_z^2}\big)=1$:
+\[
+\frac{1}{n_b^2(\theta)}=\frac{\cos^2\theta}{n_x^2}+\frac{\sin^2\theta}{n_z^2},
+\]
+con $\D$ en el plano $x$--$z$, de $n_b(0)=n_x$ (cuando $\kv\parallel z$, $\D\parallel x$) a $n_b(90^\circ)=n_z$.
+\end{itemize}
+\resultado{$n_a=n_y=1.7453$ ($\D\parallel\hat y$) y $n_b(\theta)=\big[\cos^2\theta/n_x^2+\sin^2\theta/n_z^2\big]^{-1/2}$ ($\D$ en el plano $x$--$z$).}
+
+\inc{c} Un eje óptico es una dirección en la que la elipse de índices es un círculo, es decir, $n_a=n_b$. En el plano
+$x$--$z$, $n_b(\theta)$ crece de forma monótona de $n_x$ a $n_z$, y como $n_x<n_y<n_z$ cruza a $n_y$ exactamente
+una vez en $(0,90^\circ)$, en $\theta=V_z$; por simetría, también en $-V_z$. La condición es
+\[
+\frac{1}{n_y^2}=\frac{\cos^2V_z}{n_x^2}+\frac{\sin^2V_z}{n_z^2}=\frac{1}{n_x^2}-\sin^2V_z\Big(\frac{1}{n_x^2}-\frac{1}{n_z^2}\Big).
+\]
+Despejando:
+\[
+\sin^2V_z=\frac{n_x^{-2}-n_y^{-2}}{n_x^{-2}-n_z^{-2}}=\frac{(n_y^2-n_x^2)/(n_x^2n_y^2)}{(n_z^2-n_x^2)/(n_x^2n_z^2)}
+=\frac{n_z^2}{n_y^2}\,\frac{n_y^2-n_x^2}{n_z^2-n_x^2}
+\;\Rightarrow\;\sin V_z=\frac{n_z}{n_y}\sqrt{\frac{n_y^2-n_x^2}{n_z^2-n_x^2}} .\ \blacksquare
+\]
+Numéricamente: $n_x^2=3.01960$, $n_y^2=3.04607$, $n_z^2=3.34780$, y
+$\sin V_z=\frac{1.8297}{1.7453}\sqrt{\frac{0.02647}{0.32820}}=1.04836\cdot0.28399=0.29773$, de donde $V_z=17.32^\circ$.
+Los ejes ópticos están en el plano $x$--$z$, el de los índices menor y mayor. En el plano $x$--$y$ los índices son
+$n_z$ y uno entre $n_x$ y $n_y$; en el $y$--$z$, $n_x$ y uno entre $n_y$ y $n_z$. En ninguno de los dos
+pueden coincidir. Los dos ejes forman $2V_z=34.6^\circ$ (Saleh, Fig.~6.3-9: las hojas de la superficie
+$\kv$ se tocan en cuatro puntos, dos ejes).
+\resultado{$V_z=17.3^\circ$ (los dos ejes ópticos están a $\pm17.3^\circ$ de $z$ en el plano $x$--$z$).}
+
+\codigo{t3_p25_ktp.py}
+\begin{figure}[H]\centering
+\includegraphics[width=0.72\linewidth]{t3_p25_ktp.png}
+\caption{Problema 25. Índices de los dos modos normales del KTP a 1064 nm para $\kv$ en el plano $x$--$z$: se cruzan en el
+eje óptico, $\theta=V_z=17.3^\circ$.}
+\end{figure}
+
+\idea{Para propagar en un plano principal, uno de los modos tiene $\D$ perpendicular al plano y un índice constante,
+y el otro se comporta como una onda ``extraordinaria'' con los dos índices del plano. Los ejes ópticos
+están siempre en el plano de $n_{\min}$ y $n_{\max}$, donde el índice variable puede igualar a $n_{\rm int}$.}
+
+%---------------------------------------------------------------------
+\sol{26}{Actividad óptica y aislador de Faraday}{Saleh, §6.4A--B, ecs.~6.4-1 y 6.4-9, pp.~228--231; §6.6D, Fig.~6.6-5, p.~238.}
+\label{sol:26}
+
+\inc{a} La potencia rotatoria del cuarzo a 500 nm es $\rho\approx31^\circ/$mm (Saleh, p.~230), y el ángulo
+rotado es $\rho d$:
+\[
+d=\frac{90^\circ}{31^\circ/\text{mm}}=\SI{2.90}{mm}.
+\]
+\emph{Ida y vuelta.} En la actividad óptica el vector de giro es $\mathbf G=\xi\kv$ (ec.~6.4-5): se invierte con
+$\kv$. Respecto a su propia dirección de propagación, la onda que vuelve gira en el mismo sentido (por ejemplo,
+horario visto de frente); visto desde el laboratorio, eso deshace la rotación de la ida. En ejes fijos del
+laboratorio: ida $\T_{\rm rot}(90^\circ)$, vuelta $\T_{\rm rot}(90^\circ)^T=\T_{\rm rot}(-90^\circ)$, y el
+total es $\T_{\rm rot}(-90^\circ)\T_{\rm rot}(90^\circ)=\mathbf I$. La onda vuelve a su estado inicial
+(Saleh, Fig.~6.4-1b, p.~228): el medio es recíproco.
+\resultado{$d=\SI{2.90}{mm}$; rotación neta en ida y vuelta: cero.}
+
+\inc{b} \emph{Longitud.} $\rho=\mathfrak VB$ (ec.~6.4-9). Para $45^\circ=\pi/4$ rad:
+\[
+L=\frac{\pi/4}{|\mathfrak V|B}=\frac{0.7854}{(\SI{40}{rad/(T.m)})(\SI{1}{T})}=\SI{1.96e-2}{m}=\SI{19.6}{mm}.
+\]
+(El signo negativo de $\mathfrak V$ solo dice que el giro es levógiro respecto a $\mathbf B$; se orienta el imán
+para que, en la ida, el giro vaya del eje del polarizador A al del B.)
+
+\emph{Matrices de Jones} en ejes fijos del laboratorio. Polarizador A en $x$, rotador de Faraday de $+45^\circ$ y
+polarizador B a $45^\circ$:
+\[
+\T_A=\begin{bmatrix}1&0\\0&0\end{bmatrix},\quad
+\T_F=\T_{\rm rot}(45^\circ)=\frac{1}{\sqrt2}\begin{bmatrix}1&-1\\1&1\end{bmatrix},\quad
+\T_B=\frac12\begin{bmatrix}1&1\\1&1\end{bmatrix}.
+\]
+\emph{Ida:} $\T_{\rm ida}=\T_B\T_F\T_A$. Primero $\T_F\T_A=\frac{1}{\sqrt2}\left[\begin{smallmatrix}1&0\\1&0\end{smallmatrix}\right]$, y luego
+$\T_{\rm ida}=\frac{1}{\sqrt2}\left[\begin{smallmatrix}1&0\\1&0\end{smallmatrix}\right]$. La luz LP en $x$ sale como
+$\frac{1}{\sqrt2}(1,1)^T$, con potencia $1$: pasa entera.
+
+\emph{Vuelta:} el sentido del giro de Faraday lo fija $\mathbf B$, no $\kv$ ($\mathbf G=\gamma\mathbf B$, ec.~6.4-11).
+En ejes del laboratorio la matriz es la \emph{misma}, $\T_F$, y no su transpuesta:
+\[
+\T_{\rm vuelta}=\T_A\T_F\T_B,\qquad \T_F\T_B=\frac{1}{\sqrt2}\cdot\frac12\begin{bmatrix}0&0\\2&2\end{bmatrix}=\frac{1}{\sqrt2}\begin{bmatrix}0&0\\1&1\end{bmatrix},\qquad
+\T_A\T_F\T_B=\begin{bmatrix}0&0\\0&0\end{bmatrix}.
+\]
+$\T_{\rm vuelta}$ es la matriz nula: \emph{cualquier} onda que regrese queda bloqueada. B deja pasar la componente a
+$45^\circ$, el rotador la lleva a $90^\circ$ (rotación acumulada) y A la absorbe. El script lo comprueba con
+entradas $x$, $y$, $45^\circ$ y circular: transmitancia de vuelta 0 en todos los casos.
+\resultado{$L=\SI{19.6}{mm}$. $\T_{\rm ida}=\frac{1}{\sqrt2}\left[\begin{smallmatrix}1&0\\1&0\end{smallmatrix}\right]$ (pasa toda la LP$_x$);
+$\T_{\rm vuelta}=\T_A\T_F\T_B=\mathbf 0$.}
+
+\inc{c} Con un rotador \emph{recíproco} (actividad óptica o nemático torcido), la matriz de vuelta en ejes del
+laboratorio es $\T_F^T=\T_{\rm rot}(-45^\circ)$:
+$\T_A\T_F^T\T_B=\frac{1}{\sqrt2}\left[\begin{smallmatrix}1&1\\0&0\end{smallmatrix}\right]$, y la onda de vuelta a
+$45^\circ$ sale como $(1,0)^T$ y pasa A entera. La lámina $\lambda/2$ a $22.5^\circ$ hace lo mismo en la ida
+($x\to45^\circ$), pero su matriz es simétrica, así que en la vuelta lleva $45^\circ\to0^\circ$ y A también la
+deja pasar. En los dos casos la onda ``recorre al revés'' los cambios de la ida y vuelve a la fuente. Para aislar
+hace falta romper la reciprocidad, y en óptica lineal pasiva eso solo lo hace el campo magnético
+(efecto Faraday) (Saleh, p.~238).
+\resultado{Rotador activo y lámina $\lambda/2$ son recíprocos: la vuelta deshace la ida y la luz regresa a la fuente
+(transmitancia de vuelta 1). Solo el rotador de Faraday, no recíproco, aísla.}
+\codigo{t3_p26_aislador.py}
+
+\idea{En ejes fijos del laboratorio: recíproco $\Rightarrow$ $\T_{\rm vuelta}=\T^T$ (rotación $-\theta$);
+Faraday $\Rightarrow$ $\T_{\rm vuelta}=\T$ (rotación $+\theta$ otra vez, total $2\theta$). Actividad óptica:
+$\mathbf G\propto\kv$; Faraday: $\mathbf G\propto\mathbf B$. Un aislador de $45^\circ$ necesita
+$L=\pi/(4|\mathfrak V|B)$.}
+
+%---------------------------------------------------------------------
+\sol{27}{Nemático torcido por matrices de Jones}{Saleh, §6.5, ecs.~6.5-1 a 6.5-10, pp.~232--234; Gooch y Tarry, \emph{J.\ Phys.\ D} \textbf{8}, 1575 (1975).}
+\label{sol:27}
+
+\textbf{[N]} \emph{Modelo.} El nemático torcido es un uniaxial local cuyo eje óptico gira como
+$\theta=\alpha z$ (6.5-1); su retardo por unidad de longitud es $\beta=(n_e-n_o)k_0$ (6.5-2). Se divide el
+espesor $d$ en $N=200$ capas de $\Delta z=d/N$. La capa $m$ es un retardador con el eje lento (eje óptico) a
+$\theta_m=m\alpha\Delta z$ (6.5-3), con matriz propia (6.5-5) sin la fase global:
+\[
+\T_m=\R(-\theta_m)\begin{bmatrix}e^{-j\beta\Delta z/2}&0\\0&e^{j\beta\Delta z/2}\end{bmatrix}\R(\theta_m),\qquad
+\T=\T_N\cdots\T_2\T_1\quad(6.5\text{-}6).
+\]
+Con torsión total $\alpha d=\pi/2$, la celda queda descrita por un solo parámetro adimensional:
+$\beta d=(\beta/\alpha)(\alpha d)=(\pi/2)(\beta/\alpha)$, de modo que $u\equiv\beta d/\pi=(\beta/\alpha)/2$. Se
+lanza LP en $x$, $\J_{\rm sal}=\T(1,0)^T$, y se calcula la fracción de potencia en $y$,
+$|J_{{\rm sal},y}|^2/|\J_{\rm sal}|^2$, que es la transmitancia con un polarizador de salida en $y$.
+
+\codigo{t3_p27_nematico.py}
+
+\emph{Resultados.} La diferencia máxima con Gooch--Tarry en todo el rango es $2\times10^{-5}$: con 200 capas la
+discretización es excelente.
+\begin{center}
+\begin{tabular}{cccc}
+\toprule
+$u=\beta d/\pi$ & $\beta/\alpha$ & Jones ($N=200$) & Gooch--Tarry\\
+\midrule
+0.05 & 0.1 & 0.0025 & 0.0025\\
+0.5 & 1 & 0.2272 & 0.2272\\
+1 & 2 & 0.6834 & 0.6834\\
+$\sqrt3=1.732$ & 3.46 & 1.0000 & 1.0000\\
+$\sqrt{15}=3.873$ & 7.75 & 1.0000 & 1.0000\\
+10 & 20 & 0.9999 & 0.9999\\
+25 & 50 & 0.9984 & 0.9984\\
+\bottomrule
+\end{tabular}
+\end{center}
+\begin{figure}[H]\centering
+\includegraphics[width=0.78\linewidth]{t3_p27_nematico.png}
+\caption{Problema 27. Fracción de potencia que sale LP en $y$ de un nemático torcido $90^\circ$ (entrada LP en $x$), contra
+$\beta/\alpha$. Curva continua: producto de 200 matrices de Jones (6.5-6); discontinua: Gooch--Tarry. Las líneas
+punteadas marcan los máximos exactos $u=\sqrt{4k^2-1}$.}
+\end{figure}
+
+\emph{Interpretación.}
+\begin{itemize}
+\item $\beta\ll\alpha$: la birrefringencia es tan débil que la luz no ``ve'' la torsión. Sale casi LP en $x$ y la
+fracción en $y$ tiende a 0 ($\approx u^2$ para $u\ll1$; con $u=0.05$, $0.0025$).
+\item $\beta\gg\alpha$ (régimen de Mauguin o adiabático): la onda sigue la torsión y sale LP en $y$. Es el límite
+(6.5-10) de Saleh, $\T\approx\R(-\alpha d)\,\mathrm{diag}(e^{-j\beta d/2},e^{j\beta d/2})$, que para LP en $x$
+(un modo del retardador) solo agrega una fase antes de girar $90^\circ$. La fracción tiende a 1 con una envolvente
+$1-1/(1+u^2)$.
+\item Gooch--Tarry, $1-\sin^2\!\big(\frac\pi2\sqrt{1+u^2}\big)/(1+u^2)$, vale exactamente 1 cuando
+$\sqrt{1+u^2}=2k$, es decir, $u=\sqrt{3},\sqrt{15},\sqrt{35},\dots$ Son los ``mínimos'' de Gooch--Tarry: la fuga
+con polarizadores paralelos, $\sin^2(\cdot)/(1+u^2)$, se anula. Las pantallas TN trabajan en el primero,
+$u=\sqrt3$ ($\Delta n\,d=\sqrt3\lambda_0/2$), porque da la celda más delgada (respuesta más rápida) con
+conversión completa. Entre esos puntos la salida es ligeramente elíptica: por eso la ``fracción en $y$'' baja a
+$\approx0.88$ en $u\approx2.7$.
+\end{itemize}
+\resultado{La fracción LP en $y$ tiende a 1 para $\beta\gg\alpha$ (Mauguin) y a 0 para $\beta\ll\alpha$. Vale $0.23$ en
+$u=0.5$, $0.68$ en $u=1$ y exactamente 1 en $u=\sqrt3$ (primer mínimo de Gooch--Tarry), $\sqrt{15}$, \ldots{}
+El modelo de 200 capas reproduce Gooch--Tarry con un error $<3\times10^{-5}$.}
+
+\idea{El nemático torcido es un rotador \emph{adiabático}: la condición es $\beta\gg\alpha$ (muchas vueltas de
+retardo por cada radián de torsión), no $\beta d\gg1$ a secas. En la cascada (6.5-6) la primera capa va a la
+derecha. El parámetro natural es $u=\Delta n\,d\cdot2/\lambda_0$; el primer mínimo de Gooch--Tarry,
+$\Delta n\,d=\sqrt3\lambda_0/2\approx0.87\lambda_0$, es el punto de trabajo de una TN de $90^\circ$.}

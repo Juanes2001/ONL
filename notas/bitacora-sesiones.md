@@ -3,6 +3,38 @@
 Registro de cada sesión de trabajo en el repositorio: qué se hizo, qué decisiones se tomaron y
 qué queda pendiente. La entrada más reciente va arriba.
 
+## 2026-11-15 (domingo) — Solucionario completo del taller de repaso del Examen 1
+
+### Hecho
+- `notas/examen-1/solucionario-taller-examen-1.tex` → `.pdf`: 104 pp., las soluciones completas de
+  los 39 problemas.
+  - Cada solución trae la derivación paso a paso con citas al libro, los resultados en recuadro y
+    una "idea clave" para el examen.
+  - Lo escribieron 5 agentes en paralelo: tema 1, tema 2, tema 3, tema 4 (28–33) y tema 4 (34–39).
+  - Cada tema es un fragmento en `notas/examen-1/solucionario/temaN.tex`, con el preámbulo común en
+    `preambulo.tex` y su prueba de compilación en `prueba_temaN.tex`.
+  - El código está en `solucionario/codigo/` (29 scripts en Python) y las figuras, en PNG y PDF, en
+    `solucionario/figuras/`.
+  - La simulación del oscilador (p32) tarda unos 4 min; su salida queda en `t4a_p32_salida.txt`.
+- Correcciones al taller (`taller-repaso-examen-1.tex`), encontradas al resolverlo:
+  - **Respuesta 9:** hay una segunda solución, con la cintura entre los planos ($W_0=66.5$ µm a 3.34 cm del primero).
+  - **Respuesta 17(d):** con $a=-3$ y la convención $e^{j\omega t}$ el pulso tiene up-chirp y se
+    comprime en dispersión **anómala**. Los valores $0.3z_0$ y $0.316\tau_0$ no cambian.
+  - **Respuesta 23(a):** faltaban los espesores de $\lambda/4$ de 52.8 y 123 µm.
+  - **Respuesta 35(b):** todos los $\phi=30^\circ+60^\circ q$ dan el mismo $|d_{\rm eff}|$.
+  - **Respuesta 39(d):** se aclara que usa $n=1.459$ (con $n=2$ daría $5.2\times10^{-12}$ C/m²).
+  - **Enunciado 22(b):** la fórmula del Saleh 6.2-8 corresponde al coeficiente del campo $H$; para
+    $E$ el signo es el opuesto, y $\mathcal R$ no cambia.
+- Erratas nuevas de los libros:
+  - Saleh (5.5-13), Kramers–Kronig, p. 175: está escrita con el signo de la convención $\chi''>0$;
+    con el $\chi''<0$ del propio libro da $-\chi'$.
+  - Saleh: el cero de dispersión de la sílice, con sus coeficientes, es 1.273 µm, no 1.276.
+  - Saleh (6.2-13): queda confirmado que da $-\pi-\varphi$.
+- Corregido `notas/boyd/cap01`: $n_2^{\rm circ}/n_2^{\rm lin}=A/(A+B/2)$ (decía $A/(A+B)$).
+
+### Pendiente
+- Resolver el taller usando el solucionario solo como apoyo; el examen es el miércoles 2026-11-18.
+
 ## 2026-11-14 (sábado) → 2026-11-15 (domingo) — Preparación del Examen 1 (temas 1–4) y lectura completa del Boyd
 
 El resumen detallado para retomar está en `notas/resumen-sesion-2026-11-15-examen-1.md`.

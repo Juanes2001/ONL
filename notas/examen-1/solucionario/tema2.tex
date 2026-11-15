@@ -1,0 +1,785 @@
+% Solucionario — Tema 2: haz gaussiano, absorción y dispersión, pulsos (problemas 8 a 17).
+% Convención de Saleh en todo el tema: e^{j omega t}, onda en +z ~ e^{-jkz}, chi'' < 0 = absorción,
+% F{f}(nu) = int f(t) e^{-j 2 pi nu t} dt.
+
+\textbf{Convención del tema.} Se usa la de Saleh y Teich: dependencia temporal $e^{j\omega t}$, onda que
+viaja en $+z$ como $e^{-jkz}$, $k=\beta-j\alpha/2$, susceptibilidad $\chi=\chi'+j\chi''$ con
+$\chi''<0$ en un medio absorbente, transformada de Fourier $A(f)=\int A(t)e^{-j2\pi ft}\dd t$
+(la misma de \texttt{numpy.fft.fft}). Para los pulsos, $\tau$ es la constante de $1/e$ de la
+\emph{amplitud}: $\tau_{\rm FWHM}=\sqrt{2\ln2}\,\tau=1.177\,\tau$ (Saleh, ec.~22.1-8, p.~942).
+Constantes: $c_0=\SI{2.998e8}{m/s}$, $\epsilon_0=\SI{8.854e-12}{F/m}$, $e=\SI{1.602e-19}{C}$,
+$m_e=\SI{9.109e-31}{kg}$.
+
+%=====================================================================
+\sol{8}{Parámetros de un haz}{Saleh Prob.~3.1-6, p.~100; §3.1B, ecs.~3.1-11 a 3.1-22, pp.~77--80}\label{sol:8}
+
+\emph{Datos:} $\lambda=\SI{1.06}{\um}$, $P=\SI{1}{W}$, divergencia \emph{total} $2\theta_0=\SI{1}{mrad}$,
+luego el semiángulo es $\theta_0=\SI{0.5}{mrad}$.
+
+\inc{a} \textbf{Radio de la cintura.} La divergencia de campo lejano es (Saleh, ec.~3.1-20, p.~80)
+\[
+\theta_0=\frac{W_0}{z_0}=\frac{\lambda}{\pi W_0}
+\quad\Longrightarrow\quad
+W_0=\frac{\lambda}{\pi\theta_0}=\frac{\SI{1.06e-6}{m}}{\pi\,(\SI{5e-4}{})}=\SI{6.748e-4}{m}.
+\]
+\resultado{$W_0=\SI{0.675}{mm}$ (diámetro de mancha $2W_0=\SI{1.35}{mm}$).}
+
+\inc{b} \textbf{Profundidad de foco.} Por (3.1-11), $z_0=\pi W_0^2/\lambda$, o más rápido
+$z_0=W_0/\theta_0=\SI{6.748e-4}{m}/\SI{5e-4}{}=\SI{1.350}{m}$. La profundidad de foco es
+$2z_0$ (ec.~3.1-22, p.~80):
+\resultado{$2z_0=2\pi W_0^2/\lambda=\SI{2.70}{m}$.}
+Orden de magnitud: un haz milimétrico en el IR cercano permanece colimado unos metros, como se espera
+($z_0\sim W_0^2/\lambda\sim\SI{e-6}{m^2}/\SI{e-6}{m}$).
+
+\inc{c} \textbf{Intensidad máxima.} La potencia es $P=\tfrac12I_0\pi W_0^2$ (ec.~3.1-15, p.~78),
+luego
+\[
+I_0=\frac{2P}{\pi W_0^2}=\frac{2\,(\SI{1}{W})}{\pi\,(\SI{6.748e-4}{m})^2}=\frac{2}{\SI{1.4305e-6}{m^2}}
+=\SI{1.40e6}{W/m^2}.
+\]
+\resultado{$I_0=\SI{1.40e6}{W/m^2}=\SI{140}{W/cm^2}$ (en el centro de la cintura).}
+
+\inc{d} \textbf{Intensidad en el eje a $z=\SI{1}{m}$.} Por (3.1-13), p.~78,
+\[
+I(0,z)=\frac{I_0}{1+(z/z_0)^2}=\frac{\SI{140}{W/cm^2}}{1+(1/1.350)^2}=\frac{140}{1.549}\ \si{W/cm^2}.
+\]
+\resultado{$I(0,\SI{1}{m})=\SI{90.3}{W/cm^2}$, es decir el 64\,\% del pico, porque $z<z_0$.}
+
+\idea{Cuidado con ``divergencia'': si el enunciado da el ángulo \emph{total} $2\theta_0$, divida entre
+2 antes de usar $\theta_0=\lambda/\pi W_0$; equivocarse aquí da $W_0$ al doble y $I_0$ a la cuarta parte.
+El factor $2$ en $I_0=2P/\pi W_0^2$ viene de $\int_0^\infty e^{-2\rho^2/W^2}2\pi\rho\dd\rho=\pi W^2/2$.
+En el eje la intensidad cae a la mitad justo en $z=\pm z_0$.}
+
+%=====================================================================
+\sol{9}{Identificación de un haz con dos anchos}{Saleh Prob.~3.1-7, p.~100; ecs.~3.1-8 y 3.1-11, p.~77}\label{sol:9}
+
+\emph{Planteamiento.} Sea $z_1$ la posición del primer plano medida desde la cintura (positiva si
+el plano está después de la cintura) y $z_2=z_1+d$ la del segundo. Con (3.1-8) y (3.1-11),
+\[
+W^2(z)=W_0^2\left[1+\frac{z^2}{z_0^2}\right]=W_0^2+\frac{b\,z^2}{W_0^2},
+\qquad b\equiv\left(\frac{\lambda}{\pi}\right)^2,
+\]
+porque $z_0=\pi W_0^2/\lambda$. Llamando $a\equiv W_0^2$, las dos medidas dan
+\[
+W_1^2=a+\frac{b\,z_1^2}{a},\qquad W_2^2=a+\frac{b\,(z_1+d)^2}{a}.
+\]
+\textbf{Paso 1: eliminar $z_1$.} Restando,
+$W_2^2-W_1^2=\frac{b}{a}\big[(z_1+d)^2-z_1^2\big]=\frac{b}{a}(2z_1d+d^2)$, de donde
+\[
+z_1=\frac{1}{2d}\left[\frac{a\,\Delta}{b}-d^2\right],\qquad \Delta\equiv W_2^2-W_1^2 .
+\]
+\textbf{Paso 2: ecuación para $a$.} Multiplicando la primera ecuación por $a$:
+$a^2-aW_1^2+bz_1^2=0$. Sustituyendo $z_1$,
+\[
+bz_1^2=\frac{b}{4d^2}\left[\frac{a^2\Delta^2}{b^2}-\frac{2a\Delta d^2}{b}+d^4\right]
+=\frac{a^2\Delta^2}{4bd^2}-\frac{a\Delta}{2}+\frac{bd^2}{4},
+\]
+y queda una \emph{cuadrática}:
+\[
+\underbrace{\left(1+\frac{\Delta^2}{4bd^2}\right)}_{A}a^2-\underbrace{\left(W_1^2+\frac{\Delta}{2}\right)}_{B}a+\underbrace{\frac{bd^2}{4}}_{C}=0 .
+\]
+\textbf{Paso 3: números.} $\lambda=\SI{10.6}{\um}$: $b=\SI{1.1385e-11}{m^2}$;
+$W_1^2=\SI{2.8866e-6}{m^2}$, $W_2^2=\SI{1.14244e-5}{m^2}$, $\Delta=\SI{8.5378e-6}{m^2}$, $d=\SI{0.1}{m}$:
+\[
+A=161.07,\qquad B=\SI{7.1555e-6}{m^2},\qquad C=\SI{2.846e-14}{m^4},
+\]
+\[
+a=\frac{B\pm\sqrt{B^2-4AC}}{2A}=\frac{(7.1555\pm5.7326)\times10^{-6}}{322.15}\ \si{m^2}.
+\]
+\begin{itemize}
+\item Raíz $+$: $a=\SI{4.001e-8}{m^2}$, $W_0=\SI{0.200}{mm}$, $z_0=\pi a/\lambda=\SI{1.19}{cm}$ y
+\[z_1=\frac{1}{0.2\,\mathrm{m}}\left[\frac{(4.001\times10^{-8})(8.538\times10^{-6})}{1.1385\times10^{-11}}-0.01\right]\mathrm{m^2}=\SI{+10.0}{cm}.\]
+Los dos planos ($z_1=10$ cm, $z_2=20$ cm) están del mismo lado, después de la cintura.
+\item Raíz $-$: $a=\SI{4.42e-9}{m^2}$, $W_0=\SI{66.5}{\um}$, $z_0=\SI{1.31}{mm}$, $z_1=\SI{-3.34}{cm}$,
+$z_2=\SI{+6.66}{cm}$: la cintura queda \emph{entre} los dos planos.
+\end{itemize}
+Se comprueba que ambas reproducen exactamente $W_1=\SI{1.699}{mm}$ y $W_2=\SI{3.380}{mm}$.
+
+\resultado{Solución con los dos planos del mismo lado: cintura \SI{10.0}{cm} antes del primer plano,
+$W_0=\SI{0.200}{mm}$, $z_0=\SI{1.19}{cm}$. Existe una segunda solución matemáticamente válida,
+$W_0=\SI{66.5}{\um}$ con la cintura \SI{3.34}{cm} después del primer plano (entre ambos).}
+
+\textbf{[N] Solución numérica y unicidad.} El programa resuelve la cuadrática y además lanza
+\texttt{fsolve} desde 36 puntos de partida; solo encuentra esas dos soluciones.
+\codigo{t2_p09_dos_anchos.py}
+Salida relevante:\\ \texttt{W0 = 0.2000 mm, z0 = 1.1857 cm, z1 = +10.002 cm} y\\
+\texttt{W0 = 0.0665 mm, z0 = 0.1309 cm, z1 = -3.344 cm}.
+\begin{figure}[H]\centering\includegraphics[width=0.75\linewidth]{t2_p09_dos_anchos.png}
+\caption{Problema 9: las dos soluciones $W(z)$ que pasan por los dos anchos medidos (puntos).}\end{figure}
+\emph{Discusión.} Dos anchos no fijan el haz de forma única, porque $W(z)$ es par en $z$ respecto
+a la cintura: un haz muy enfocado ($z_0$ pequeño) cuya cintura está entre los planos también pasa por
+los dos puntos. Para decidir hace falta información adicional: el radio de curvatura en un plano
+(que da el signo de $z$, Ejercicio~3.1-3, p.~84), un tercer ancho, o saber que la cintura no está entre
+los planos. Esta última es la suposición implícita del libro, y con ella la solución es única
+($W_0=\SI{0.2}{mm}$), como dice la respuesta publicada.
+
+\idea{El problema inverso del haz gaussiano se reduce a una cuadrática en $W_0^2$; siempre revise
+las dos raíces. Datos $(W,R)$ en un plano sí dan solución única (3.1-25)--(3.1-26); dos anchos no.}
+
+%=====================================================================
+\sol{10}{Enfoque y refracción de un haz}{Saleh Probs.~3.2-6, 3.2-7, 3.2-8, pp.~100--101; §3.2A--B, ecs.~3.2-5 a 3.2-15, pp.~87--89}\label{sol:10}
+
+\inc{a} \textbf{Focal mínima.} Datos: $\lambda=\SI{488}{nm}$, $W_0=\SI{0.5}{mm}$, mancha de diámetro
+\SI{100}{\um}, es decir $W_0'=\SI{50}{\um}$. El rango de Rayleigh incidente es
+\[
+z_0=\frac{\pi W_0^2}{\lambda}=\frac{\pi(\SI{5e-4}{m})^2}{\SI{4.88e-7}{m}}=\SI{1.609}{m}.
+\]
+\emph{Con la ley del parámetro $q$.} En la cintura $q_1=jz_0$ (ec.~3.1-5). Si la lente está a
+distancia $z$ de la cintura, justo antes de ella $q=z+jz_0$, y tras la lente
+$1/q_2=1/q-1/f$. Escribiendo $q_2=z'_{\rm rel}+jz_0'$ y separando partes real e imaginaria se llega a
+la transformación de parámetros (3.2-5)--(3.2-9), p.~87: $W_0'=MW_0$ con
+\[
+M=\frac{M_r}{\sqrt{1+r^2}}=\frac{|f/(z-f)|}{\sqrt{1+z_0^2/(z-f)^2}}=\frac{|f|}{\sqrt{(z-f)^2+z_0^2}} .
+\]
+Para $f$ fijo, $M$ es máximo cuando $z=f$ (la lente a una distancia focal de la cintura), y vale
+$M_{\rm max}=f/z_0$. Como se necesita reducir el haz en un factor $M=W_0'/W_0=0.1$, y $M\le f/z_0$,
+\[
+\frac{f}{z_0}\ \ge\ \frac{W_0'}{W_0}\quad\Longrightarrow\quad
+f_{\min}=\frac{W_0'}{W_0}z_0=0.1\times\SI{1.609}{m}=\SI{16.1}{cm}.
+\]
+Con $f<\SI{16.1}{cm}$ la mancha \emph{siempre} sale menor que \SI{100}{\um}, sin importar dónde se ponga
+la lente (en realidad lo que se busca es la focal más corta que todavía puede dar exactamente
+\SI{100}{\um}; con focales más largas hay dos posiciones de la lente que lo logran). Comprobación con el haz colimado (3.2-15):
+$W_0'\approx\theta_0f=\frac{\lambda}{\pi W_0}f=(\SI{3.107e-4}{})(\SI{0.161}{m})=\SI{50}{\um}$.
+\resultado{$z_0=\SI{1.61}{m}$; $f_{\min}=W_0'z_0/W_0=\SI{16.1}{cm}$, con la lente a $z=f$ de la cintura
+(la nueva cintura queda entonces en $z'=f$ detrás de la lente, por (3.2-6)).}
+
+\inc{b} \textbf{Refracción en una interfaz plana.} La cintura está sobre la interfaz, donde el frente
+de onda es plano ($R=\infty$). La condición de frontera exige continuidad del campo transversal, así
+que el perfil $e^{-\rho^2/W_0^2}$ es el mismo a ambos lados: \emph{$W_0$ no cambia} y el frente sigue
+plano, de modo que el haz transmitido también tiene su cintura en la interfaz. Lo que cambia es la
+longitud de onda en el medio, $\lambda=\lambda_0/n$ (Saleh p.~77 y pista del Prob.~3.2-8). Entonces
+\[
+\theta_{\rm vidrio}=\frac{\lambda_0/n}{\pi W_0}=\frac{\theta_{\rm aire}}{n}=\frac{\SI{1}{mrad}}{1.5},
+\qquad
+z_{0,\rm vidrio}=\frac{\pi W_0^2}{\lambda_0/n}=n\,z_{0,\rm aire}.
+\]
+\resultado{Divergencia en el vidrio $=\SI{0.667}{mrad}$; el rango de Rayleigh crece en un factor
+$n=1.5$. (Coincide con la ley de Snell para ángulos pequeños, $\theta_{\rm aire}=n\theta_{\rm vidrio}$.)}
+
+\inc{c} \textbf{[N] Cintura enfocada en función de la distancia a la lente.} Con $z_0=\SI{50}{cm}$,
+$\lambda=\SI{488}{nm}$: $W_0=\sqrt{\lambda z_0/\pi}=\SI{0.2787}{mm}$, y $f=\SI{5}{cm}$. Se grafican
+$W_0'=MW_0$ (3.2-5) y $z'=f+M^2(z-f)$ (3.2-6).
+\codigo{t2_p10_enfoque.py}
+\begin{figure}[H]\centering\includegraphics[width=0.8\linewidth]{t2_p10_enfoque.png}
+\caption{Problema 10(c): radio de la cintura enfocada $W_0'$ y distancia lente--cintura $z'$ contra la
+distancia $z$ entre la cintura incidente y la lente ($z_0=\SI{50}{cm}$, $f=\SI{5}{cm}$).}\end{figure}
+Números que imprime el programa:
+\begin{center}\small
+\begin{tabular}{cccc}\toprule
+$z$ (m) & $M$ & $W_0'$ (\si{\um}) & $z'$ (cm)\\\midrule
+0 & 0.0995 & 27.73 & 4.950\\
+0.05 ($=f$) & 0.1000 & 27.87 (máximo) & 5.000\\
+0.5 & 0.0743 & 20.72 & 5.249\\
+1.0 & 0.0466 & 12.98 & 5.206\\
+3.0 & 0.0167 & 4.66 & 5.082\\\bottomrule
+\end{tabular}\end{center}
+\emph{Lectura.} (i) Para $z\ll z_0$ la cintura enfocada es prácticamente constante,
+$W_0'=W_0/\sqrt{1+(z_0/f)^2}=\SI{27.7}{\um}$ (3.2-13): el haz está colimado y la lente ``no sabe'' a qué
+distancia está la cintura. (ii) Para $z-f\gg z_0$ se recupera la óptica de rayos, $W_0'\approx M_rW_0$ y
+$1/z+1/z'=1/f$ (3.2-10)--(3.2-12): la cintura se comporta como un objeto que se forma en imagen. (iii) La
+nueva cintura siempre está cerca del plano focal ($4.95<z'<5.25$ cm), con el máximo de $z'$ cerca de
+$z=z_0+f$.
+
+\idea{$M=f/\sqrt{(z-f)^2+z_0^2}\le f/z_0$: el aumento de un haz gaussiano nunca supera el de rayos y
+es máximo con la lente a una focal de la cintura. Al pasar a un medio de índice $n$ se usa
+$\lambda_0/n$ en todas las fórmulas: $W_0$ igual, $z_0\to nz_0$, $\theta_0\to\theta_0/n$. En un
+experimento no lineal la intensidad en el foco es $\propto1/W_0'^2$, por eso importa este control.}
+
+%=====================================================================
+\sol{11}{Fase de Gouy}{Saleh §3.1B, ecs.~3.1-10, 3.1-23, 3.1-24, p.~81; §3.3, ec.~3.3-10, p.~96; §10.2D, ec.~10.2-33, p.~387; Prob.~3.3-4, p.~101}\label{sol:11}
+
+\inc{a} \textbf{[N] Gráfica.} La fase del haz gaussiano (3.1-7) es
+$\varphi(\rho,z)=kz-\zeta(z)+k\rho^2/2R(z)$ (3.1-23); en el eje, $\varphi(0,z)=kz-\zeta(z)$ (3.1-24), con
+$\zeta(z)=\tan^{-1}(z/z_0)$ (3.1-10). Restando la onda plana $kz$ queda $\varphi(0,z)-kz=-\zeta(z)$.
+\codigo{t2_p11_gouy.py}
+\begin{figure}[H]\centering\includegraphics[width=0.75\linewidth]{t2_p11_gouy.png}
+\caption{Problema 11: fase de Gouy $\zeta(z)$, exceso de fase axial respecto a una onda plana
+$-\zeta(z)$ y la de dos modos Hermite--Gauss, para $-5z_0<z<5z_0$.}\end{figure}
+Valores: $\zeta(\pm z_0)=\pm\pi/4$; $\zeta(\pm5z_0)=\pm\SI{1.373}{rad}$, así que en la ventana graficada
+el salto es $\SI{2.747}{rad}=0.874\pi$; el resto hasta $\pi$ se acumula muy lentamente fuera de ella.
+
+\inc{b} \textbf{Desfase total $\pi$.} Como $\tan^{-1}u\to\pm\pi/2$ cuando $u\to\pm\infty$,
+\[
+\Delta\zeta=\zeta(+\infty)-\zeta(-\infty)=\frac{\pi}{2}-\left(-\frac{\pi}{2}\right)=\pi .
+\]
+\resultado{Al atravesar el foco, la fase en el eje se atrasa $\pi$ respecto a la de una onda plana
+(efecto Gouy, p.~81); la mitad, $\pi/2$, se acumula entre $-z_0$ y $z_0$.}
+\emph{Por qué ocurre.} El haz confinado contiene componentes de onda plana inclinadas, cuya
+componente axial del vector de onda es $k_z=\sqrt{k^2-k_T^2}<k$; al estrecharse en el foco crece la
+dispersión de $k_T$ (principio de incertidumbre transversal) y la fase axial avanza menos que $kz$.
+Signo: con $e^{j\omega t}$ y onda $e^{-jkz}$, el término $+j\zeta$ en (3.1-7) es un \emph{retraso} del
+frente de onda; en la convención de Boyd ($e^{-i\omega t}$) aparece como $e^{-i\zeta}$, pero el
+fenómeno es el mismo. En óptica no lineal, el término de Gouy de un haz enfocado entra en el desajuste de
+fase efectivo de la generación de armónicos (Boyd §2.10).
+
+\inc{c} \textbf{Modos Hermite--Gauss y frecuencias de un resonador.} El modo $(l,m)$ tiene fase axial
+$\varphi(0,z)=kz-(l+m+1)\zeta(z)$ (ec.~10.2-31, p.~386). En un resonador de espejos esféricos en $z_1$ y $z_2$
+($d=z_2-z_1$), la condición de resonancia es que la fase en un viaje de ida y vuelta sea múltiplo
+de $2\pi$:
+\[
+2kd-2(l+m+1)\Delta\zeta=2\pi q,\qquad \Delta\zeta=\zeta(z_2)-\zeta(z_1).
+\]
+Con $k=2\pi\nu/c$ y $\nu_F=c/2d$ se despeja (ec.~10.2-33, p.~387)
+\[
+\nu_{l,m,q}=q\,\nu_F+(l+m+1)\frac{\Delta\zeta}{\pi}\,\nu_F .
+\]
+\resultado{Consecuencia: los modos transversales de distinto orden $l+m$ \emph{no} son degenerados en
+frecuencia; se desplazan $\frac{\Delta\zeta}{\pi}\nu_F$ por cada unidad de $l+m$. Los modos con igual
+$l+m$ sí tienen la misma frecuencia.}
+\emph{Ejemplo (Prob.~3.3-4).} $z_0=\SI{30}{cm}$, espejos en $z=\pm z_0$: $d=\SI{60}{cm}$,
+$\nu_F=c/2d=\SI{249.8}{MHz}$, $\Delta\zeta=\pi/4-(-\pi/4)=\pi/2$. La condición ``fase entre $-z_0$ y $z_0$
+múltiplo de $\pi$'' da $\nu=\nu_F[q+(l+m+1)/2]$: las frecuencias permitidas son múltiplos de
+$\nu_F/2=\SI{124.9}{MHz}$ (los de $l+m$ par caen en múltiplos impares de $\nu_F/2$ y los de $l+m$ impar
+en múltiplos pares). En la banda $10^{14}\pm2\times10^9$ Hz hay 32 de ellas (33 si se toma
+$c=\SI{3e8}{m/s}$, con el que $10^{14}$ Hz es múltiplo exacto de \SI{125}{MHz}). Es el resonador
+confocal: los modos transversales coinciden o quedan a mitad de camino entre los longitudinales.
+
+\idea{Gouy: $\zeta(z)=\tan^{-1}(z/z_0)$, $\pi/4$ en $z_0$, $\pi$ en total; para HG$_{lm}$ multiplíquese por
+$l+m+1$ (para Laguerre--Gauss, $l+2m+1$). Es la razón por la que en un láser los modos transversales
+producen batidos a frecuencias distintas de $\nu_F$.}
+
+%=====================================================================
+\sol{12}{Absorción débil y fuerte; medios conductores}{Saleh §5.5A, ecs.~5.5-5, 5.5-7, 5.5-8, 5.5-11, 5.5-12, pp.~172--173; §5.5D, ecs.~5.5-33 a 5.5-40, pp.~181--183}\label{sol:12}
+
+La relación general es (Saleh, ec.~5.5-5, p.~172)
+\[
+n-j\frac{\alpha}{2k_0}=\sqrt{1+\chi'+j\chi''},\qquad k_0=\frac{2\pi}{\lambda_0},
+\]
+tomando la raíz del cuarto cuadrante ($n>0$, $\alpha>0$ cuando $\chi''<0$). A $\lambda_0=\SI{1}{\um}$,
+$k_0=\SI{6.2832e6}{m^{-1}}$.
+
+\inc{a} \textbf{$\chi=1.25-j0.01$ (absorción débil).} \emph{Exacto:} $1+\chi=2.25-j0.01$. Con
+$\sqrt{x+jy}$, $|x+jy|=\sqrt{2.25^2+0.01^2}=2.2500222$, módulo de la raíz $1.5000074$, ángulo
+$\tfrac12\tan^{-1}(-0.01/2.25)=\SI{-2.2222e-3}{rad}$:
+\[
+n=1.5000074\cos(2.2222\times10^{-3})=1.500004,\qquad
+\frac{\alpha}{2k_0}=1.5000074\sin(2.2222\times10^{-3})=\SI{3.3333e-3}{}.
+\]
+\emph{Aproximación débil} ($|\chi''|\ll1+\chi'$; ecs.~5.5-7, 5.5-8):
+$n\approx\sqrt{1+\chi'}=1.5$ y $\alpha\approx-\frac{k_0}{n}\chi''=\frac{(6.2832\times10^6)(0.01)}{1.5}$.
+En ambos casos
+\[
+\alpha=\SI{4.189e4}{m^{-1}}=\SI{418.9}{cm^{-1}},\qquad
+\alpha_{\rm dB}=10\log_{10}(e)\,\alpha=4.343\times418.9=\SI{1819}{dB/cm}.
+\]
+\resultado{$n=1.5000$, $\alpha=\SI{4.19e4}{m^{-1}}=\SI{419}{cm^{-1}}=\SI{1.82e3}{dB/cm}$; la aproximación
+débil coincide con el resultado exacto en 4 cifras (el error relativo es del orden de
+$\delta^2$, con $\delta=\chi''/(1+\chi')=0.0044$).}
+
+\inc{b} \textbf{$\chi=-0.5-j40$ (absorción fuerte).} \emph{Exacto:} $1+\chi=0.5-j40$,
+$|1+\chi|=40.003$, módulo de la raíz $6.3248$, ángulo $\tfrac12\tan^{-1}(-40/0.5)=\tfrac12(-1.5583)=\SI{-0.77915}{rad}$:
+\[
+n=6.3248\cos(0.77915)=4.500,\qquad \frac{\alpha}{2k_0}=6.3248\sin(0.77915)=4.444,\qquad
+\alpha=2k_0(4.444)=\SI{5.585e7}{m^{-1}}.
+\]
+\emph{Aproximación fuerte} ($|\chi''|\gg|1+\chi'|$; ecs.~5.5-11, 5.5-12): $\sqrt{j\chi''}=\sqrt{-j}\sqrt{-\chi''}
+=\frac{1-j}{\sqrt2}\sqrt{-\chi''}$, luego
+\[
+n\approx\sqrt{\frac{-\chi''}{2}}=\sqrt{20}=4.472,\qquad
+\alpha\approx2k_0\sqrt{\frac{-\chi''}{2}}=2(6.2832\times10^6)(4.472)=\SI{5.620e7}{m^{-1}}.
+\]
+\resultado{Exacto: $n=4.50$, $\alpha=\SI{5.58e7}{m^{-1}}$ ($1/\alpha=\SI{17.9}{nm}$). Fuerte: $n\approx4.47$,
+$\alpha\approx\SI{5.62e7}{m^{-1}}$; error de 0.6\,\%, del orden de $|1+\chi'|/|\chi''|=1/80$.}
+
+\inc{c} \textbf{Aluminio con Drude.} Frecuencia de plasma (ec.~5.5-40, p.~183):
+\[
+\omega_p=\sqrt{\frac{Ne^2}{\epsilon_0m}}=\sqrt{\frac{(1.8\times10^{29})(1.602\times10^{-19})^2}{(8.854\times10^{-12})(9.109\times10^{-31})}}
+\]
+\[
+=\sqrt{\SI{5.728e32}{s^{-2}}}=\SI{2.393e16}{rad/s},
+\qquad \lambda_p=\frac{2\pi c_0}{\omega_p}=\SI{78.7}{nm}.
+\]
+Permitividad efectiva: de (5.5-38) con $\epsilon=\epsilon_0$ y $\sigma_0=\epsilon_0\omega_p^2\tau$
+(que sale de $\omega_p^2=\sigma_0/\epsilon_0\tau$),
+\[
+\frac{\epsilon_e}{\epsilon_0}=1+\frac{\omega_p^2\tau}{j\omega(1+j\omega\tau)}
+=1-\frac{\omega_p^2\tau^2}{1+\omega^2\tau^2}-j\,\frac{\omega_p^2\tau}{\omega(1+\omega^2\tau^2)} ,
+\]
+donde se multiplicó numerador y denominador por el conjugado de $j\omega-\omega^2\tau$. A
+\SI{1.55}{\um}: $\omega=2\pi c_0/\lambda=\SI{1.2153e15}{rad/s}$, $\omega\tau=9.72$,
+$\omega_p\tau=191.5$, $\omega_p^2\tau^2=\SI{3.666e4}{}$:
+\[
+\frac{\epsilon_e}{\epsilon_0}=1-\frac{36\,660}{95.5}-j\frac{36\,660/9.72}{95.5}=-383-j39.5 .
+\]
+A \SI{550}{nm} ($\omega\tau=27.4$) el programa da $-47.8-j1.78$. La reflectancia a incidencia normal,
+$\mathcal R=|(1-\sqrt{\epsilon_e/\epsilon_0})/(1+\sqrt{\epsilon_e/\epsilon_0})|^2$, es 0.99 en ambas longitudes
+de onda, y la profundidad de penetración $1/\alpha\approx\SI{6}{nm}$.
+\resultado{$\omega_p=\SI{2.39e16}{rad/s}$, $\lambda_p=\SI{78.7}{nm}$ (UV de vacío),
+$\epsilon_e/\epsilon_0=-383-j39.5$ a \SI{1.55}{\um}. En el visible $\omega<\omega_p$, $\mathrm{Re}\,\epsilon_e<0$:
+banda prohibida de plasma, la onda es evanescente y se refleja casi toda: el Al es buen espejo del
+visible al IR (y sigue siéndolo en el UV cercano, hasta $\lambda_p$).}
+
+\inc{d} \textbf{Silicio dopado tipo n.} Ahora el fondo es $\epsilon=11.7\epsilon_0$ y la masa es $m^*$.
+Para $\omega\tau\gg1$, (5.5-38) da $\epsilon_e\approx\epsilon-\sigma_0/\omega^2\tau=\epsilon_0\left(11.7-\omega_p^2/\omega^2\right)$
+con $\omega_p^2=Ne^2/\epsilon_0m^*$. Con $N=\SI{e20}{cm^{-3}}=\SI{e26}{m^{-3}}$ y $m^*=0.26m_e$:
+\[
+\omega_p^2=\frac{(10^{26})(1.602\times10^{-19})^2}{(8.854\times10^{-12})(0.26)(9.109\times10^{-31})}=\SI{1.224e30}{s^{-2}},
+\qquad \omega_p=\SI{1.106e15}{rad/s}.
+\]
+$\mathrm{Re}\,\epsilon_e=0$ cuando $\omega=\omega_p/\sqrt{11.7}=\SI{3.234e14}{rad/s}$:
+\resultado{$\lambda=2\pi c_0\sqrt{11.7}/\omega_p=\SI{5.8}{\um}$. Para $\lambda>\SI{5.8}{\um}$ el Si tan dopado
+se vuelve ``metálico''; a \SI{1.55}{\um} la contribución de los portadores libres es pequeña pero no
+nula, y su parte imaginaria es la absorción por portadores libres que limita las guías de Si dopadas
+(y la que generan los portadores por absorción de dos fotones).}
+
+\codigo{t2_p12_absorcion.py}
+
+\idea{Reconozca el régimen antes de aproximar: débil si $|\chi''|\ll1+\chi'$ ($n$ lo da $\chi'$ y
+$\alpha\propto\chi''$); fuerte si $|\chi''|\gg|1+\chi'|$ ($n\approx\alpha/2k_0$). En Saleh, absorción
+$\Leftrightarrow\chi''<0$ y $\mathrm{Im}\,\epsilon_e<0$; en Boyd ($e^{-i\omega t}$) los signos de las
+partes imaginarias se invierten. dB $=4.343\,\alpha$ (intensidad).}
+
+%=====================================================================
+\sol{13}{Modelo de Lorentz y Kramers--Kronig numérico}{Saleh §5.5B--C, ecs.~5.5-13 a 5.5-27, pp.~175--179; §5.6, ec.~5.6-2, p.~185 y pp.~188--189}\label{sol:13}
+
+\inc{a} \textbf{Susceptibilidad del oscilador.} Ecuación de movimiento del electrón ligado (carga $-e$):
+\[
+\ddot x+\sigma\dot x+\omega_0^2x=-\frac{e}{m}\mathcal E .
+\]
+Con $\mathcal E=\mathrm{Re}\{Ee^{j\omega t}\}$ y $x=\mathrm{Re}\{Xe^{j\omega t}\}$, cada derivada temporal
+es un factor $j\omega$:
+\[
+(-\omega^2+j\sigma\omega+\omega_0^2)X=-\frac{e}{m}E
+\quad\Longrightarrow\quad
+X=-\frac{e/m}{\omega_0^2-\omega^2+j\sigma\omega}E .
+\]
+La polarización es $P=N(-e)X$ (momento dipolar $-ex$ por átomo):
+\[
+P=\frac{Ne^2/m}{\omega_0^2-\omega^2+j\sigma\omega}E\equiv\epsilon_0\chi E
+\quad\Longrightarrow\quad
+\chi=\frac{Ne^2}{\epsilon_0m}\frac{1}{\omega_0^2-\omega^2+j\sigma\omega}
+=\chi_0\frac{\omega_0^2}{\omega_0^2-\omega^2+j\sigma\omega},\quad \chi_0=\frac{Ne^2}{\epsilon_0m\omega_0^2}
+\]
+(ec.~5.5-17, p.~176). Dividiendo numerador y denominador entre $(2\pi)^2$, con $\omega=2\pi\nu$ y
+$\Delta\nu\equiv\sigma/2\pi$ ($\sigma\omega/4\pi^2=\nu\Delta\nu$):
+\[
+\chi(\nu)=\chi_0\frac{\nu_0^2}{\nu_0^2-\nu^2+j\nu\Delta\nu}\qquad\text{(5.5-19), p.~177.}
+\]
+Multiplicando por el conjugado del denominador:
+\[
+\chi'=\chi_0\frac{\nu_0^2(\nu_0^2-\nu^2)}{(\nu_0^2-\nu^2)^2+(\nu\Delta\nu)^2},\qquad
+\chi''=-\chi_0\frac{\nu_0^2\,\nu\Delta\nu}{(\nu_0^2-\nu^2)^2+(\nu\Delta\nu)^2}\qquad\text{(5.5-20), (5.5-21).}
+\]
+\emph{Cerca de resonancia} ($|\nu-\nu_0|\ll\nu_0$): $\nu_0^2-\nu^2=(\nu_0-\nu)(\nu_0+\nu)\approx2\nu_0(\nu_0-\nu)$
+y $\nu\Delta\nu\approx\nu_0\Delta\nu$, así que
+\[
+\chi\approx\chi_0\frac{\nu_0^2}{2\nu_0(\nu_0-\nu)+j\nu_0\Delta\nu}=\chi_0\frac{\nu_0/2}{(\nu_0-\nu)+j\Delta\nu/2}
+=\chi_0\frac{\nu_0}{2}\frac{(\nu_0-\nu)-j\Delta\nu/2}{(\nu_0-\nu)^2+(\Delta\nu/2)^2}.
+\]
+Entonces
+\[
+\chi''\approx-\chi_0\frac{\nu_0\Delta\nu}{4}\frac{1}{(\nu_0-\nu)^2+(\Delta\nu/2)^2},\qquad
+\chi'\approx\chi_0\frac{\nu_0}{2}\frac{\nu_0-\nu}{(\nu_0-\nu)^2+(\Delta\nu/2)^2}.
+\]
+$\chi''$ es una lorentziana: vale $-\chi_0\nu_0/\Delta\nu=-\chi_0Q$ en $\nu_0$ y cae a la mitad cuando
+$(\nu_0-\nu)^2=(\Delta\nu/2)^2$, es decir en $\nu=\nu_0\pm\Delta\nu/2$: su FWHM es $\Delta\nu=\sigma/2\pi$.
+El cociente de ambas da
+\[
+\frac{\chi'}{\chi''}=\frac{(\nu_0/2)(\nu_0-\nu)}{-(\nu_0\Delta\nu/4)}=\frac{2(\nu-\nu_0)}{\Delta\nu}
+\quad\Longrightarrow\quad
+\chi'=2\frac{\nu-\nu_0}{\Delta\nu}\chi''\qquad\text{(5.5-24), p.~178.}
+\]
+
+\inc{b} \textbf{[N] $n(\nu)-1$ y $\alpha(\nu)$.} Con $\chi_0=10^{-4}$, $\nu_0=\SI{500}{THz}$,
+$\Delta\nu=\SI{5}{THz}$ ($Q=100$) y huésped $n_0=1$, se usan las fórmulas diluidas
+(5.5-26)--(5.5-27), $n\approx n_0+\chi'/2n_0$ y $\alpha\approx-(2\pi\nu/n_0c_0)\chi''$, y se comparan con
+el resultado exacto de (5.5-5).
+\begin{figure}[H]\centering\includegraphics[width=0.8\linewidth]{t2_p13_n_alpha.png}
+\caption{Problema 13(b): índice y coeficiente de absorción de un medio de Lorentz diluido
+($\chi_0=10^{-4}$, $\nu_0=\SI{500}{THz}$, $\Delta\nu=\SI{5}{THz}$).}\end{figure}
+Resultados: $-\chi''(\nu_0)=\chi_0Q=0.01$, $\alpha(\nu_0)=\frac{2\pi(5\times10^{14})}{2.998\times10^8}(0.01)=\SI{1.05e5}{m^{-1}}=\SI{1.05e3}{cm^{-1}}$,
+FWHM de $\alpha$ igual a \SI{4.95}{THz} $\approx\Delta\nu$; $n-1$ oscila entre $+\SI{2.51e-3}{}$ (en
+\SI{497.5}{THz}) y $-\SI{2.49e-3}{}$ (en \SI{502.5}{THz}), es decir $\pm\chi_0Q/4$, en $\nu_0\mp\Delta\nu/2$.
+Las curvas diluida y exacta son indistinguibles porque $|\chi|\le0.01$.
+
+\inc{c} \textbf{[N] Kramers--Kronig numérico.}
+\emph{Nota importante sobre el signo.} La ec.~(5.5-13) del libro (p.~175) está impresa como
+$\chi'(\nu)=\frac{2}{\pi}\int_0^\infty\frac{s\chi''(s)}{s^2-\nu^2}\dd s$. Esa es la forma correcta para la
+convención $e^{-i\omega t}$ (Boyd), en la que $\chi''>0$ en un absorbente. Con la convención del propio
+Saleh ($\chi''<0$) da $-\chi'$: por ejemplo, en el límite $\nu\to0$ daría
+$\chi'(0)=\frac{2}{\pi}\int\chi''(s)/s\,\dd s<0$, cuando para el oscilador $\chi'(0)=\chi_0>0$. El
+programa lo comprueba: la fórmula impresa da $\chi'(495)=-\SI{4.028e-3}{}$ frente al valor analítico
+$+\SI{4.028e-3}{}$. La forma consistente con el resto del capítulo es
+\[
+\chi'(\nu)=-\frac{2}{\pi}\,\mathrm{VP}\!\int_0^\infty\frac{s\,\chi''(s)}{s^2-\nu^2}\dd s
+=\frac{2}{\pi}\,\mathrm{VP}\!\int_0^\infty\frac{s\,\chi''(s)}{\nu^2-s^2}\dd s .
+\]
+(Lo mismo pasa con (5.5-14): ambas relaciones impresas son un par consistente para la convención
+$\chi''>0$.)
+
+\emph{Valor principal.} El integrando diverge en $s=\nu$. Se escribe
+$\frac{s\chi''(s)}{s^2-\nu^2}=\frac{1}{s-\nu}\cdot\frac{s\chi''(s)}{s+\nu}$ y en un tramo
+$[\nu-40,\nu+40]$ THz se usa \texttt{quad(\ldots, weight='cauchy', wvar=nu)}, que calcula
+$\mathrm{VP}\int f(s)/(s-\nu)\dd s$ (por cuadratura de Clenshaw--Curtis modificada, sin evaluar el polo). El
+resto de $[0,\infty)$ se integra normalmente, marcando $\nu_0$ como punto delicado por el pico
+lorentziano. Truncar se hace igual pero solo sobre $|s-\nu_0|<3\Delta\nu$.
+\codigo{t2_p13_lorentz_kk.py}
+\begin{figure}[H]\centering\includegraphics[width=0.8\linewidth]{t2_p13_kk.png}
+\caption{Problema 13(c): $\chi'(\nu)$ analítica, la obtenida por Kramers--Kronig sobre todo el
+espectro y la obtenida truncando la integral en $\nu_0\pm3\Delta\nu$; abajo, el error absoluto.}\end{figure}
+\begin{center}\small
+\begin{tabular}{cccc}\toprule
+$\nu$ (THz) & $\chi'$ analítica & KK completa & KK truncada ($\pm3\Delta\nu$)\\\midrule
+400 & $+2.776\times10^{-4}$ & $+2.776\times10^{-4}$ & $+2.490\times10^{-4}$\\
+495 & $+4.028\times10^{-3}$ & $+4.028\times10^{-3}$ & $+4.046\times10^{-3}$\\
+600 & $-2.271\times10^{-4}$ & $-2.271\times10^{-4}$ & $-2.038\times10^{-4}$\\
+1 (casi estático) & $1.000\times10^{-4}$ & $1.000\times10^{-4}$ & $0.895\times10^{-4}$\\\bottomrule
+\end{tabular}\end{center}
+La integral completa reproduce $\chi'$ con error relativo $10^{-7}$: $\chi$ del oscilador es causal y
+cumple Kramers--Kronig exactamente. \emph{Truncada:} (i) lejos de la resonancia $\chi'$ queda un
+10\,\% corta, porque se pierden las alas de la lorentziana, que decaen solo como $1/(\nu-\nu_0)^2$
+(la fracción del área de $\chi''$ dentro de $\pm3\Delta\nu$ es $\frac{2}{\pi}\tan^{-1}6=0.895$, y el valor
+estático sale $0.895\chi_0$); (ii) en los bordes $\nu=\nu_0\pm3\Delta\nu$ aparece una divergencia
+logarítmica espuria, porque el valor principal necesita que el integrando sea suave a los dos lados
+del polo; (iii) cerca de $\nu_0$ el error es pequeño (0.5\,\%), porque allí domina la contribución local. En
+la práctica (datos de absorción medidos en una banda finita) por eso se usan modelos para las alas o
+KK con sustracción.
+
+\inc{d} \textbf{Índice de grupo y luz rápida.} Por (5.6-2), $N=n-\lambda_0\frac{dn}{d\lambda_0}$. Con
+$\lambda_0=c_0/\nu$, $\frac{d}{d\lambda_0}=-\frac{\nu^2}{c_0}\frac{d}{d\nu}$, luego
+$-\lambda_0\frac{dn}{d\lambda_0}=\frac{c_0}{\nu}\frac{\nu^2}{c_0}\frac{dn}{d\nu}$ y
+\[
+N(\nu)=n+\nu\frac{dn}{d\nu}.
+\]
+Estimación analítica en $\nu_0$: $n\approx1+\chi'/2$ y, derivando la forma cercana a resonancia,
+$\frac{d\chi'}{d\nu}\Big|_{\nu_0}=-\chi_0\frac{\nu_0}{2}\frac{1}{(\Delta\nu/2)^2}=-\frac{2\chi_0\nu_0}{\Delta\nu^2}$, así que
+\[
+N(\nu_0)\approx1-\chi_0\frac{\nu_0^2}{\Delta\nu^2}=1-\chi_0Q^2=1-10^{-4}\times10^4=0 .
+\]
+\begin{figure}[H]\centering\includegraphics[width=0.72\linewidth]{t2_p13_grupo.png}
+\caption{Problema 13(d): índice de grupo cerca de la resonancia; sombreada, la región de luz rápida.}\end{figure}
+El cálculo numérico da $N(\nu_0)=0.0004$, $N<1$ entre \SI{497.55}{THz} y \SI{502.50}{THz}
+($\approx\nu_0\pm\Delta\nu/2$, donde $dn/d\nu<0$: dispersión anómala) y máximos $N\approx1.13$ a los lados.
+\resultado{Luz ``rápida'' ($N<1$, $v=c_0/N>c_0$) en la banda $\nu_0\pm\Delta\nu/2$; con estos parámetros
+$N$ baja justo hasta $\approx0$ ($v\to\infty$), y sería negativo si $\chi_0Q^2>1$.}
+\emph{¿Viola la causalidad?} No (Saleh, pp.~188--189). (1) Justo en esa banda la absorción es máxima:
+$\alpha\sim\SI{5e4}{}$--$\SI{1e5}{m^{-1}}$, de modo que la luz recorre unas decenas de micras antes de
+extinguirse, y el pulso se deforma: el concepto de velocidad de grupo (Taylor a primer orden) ya no
+describe la propagación. (2) La velocidad de grupo es la del pico de una envolvente suave, no la de
+la información; un frente abrupto (punto no analítico) nunca viaja más rápido que $c_0$. (3) De hecho
+el propio $\chi(\nu)$ usado satisface Kramers--Kronig, que es la expresión matemática de la causalidad:
+el modelo es causal por construcción.
+
+\idea{Lorentz: $\chi''$ lorentziana de FWHM $\Delta\nu=\sigma/2\pi$ y pico $\chi_0Q$; $\chi'$ dispersiva con
+extremos $\pm\chi_0Q/2$ en $\nu_0\mp\Delta\nu/2$. En Kramers--Kronig verifique el signo con el límite
+estático ($\chi'(0)>0$). $N=n+\nu\,dn/d\nu$: luz rápida donde $dn/d\nu<0$ (dentro de la línea de absorción).}
+
+%=====================================================================
+\sol{14}{Onda modulada en amplitud en un medio dispersivo}{Saleh Prob.~5.5-2, p.~195; §22.3A, ecs.~22.3-1 a 22.3-3, pp.~961--962}\label{sol:14}
+
+\textbf{Paso 1: descomposición espectral.} Con $\cos x=\tfrac12(e^{jx}+e^{-jx})$,
+\[
+\mathcal A(0,t)e^{j2\pi\nu_0t}=e^{j2\pi\nu_0t}+\frac m2e^{j2\pi(\nu_0+f_s)t}+\frac m2e^{j2\pi(\nu_0-f_s)t}:
+\]
+tres ondas monocromáticas (portadora y dos bandas laterales).
+
+\textbf{Paso 2: propagación.} En un medio sin pérdidas cada componente de frecuencia $\nu$ se multiplica
+por $e^{-j\beta(\nu)z}$ (función de transferencia, ec.~22.3-1, p.~961). Con $\beta(\nu_0)=\beta_0$,
+$\beta(\nu_0-f_s)=\beta_1$ y $\beta(\nu_0+f_s)=\beta_2$:
+\[
+U(z,t)=e^{j2\pi\nu_0t}\left[e^{-j\beta_0z}+\frac m2e^{j2\pi f_st-j\beta_2z}+\frac m2e^{-j2\pi f_st-j\beta_1z}\right].
+\]
+\textbf{Paso 3: envolvente.} Factorizando la fase de la portadora, $U=\mathcal A(z,t)e^{-j\beta_0z}e^{j2\pi\nu_0t}$ con
+\[
+\mathcal A(z,t)=1+\frac m2\left[e^{j[2\pi f_st-(\beta_2-\beta_0)z]}+e^{-j[2\pi f_st+(\beta_1-\beta_0)z]}\right].
+\]
+Se definen
+\[
+\Phi=\frac{(\beta_1+\beta_2-2\beta_0)z}{2},\qquad \Psi=\frac{(\beta_2-\beta_1)z}{2},
+\]
+de modo que $(\beta_2-\beta_0)z=\Phi+\Psi$ y $(\beta_1-\beta_0)z=\Phi-\Psi$. Entonces
+\[
+\mathcal A(z,t)=1+\frac m2e^{-j\Phi}\left[e^{j(2\pi f_st-\Psi)}+e^{-j(2\pi f_st-\Psi)}\right]
+=1+m\,e^{-j\Phi}\cos(2\pi f_st-\Psi).
+\]
+\resultado{$\mathcal A(z,t)=1+m\,e^{-j\Phi}\cos(2\pi f_st-\Psi)$, con $\Phi=(\beta_1+\beta_2-2\beta_0)z/2$ y
+$\Psi=(\beta_2-\beta_1)z/2$.}
+
+\textbf{Interpretación.} $\Psi=\frac{\beta_2-\beta_1}{2f_s}f_sz\approx\frac{d\beta}{d\nu}f_sz=2\pi f_s\frac{z}{v}$:
+es el retardo de grupo de la modulación, $\cos[2\pi f_s(t-z/v)]$, no deforma nada. $\Phi$ mide la
+curvatura de $\beta(\nu)$ (la GVD). Si $\Phi=q\pi$ ($q$ entero), $e^{-j\Phi}=(-1)^q$ es real:
+\[
+\mathcal A=1\pm m\cos(2\pi f_st-\Psi),
+\]
+\emph{modulación de amplitud pura, sin modulación de fase} (con la modulación invertida si $q$ es impar).
+En cambio, si $\Phi=\pi/2+q\pi$, $\mathcal A=1\mp jm\cos(\ldots)$: casi pura modulación de fase, y
+$|\mathcal A|^2=1+m^2\cos^2(\ldots)$ no tiene componente a $f_s$: un fotodetector no ve el tono de RF
+(``desvanecimiento'' de la portadora).
+
+\textbf{Distancias en función de $\beta''$.} Taylor en $\omega$: $\beta(\omega_0\pm\Omega)=\beta_0\pm\beta'\Omega+\tfrac12\beta''\Omega^2$,
+con $\Omega=2\pi f_s$. Sumando las dos bandas laterales, los términos lineales se cancelan:
+$\beta_1+\beta_2-2\beta_0=\beta''\Omega^2=4\pi^2\beta''f_s^2$. La condición $\Phi=q\pi$ es
+\[
+\frac{4\pi^2\beta''f_s^2\,z}{2}=q\pi
+\quad\Longrightarrow\quad
+z_q=\frac{2q\pi}{\beta_1+\beta_2-2\beta_0}\approx\frac{q}{2\pi\beta''f_s^2}.
+\]
+\resultado{AM pura en $z_q=q/(2\pi|\beta''|f_s^2)$, $q=1,2,\ldots$; desvanecimiento total del tono
+detectado en los puntos intermedios $z_{q+1/2}$.}
+\emph{Orden de magnitud.} Fibra estándar a \SI{1.55}{\um}, $|\beta''|=\SI{21.7}{ps^2/km}=\SI{2.17e-26}{s^2/m}$
+y $f_s=\SI{10}{GHz}$: $z_1=1/[2\pi(2.17\times10^{-26})(10^{20})]=\SI{73}{km}$ y el primer desvanecimiento a
+\SI{37}{km}. Por eso los enlaces de radio sobre fibra a decenas de GHz usan modulación de banda lateral
+única o compensación de dispersión.
+
+\idea{La GVD actúa sobre la \emph{suma} $\beta_1+\beta_2-2\beta_0$ (segunda diferencia), mientras que el
+retardo depende de la diferencia $\beta_2-\beta_1$. La dispersión convierte AM en PM y de vuelta,
+periódicamente en $z$. No confunda $d^2\beta/d\nu^2=4\pi^2\beta''$ con $\beta''=d^2\beta/d\omega^2$.}
+
+%=====================================================================
+\sol{15}{Sellmeier, índice de grupo y GVD}{Saleh Prob.~5.6-1, p.~196; ec.~5.5-28, p.~180; ecs.~5.6-2, 5.6-4, 5.6-7, pp.~185--186; Ej.~5.6-1, p.~189}\label{sol:15}
+
+\inc{a} \textbf{Expresiones analíticas.} Sellmeier (5.5-28): $n^2=1+\sum_iB_i\frac{\lambda^2}{\lambda^2-\lambda_i^2}$
+(con $\lambda\equiv\lambda_0$, $B_i\equiv\chi_{0i}$). \emph{Primera derivada:}
+\[
+\frac{d}{d\lambda}\frac{\lambda^2}{\lambda^2-\lambda_i^2}=\frac{2\lambda(\lambda^2-\lambda_i^2)-\lambda^2(2\lambda)}{(\lambda^2-\lambda_i^2)^2}
+=-\frac{2\lambda\lambda_i^2}{(\lambda^2-\lambda_i^2)^2},
+\qquad
+2n\frac{dn}{d\lambda}=\frac{d(n^2)}{d\lambda}
+\ \Longrightarrow\
+\frac{dn}{d\lambda}=-\frac{\lambda}{n}\sum_i\frac{B_i\lambda_i^2}{(\lambda^2-\lambda_i^2)^2}.
+\]
+\emph{Índice de grupo} (5.6-2):
+\[
+\boxed{N=n-\lambda\frac{dn}{d\lambda}=n+\frac{\lambda^2}{n}\sum_i\frac{B_i\lambda_i^2}{(\lambda^2-\lambda_i^2)^2}}
+\]
+\emph{Segunda derivada.} Derivando $2nn'=(n^2)'$ otra vez: $2n'^2+2nn''=(n^2)''$, luego
+$n''=\frac{(n^2)''-2n'^2}{2n}$, con
+\[
+(n^2)''=\frac{d}{d\lambda}\left[-2\lambda\sum_i\frac{B_i\lambda_i^2}{(\lambda^2-\lambda_i^2)^2}\right]
+=\sum_iB_i\lambda_i^2\left[\frac{-2}{(\lambda^2-\lambda_i^2)^2}+\frac{8\lambda^2}{(\lambda^2-\lambda_i^2)^3}\right]
+=\sum_i\frac{B_i\lambda_i^2(6\lambda^2+2\lambda_i^2)}{(\lambda^2-\lambda_i^2)^3}.
+\]
+\emph{Coeficiente de dispersión} (5.6-7):
+\[
+\boxed{\begin{aligned}D_\lambda&=-\frac{\lambda}{c_0}\frac{d^2n}{d\lambda^2}\\
+&=-\frac{\lambda}{2nc_0}\left[\sum_i\frac{B_i\lambda_i^2(6\lambda^2+2\lambda_i^2)}{(\lambda^2-\lambda_i^2)^3}-\frac{2\lambda^2}{n^2}\Big(\sum_i\frac{B_i\lambda_i^2}{(\lambda^2-\lambda_i^2)^2}\Big)^2\right]\end{aligned}}
+\]
+Un término con $\lambda_i=0$ (como el primero del GaAs) solo aporta una constante a $n^2$ y no entra
+en las derivadas. El programa verifica estas fórmulas contra diferencias finitas (coinciden en 6--7 cifras).
+
+\inc{b} \textbf{[N] Sílice fundida} ($\lambda_i=0.06840$, $0.1162$, $9.8962$ \si{\um}; $B_i=0.6962$, $0.4079$, $0.8975$).
+\codigo{t2_p15_sellmeier.py}
+\begin{figure}[H]\centering\includegraphics[width=0.78\linewidth]{t2_p15_silice.png}
+\caption{Problema 15(b): $n$, $N$ y $D_\lambda$ de la sílice fundida entre 0.25 y \SI{3.5}{\um}.}\end{figure}
+\begin{center}\small
+\begin{tabular}{ccccc}\toprule
+$\lambda_0$ (\si{\um}) & $n$ & $N$ & $D_\lambda$ (ps/(km$\cdot$nm)) & $\beta_2$ (ps$^2$/km $=$ fs$^2$/mm)\\\midrule
+0.60 & 1.45803 & 1.47801 & $-292.4$ & $+55.9$\\
+0.80 & 1.45331 & 1.46713 & $-106.4$ & $+36.1$\\
+1.00 & 1.45041 & 1.46303 & $-39.8$ & $+21.1$\\
+1.30 & 1.44691 & 1.46162 & $+2.7$ & $-2.4$\\
+1.55 & 1.44402 & 1.46259 & $+21.9$ & $-28.0$\\\bottomrule
+\end{tabular}\end{center}
+Se reproduce la Fig.~5.6-5 (p.~189): $n$ decrece monótonamente, $N$ tiene un mínimo ($v$ máxima) y
+$D_\lambda$ pasa de unos $-200$ ps/(km$\cdot$nm) cerca de \SI{0.65}{\um} a $+20$ cerca de \SI{1.55}{\um}.
+\resultado{$D_\lambda=0$ en $\lambda_{ZD}=\SI{1.273}{\um}$, donde $N$ es mínimo ($N=1.4616$). Dispersión
+normal ($D_\lambda<0$) por debajo y anómala por encima.}
+El libro dice \SI{1.276}{\um}; con sus mismos coeficientes (y también con los de Malitson completos)
+sale \SI{1.2727}{\um}: la diferencia de 3 nm está en el texto del libro y no cambia nada físico.
+
+\inc{c} \textbf{[N] GaAs} ($\lambda_i=0$, $0.4082$, $37.17$ \si{\um}; $B_i=3.5$, $7.4969$, $1.9347$), mismo programa.
+\begin{figure}[H]\centering\includegraphics[width=0.78\linewidth]{t2_p15_gaas.png}
+\caption{Problema 15(c): $n$, $N$ y $D_\lambda$ del GaAs entre 1.5 y \SI{10.5}{\um}.}\end{figure}
+\begin{center}\small
+\begin{tabular}{ccccc}\toprule
+$\lambda_0$ (\si{\um}) & $n$ & $N$ & $D_\lambda$ (ps/(km$\cdot$nm)) & $\beta_2$ (ps$^2$/km)\\\midrule
+1.5 & 3.5487 & 3.7321 & $-1324$ & $+1582$\\
+2.0 & 3.5096 & 3.6081 & $-506$ & $+1074$\\
+4.0 & 3.4718 & 3.5013 & $-52.3$ & $+444$\\
+6.0 & 3.4612 & 3.4867 & $-7.4$ & $+142$\\
+10.0 & 3.4436 & 3.4945 & $+17.3$ & $-918$\\\bottomrule
+\end{tabular}\end{center}
+\resultado{GaAs: $D_\lambda=0$ en $\lambda_{ZD}=\SI{6.84}{\um}$ ($D_\lambda=-506$ ps/(km$\cdot$nm) a \SI{2}{\um}, $+17.3$ a \SI{10}{\um}).}
+\emph{Comparación.} (1) El GaAs tiene $n\approx3.5$ frente a $1.45$: su resonancia electrónica
+(\SI{0.41}{\um}, cerca del borde de banda prohibida, \SI{0.87}{\um}) es mucho más fuerte y está más cerca del
+IR. (2) Por eso, a la misma $\lambda$, su dispersión normal es enorme (a \SI{1.5}{\um} $|D_\lambda|$ es
+unas 70 veces la de la sílice, que allí vale $\approx+18$, y $N-n=0.18$ frente a $0.02$). (3) El cero de dispersión cae donde se
+equilibran la curvatura de la resonancia UV y la de la resonancia de red (IR): en la sílice ambas
+están en $0.07$--$0.12$ y \SI{9.9}{\um}, y el cero cae en \SI{1.27}{\um}; en el GaAs, en $0.41$ y \SI{37}{\um},
+y el cero se corre a \SI{6.8}{\um}. (4) Para óptica no lineal: la sílice permite dispersión anómala
+(solitones, supercontinuo) a \SI{1.55}{\um}; el GaAs masivo es fuertemente normal en el IR cercano y
+hay que corregirlo con la geometría de la guía.
+
+\inc{d} \textbf{$\beta_2$ a \SI{1.55}{\um} y relación con $D_\lambda$.} De (5.6-4), $D_\nu=2\pi\beta''$, y de
+$D_\lambda\dd\lambda=D_\nu\dd\nu$ con $d\nu/d\lambda=-c_0/\lambda^2$: $D_\lambda=-\frac{c_0}{\lambda^2}D_\nu$. Por tanto
+\[
+\beta_2=\beta''=\frac{D_\nu}{2\pi}=-\frac{\lambda^2}{2\pi c_0}D_\lambda
+=-\frac{(1.55\times10^{-6})^2(21.92\times10^{-6}\ \si{s/m^2})}{2\pi(2.998\times10^8)}=\SI{-2.796e-26}{s^2/m}.
+\]
+\resultado{$\beta_2=\SI{-28.0}{ps^2/km}$ a \SI{1.55}{\um} (dispersión anómala). Regla:
+$\beta_2\,[\si{ps^2/km}]=-1.275\,D_\lambda\,[\si{ps/(km.nm)}]$ a \SI{1.55}{\um}. La fibra estándar tiene
+$D_\lambda\approx17$ (no 21.9) porque la dispersión de guía de onda resta a la del material.}
+(Unidades: $1\ \si{ps/(km.nm)}=\SI{e-6}{s/m^2}$ y $1\ \si{ps^2/km}=\SI{e-27}{s^2/m}=1\ \si{fs^2/mm}$.)
+
+\idea{$N=n-\lambda\,n'$ y $D_\lambda=-(\lambda/c_0)n''$. Signos: normal $\Leftrightarrow\beta_2>0\Leftrightarrow D_\nu>0\Leftrightarrow D_\lambda<0$.
+Convierta siempre con $\beta_2=-\lambda^2D_\lambda/2\pi c_0$, y recuerde que ps$^2$/km y fs$^2$/mm son la misma unidad.}
+
+%=====================================================================
+\sol{16}{Índice del aire; velocidad de grupo en un metal}{Saleh Probs.~5.6-2, 5.6-3, p.~196; ecs.~5.6-2, 5.6-7, pp.~185--186; ec.~5.5-39, p.~183}\label{sol:16}
+
+\inc{a} \textbf{Ajuste parabólico.} Con $x=\lambda-0.81$ \si{\um}, se busca
+$n-1=a_0+a_1x+a_2x^2$ por los tres puntos $x=-0.05,0,+0.05$:
+\[
+a_0=2.669\times10^{-4},\quad
+a_1=\frac{(2.665-2.672)\times10^{-4}}{0.10}=\SI{-7.0e-6}{\um^{-1}},
+\]
+\[
+a_2=\frac{(2.665-2\times2.669+2.672)\times10^{-4}}{2(0.05)^2}=\SI{-2.0e-5}{\um^{-2}}
+\]
+(diferencias centradas, exactas para una parábola). Velocidad de grupo con (5.6-2):
+\[
+v(\lambda)=\frac{c_0}{N(\lambda)},\qquad
+N(\lambda)=1+a_0+a_1x+a_2x^2-\lambda\,(a_1+2a_2x),\quad x=\lambda-\SI{0.81}{\um}.
+\]
+En \SI{0.81}{\um}: $N=1.0002669+0.81\times7.0\times10^{-6}=1.0002726$ y $v=\SI{2.997183e8}{m/s}$.
+En 0.76 y \SI{0.86}{\um}: $N=1.0002710$ y $1.0002742$. Dispersión (5.6-7) con $n''=2a_2=\SI{-4.0e-5}{\um^{-2}}=\SI{-4.0e7}{m^{-2}}$:
+\[
+D_\lambda=-\frac{\lambda}{c_0}n''=-\frac{0.81\times10^{-6}}{2.998\times10^8}(-4.0\times10^{7})=\SI{1.08e-7}{s/m^2}=\SI{0.108}{ps/(km.nm)}.
+\]
+\codigo{t2_p16_aire.py}
+\begin{figure}[H]\centering\includegraphics[width=0.7\linewidth]{t2_p16_aire.png}
+\caption{Problema 16(a): ajuste parabólico de $n-1$ del aire e índice de grupo $N-1$.}\end{figure}
+\resultado{$N(\SI{0.81}{\um})=1.000273$, $v\approx c_0(1-2.73\times10^{-4})$; $D_\lambda\approx+0.108$ ps/(km$\cdot$nm),
+unas 200 veces menor que la de la fibra de sílice a \SI{1.55}{\um} (21.9). (Con solo tres puntos, $n''$ es
+constante: el ajuste no puede decir cómo varía $D_\lambda$; la variación que imprime el programa, de
+$0.101$ a $0.115$, viene solo del factor $\lambda$.)}
+\emph{Comentario sobre el signo.} $n''<0$ aquí, mientras que la sílice en el visible tiene $n''>0$: con tres
+datos de 4 cifras, la segunda diferencia es $-0.001\times10^{-4}$, del orden del redondeo del último dígito,
+así que el signo de $D_\lambda$ no es confiable; lo que sí es robusto es el orden de magnitud: el aire es
+prácticamente no dispersivo ($|D_\lambda|\lesssim0.1$ ps/(km$\cdot$nm)).
+
+\inc{b} \textbf{Metal de Drude: $v_fv_g=c_0^2$.} De (5.5-39), $\epsilon_e=\epsilon_0(1-\omega_p^2/\omega^2)$. Para
+$\omega>\omega_p$:
+\[
+\beta(\omega)=\omega\sqrt{\epsilon_e\mu_0}=\frac{\omega}{c_0}\sqrt{1-\frac{\omega_p^2}{\omega^2}}=\frac{\sqrt{\omega^2-\omega_p^2}}{c_0}.
+\]
+Velocidad de fase: $v_f=\omega/\beta=\dfrac{c_0\,\omega}{\sqrt{\omega^2-\omega_p^2}}$ ($>c_0$). Velocidad de grupo (5.6-1):
+\[
+\frac{1}{v_g}=\frac{d\beta}{d\omega}=\frac{1}{c_0}\frac{\omega}{\sqrt{\omega^2-\omega_p^2}}
+\quad\Longrightarrow\quad v_g=\frac{c_0\sqrt{\omega^2-\omega_p^2}}{\omega}\ (<c_0).
+\]
+\resultado{$v_f\,v_g=\dfrac{c_0\omega}{\sqrt{\omega^2-\omega_p^2}}\cdot\dfrac{c_0\sqrt{\omega^2-\omega_p^2}}{\omega}=c_0^2$.}
+Equivalente: $\omega^2=\omega_p^2+c_0^2\beta^2$ (relación de dispersión hiperbólica, Fig.~5.5-10, p.~183) da
+$2\omega\dd\omega=2c_0^2\beta\dd\beta$, o sea $(\omega/\beta)(d\omega/d\beta)=c_0^2$. Así la fase va más rápido que
+$c_0$ pero la energía e información viajan a $v_g<c_0$.
+
+\idea{Para $N$ use la primera derivada y para $D_\lambda$ la segunda; con datos discretos, las diferencias
+centradas son exactas para una parábola. En un plasma $n<1$ pero $N=1/n>1$.}
+
+%=====================================================================
+\sol{17}{Pulsos gaussianos: ensanchamiento, chirp y compresión}{Saleh §5.6, pp.~184--187; §22.1, ecs.~22.1-4, 22.1-5, 22.1-8, Tabla 22.1-1, pp.~939--943; §22.3, ecs.~22.3-3 a 22.3-18, Tabla 22.3-1, pp.~961--966}\label{sol:17}
+
+\textbf{Fórmulas base.} Un pulso gaussiano sin chirp $\mathcal A(0,t)=A_0e^{-t^2/\tau_0^2}$ en un medio con
+$D_\nu=2\pi\beta''$ sigue siendo gaussiano con (Tabla 22.3-1, p.~964)
+\[
+\tau(z)=\tau_0\sqrt{1+(z/z_0)^2},\qquad a(z)=\frac{z}{z_0},\qquad z_0=\frac{\pi\tau_0^2}{D_\nu}=\frac{\tau_0^2}{2\beta''},
+\]
+y el centro llega con retardo $z/v=Nz/c_0$. Como $\tau_{\rm FWHM}\propto\tau$, la misma ley vale para el FWHM.
+
+\inc{a} \textbf{100 fs y 20 fs en 1 cm de sílice a 800 nm.} Del programa del Prob.~15:
+$n=1.45331$, $N=1.46713$. Retardo de grupo
+\[
+\tau_d=\frac{NL}{c_0}=\frac{1.46713\times\SI{0.01}{m}}{\SI{2.998e8}{m/s}}=\SI{48.94}{ps}.
+\]
+GVD: $\beta''=-\frac{\lambda^2}{2\pi c_0}D_\lambda$ con $D_\lambda=-106.4$ ps/(km$\cdot$nm) da
+$\beta''=\SI{36.14}{fs^2/mm}$, y $D_\nu=2\pi\beta''=\SI{227.0}{fs^2/mm}=\SI{2.27e-25}{s^2/m}$.
+\begin{itemize}
+\item $\tau_{\rm FWHM}=\SI{100}{fs}$: $\tau_0=100/1.1774=\SI{84.93}{fs}$, $\tau_0^2=\SI{7213}{fs^2}$,
+$z_0=\tau_0^2/2\beta''=7213/72.28=\SI{99.8}{mm}$. Tras $L=\SI{10}{mm}$: $L/z_0=0.100$ y
+$\tau_{\rm FWHM}=100\sqrt{1+0.0100}=\SI{100.5}{fs}$.
+\item $\tau_{\rm FWHM}=\SI{20}{fs}$: $\tau_0=\SI{16.99}{fs}$, $\tau_0^2=\SI{288.5}{fs^2}$, $z_0=\SI{3.99}{mm}$; $L/z_0=2.505$,
+$\tau_{\rm FWHM}=20\sqrt{1+6.275}=\SI{53.9}{fs}$, con chirp $a=2.5$.
+\end{itemize}
+\resultado{$N=1.4671$; retardo \SI{48.9}{ps}; $\beta''=\SI{36.1}{fs^2/mm}$; 100 fs: $z_0=\SI{99.8}{mm}$, sale con
+\SI{100.5}{fs}; 20 fs: $z_0=\SI{3.99}{mm}$, sale con \SI{53.9}{fs}.}
+\emph{¿Por qué tan distinto?} $z_0\propto\tau_0^2$: reducir el pulso 5 veces reduce la longitud de
+dispersión 25 veces. Físicamente, el ancho espectral es $\Delta\nu=0.44/\tau_{\rm FWHM}$ (22.1-10): el pulso de
+20 fs tiene \SI{22}{THz} de ancho (45 nm), y la diferencia de retardo de grupo entre sus extremos,
+$D_\nu L\Delta\nu\approx\SI{50}{fs}$, supera su duración; el de 100 fs tiene 5 veces menos ancho de banda y
+la diferencia de retardos (\SI{10}{fs}) es pequeña frente a 100 fs.
+
+\inc{b} \textbf{10 ps en fibra estándar.} $D_\nu=-\frac{\lambda^2}{c_0}D_\lambda=-\frac{(1.55\times10^{-6})^2}{2.998\times10^8}(17\times10^{-6})=\SI{-1.362e-25}{s^2/m}$
+($\beta_2=\SI{-21.7}{ps^2/km}$). $\tau_0=10/1.1774=\SI{8.493}{ps}$,
+\[
+|z_0|=\frac{\pi\tau_0^2}{|D_\nu|}=\frac{\pi(8.493\times10^{-12})^2}{1.362\times10^{-25}}=\SI{1664}{m}.
+\]
+$\tau(\SI{10}{km})=10\sqrt{1+(10/1.664)^2}=10\times6.094=\SI{60.9}{ps}$;
+$\tau(\SI{100}{km})=10\sqrt{1+(100/1.664)^2}=\SI{601}{ps}$ (régimen lineal, $\tau\approx\tau_{\rm FWHM}z/|z_0|$).
+\resultado{$D_\nu=\SI{-1.36e-25}{s^2/m}$, $|z_0|=\SI{1.66}{km}$; \SI{60.9}{ps} tras 10 km y \SI{601}{ps} tras 100 km.}
+
+\inc{c} \textbf{¿Dónde quedan las frecuencias altas?} Tras propagarse, el chirp es $a(z)=z/z_0$ y la
+frecuencia instantánea (22.1-4), (22.1-23) es
+\[
+\nu_i(t)=\nu_0+\frac{1}{2\pi}\frac{d\varphi}{dt}=\nu_0+\frac{a(z)}{\pi\tau^2(z)}\,(t-z/v).
+\]
+\emph{Dispersión normal} ($D_\nu>0\Rightarrow z_0>0\Rightarrow a>0$): $\nu_i$ crece con $t$ (up-chirp): las
+frecuencias bajas (rojo) quedan adelante y las altas (azul) atrás. Razón física: con $D_\nu=\frac{d}{d\nu}(1/v)>0$, el
+retardo por unidad de longitud $1/v$ crece con $\nu$, así que el azul viaja más despacio y llega después.
+\emph{Dispersión anómala} ($D_\nu<0$): $a<0$, down-chirp, el azul va adelante. La figura lo confirma con
+el pulso de 20 fs del inciso (a) (el de anómala se calculó con $D_\nu\to-D_\nu$): las intensidades son
+idénticas (el ensanchamiento no depende del signo), pero la pendiente de $\nu_i(t)$ se invierte.
+\begin{figure}[H]\centering\includegraphics[width=0.78\linewidth]{t2_p17_chirp.png}
+\caption{Problema 17(c): pulso de 20 fs tras 1 cm con $|D_\nu|$ de la sílice a 800 nm. Arriba, intensidad;
+abajo, frecuencia instantánea $\nu_i-\nu_0$ (solo donde la intensidad supera el 2\,\% del pico).}\end{figure}
+\resultado{Normal: altas frecuencias en la cola (up-chirp, $a>0$). Anómala: altas frecuencias al frente
+(down-chirp, $a<0$). Ojo: en la convención $e^{-i\omega t}$ (Boyd, Agrawal) el signo de la fase del chirp es
+el opuesto para el mismo pulso físico.}
+
+\inc{d} \textbf{[N] Propagación por FFT.} Se implementa $A(z,t)=\mathcal F^{-1}\{e^{-j\pi D_\nu f^2z}\mathcal F\{A(0,t)\}\}$
+(ec.~22.3-3 con $b=D_\nu z/\pi$, en el marco que viaja a $v$), con \texttt{numpy.fft}, cuyo signo
+coincide con el de Saleh.
+\codigo{t2_p17_pulsos.py}
+\emph{Verificación de (a):} la FFT da \SI{100.50}{fs} y \SI{53.94}{fs}, igual a la fórmula analítica en 4 cifras.
+
+\emph{Pulso con chirp inicial.} En unidades con $\tau_0=1$ y $z_0'\equiv\pi\tau_0^2/|D_\nu|=1$ (longitud de
+dispersión con el ancho de \emph{entrada}), se toma el pulso del enunciado
+$A(0,t)=\exp[-(1+ja)t^2/\tau_0^2]$ con $a=-3$, es decir
+\[
+A(0,t)=e^{-t^2/\tau_0^2}\,e^{+j3t^2/\tau_0^2},\qquad \varphi(t)=+\frac{3t^2}{\tau_0^2},\qquad
+\nu_i=\nu_0+\frac{3t}{\pi\tau_0^2}.
+\]
+\textbf{Atención:} en la convención de Saleh ($e^{j2\pi\nu_0t}$) este pulso tiene $\nu_i$ \emph{creciente}:
+es up-chirp, con parámetro de Saleh $a_1=+3$ en $\exp[-(1-ja_1)t^2/\tau^2]$ (22.1-12). Por la regla de
+Saleh (p.~967), un pulso up-chirp se comprime solo en un medio \emph{anómalo}; en uno normal se ensancha
+desde el principio. Analíticamente, con $\mathcal A\propto e^{-\gamma t^2}$, $\gamma=(1-ja_1)/\tau_0^2$, su
+transformada es $\propto e^{-\pi^2f^2/\gamma}$; el filtro suma $j D_\nu z/\pi$ a $1/\gamma$:
+\[
+\frac{1}{\gamma(z)}=\frac{\tau_0^2(1+ja_1)}{1+a_1^2}+j\frac{D_\nu z}{\pi}.
+\]
+El pulso es mínimo (sin chirp, $1/\gamma$ real) cuando la parte imaginaria se anula:
+\[
+z_{\min}=-\frac{a_1}{1+a_1^2}\frac{\pi\tau_0^2}{D_\nu}=-\frac{a_1}{1+a_1^2}z_0',
+\qquad
+\tau_{\min}=\sqrt{\frac{\tau_0^2}{1+a_1^2}}=\frac{\tau_0}{\sqrt{1+a_1^2}},
+\]
+que es (22.3-14)--(22.3-16) expresado con el ancho de entrada ($z_0$ del libro usa el ancho mínimo:
+$z_0=z_0'/(1+a_1^2)$). Con $a_1=+3$, $z_{\min}>0$ exige $D_\nu<0$.
+\begin{figure}[H]\centering\includegraphics[width=0.78\linewidth]{t2_p17_compresion.png}
+\caption{Problema 17(d): ancho del pulso (FWHM normalizado a $1.177\tau_0$) contra la distancia, para el
+pulso del enunciado en dispersión normal y anómala y para el pulso con el chirp opuesto en dispersión
+normal.}\end{figure}
+Resultados de la FFT (comparados con $\tau_0/\sqrt{10}=0.3162\tau_0$ y $3/10=0.3$):
+\begin{center}\small
+\begin{tabular}{lcc}\toprule
+Caso & ancho mínimo & distancia \\\midrule
+Enunciado literal ($a=-3$, up-chirp), dispersión normal & $1.000\,\tau_0$ (en $z=0$) & no se comprime\\
+Enunciado literal ($a=-3$, up-chirp), dispersión anómala & $0.3163\,\tau_0$ & $0.300\,z_0'$\\
+$a=+3$ en la forma del enunciado (down-chirp), normal & $0.3163\,\tau_0$ & $0.300\,z_0'$\\\bottomrule
+\end{tabular}\end{center}
+\resultado{Un pulso down-chirp en dispersión normal (o up-chirp en anómala) con $|a|=3$ se comprime a
+$\tau_{\min}=\tau_0/\sqrt{1+a^2}=0.316\tau_0$ a la distancia $z=\frac{|a|}{1+a^2}z_0'=0.3\,z_0'$, con
+$z_0'=\pi\tau_0^2/|D_\nu|$ calculado con el ancho de entrada. Tal como está escrito el enunciado
+($a=-3$ en $e^{-(1+ja)t^2/\tau_0^2}$, con la propagación de Saleh), el pulso es up-chirp y en dispersión
+normal \emph{no} se comprime; se comprime igual (0.316$\tau_0$ a $0.3z_0'$) en dispersión anómala.}
+\emph{Sobre la discrepancia con la respuesta publicada.} La respuesta dice ``$a=3$ es down-chirp en
+$e^{j\omega t}$; se comprime en dispersión normal''. Eso es correcto para $a=+3$ en la forma
+$e^{-(1+ja)t^2/\tau_0^2}$ (fase $-3t^2/\tau_0^2$), pero el enunciado pone $a=-3$. La forma $(1+ja)$ con $a<0$
+como pulso ``down-chirp'' es la de Agrawal, que usa $e^{-i\omega_0t}$; al combinarla con el propagador de Saleh
+el signo se invierte. Los valores numéricos ($0.3z_0'$, $0.316\tau_0$) son los mismos en ambos casos.
+
+\idea{Tres reglas: (1) $z_0=\pi\tau_0^2/|D_\nu|$ con $\tau_0$ de $1/e$ en amplitud (FWHM$/1.177$), no el FWHM.
+(2) Normal $\Rightarrow$ up-chirp $\Rightarrow$ el azul atrás. (3) Hay compresión si el chirp del pulso y
+el que impone el medio tienen signo opuesto; el ancho mínimo es el limitado por transformada,
+$\tau_0/\sqrt{1+a^2}$. Antes de decidir si un pulso es up o down, calcule $\nu_i=\nu_0\pm\frac{1}{2\pi}\frac{d\varphi}{dt}$
+con el signo de la convención del texto ($+$ en Saleh, $-$ en Boyd).}

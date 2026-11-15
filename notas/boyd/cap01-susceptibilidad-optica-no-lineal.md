@@ -899,7 +899,7 @@ la permutación intrínseca da $\chi_{1122}=\chi_{1212}$, y
 $$\mathbf P^{\rm NL}(\omega)=\epsilon_0A(\mathbf E\cdot\mathbf E^*)\mathbf E+\tfrac12\epsilon_0B(\mathbf E\cdot\mathbf E)\mathbf E^*,\qquad A=6\chi_{1122},\quad B=6\chi_{1221}$$
 (notación de Maker y Terhune, 1965). Valores típicos de $B/A$: 0 para no linealidad electrostrictiva, 1 para
 no linealidad electrónica no resonante (Kleinman: $\chi_{1122}=\chi_{1212}=\chi_{1221}$), 6 para orientación molecular (efecto Kerr de
-líquidos). Para luz linealmente polarizada en un medio isótropo, $\chi^{(3)}_{\rm eff}=\chi_{1111}$ y $n_2^{\rm circ}/n_2^{\rm lin}=A/(A+B)$.
+líquidos). Para luz linealmente polarizada en un medio isótropo, $\chi^{(3)}_{\rm eff}=\chi_{1111}$ y $n_2^{\rm circ}/n_2^{\rm lin}=A/(A+B/2)$ (ecs. 4.2.29–4.2.30; corregido el 2026-11-15, antes decía $A/(A+B)$).
 [Estas relaciones provienen de mi conocimiento de §4.2, no de la lectura de este tramo.]
 
 ---

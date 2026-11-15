@@ -141,3 +141,16 @@ Evaluación: dos exámenes (25 % cada uno), tareas 25 % y proyecto final 25 %.
 - Decidir si se hace commit de `notas/boyd/` y `notas/examen-1/`. Los apuntes y los PDF propios sí pueden ir al repo; los PDF de los libros no.
 - Después del examen: repasar en los apuntes del Boyd los caps. 2 (tema 5), 4 y 7 (tema 6).
 - Siguen los pendientes del proyecto final (ver `notas/resumen-sesion-2026-11-14-proyecto-final.md`).
+
+## Continuación (2026-11-15): solucionario completo
+
+- Se agregó `notas/examen-1/solucionario-taller-examen-1.pdf`, de 104 pp., con todas las soluciones,
+  29 scripts en Python y las figuras. Las fuentes están en `notas/examen-1/solucionario/`.
+- Al resolver el taller se corrigieron en él las respuestas 9, 17(d), 23(a), 35(b) y 39(d) y el
+  enunciado 22(b). El detalle está en la bitácora, entrada del 2026-11-15.
+- Erratas nuevas de los libros:
+  - Saleh (5.5-13): signo de Kramers–Kronig.
+  - Saleh: el cero de dispersión de la sílice es 1.273 µm, no 1.276.
+- Se corrigió en `notas/boyd/cap01` la razón $A/(A+B/2)$.
+- Para compilar el maestro: `cd notas/examen-1 && ../../talleres/taller-02-dispersion-polarizacion/tectonic solucionario-taller-examen-1.tex`.
+  Para un solo tema: `cd notas/examen-1/solucionario && <tectonic> prueba_temaN.tex`.

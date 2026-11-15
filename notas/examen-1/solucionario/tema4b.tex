@@ -1,0 +1,648 @@
+% =====================================================================
+% Solucionario, Tema 4 (segunda parte): problemas 34 a 39
+% Convención de Boyd: \tilde E = E e^{-i\omega t} + c.c., I = 2 n \epsilon_0 c |E|^2, SI.
+% =====================================================================
+
+\noindent\textbf{Convención de esta parte.} Todo el tema 4 usa la convención de Boyd (3.ª ed.):
+$\tilde E(t)=\sum_n E(\omega_n)e^{-i\omega_nt}$ con $E(-\omega)=E(\omega)^*$, $\tilde P=\epsilon_0[\chi^{(1)}\tilde E+\chi^{(2)}\tilde E^2+\dots]$,
+$I=2n\epsilon_0c|E|^2$, $d=\chi^{(2)}/2$, y transformada de Fourier $E(\omega)=\int\tilde E(t)e^{i\omega t}\dd t$ (Boyd, ec.~1.6.2a, p.~56).
+Con $e^{-i\omega t}$ un medio causal tiene sus susceptibilidades analíticas en el semiplano \emph{superior} de $\omega$ (en la
+convención $e^{j\omega t}$ de Saleh sería el inferior). Cuando aparece el Saleh (elipsoide de índices, Prob.~39) solo se usa
+una relación entre índices reales, que no depende de la convención.
+
+%=====================================================================
+\sol{34}{Simetrías formales y notación contraída}{Boyd §1.5.1–1.5.6, pp.~33–41; §1.5.11–1.5.12, pp.~46–49; Probs.~1.7 y 1.9, pp.~64–65}
+\label{sol:34}
+
+\inc{a} \textbf{Condición de realidad.} Partimos de la definición (Boyd, ec.~1.5.1, p.~33):
+\[
+P_i(\omega_n+\omega_m)=\epsilon_0\sum_{jk}\sum_{(nm)}\chi^{(2)}_{ijk}(\omega_n+\omega_m,\omega_n,\omega_m)E_j(\omega_n)E_k(\omega_m).
+\]
+La polarización física en esa frecuencia es (ec.~1.5.2)
+$\tilde P_i(t)=P_i(\omega_n+\omega_m)e^{-i(\omega_n+\omega_m)t}+P_i(-\omega_n-\omega_m)e^{i(\omega_n+\omega_m)t}$.
+Para que $\tilde P_i$ sea real, el segundo término tiene que ser el conjugado del primero:
+\[
+P_i(-\omega_n-\omega_m)=P_i(\omega_n+\omega_m)^*\qquad(1.5.3).
+\]
+Lo mismo vale para los campos: $E_j(-\omega_n)=E_j(\omega_n)^*$ (1.5.4). Escribimos ahora (1.5.1) para la frecuencia negativa,
+es decir, cambiando $\omega_n\to-\omega_n$, $\omega_m\to-\omega_m$:
+\[
+P_i(-\omega_n-\omega_m)=\epsilon_0\sum_{jk}\sum_{(nm)}\chi^{(2)}_{ijk}(-\omega_n-\omega_m,-\omega_n,-\omega_m)\,E_j(\omega_n)^*E_k(\omega_m)^*.
+\]
+Por otro lado, conjugando (1.5.1):
+\[
+P_i(\omega_n+\omega_m)^*=\epsilon_0\sum_{jk}\sum_{(nm)}\chi^{(2)}_{ijk}(\omega_n+\omega_m,\omega_n,\omega_m)^*\,E_j(\omega_n)^*E_k(\omega_m)^*.
+\]
+Por (1.5.3) los lados izquierdos son iguales. Como la igualdad debe valer para \emph{cualquier} campo aplicado (amplitudes
+$E_j^*E_k^*$ arbitrarias), los coeficientes deben coincidir uno a uno:
+\[
+\chi^{(2)}_{ijk}(-\omega_n-\omega_m,-\omega_n,-\omega_m)=\chi^{(2)}_{ijk}(\omega_n+\omega_m,\omega_n,\omega_m)^*\qquad(\text{Boyd, ec.~1.5.5, p.~34}).
+\]
+
+\textbf{Permutación intrínseca.} En (1.5.1) los índices $j,k$ y las etiquetas $n,m$ son mudos. El término
+$\chi^{(2)}_{ijk}(\omega_n+\omega_m,\omega_n,\omega_m)E_j(\omega_n)E_k(\omega_m)$ aparece en la suma junto con su ``gemelo''
+$\chi^{(2)}_{ikj}(\omega_n+\omega_m,\omega_m,\omega_n)E_k(\omega_m)E_j(\omega_n)$, que multiplica \emph{el mismo producto de campos}.
+La polarización solo depende de la suma de los dos coeficientes; cómo se reparta esa suma entre ellos es arbitrario.
+La elección natural es repartirla por igual:
+\[
+\chi^{(2)}_{ijk}(\omega_n+\omega_m,\omega_n,\omega_m)=\chi^{(2)}_{ikj}(\omega_n+\omega_m,\omega_m,\omega_n)\qquad(\text{Boyd, ec.~1.5.6, p.~35}).
+\]
+
+\resultado{La condición de realidad (1.5.5) es \textbf{física}: se sigue de que $\tilde P$ y $\tilde E$ son medibles (reales); equivale a que
+la función respuesta $R^{(2)}(\tau_1,\tau_2)$ sea real. La permutación intrínseca (1.5.6) es una \textbf{convención}: se podría anular uno de
+los dos coeficientes y duplicar el otro sin cambiar ningún resultado medible. Por eso (1.5.6) vale siempre, con o sin pérdidas.}
+
+\inc{b} \textbf{Versiones para $\chi^{(3)}$ (Prob.~1.7).} Sea $\omega_\sigma=\omega_o+\omega_n+\omega_m$. Seguimos la definición (Boyd, ec.~1.3.20, p.~21).
+\begin{itemize}
+\item Análoga de (1.5.1):
+$\displaystyle P_i(\omega_\sigma)=\epsilon_0\sum_{jkl}\sum_{(mno)}\chi^{(3)}_{ijkl}(\omega_\sigma,\omega_o,\omega_n,\omega_m)E_j(\omega_o)E_k(\omega_n)E_l(\omega_m)$,
+donde $(mno)$ indica suma sobre todas las combinaciones con $\omega_o+\omega_n+\omega_m$ fijo.
+\item Análoga de (1.5.2): $\tilde P_i(t)=P_i(\omega_\sigma)e^{-i\omega_\sigma t}+P_i(-\omega_\sigma)e^{i\omega_\sigma t}$, y por realidad $P_i(-\omega_\sigma)=P_i(\omega_\sigma)^*$.
+\item Análoga de (1.5.5), por el mismo argumento de (a) con tres campos conjugados:
+\[\chi^{(3)}_{ijkl}(-\omega_\sigma,-\omega_o,-\omega_n,-\omega_m)=\chi^{(3)}_{ijkl}(\omega_\sigma,\omega_o,\omega_n,\omega_m)^*.\]
+\item Análoga de (1.5.6): $\chi^{(3)}$ no cambia ante cualquiera de las $3!=6$ permutaciones \emph{simultáneas} de los pares
+$(j,\omega_o)$, $(k,\omega_n)$, $(l,\omega_m)$:
+\begin{align*}
+\chi^{(3)}_{ijkl}(\omega_\sigma,\omega_o,\omega_n,\omega_m)&=\chi^{(3)}_{ikjl}(\omega_\sigma,\omega_n,\omega_o,\omega_m)=\chi^{(3)}_{ijlk}(\omega_\sigma,\omega_o,\omega_m,\omega_n)\\
+&=\chi^{(3)}_{ilkj}(\omega_\sigma,\omega_m,\omega_n,\omega_o)=\chi^{(3)}_{iklj}(\omega_\sigma,\omega_n,\omega_m,\omega_o)=\chi^{(3)}_{iljk}(\omega_\sigma,\omega_m,\omega_o,\omega_n).
+\end{align*}
+\item Análogas de (1.5.8)–(1.5.9) (solo sin pérdidas). Con $\omega_4=\omega_1+\omega_2+\omega_3$, los cuatro pares $(i,-\omega_4)$, $(j,\omega_1)$,
+$(k,\omega_2)$, $(l,\omega_3)$ suman frecuencia cero y la permutación total permite intercambiarlos libremente. Se pone en primer lugar
+el par que se quiera, se cambia el signo de su frecuencia para que sea ``la suma de las otras'' y se usa la realidad de $\chi$
+(conjugar y que $\chi$ sea real equivale a invertir todos los signos de frecuencia). Así, en el mismo patrón cíclico de (1.5.8)–(1.5.9):
+\begin{align*}
+\chi^{(3)}_{ijkl}(\omega_4=\omega_1+\omega_2+\omega_3)&=\chi^{(3)}_{jkli}(\omega_1=-\omega_2-\omega_3+\omega_4)\\
+&=\chi^{(3)}_{klij}(\omega_2=-\omega_3+\omega_4-\omega_1)=\chi^{(3)}_{lijk}(\omega_3=\omega_4-\omega_1-\omega_2).
+\end{align*}
+Por ejemplo, el primer paso: al poner $(j,\omega_1)$ delante queda $\chi_{jkli}(-\omega_1;\omega_2,\omega_3,-\omega_4)$, que por (1.5.5)
+es igual a $\chi_{jkli}(\omega_1;-\omega_2,-\omega_3,\omega_4)^*$; sin pérdidas $\chi$ es real y se quita el asterisco.
+\item Análoga de (1.5.19) (Kleinman: dispersión despreciable): $\chi^{(3)}_{ijkl}$ es invariante ante las $4!=24$ permutaciones de
+$ijkl$ sin tocar las frecuencias. Por ejemplo, $\chi_{1122}=\chi_{1212}=\chi_{1221}=\chi_{2112}=\chi_{2121}=\chi_{2211}$.
+\end{itemize}
+Comentario: en un medio isótropo Kleinman impone $\chi_{1122}=\chi_{1212}=\chi_{1221}$, y con la Tabla 1.5.4 ($\chi_{1111}=\chi_{1122}+\chi_{1212}+\chi_{1221}$,
+p.~53) queda $\chi_{1122}=\chi_{1111}/3$, que es justo lo que da el oscilador (1.4.52) y equivale a $B/A=1$ (Prob.~33).
+
+\inc{c} \textbf{La cadena 324 $\to$ 81 $\to$ 27 $\to$ 18 $\to$ 10} (Boyd §1.5, p.~33, y §1.5.12, pp.~48–49).
+\begin{center}
+\begin{tabular}{@{}p{3.3cm}p{9.2cm}p{2.8cm}@{}}\toprule
+Paso & Por qué & Cuenta \\\midrule
+Punto de partida & 3 ondas $\omega_1,\omega_2,\omega_3=\omega_1+\omega_2$: 6 tensores con frecuencias positivas en la salida
+($\chi(\omega_3;\omega_1,\omega_2)$, $\chi(\omega_3;\omega_2,\omega_1)$, $\chi(\omega_1;\omega_3,-\omega_2)$, \dots) y 6 con frecuencias negativas & $12\times27=324$ complejos\\
+Realidad (1.5.5) & los 6 tensores con frecuencias negativas son conjugados de los otros 6 & 162 complejos\\
+Permutación intrínseca (1.5.6) & cada pareja $\chi(\omega_3;\omega_1,\omega_2)\leftrightarrow\chi(\omega_3;\omega_2,\omega_1)$ es un solo tensor & $3\times27=81$ complejos\\
+Sin pérdidas & $\chi$ real y permutación total: los 3 tensores restantes se obtienen de uno & 27 reales\\
+SHG ($\omega_1=\omega_2$) & $d_{ijk}$ simétrico en $jk$: $jk$ toma solo 6 valores & $3\times6=18$\\
+Kleinman (1.5.19) & tensor de rango 3 totalmente simétrico en 3D: $\binom{3+2}{3}$ & 10\\\bottomrule
+\end{tabular}
+\end{center}
+Sobre los 27: con permutación total, los 27 elementos de $\chi_{ijk}(\omega_3;\omega_1,\omega_2)$ siguen siendo independientes entre sí,
+porque permutar índices obliga a permutar frecuencias distintas; lo que se ahorra es que los otros dos tensores ya no aportan nada nuevo.
+El 10 es el número de monomios cúbicos en $(x,y,z)$: $x^3,y^3,z^3,x^2y,x^2z,y^2x,y^2z,z^2x,z^2y,xyz$.
+Después, la simetría de la clase cristalina reduce aún más (p.~ej. 3m queda en 3 con Kleinman: $d_{22},d_{31},d_{33}$).
+
+\inc{d} \textbf{Matriz (1.5.25) a partir de (1.5.23).} La regla de contracción (1.5.22) es $d_{il}\equiv d_{ijk}$ con
+$11\to1$, $22\to2$, $33\to3$, $23,32\to4$, $31,13\to5$, $12,21\to6$. Con Kleinman los tres índices de $d_{ijk}$ se permutan libremente.
+El truco es: \emph{escribir $d_{il}$ como $d_{ijk}$, reordenar los tres índices y volver a contraer}:
+\begin{align*}
+d_{21}&=d_{211}=d_{112}=d_{1,12}=d_{16},&
+d_{24}&=d_{223}=d_{322}=d_{3,22}=d_{32},\\
+d_{14}&=d_{123},\quad d_{25}=d_{213},\quad d_{36}=d_{312}&&\Rightarrow\ d_{14}=d_{25}=d_{36}\ (\text{todas permutaciones de }123).
+\end{align*}
+Las demás, igual: $d_{26}=d_{212}=d_{122}=d_{12}$; $d_{31}=d_{311}=d_{113}=d_{15}$; $d_{34}=d_{323}=d_{233}=d_{23}$; $d_{35}=d_{313}=d_{133}=d_{13}$.
+Quedan como independientes $d_{11},d_{12},d_{13},d_{14},d_{15},d_{16},d_{22},d_{23},d_{24},d_{33}$, es decir, 10, y la matriz es
+\[
+d_{il}=\begin{bmatrix} d_{11}&d_{12}&d_{13}&d_{14}&d_{15}&d_{16}\\ d_{16}&d_{22}&d_{23}&d_{24}&d_{14}&d_{12}\\ d_{15}&d_{24}&d_{33}&d_{23}&d_{13}&d_{14}\end{bmatrix}
+\qquad(\text{Boyd, ec.~1.5.25, p.~40}).
+\]
+
+\inc{e} \textbf{Clase 432 (Prob.~1.9).} La Tabla 1.5.2 (p.~47) da para 432: $xyz=-xzy=yzx=-yxz=zxy=-zyx$. Cada elemento es
+\emph{antisimétrico} en sus dos últimos índices: $\chi_{xyz}=-\chi_{xzy}$. Pero la matriz $d_{il}$ solo existe si $d_{ijk}$ es
+\emph{simétrico} en $jk$ (por eso se puede contraer $jk\to l$). Hay dos situaciones en que se usa:
+\begin{itemize}
+\item \emph{SHG.} $P_i(2\omega)=\epsilon_0\sum_{jk}\chi_{ijk}E_jE_k$ y el producto $E_jE_k$ es simétrico. Solo contribuye la parte simétrica
+$\frac12(\chi_{ijk}+\chi_{ikj})$, que para 432 es $\frac12(\chi_{xyz}-\chi_{xyz})=0$. Entonces $d_{14}=0$, y lo mismo $d_{25}$ y $d_{36}$.
+\item \emph{Kleinman.} Exige $\chi_{xyz}=\chi_{xzy}$; junto con $\chi_{xyz}=-\chi_{xzy}$ da $\chi_{xyz}=0$.
+\end{itemize}
+¿Dónde sobrevive entonces $\chi^{(2)}$? En la suma de frecuencias \emph{no degenerada y con dispersión}. Por permutación intrínseca,
+$\chi_{xzy}(\omega_3;\omega_1,\omega_2)=\chi_{xyz}(\omega_3;\omega_2,\omega_1)$, y por la tabla esto es $-\chi_{xyz}(\omega_3;\omega_1,\omega_2)$. Es decir,
+$\chi_{xyz}$ es \emph{impar} ante $\omega_1\leftrightarrow\omega_2$: se anula si $\omega_1=\omega_2$ o si $\chi$ no depende de la frecuencia. Sumando
+las dos ordenaciones en (1.5.1),
+\[
+P_x(\omega_3)=2\epsilon_0\chi_{xyz}(\omega_3;\omega_1,\omega_2)\,[E_y(\omega_1)E_z(\omega_2)-E_z(\omega_1)E_y(\omega_2)]
+=2\epsilon_0\chi_{xyz}\,[\E(\omega_1)\times\E(\omega_2)]_x,
+\]
+y cíclicamente para $y$ y $z$: $\mathbf P(\omega_3)\propto\E(\omega_1)\times\E(\omega_2)$. Es un pseudovector, permitido en 432 porque esa clase es
+quiral (solo rotaciones, sin espejos ni inversión). Para SHG, $\E\times\E=0$.
+
+\resultado{432 sí tiene $\chi^{(2)}_{ijk}\neq0$, pero solo la parte antisimétrica en $jk$. La matriz $d_{il}$ presupone simetría en $jk$
+(SHG o Kleinman) y ve solo la parte simétrica, que es nula. No hay contradicción: los elementos sobreviven solo en SFG/DFG no degenerada
+con dispersión, con $\mathbf P(\omega_3)\propto\E(\omega_1)\times\E(\omega_2)$.}
+
+\idea{(1.5.5) es física (campos reales) y (1.5.6) es convención (reparto de coeficientes). La permutación total y la realidad de $\chi$
+exigen medio sin pérdidas, y Kleinman exige además dispersión despreciable. La contracción $d_{il}$ presupone simetría en los dos últimos
+índices. Para pasar de $d_{il}$ a $d_{ijk}$, ``descontraer, permutar y recontraer''. Error típico: creer que $d_{il}=0$ implica
+$\chi^{(2)}=0$ (432) o que 18 es el número general de elementos (eso es solo para SHG).}
+
+%=====================================================================
+\sol{35}{Cálculo de $d_{\rm eff}$}{Boyd §1.5.6–1.5.7, ecs.~1.5.26–1.5.30, pp.~40–42; matriz 3m, p.~46; Tabla 1.5.2, p.~47; Prob.~1.6}
+\label{sol:35}
+
+Usamos la SHG en notación matricial (Boyd, ec.~1.5.26, p.~40):
+\[
+\begin{bmatrix}P_x\\P_y\\P_z\end{bmatrix}_{2\omega}=2\epsilon_0[d_{il}]
+\begin{bmatrix}E_x^2& E_y^2& E_z^2& 2E_yE_z& 2E_xE_z& 2E_xE_y\end{bmatrix}^{T},
+\qquad P(2\omega)=2\epsilon_0d_{\rm eff}E(\omega)^2\quad(1.5.29),
+\]
+donde $d_{\rm eff}$ se obtiene proyectando $\mathbf P(2\omega)$ sobre la polarización de la onda generada.
+
+\inc{a} \textbf{Geometría.} Sea $\kv=k(\sin\theta\cos\phi,\ \sin\theta\sin\phi,\ \cos\theta)$, con $\theta$ el ángulo con el eje óptico $z$ y $\phi$
+el azimut medido desde el eje $x$ en el plano $xy$, en sentido antihorario visto desde $+z$. Ese es el ``ángulo entre $\kv$ y el plano $xz$''
+de Boyd (p.~42). En un uniaxial:
+\begin{itemize}
+\item la onda \textbf{ordinaria} vibra perpendicular al plano que forman $\kv$ y $\zh$:
+$\hat{\mathbf o}=\dfrac{\zh\times\hat\kv}{|\zh\times\hat\kv|}=(-\sin\phi,\ \cos\phi,\ 0)$;
+\item la onda \textbf{extraordinaria} vibra (su $\D$) en ese plano y perpendicular a $\kv$: $\hat{\mathbf e}=\pm(\cos\theta\cos\phi,\ \cos\theta\sin\phi,\ -\sin\theta)$.
+Despreciamos el walk-off: tomamos $\E_e\parallel\D_e$. El error es del orden del ángulo de walk-off $\rho$ (unos $3^\circ$ en BBO, Prob.~24).
+\end{itemize}
+En un uniaxial negativo ($n_e<n_o$) el tipo I es \emph{ooe}: las dos ondas fundamentales son ordinarias y el armónico, que debe ver el
+índice menor, es extraordinario.
+
+\textbf{Matriz 3m} con Kleinman ($d_{15}=d_{31}$, $d_{24}=d_{31}$, $d_{21}=d_{16}=-d_{22}$; Boyd p.~46; espejo $\perp\hat x$, Tabla 1.5.2):
+\[
+d_{il}=\begin{bmatrix}0&0&0&0&d_{31}&-d_{22}\\-d_{22}&d_{22}&0&d_{31}&0&0\\d_{31}&d_{31}&d_{33}&0&0&0\end{bmatrix}.
+\]
+\textbf{Campo ordinario:} $\E(\omega)=E\,\hat{\mathbf o}$, es decir, $E_x=-E\sin\phi$, $E_y=E\cos\phi$, $E_z=0$. El vector columna es
+\[
+\big(E_x^2,E_y^2,E_z^2,2E_yE_z,2E_xE_z,2E_xE_y\big)=E^2\big(\sin^2\phi,\ \cos^2\phi,\ 0,\ 0,\ 0,\ -2\sin\phi\cos\phi\big).
+\]
+\textbf{Polarización:} multiplicando fila por fila,
+\begin{align*}
+P_x&=2\epsilon_0E^2\,[(-d_{22})(-2\sin\phi\cos\phi)]=2\epsilon_0E^2\,d_{22}\sin2\phi,\\
+P_y&=2\epsilon_0E^2\,[-d_{22}\sin^2\phi+d_{22}\cos^2\phi]=2\epsilon_0E^2\,d_{22}\cos2\phi,\\
+P_z&=2\epsilon_0E^2\,[d_{31}\sin^2\phi+d_{31}\cos^2\phi]=2\epsilon_0E^2\,d_{31}.
+\end{align*}
+\textbf{Proyección sobre la dirección extraordinaria.} Con $\hat{\mathbf e}=(-\cos\theta\cos\phi,\ -\cos\theta\sin\phi,\ \sin\theta)$:
+\[
+\mathbf P\cdot\hat{\mathbf e}=2\epsilon_0E^2\big[-d_{22}\cos\theta(\sin2\phi\cos\phi+\cos2\phi\sin\phi)+d_{31}\sin\theta\big]
+=2\epsilon_0E^2\big[d_{31}\sin\theta-d_{22}\cos\theta\sin3\phi\big],
+\]
+donde usamos $\sin2\phi\cos\phi+\cos2\phi\sin\phi=\sin(2\phi+\phi)=\sin3\phi$. Comparando con (1.5.29):
+\resultado{$d_{\rm eff}^{\rm (I)}=d_{31}\sin\theta-d_{22}\cos\theta\sin3\phi$, que es (Boyd, ec.~1.5.30a, p.~42).}
+
+\textbf{Sobre signos y convenciones} (el punto donde más se tropieza):
+\begin{itemize}
+\item El \emph{signo global} de $d_{\rm eff}$ es convencional: con $\hat{\mathbf e}=+\hat{\boldsymbol\theta}=(\cos\theta\cos\phi,\cos\theta\sin\phi,-\sin\theta)$ sale
+$d_{22}\cos\theta\sin3\phi-d_{31}\sin\theta$, que es menos (1.5.30a). La potencia generada va con $d_{\rm eff}^2$ y no cambia. El signo de $\hat{\mathbf o}$
+no importa porque el campo ordinario entra al cuadrado.
+\item Lo que sí es físico es el \emph{signo relativo} entre los dos términos. Ese signo depende de cómo se miden los ángulos y los ejes:
+$\phi$ antihorario desde $+x$, y ejes tales que el espejo es $\perp\hat x$ (el elemento no nulo es $d_{22}=d_{yyy}$). Si se mide $\phi$ en sentido horario,
+cambia el signo de $\sin3\phi$. Si se eligen los ejes con el espejo $\perp\hat y$ (convención en que el no nulo es $d_{11}$), aparece $\cos3\phi$ en lugar de $\sin3\phi$.
+Antes de usar un valor tabulado hay que comprobar con qué ejes se definió.
+\item El término $d_{33}$ no aparece en tipo I: necesitaría $E_z\neq0$, y la onda ordinaria no tiene componente $z$.
+\end{itemize}
+\textbf{Tipo II (1.5.30b), de paso.} En el uniaxial negativo el tipo II es $eoe$: $\E(\omega_1)=E\hat{\mathbf o}$, $\E(\omega_2)=E\hat{\mathbf e}$, armónico extraordinario,
+y se usa (1.5.27) con $P=4\epsilon_0d_{\rm eff}E_1E_2$ (1.5.28). El vector columna es
+$(o_xe_x,\ o_ye_y,\ 0,\ o_ye_z,\ o_xe_z,\ o_xe_y+o_ye_x)$; con $\hat{\mathbf e}=+\hat{\boldsymbol\theta}$ queda
+$(-\sin\phi\cos\phi\cos\theta,\ \sin\phi\cos\phi\cos\theta,\ 0,\ -\cos\phi\sin\theta,\ \sin\phi\sin\theta,\ \cos\theta\cos2\phi)$.
+Esto da $\mathbf P\propto(d_{31}\sin\phi\sin\theta-d_{22}\cos\theta\cos2\phi,\ d_{22}\cos\theta\sin2\phi-d_{31}\cos\phi\sin\theta,\ 0)$, y al proyectar sobre
+$\hat{\mathbf e}$ los términos en $d_{31}$ se cancelan:
+$\mathbf P\cdot\hat{\mathbf e}\propto-d_{22}\cos^2\theta(\cos2\phi\cos\phi-\sin2\phi\sin\phi)=-d_{22}\cos^2\theta\cos3\phi$. En módulo es (1.5.30b),
+$|d_{\rm eff}^{\rm (II)}|=|d_{22}\cos^2\theta\cos3\phi|$. Aquí $\hat{\mathbf e}$ aparece dos veces, así que su signo no importa.
+
+El programa del final de este problema comprueba ambas fórmulas para 1000 direcciones al azar (con $d_{31}\neq0$ a propósito). El error máximo es
+$4\times10^{-15}$~pm/V, es decir, redondeo.
+
+\inc{b} \textbf{BBO.} Con $d_{31}\approx0$, (1.5.30a) queda $d_{\rm eff}=-d_{22}\cos\theta\sin3\phi$. El factor $\cos\theta$ está fijado por el
+ajuste de fase ($\theta_{pm}=22.9^\circ$, Prob.~24), así que $\phi$ se elige para que $|\sin3\phi|=1$:
+\[
+3\phi=\pm90^\circ+360^\circ q\ \Rightarrow\ \phi=30^\circ+60^\circ q\quad(\phi=\pm30^\circ,\ \pm90^\circ,\ \pm150^\circ).
+\]
+\[
+|d_{\rm eff}|_{\max}=d_{22}\cos\theta_{pm}=(\SI{2.2}{pm/V})\cos22.9^\circ=(\SI{2.2}{pm/V})(0.9212)=\SI{2.03}{pm/V}.
+\]
+El signo alterna: $\phi=-30^\circ,90^\circ,-150^\circ$ dan $d_{\rm eff}=+2.03$~pm/V y $\phi=30^\circ,-90^\circ,150^\circ$ dan $-2.03$~pm/V (Fig.~\ref{fig:t4b-bbo}).
+Con $d_{31}=0$ todos estos ángulos son equivalentes. Si $d_{31}\neq0$, hay que elegir el signo de $\sin3\phi$ para que los dos términos se sumen:
+con $d_{31}$ y $d_{22}$ del mismo signo, $\sin3\phi=-1$ ($\phi=-30^\circ$ o $90^\circ$), y entonces $|d_{\rm eff}|=|d_{31}|\sin\theta+|d_{22}|\cos\theta$.
+\textbf{Error típico:} tomar $\phi=0$ (el $\kv$ en el plano $xz$) da $d_{\rm eff}=0$ si $d_{31}=0$.
+\resultado{$\phi=30^\circ+60^\circ q$ (p.~ej. $-30^\circ$ o $90^\circ$, como dice la hoja de respuestas, pero también $30^\circ$, $150^\circ$, \dots, que solo
+cambian el signo): $|d_{\rm eff}|=d_{22}\cos\theta_{pm}=\SI{2.03}{pm/V}$.}
+
+\begin{figure}[H]\centering
+\includegraphics[width=0.75\linewidth]{t4b_p35_deff_bbo.png}
+\caption{$d_{\rm eff}$ de BBO en SHG tipo I a $\theta=22.9^\circ$ con $d_{31}=0$, en función del azimut $\phi$. Los extremos están en
+$\phi=30^\circ+60^\circ q$ y valen $\pm d_{22}\cos\theta=\pm2.03$~pm/V. En $\phi=0^\circ,\pm60^\circ,\dots$ el acoplamiento se anula.}
+\label{fig:t4b-bbo}
+\end{figure}
+
+\inc{c} \textbf{GaAs} ($\bar43m$, solo $d_{14}=d_{25}=d_{36}\equiv d$; Tabla 1.5.2 y Fig.~1.5.3). Con la matriz
+$d_{il}=\left[\begin{smallmatrix}0&0&0&d&0&0\\0&0&0&0&d&0\\0&0&0&0&0&d\end{smallmatrix}\right]$, (1.5.26) da
+\[
+\mathbf P(2\omega)=2\epsilon_0d\,(2E_yE_z,\ 2E_xE_z,\ 2E_xE_y)=4\epsilon_0d\,(E_yE_z,\ E_xE_z,\ E_xE_y).
+\]
+\begin{itemize}
+\item $\E\parallel[100]$: $\E=E(1,0,0)$. Todos los productos cruzados son nulos, así que $\mathbf P=0$.
+\item $\E\parallel[110]$: $\E=\frac{E}{\sqrt2}(1,1,0)$. Solo $E_xE_y=E^2/2$ es distinto de cero, y
+$\mathbf P=4\epsilon_0d\frac{E^2}{2}\zh=2\epsilon_0d_{36}E^2\,\zh$. $\mathbf P$ es \emph{perpendicular} a $\E$: la proyección sobre $\E$ es nula y $|\mathbf P|=2\epsilon_0d_{36}E^2$.
+\item $\E\parallel[111]$: $\E=\frac{E}{\sqrt3}(1,1,1)$. Los tres productos valen $E^2/3$, y
+$\mathbf P=\frac{4\epsilon_0dE^2}{3}(1,1,1)=\frac{4\epsilon_0dE^2}{\sqrt3}\,\frac{(1,1,1)}{\sqrt3}$, paralelo a $\E$. Escribiéndolo como $2\epsilon_0d_{\rm eff}E^2$:
+\[
+d_{\rm eff}=\frac{2d_{14}}{\sqrt3}=\frac{2(370)}{1.732}\ \text{pm/V}=\SI{427}{pm/V}.
+\]
+\end{itemize}
+Es además la dirección de $|\mathbf P|$ máximo: $(E_yE_z)^2+(E_xE_z)^2+(E_xE_y)^2$ con $|\E|$ fijo es máximo cuando $|E_x|=|E_y|=|E_z|$.
+\resultado{$[100]$: $\mathbf P=0$. $[110]$: $\mathbf P\parallel\zh$ (perpendicular a $\E$), $|\mathbf P|=2\epsilon_0d_{36}E^2$. $[111]$: $\mathbf P\parallel\E$, $d_{\rm eff}=2d_{14}/\sqrt3=\SI{427}{pm/V}$.}
+Consecuencia práctica: con incidencia normal sobre una oblea (001), $\E$ está en el plano $xy$ y $\mathbf P(2\omega)\parallel\zh$ es longitudinal, así que no radia
+hacia adelante. Por eso se usan obleas (111) o (110), o incidencia oblicua.
+
+\codigo{t4b_p35_deff.py}
+Salida relevante: error tipo I $3.9\times10^{-15}$ y tipo II $3.8\times10^{-15}$~pm/V; $|d_{\rm eff}|_{\max}=2.027$~pm/V en $\phi=\pm30^\circ,\pm90^\circ,\pm150^\circ$;
+GaAs: $P/(2\epsilon_0E^2)=(0,0,0)$, $(0,0,370)$ y $(246.7,246.7,246.7)$~pm/V, este último de módulo 427.2~pm/V.
+
+\idea{$d_{\rm eff}$ = ``escriba el campo de entrada con sus componentes, multiplique por la matriz y proyecte sobre la polarización de salida''.
+Ordinaria: $\hat{\mathbf o}=(-\sin\phi,\cos\phi,0)$. Extraordinaria: $\pm(\cos\theta\cos\phi,\cos\theta\sin\phi,-\sin\theta)$. Recordar el 2 de
+$2E_yE_z$ en el vector columna, y que en SFG la constante es $4\epsilon_0$ y no $2\epsilon_0$. El signo global no importa; el relativo entre términos depende de
+los ejes y del sentido de $\phi$. En GaAs el mismo cristal da $\mathbf P=0$, $\mathbf P\perp\E$ o $\mathbf P\parallel\E$ según la dirección del campo.}
+
+%=====================================================================
+\sol{36}{Simetría de inversión}{Boyd §1.5.10, ecs.~1.5.31–1.5.35, pp.~44–46 (Fig.~1.5.2); §1.5.13–1.5.14, pp.~49–52; Tabla 1.5.1, p.~43}
+\label{sol:36}
+
+\inc{a} \textbf{Demostración general.} Un medio es centrosimétrico si la operación $\rv\to-\rv$ lo deja idéntico. Bajo inversión, los vectores polares cambian de
+signo: $\E\to-\E$ y $\mathbf P\to-\mathbf P$. Como el medio no cambia, sus tensores $\chi^{(n)}$ deben ser los mismos antes y después.
+Tomamos el término de orden $n$:
+\[
+P_i^{(n)}=\epsilon_0\chi^{(n)}_{ij_1\cdots j_n}E_{j_1}\cdots E_{j_n}.
+\]
+Al aplicar la inversión al sistema completo (medio más campo), el medio invertido es idéntico y le aplicamos el campo $-\E$. La respuesta debe ser $-\mathbf P$:
+\[
+-P_i^{(n)}=\epsilon_0\chi^{(n)}_{ij_1\cdots j_n}(-E_{j_1})\cdots(-E_{j_n})=(-1)^n P_i^{(n)}.
+\]
+Si $n$ es par, esto da $-P=P$, es decir, $P^{(n)}\equiv0$ para cualquier campo, y por tanto $\chi^{(n)}=0$. Si $n$ es impar, la identidad se cumple sola.
+Para $n=2$ es el argumento de Boyd (ecs.~1.5.31–1.5.35, p.~44). Dicho de otra manera, en un medio centrosimétrico $\tilde P[\tilde E]$ es un funcional
+\emph{impar}, $\tilde P[-\tilde E]=-\tilde P[\tilde E]$, y su desarrollo solo contiene potencias impares. Lo mismo se ve en el oscilador:
+$U(x)=U(-x)$ elimina el término $ax^2$ de la fuerza (§1.4.3, p.~28), y entonces (1.4.40b) no tiene fuente y $\tilde r^{(2)}=0$ (1.4.44).
+
+\textbf{Interpretación en el tiempo (Fig.~1.5.2).} Para $\tilde E=\mathcal E\sin\omega t$ el campo cumple $\tilde E(t+T/2)=-\tilde E(t)$. Si la respuesta es impar,
+también $\tilde P(t+T/2)=-\tilde P(t)$ (simetría de media onda). Un armónico $\cos(q\omega t+\varphi)$ al desplazarse $T/2$ gana una fase $q\pi$, es decir, el
+factor $(-1)^q$: solo los armónicos impares son compatibles con la media onda, y el DC ($q=0$) y los pares no lo son.
+\begin{itemize}
+\item (c), centrosimétrico: $\tilde P_c=\sin\omega t-0.25\sin3\omega t$. Las componentes son $\omega$ (amplitud 1) y $3\omega$ (amplitud 0.25); no hay DC ni
+pares. Se verifica $\tilde P_c(t+T/2)=-\sin\omega t+0.25\sin3\omega t=-\tilde P_c(t)$. En la notación de Boyd, $\sin\omega t=\frac{i}{2}e^{-i\omega t}+\cc$,
+así que $P(\omega)=i/2$ y $P(3\omega)=-0.25\,i/2$.
+\item (d), no centrosimétrico: $\tilde P_d=-0.2+\sin\omega t+0.2\cos2\omega t$. Tiene DC $=-0.2$ (\emph{rectificación óptica}), $\omega$ (amplitud 1) y $2\omega$
+(amplitud 0.2, \emph{SHG}). La media onda falla: $\tilde P_d(t+T/2)+\tilde P_d(t)=-0.4+0.4\cos2\omega t\neq0$. Su promedio es distinto de cero porque el electrón
+responde distinto cuando el campo apunta ``hacia arriba'' que cuando apunta ``hacia abajo''.
+\end{itemize}
+\begin{figure}[H]\centering
+\includegraphics[width=0.9\linewidth]{t4b_p36_armonicos.png}
+\caption{Izquierda: las respuestas (c) y (d) de la Fig.~1.5.2 de Boyd frente a la lineal, en función de $t/T$. Derecha: amplitud de cada componente de
+Fourier (FFT sobre un periodo). El medio centrosimétrico solo tiene $\omega$ y $3\omega$; el no centrosimétrico tiene DC, $\omega$ y $2\omega$.}
+\end{figure}
+\codigo{t4b_p36_inversion.py}
+Salida: (c) DC $=0$, $|\omega|=1$, $|2\omega|=0$, $|3\omega|=0.25$, $\max|P(t+T/2)+P(t)|=0$; (d) DC $=-0.2$, $|\omega|=1$, $|2\omega|=0.2$, $|3\omega|=0$, $\max|P(t+T/2)+P(t)|=0.8$.
+
+\inc{b} \textbf{¿Quién puede tener $\chi^{(2)}$ volumétrico?} El criterio es si el medio, promediado a escala de la longitud de onda, tiene centro de inversión.
+\begin{center}
+\begin{tabular}{@{}p{3.2cm}p{2.2cm}p{9.8cm}@{}}\toprule
+Medio & ¿$\chi^{(2)}_{\rm bulk}$? & Razón \\\midrule
+Agua & No & Líquido isótropo: moléculas orientadas al azar; el promedio es invariante ante inversión.\\
+Vidrio de sílice & No & Amorfo e isótropo. (El \emph{poling} térmico congela un campo DC y crea un $\chi^{(2)}_{\rm eff}$; ver abajo.)\\
+Si$_3$N$_4$ amorfo & No & Amorfo e isótropo, igual que la sílice.\\
+Cuarzo cristalino & Sí & Clase 32 ($D_3$), no centrosimétrica: $d_{11}=0.3$~pm/V (Tabla 1.5.3).\\
+Si cristalino & No & Estructura de diamante, $m3m$: hay centro de inversión entre dos átomos vecinos (Fig.~1.5.4, p.~51).\\
+GaAs & Sí & Zincblenda, $\bar43m$: misma red que el diamante, pero los vecinos son de especies distintas y no hay inversión; $d_{36}=370$~pm/V.\\
+LiNbO$_3$ & Sí & Clase 3m, polar (ferroeléctrico).\\
+Nemático & No (en general) & El director es uniaxial, pero $\hat{\mathbf n}\equiv-\hat{\mathbf n}$ (simetría $D_{\infty h}$), así que es centrosimétrico. Solo fases polares
+(nemáticos ferroeléctricos, o cristales líquidos orientados por un campo) rompen la inversión.\\\bottomrule
+\end{tabular}
+\end{center}
+\textbf{SHG débil en guías de SiN y de Si.} El $\chi^{(3)}$ existe en todas las clases, y la inversión se puede romper localmente:
+\begin{itemize}
+\item \emph{Superficies e interfaces:} en las pocas capas atómicas de una interfaz (Si/SiO$_2$, SiN/SiO$_2$, núcleo/aire) no hay inversión. En una guía de
+sección submicrométrica el modo tiene mucho campo en las paredes, y esa contribución de superficie se nota.
+\item \emph{Campos DC} (EFISH): con $\tilde E=E_0+[E(\omega)e^{-i\omega t}+\cc]$, el término de $\chi^{(3)}$ en $2\omega$ viene de las ordenaciones de $(0,\omega,\omega)$, que son 3, así que
+$P(2\omega)=3\epsilon_0\chi^{(3)}E_0E(\omega)^2$, es decir, $\chi^{(2)}_{\rm eff}=3\chi^{(3)}E_0$. Para Si ($\chi^{(3)}\approx1.9\times10^{-19}$~m$^2$/V$^2$, Prob.~38) y $E_0\sim10^7$~V/m
+(campo de una unión p-i-n) se obtiene $\chi^{(2)}_{\rm eff}\sim6\times10^{-12}$~m/V. Las cargas atrapadas en la interfaz, o el campo creado por la propia luz
+(``poling'' óptico en SiN), producen el mismo efecto.
+\item \emph{Deformación:} una deformación \emph{inhomogénea} (por ejemplo, Si bajo una capa tensora de SiN) rompe la simetría de inversión del cristal.
+\item Contribuciones \emph{no locales} de volumen (cuadrupolo eléctrico y dipolo magnético, $\propto\E\,\nabla\E$), mucho menores.
+\end{itemize}
+
+\inc{c} \textbf{GaAs y el ajuste de fase por birrefringencia.} GaAs es cúbico, y por la Tabla 1.5.1 su $\chi^{(1)}$ es diagonal con elementos iguales: es
+\emph{ópticamente isótropo}, sin birrefringencia (Boyd §1.5.13, p.~50). Para ajustar fase en SHG hace falta $n(2\omega)=n(\omega)$, y con dispersión
+normal $n(2\omega)>n(\omega)$ en cualquier dirección y para cualquier polarización. No hay una segunda superficie de índices ($n_e\neq n_o$) que permita compensar.
+Además, para fundamentales por debajo de $\sim$1.7~µm el armónico queda por encima del gap ($E_g=1.42$~eV, $\lambda_g\approx873$~nm) y se absorbe.
+En la práctica se usa cuasi-ajuste de fase (GaAs con orientación periódica, OP-GaAs), birrefringencia de forma en guías de AlGaAs/óxido, o ajuste modal en guías.
+\resultado{Solo los medios sin centro de inversión (cuarzo, GaAs, LiNbO$_3$) tienen $\chi^{(2)}$ volumétrico. En Si y SiN la SHG viene de superficies, campos DC
+y deformación. GaAs tiene un $d$ enorme, pero es isótropo y no permite ajuste por birrefringencia.}
+
+\idea{Inversión implica $\chi^{(\rm par)}=0$ (argumento: $\E\to-\E$, $\mathbf P\to-\mathbf P$). En el tiempo: simetría de media onda, solo armónicos impares
+y promedio nulo. No confundir ``cúbico'' con ``centrosimétrico'' (GaAs es cúbico y no centrosimétrico) ni ``amorfo'' con ``sin $\chi^{(2)}$ efectivo'' (poling, interfaces).
+EFISH: $\chi^{(2)}_{\rm eff}=3\chi^{(3)}E_0$, donde el 3 es el factor de degeneración.}
+
+%=====================================================================
+\sol{37}{Respuesta temporal y Kramers--Kronig [$\star$]}{Boyd §1.6, ecs.~1.6.1–1.6.11, pp.~55–58; §1.7, ecs.~1.7.1–1.7.14, pp.~58–63; Probs.~1.10–1.11}
+\label{sol:37}
+
+Recordatorio (Boyd, ecs.~1.6.1 y 1.6.5, pp.~56–57): $\tilde P^{(1)}(t)=\epsilon_0\int_0^\infty R^{(1)}(\tau)\tilde E(t-\tau)\dd\tau$, de donde
+$\chi^{(1)}(\omega)=\int_0^\infty R^{(1)}(\tau)e^{i\omega\tau}\dd\tau$. El límite inferior 0 es la causalidad. Para $\mathrm{Im}\,\omega>0$ el factor
+$e^{-(\mathrm{Im}\,\omega)\tau}$ hace converger la integral, así que $\chi$ es analítica en el semiplano superior (p.~59), y de ahí salen las relaciones de KK (1.7.5)–(1.7.9).
+
+\inc{a} \textbf{Respuesta instantánea.} Con $R^{(1)}(\tau)=\chi\,\delta(\tau)$ (la delta se entiende contenida entera en $\tau\ge0$, es decir, $\delta(\tau-0^+)$;
+si se partiera por la mitad en el borde aparecería un $\chi/2$ espurio):
+\[
+\chi^{(1)}(\omega)=\int_0^\infty\chi\,\delta(\tau)e^{i\omega\tau}\dd\tau=\chi\,e^{0}=\chi,
+\]
+constante y \emph{real} (porque $R$ es real). Entonces $\tilde P(t)=\epsilon_0\chi\tilde E(t)$: el medio sigue al campo sin retraso. ¿Por qué no hay absorción?
+\begin{itemize}
+\item \emph{Energía.} La potencia que el campo entrega por unidad de volumen es $\langle\tilde E\,\partial_t\tilde P\rangle$. Con $\tilde P=\epsilon_0\chi\tilde E$,
+$\langle\tilde E\,\epsilon_0\chi\,\partial_t\tilde E\rangle=\frac{\epsilon_0\chi}{2}\langle\partial_t(\tilde E^2)\rangle=0$. Para un campo monocromático en la convención de Boyd,
+$\langle\tilde E\,\partial_t\tilde P\rangle=E^*(-i\omega\epsilon_0\chi E)+\cc=2\omega\epsilon_0\,\mathrm{Im}\,\chi\,|E|^2$: la absorción es proporcional a $\mathrm{Im}\,\chi$, que aquí es cero.
+Para disipar, $\tilde P$ tiene que ir \emph{retrasada} respecto de $\tilde E$, y eso requiere memoria ($R$ de ancho finito).
+\item \emph{Kramers--Kronig.} Un $\chi$ real y constante no cumple la hipótesis $\chi\to0$ cuando $|\omega|\to\infty$; KK se aplica a $\chi-\chi_\infty=0$, que es
+trivialmente consistente. Al revés, (1.7.9b) dice que un medio con $\mathrm{Re}\,\chi$ \emph{dependiente} de $\omega$ (dispersión) tiene que absorber en alguna frecuencia.
+La respuesta instantánea es una idealización válida lejos de toda resonancia. Es la misma aproximación que lleva a Kleinman y a la permutación total, que solo valen sin pérdidas (§1.5.5).
+\end{itemize}
+
+\inc{b} \textbf{Debye.} Con $R^{(1)}(\tau)=(\chi_0/\tau_r)e^{-\tau/\tau_r}\Theta(\tau)$:
+\[
+\chi^{(1)}(\omega)=\frac{\chi_0}{\tau_r}\int_0^\infty e^{-\tau/\tau_r}e^{i\omega\tau}\dd\tau=\frac{\chi_0}{\tau_r}\left[\frac{e^{-(1/\tau_r-i\omega)\tau}}{-(1/\tau_r-i\omega)}\right]_0^\infty
+=\frac{\chi_0}{\tau_r}\,\frac{1}{1/\tau_r-i\omega}=\frac{\chi_0}{1-i\omega\tau_r}.
+\]
+(El término en $\infty$ se anula porque $\mathrm{Re}(1/\tau_r-i\omega)=1/\tau_r>0$ para $\omega$ real, y también para todo $\mathrm{Im}\,\omega>-1/\tau_r$.)
+El polo está donde $1-i\omega\tau_r=0$, es decir, en $\omega=1/(i\tau_r)=-i/\tau_r$: en el \textbf{semiplano inferior}, como exige la causalidad. Multiplicando
+por el conjugado:
+\[
+\mathrm{Re}\,\chi^{(1)}=\frac{\chi_0}{1+\omega^2\tau_r^2},\qquad \mathrm{Im}\,\chi^{(1)}=\frac{\chi_0\,\omega\tau_r}{1+\omega^2\tau_r^2}.
+\]
+$\mathrm{Re}\,\chi$ es par e $\mathrm{Im}\,\chi$ impar, como pide (1.7.7), y $\chi\sim i\chi_0/(\omega\tau_r)\to0$ para $|\omega|\to\infty$, que es lo necesario para
+anular el semicírculo grande.
+
+\textbf{Verificación de (1.7.9b):} $\mathrm{Re}\,\chi(\omega)=\frac{2}{\pi}\,\mathcal P\!\int_0^\infty\frac{\omega'\,\mathrm{Im}\,\chi(\omega')}{\omega'^2-\omega^2}\dd\omega'$.
+Llamamos $\alpha=1/\tau_r$ y escribimos $\mathrm{Im}\,\chi(\omega')=\chi_0\alpha\,\omega'/(\omega'^2+\alpha^2)$. Entonces
+\[
+\frac{2}{\pi}\chi_0\alpha\;\mathcal P\!\int_0^\infty\frac{\omega'^2\dd\omega'}{(\omega'^2+\alpha^2)(\omega'^2-\omega^2)}.
+\]
+Fracciones parciales en $u=\omega'^2$: $\dfrac{u}{(u+\alpha^2)(u-\omega^2)}=\dfrac{A}{u+\alpha^2}+\dfrac{B}{u-\omega^2}$. Evaluando en $u=\omega^2$ queda
+$B=\omega^2/(\omega^2+\alpha^2)$, y en $u=-\alpha^2$ queda $A=\alpha^2/(\alpha^2+\omega^2)$. Hacen falta dos integrales:
+\[
+\int_0^\infty\frac{\dd\omega'}{\omega'^2+\alpha^2}=\frac{\pi}{2\alpha},\qquad
+\mathcal P\!\int_0^\infty\frac{\dd\omega'}{\omega'^2-\omega^2}=0.
+\]
+La segunda sale de la primitiva $\frac{1}{2\omega}\ln\left|\frac{\omega'-\omega}{\omega'+\omega}\right|$, que vale 0 en $\omega'=0$ y en $\omega'\to\infty$. Los bordes
+del corte $\omega\mp\delta$ dan $\frac{1}{2\omega}\left[\ln\frac{\delta}{2\omega-\delta}-\ln\frac{\delta}{2\omega+\delta}\right]=\frac{1}{2\omega}\ln\frac{2\omega+\delta}{2\omega-\delta}\to0$. Entonces
+\[
+\frac{2}{\pi}\chi_0\alpha\cdot\frac{\alpha^2}{\alpha^2+\omega^2}\cdot\frac{\pi}{2\alpha}=\frac{\chi_0\alpha^2}{\alpha^2+\omega^2}=\frac{\chi_0}{1+\omega^2\tau_r^2}=\mathrm{Re}\,\chi(\omega).\ \checkmark
+\]
+\textbf{Verificación de (1.7.9a):} $\mathrm{Im}\,\chi(\omega)=-\frac{2\omega}{\pi}\mathcal P\!\int_0^\infty\frac{\mathrm{Re}\,\chi(\omega')}{\omega'^2-\omega^2}\dd\omega'$, con
+$\mathrm{Re}\,\chi(\omega')=\chi_0\alpha^2/(\omega'^2+\alpha^2)$ y
+$\dfrac{1}{(u+\alpha^2)(u-\omega^2)}=\dfrac{1}{\omega^2+\alpha^2}\left[\dfrac{1}{u-\omega^2}-\dfrac{1}{u+\alpha^2}\right]$:
+\[
+-\frac{2\omega}{\pi}\chi_0\alpha^2\cdot\frac{1}{\omega^2+\alpha^2}\left[0-\frac{\pi}{2\alpha}\right]=\frac{\chi_0\,\omega\alpha}{\omega^2+\alpha^2}=\frac{\chi_0\,\omega\tau_r}{1+\omega^2\tau_r^2}=\mathrm{Im}\,\chi(\omega).\ \checkmark
+\]
+\resultado{$\chi^{(1)}(\omega)=\chi_0/(1-i\omega\tau_r)$, con polo en $\omega=-i/\tau_r$ (semiplano inferior). Cumple (1.7.9a) y (1.7.9b) exactamente.
+Numéricamente, para $\omega\tau_r=0.3,\ 1,\ 3$: $\mathrm{Re}\,\chi/\chi_0=0.91743,\ 0.50000,\ 0.10000$ y KK da $0.91740,\ 0.49997,\ 0.09997$. La diferencia de
+$3\times10^{-5}$ es el corte de la integral en $\omega'=2\times10^4/\tau_r$, que deja fuera la cola $\propto1/\omega'$.}
+
+\inc{c} \textbf{Polos del oscilador.} De (Boyd, ec.~1.4.20, p.~26),
+$\chi^{(2)}(2\omega;\omega,\omega)=\dfrac{K}{D(2\omega)D^2(\omega)}$, con $K=Ne^3a/(\epsilon_0m^2)$ y $D(\omega)=\omega_0^2-\omega^2-2i\gamma\omega$.
+\begin{itemize}
+\item Ceros de $D(\omega)$: $\omega^2+2i\gamma\omega-\omega_0^2=0$, así que $\omega=-i\gamma\pm\sqrt{\omega_0^2-\gamma^2}$. Ambos tienen $\mathrm{Im}\,\omega=-\gamma<0$.
+\item Ceros de $D(2\omega)$: $2\omega=-i\gamma\pm\sqrt{\omega_0^2-\gamma^2}$, así que $\omega=-\tfrac{i\gamma}{2}\pm\tfrac12\sqrt{\omega_0^2-\gamma^2}$, con $\mathrm{Im}\,\omega=-\gamma/2<0$.
+Esta es la resonancia de dos fotones en $\omega\approx\omega_0/2$.
+\end{itemize}
+Todos los polos de $\chi^{(2)}(2\omega;\omega,\omega)$ están en el semiplano inferior, así que la función es analítica para $\mathrm{Im}\,\omega\ge0$. Además decae como
+$|\omega|^{-6}$, de modo que la integral sobre el semicírculo grande se anula. Repitiendo el contorno de la Fig.~1.7.1 (valor principal más medio residuo en
+$\omega'=\omega$) se obtiene exactamente (Boyd, ec.~1.7.12, p.~62):
+$\chi^{(2)}(2\omega;\omega,\omega)=\frac{1}{i\pi}\mathcal P\!\int\frac{\chi^{(2)}(2\omega';\omega',\omega')}{\omega'-\omega}\dd\omega'$.
+La regla general: un factor $D(p\,\omega)$ con $p>0$ tiene sus ceros abajo, y con $p<0$ arriba. Por eso (1.7.11) exige $p_i\ge0$.
+
+Ahora $\chi^{(2)}(\omega_1;\omega_3,-\omega_2)=\dfrac{K}{D(\omega_1)D(\omega_3)D(-\omega_2)}$, con $\omega_1=\omega_3-\omega_2$, vista como función de $\omega_2$ con $\omega_3$ fijo:
+\begin{itemize}
+\item $D(-\omega_2)=\omega_0^2-\omega_2^2+2i\gamma\omega_2=0$ da $\omega_2=+i\gamma\pm\sqrt{\omega_0^2-\gamma^2}$: \textbf{semiplano superior}.
+\item $D(\omega_3-\omega_2)=0$ da $\omega_3-\omega_2=-i\gamma\pm\sqrt{\cdot}$, es decir, $\omega_2=\omega_3+i\gamma\mp\sqrt{\cdot}$: también \textbf{arriba}.
+\end{itemize}
+Hay polos en el semiplano superior, así que no vale la relación (1.7.10) en la variable $\omega_2$. De hecho, como \emph{todos} sus polos están arriba, cerrando el
+contorno por abajo se obtiene $\frac{1}{i\pi}\mathcal P\!\int=-\chi$. El programa da una razón KK$/\chi=-1.000$. La razón física es que la respuesta es lineal en
+$E(-\omega_2)=E(\omega_2)^*$ y no en $E(\omega_2)$: la causalidad garantiza la analiticidad en la variable que entra con signo positivo. En cambio, en función de
+$\omega_3$ con $\omega_2$ fijo los polos están abajo y KK sí vale.
+\resultado{$\chi^{(2)}(2\omega;\omega,\omega)$ tiene sus polos en $\omega=-i\gamma\pm\Omega$ y $-i\gamma/2\pm\Omega/2$ (con $\Omega=\sqrt{\omega_0^2-\gamma^2}$), todos
+abajo, y cumple (1.7.12); numéricamente coincide con su transformada KK a 5 cifras. $\chi^{(2)}(\omega_1;\omega_3,-\omega_2)$ tiene polos en $\omega_2=+i\gamma\pm\Omega$
+y en $\omega_3+i\gamma\mp\Omega$, arriba, y no cumple KK en $\omega_2$.}
+
+\inc{d} \textbf{Autoinducido frente a haz auxiliar.} En $\chi^{(3)}(\omega;\omega,\omega,-\omega)$ la frecuencia aparece con los dos signos, de modo que al variar
+$\omega$ varían a la vez una entrada positiva y una negativa. No tiene la forma (1.7.11) (haría falta $p_3=-1<0$). En el modelo (1.4.52),
+$\chi^{(3)}\propto1/[D(\omega)^3D(-\omega)]$, y $D(-\omega)$ aporta polos en $+i\gamma\pm\Omega$, en el semiplano superior. Además no hay un sistema lineal y causal
+``fijo'' que responda: el propio haz modifica el medio que lo afecta.
+
+Con un haz auxiliar, en $\chi^{(3)}(\omega;\omega,\omega_1,-\omega_1)$ con $\omega_1$ fijo solo varía la entrada de la sonda, con $p=1$. La polarización es lineal
+en $E(\omega)$: el bombeo prepara un medio modificado y ese medio responde de forma lineal y causal a la sonda. Es (1.7.14). En el modelo,
+$\chi^{(3)}\propto1/[D(\omega)^2D(\omega_1)D(-\omega_1)]$, y $D(\omega_1)D(-\omega_1)=|D(\omega_1)|^2$ es una constante: solo quedan polos abajo.
+
+El programa lo confirma: en $\omega=0.5\,\omega_0$ el autoinducido vale $3.10+0.42i$ y su ``KK'' da $80.1+160.3i$ (no tiene nada que ver), mientras que el auxiliar vale
+$2.4806+0.3322i$ y su KK da exactamente lo mismo.
+\resultado{Solo hay KK cuando todas las frecuencias que se varían entran con signo positivo (la respuesta es lineal y causal en el campo que se barre). Por eso
+$n_2$ y la TPA se relacionan con KK \emph{no degeneradas} (Sheik-Bahae, Hutchings; Boyd p.~63), no con la forma degenerada.}
+
+\codigo{t4b_p37_kk.py}
+
+\idea{Causalidad en la convención $e^{-i\omega t}$ implica analiticidad en $\mathrm{Im}\,\omega>0$, con polos abajo. Polo de Debye: $-i/\tau_r$. Polos del oscilador:
+$-i\gamma\pm\Omega$. Si una frecuencia entra con signo negativo, sus polos suben y KK falla. Error típico: aplicar KK a $n_2$ autoinducido. Otro error: olvidar
+que KK necesita $\chi\to0$ en el infinito (si no, se aplica a $\chi-\chi_\infty$).}
+
+%=====================================================================
+\sol{38}{Índice no lineal: del $\chi^{(3)}$ a números de laboratorio}{Boyd §1.2.8, ecs.~1.2.12–1.2.14, pp.~10–12; §4.1, ecs.~4.1.9–4.1.20, pp.~207–210; Prob.~1.12, p.~65}
+\label{sol:38}
+
+\inc{a} \textbf{Con la amplitud compleja de Boyd.} La polarización total a $\omega$ es (Boyd, ec.~1.2.17 con un solo campo, p.~13)
+\[
+P(\omega)=\epsilon_0\chi^{(1)}E+3\epsilon_0\chi^{(3)}|E|^2E\equiv\epsilon_0\chi_{\rm eff}E,\qquad \chi_{\rm eff}=\chi^{(1)}+3\chi^{(3)}|E|^2.
+\]
+El 3 es el factor de degeneración de $(\omega,\omega,-\omega)$: $3!/2!=3$ ordenaciones. Entonces $n^2=1+\chi_{\rm eff}$. Escribimos $n=n_0+\Delta n$ con
+$n_0^2=1+\chi^{(1)}$ y desarrollamos a primer orden:
+\[
+(n_0+\Delta n)^2\simeq n_0^2+2n_0\Delta n=1+\chi^{(1)}+3\chi^{(3)}|E|^2\ \Rightarrow\ \Delta n=\frac{3\chi^{(3)}|E|^2}{2n_0}.
+\]
+Con $I=2n_0\epsilon_0c|E|^2$ (Boyd, ec.~4.1.16, p.~210), $|E|^2=I/(2n_0\epsilon_0c)$, y
+\[
+\Delta n=\frac{3\chi^{(3)}}{2n_0}\cdot\frac{I}{2n_0\epsilon_0c}=\frac{3\chi^{(3)}}{4n_0^2\epsilon_0c}\,I\ \Rightarrow\ n_2=\frac{3\chi^{(3)}}{4n_0^2\epsilon_0c}.
+\]
+\textbf{Con la amplitud real.} Ahora $\tilde E=\mathcal E\cos\omega t$ (1.2.12). Usando $\cos^3\omega t=\frac34\cos\omega t+\frac14\cos3\omega t$, la parte en $\omega$ es
+$\tilde P(\omega)=\epsilon_0[\chi^{(1)}+\frac34\chi^{(3)}\mathcal E^2]\mathcal E\cos\omega t$ (1.2.13). Entonces
+\[
+2n_0\Delta n=\tfrac34\chi^{(3)}\mathcal E^2\ \Rightarrow\ \Delta n=\frac{3\chi^{(3)}\mathcal E^2}{8n_0},\qquad
+I=\tfrac12n_0\epsilon_0c\mathcal E^2\Rightarrow\mathcal E^2=\frac{2I}{n_0\epsilon_0c},
+\]
+\[
+\Delta n=\frac{3\chi^{(3)}}{8n_0}\cdot\frac{2I}{n_0\epsilon_0c}=\frac{3\chi^{(3)}}{4n_0^2\epsilon_0c}\,I.
+\]
+Los dos caminos coinciden, como debe ser, porque $\mathcal E=2|E|$ y $\frac12n_0\epsilon_0c(2|E|)^2=2n_0\epsilon_0c|E|^2$.
+\resultado{$n_2=\dfrac{3\chi^{(3)}}{4n_0^2\epsilon_0c}$ por ambos caminos, que es (Boyd, ec.~4.1.19, p.~210). La forma impresa en (1.2.14b),
+$3/(2n_0^2\epsilon_0c)$, con la misma definición $I=\frac12n_0\epsilon_0c\mathcal E^2$ que da el propio texto, es una \textbf{errata}: sobra un factor 2.}
+
+\inc{b} \textbf{El número 283.} $\dfrac{3}{4\epsilon_0c}=\dfrac{3}{4(8.854\times10^{-12})(2.998\times10^{8})}=\dfrac{3}{1.0618\times10^{-2}}=\SI{282.5}{V/A}$
+(es $\frac34Z_0$, con $Z_0=1/\epsilon_0c=376.7~\Omega$). Unidades: (m$^2$/V$^2$)(V/A) = m$^2$/(V·A) = m$^2$/W. Por tanto
+$n_2[\mathrm{m^2/W}]=283\,\chi^{(3)}[\mathrm{m^2/V^2}]/n_0^2$ (Boyd, ec.~4.1.20). (Con la (1.2.14b) impresa saldría 565: el doble.)
+\begin{itemize}
+\item Sílice: $n_2=283\times1.8\times10^{-22}/1.45^2=5.09\times10^{-20}/2.1025=\SI{2.42e-20}{m^2/W}$ ($=2.4\times10^{-16}$~cm$^2$/W).
+\item Si$_3$N$_4$: $\chi^{(3)}=n_2n_0^2/283=(2.4\times10^{-19})(4.0)/282.5=\SI{3.40e-21}{m^2/V^2}$.
+\item Si: $\chi^{(3)}=(4.5\times10^{-18})(3.48^2)/282.5=(4.5\times10^{-18})(12.11)/282.5=\SI{1.93e-19}{m^2/V^2}$.
+\end{itemize}
+\textbf{Comparación.} $1/E_{\rm at}^2=(5.14\times10^{11})^{-2}=3.78\times10^{-24}$~m$^2$/V$^2$ (1.1.4), y la estimación (1.4.56) es $3.44\times10^{-22}$~m$^2$/V$^2$:
+\begin{center}
+\begin{tabular}{@{}lcccc@{}}\toprule
+Material & $\chi^{(3)}$ (m$^2$/V$^2$) & $\chi^{(3)}E_{\rm at}^2$ & $\chi^{(3)}/(1.4.56)$ & $\hbar\omega_0$ del modelo (eV)\\\midrule
+Sílice & $1.8\times10^{-22}$ & 48 & 0.52 & 6.8\\
+Si$_3$N$_4$ & $3.4\times10^{-21}$ & 898 & 9.9 & 4.1\\
+Si & $1.9\times10^{-19}$ & $5.1\times10^4$ & 561 & 2.1\\\bottomrule
+\end{tabular}
+\end{center}
+$1/E_{\rm at}^2$ es una cota inferior burda: no tiene en cuenta que $\chi^{(1)}\gg$ o $\ll1$ ni lo cerca que esté la resonancia. (1.4.56) acierta con la sílice
+(gap grande, unos 9~eV) pero se queda corta en dos y tres órdenes de magnitud con SiN y Si. La razón es que $\chi^{(3)}\propto\omega_0^{-6}$ en (1.4.55): materiales de
+gap pequeño están más cerca de la resonancia. Hay una manera sencilla de verlo con el propio modelo. Se toma $N=1/d^3$ ($d=3$~Å), se despeja $\omega_0$ de
+$n_0^2-1=Ne^2/(\epsilon_0m\omega_0^2)$ (1.4.17) y se sustituye en (1.4.55): $\chi^{(3)}\simeq\epsilon_0^2d^4(\chi^{(1)})^3/e^2$. Esto da
+$3.3\times10^{-23}$, $6.7\times10^{-22}$ y $3.4\times10^{-20}$~m$^2$/V$^2$, y los valores reales son unas 5 veces mayores en los \emph{tres} casos. La tendencia de casi
+cuatro órdenes de magnitud entre sílice y Si se explica por $(\chi^{(1)})^3$: $(11.1/1.10)^3\approx1.0\times10^3$, contra $1.07\times10^3$ medido. En el Si a 1550~nm se
+suma además la cercanía a la resonancia de dos fotones ($2\hbar\omega=1.6~\mathrm{eV}>E_g=1.12$~eV), que también trae TPA.
+
+\inc{c} \textbf{Sílice a 1 GW/cm$^2$.} $I=10^9$~W/cm$^2=10^{13}$~W/m$^2$:
+\[
+\Delta n=n_2I=(2.42\times10^{-20})(10^{13})=2.4\times10^{-7},
+\]
+\[
+\phi_{NL}=k_0\,\Delta n\,L=\frac{2\pi}{1.064\times10^{-6}\ \mathrm m}(2.42\times10^{-7})(0.01\ \mathrm m)=\SI{0.0143}{rad}.
+\]
+\textbf{Comparación con el Prob.~4} (1~MW pico, $W_0=20$~µm, vidrio $n\approx1.5$; usamos el $n_2$ de la sílice). Allí
+$I_0=2P/\pi W_0^2=1.59\times10^{15}$~W/m$^2$, 160 veces más, así que $\Delta n=3.9\times10^{-5}$. El foco solo es intenso a lo largo de unos $2z_0=3.5$~mm. Integrando
+$I(z)=I_0/(1+z^2/z_0^2)$ sobre un cristal largo, $\int\dd z/(1+z^2/z_0^2)=\pi z_0$, y
+\[
+\phi_{NL}=k_0n_2I_0\,\pi z_0=(5.905\times10^6)(3.85\times10^{-5})(\pi\times1.77\times10^{-3})\approx\SI{1.3}{rad}.
+\]
+La fase ya es del orden de 1~rad: la automodulación de fase y el autoenfoque son apreciables. La potencia crítica (Boyd, ec.~7.1.1, p.~329),
+$P_{\rm cr}=\pi(0.61)^2\lambda_0^2/(8n_0n_2)=4.7$~MW, es mayor que la potencia del pulso ($P/P_{\rm cr}=0.21$), así que el haz no colapsa. Compárese con la
+estimación del Prob.~4, $|P^{(3)}/P^{(1)}|\sim3\times10^{-6}$: aquí $\Delta n/n=3.9\times10^{-5}/1.5=2.6\times10^{-5}$, unas diez veces más, porque el
+$\chi^{(3)}$ real de la sílice es unas 50 veces $1/E_{\rm at}^2$. Sigue siendo una perturbación diminuta. Aun así, multiplicado por $k_0L\sim10^4$ produce fases de orden 1. Esa es la razón por la que los efectos de $\chi^{(3)}$ ``pequeños'' importan en
+fibras y guías: son acumulativos.
+\resultado{$\Delta n=2.4\times10^{-7}$ y $\phi_{NL}=0.014$~rad en 1~cm a 1~GW/cm$^2$. En el foco del Prob.~4, $\phi_{NL}\approx1.3$~rad.}
+
+\inc{d} \textbf{Prob.~1.12: haz fuerte más haz débil.} Con $E(\omega)=E_1e^{i\kv_1\cdot\rv}+E_2e^{i\kv_2\cdot\rv}$ y $|E_2|\ll|E_1|$, en
+$P^{(3)}(\omega)=3\epsilon_0\chi^{(3)}|E|^2E$:
+\[
+|E|^2=|E_1|^2+E_1E_2^*e^{i(\kv_1-\kv_2)\cdot\rv}+E_1^*E_2e^{i(\kv_2-\kv_1)\cdot\rv}+O(|E_2|^2).
+\]
+Multiplicando por $E=E_1e^{i\kv_1\cdot\rv}+E_2e^{i\kv_2\cdot\rv}$ y quedándonos con los términos de orden 0 y 1 en $E_2$:
+\begin{align*}
+|E|^2E&=|E_1|^2E_1e^{i\kv_1\cdot\rv}+|E_1|^2E_2e^{i\kv_2\cdot\rv}+E_1E_2^*E_1e^{i(2\kv_1-\kv_2)\cdot\rv}+E_1^*E_2E_1e^{i\kv_2\cdot\rv}+O(E_2^2)\\
+&=|E_1|^2E_1e^{i\kv_1\cdot\rv}+2|E_1|^2E_2e^{i\kv_2\cdot\rv}+E_1^2E_2^*e^{i(2\kv_1-\kv_2)\cdot\rv}.
+\end{align*}
+\[
+P^{(3)}(\omega)=3\epsilon_0\chi^{(3)}\Big[\underbrace{|E_1|^2E_1e^{i\kv_1\cdot\rv}}_{\text{SPM del fuerte}}
++\underbrace{2|E_1|^2E_2e^{i\kv_2\cdot\rv}}_{\text{XPM sobre el débil}}
++\underbrace{E_1^2E_2^*e^{i(2\kv_1-\kv_2)\cdot\rv}}_{\text{onda nueva en }2\kv_1-\kv_2}\Big].
+\]
+\begin{itemize}
+\item \textbf{SPM:} el haz fuerte cambia su propio índice en $\Delta n=n_2I_1$.
+\item \textbf{XPM con factor 2:} el débil ve $\Delta n=2n_2I_1$. Una mitad es el cambio uniforme de índice por $|E_1|^2$. La otra mitad es que $E_1$ se difracta en la red de
+índice $\propto E_1^*E_2e^{i(\kv_2-\kv_1)\cdot\rv}$ formada por la interferencia de los dos haces y sale justo en la dirección $\kv_2$. Es el ``weak-wave retardation''
+(Boyd, ecs.~4.1.12–4.1.14, p.~209) y el mismo 6 frente a 3 de (1.2.17).
+\item \textbf{Onda en $2\kv_1-\kv_2$:} $E_1$ se difracta en la red conjugada $E_1E_2^*e^{i(\kv_1-\kv_2)\cdot\rv}$ (mezcla de cuatro ondas degenerada o autodifracción). Para
+haces no colineales $|2\kv_1-\kv_2|\neq n\omega/c$, la onda no está en fase y solo radia bien en medios delgados (difracción de Raman--Nath).
+\end{itemize}
+
+\codigo{t4b_p38_n2.py}
+
+\idea{$n_2=3\chi^{(3)}/(4n_0^2\epsilon_0c)$, o $283\,\chi^{(3)}/n_0^2$ en SI. El 3 es la degeneración y el 4 sale de $2n_0\Delta n$ por $I=2n_0\epsilon_0c|E|^2$. La
+(1.2.14b) impresa tiene un 2 de más: verificar siempre con la definición de $I$. XPM $=2\times$SPM. La fase no lineal es acumulativa: $\Delta n\sim10^{-7}$ ya da
+fracciones de radián en centímetros.}
+
+%=====================================================================
+\sol{39}{Problema integrador: del oscilador al cristal [$\star$]}{Boyd §1.4.1, ecs.~1.4.17–1.4.21, pp.~25–26; §1.5.7; §2.3, ecs.~2.3.8–2.3.11, p.~83; Saleh §6.3C, ec.~6.3-15, p.~221; Boyd Prob.~1.2}
+\label{sol:39}
+
+Datos: $\omega_0=1.2\times10^{16}$~rad/s, $N=5\times10^{28}$~m$^{-3}$, $d=3.5$~Å; $e=1.602\times10^{-19}$~C, $m=9.109\times10^{-31}$~kg.
+
+\inc{a} \textbf{Lorentz sin amortiguamiento} (Boyd, ec.~1.4.17 con $\gamma=0$): $\chi^{(1)}(\omega)=\dfrac{\omega_p^2}{\omega_0^2-\omega^2}$, con
+\[
+\omega_p^2=\frac{Ne^2}{\epsilon_0m}=\frac{(5\times10^{28})(1.602\times10^{-19})^2}{(8.854\times10^{-12})(9.109\times10^{-31})}=\frac{1.283\times10^{-9}}{8.065\times10^{-42}}=\SI{1.591e32}{rad^2/s^2},
+\]
+y $\omega_0^2=1.440\times10^{32}$~rad$^2$/s$^2$, así que $\chi^{(1)}(0)=1.105$.
+\begin{itemize}
+\item 1064~nm: $\omega=2\pi c/\lambda=1.7704\times10^{15}$~rad/s, $\omega^2=3.134\times10^{30}$, $\chi^{(1)}=1.591/(1.440-0.0313)=1.1295$, de donde
+$n=\sqrt{2.1295}=1.4593$.
+\item 532~nm: $\omega=3.5408\times10^{15}$~rad/s, $\omega^2=1.2537\times10^{31}$, $\chi^{(1)}=1.591/(1.440-0.1254)=1.2103$, de donde $n=\sqrt{2.2103}=1.4867$.
+\end{itemize}
+\resultado{$n(1064)=1.459$ y $n(532)=1.487$. Sí hay dispersión normal ($dn/d\omega>0$, porque $\omega<\omega_0$): $n(2\omega)-n(\omega)=0.0274$.}
+
+\inc{b} \textbf{$\chi^{(2)}$ del oscilador.} De (Boyd, ec.~1.4.20, p.~26) con $\gamma=0$ y $a=\omega_0^2/d$ (1.4.30):
+\[
+\chi^{(2)}(2\omega;\omega,\omega)=\frac{Ne^3a}{\epsilon_0m^2}\,\frac{1}{D(2\omega)D^2(\omega)},\qquad a=\frac{1.44\times10^{32}}{3.5\times10^{-10}}=\SI{4.114e41}{m^{-1}s^{-2}}.
+\]
+El prefactor vale
+$\dfrac{(5\times10^{28})(4.111\times10^{-57})(4.114\times10^{41})}{(8.854\times10^{-12})(8.297\times10^{-61})}=\dfrac{8.458\times10^{13}}{7.347\times10^{-72}}=1.151\times10^{85}$ (SI).
+\begin{itemize}
+\item No resonante, $D\to\omega_0^2$: $\chi^{(2)}=1.151\times10^{85}/(1.44\times10^{32})^3=1.151\times10^{85}/2.986\times10^{96}=\SI{3.86e-12}{m/V}$.
+\item Completa: $D(\omega)=1.4087\times10^{32}$ y $D(2\omega)=1.3146\times10^{32}$, de modo que
+$\chi^{(2)}=1.151\times10^{85}/[(1.3146\times10^{32})(1.4087\times10^{32})^2]=1.151\times10^{85}/2.609\times10^{96}=\SI{4.41e-12}{m/V}$.
+\end{itemize}
+El cociente es $\frac{\omega_0^2}{D(2\omega)}\left(\frac{\omega_0^2}{D(\omega)}\right)^2=1.0954\times1.0222^2=1.145$. Equivale, por Miller (1.4.21), a
+$\chi^{(1)}(2\omega)[\chi^{(1)}(\omega)]^2/[\chi^{(1)}(0)]^3$. El factor que más pesa es el del armónico, que está más cerca de la resonancia.
+\resultado{$\chi^{(2)}=4.4\times10^{-12}$~m/V con la fórmula completa, frente a $3.9\times10^{-12}$~m/V no resonante: la dispersión lo sube un 14.5\,\%. Es del orden de
+la Tabla 1.5.3: $d=\chi^{(2)}/2=2.2$~pm/V, igual al $d_{22}$ del BBO.}
+
+\inc{c} \textbf{Ajuste de fase tipo I.} El modelo tal como está es \emph{isótropo}: una sola $\omega_0$ y, por tanto, un solo índice. Así que, como dice el enunciado,
+\emph{supongamos} que los osciladores a lo largo de $z$ tienen otra resonancia y que, en consecuencia, $n_e(532)<n_o(532)$. Tomamos $n_o(\lambda)$ como el índice del inciso (a). Para un
+uniaxial negativo, tipo I ($ooe$): $n_e(2\omega,\theta)=n_o(\omega)$ (Boyd, ec.~2.3.9), con el elipsoide de índices (Saleh, ec.~6.3-15, p.~221; Boyd, ec.~2.3.8)
+\[
+\frac{1}{n_e(2\omega,\theta)^2}=\frac{\cos^2\theta}{n_o(2\omega)^2}+\frac{\sin^2\theta}{n_e(2\omega)^2}=\frac{1}{n_o(\omega)^2}.
+\]
+Usando $\cos^2\theta=1-\sin^2\theta$ y despejando:
+\[
+\sin^2\theta_{pm}=\frac{n_o(\omega)^{-2}-n_o(2\omega)^{-2}}{n_e(2\omega)^{-2}-n_o(2\omega)^{-2}}\qquad(\text{Boyd, ec.~2.3.11, p.~83}).
+\]
+Con los números del modelo, el numerador es $1.4593^{-2}-1.4867^{-2}=0.46958-0.45243=0.01715$. Como $\sin^2\theta\le1$, hace falta que el denominador sea al menos
+igual al numerador, es decir, $n_e(2\omega)\le n_o(\omega)$. Llamando $B=n_o(532)-n_e(532)$ a la birrefringencia del armónico:
+\[
+B\ \ge\ B_{\min}=n_o(2\omega)-n_o(\omega)=0.0274.
+\]
+Es decir, la birrefringencia debe superar la dispersión entre 1064 y 532~nm. Con $B=B_{\min}$ el ajuste es a $\theta=90^\circ$ (no crítico, sin walk-off), y para $B$
+mayor $\theta$ baja:
+\begin{center}
+\begin{tabular}{@{}cccccc@{}}\toprule
+$B=n_o-n_e$ a 532 nm & 0.0274 & 0.030 & 0.050 & 0.080 & 0.120\\
+$n_e(532)$ & 1.4593 & 1.4567 & 1.4367 & 1.4067 & 1.3667\\
+$\theta_{pm}$ & $90.0^\circ$ & $72.7^\circ$ & $47.1^\circ$ & $34.7^\circ$ & $27.1^\circ$\\\bottomrule
+\end{tabular}
+\end{center}
+Con una birrefringencia como la del BBO ($B\approx0.12$) saldría $\theta\approx27^\circ$. Es algo mayor que los $22.9^\circ$ del BBO, porque el modelo tiene más
+dispersión ($0.0274$ contra $0.0198$ del BBO). Dentro del propio modelo: para el ajuste a $90^\circ$ bastaría que la resonancia extraordinaria fuera
+$\omega_{0z}=\sqrt{\omega_p^2/\chi_z+\omega_{532}^2}$ con $\chi_z=n_o(1064)^2-1$, es decir, $\omega_{0z}=1.239\times10^{16}$~rad/s. Es solo un 3.2\,\% mayor que $\omega_0$:
+una anisotropía pequeña del ``resorte'' basta para ajustar fase.
+\begin{figure}[H]\centering
+\includegraphics[width=0.7\linewidth]{t4b_p39_theta_pm.png}
+\caption{Ángulo de ajuste de fase tipo I del cristal modelo (1064~nm a 532~nm) en función de la birrefringencia supuesta del armónico. Por debajo de
+$B_{\mathrm{min}}=0.0274$ no hay solución.}
+\end{figure}
+
+\inc{d} \textbf{$P(2\omega)$ con el haz del Prob.~1.2 de Boyd} (1~W en una mancha de 30~µm de diámetro). Tomando $d_{\rm eff}=\chi^{(2)}/2=2.21$~pm/V (sin
+factor angular, como pide la hoja de respuestas):
+\[
+I=\frac{1\ \mathrm W}{\pi(15\times10^{-6}\ \mathrm m)^2}=\SI{1.415e9}{W/m^2},
+\]
+\[
+|E|=\sqrt{\frac{I}{2n\epsilon_0c}}=\sqrt{\frac{1.415\times10^9}{2(1.459)(8.854\times10^{-12})(2.998\times10^8)}}=\SI{4.27e5}{V/m},
+\]
+\[
+P(2\omega)=2\epsilon_0d_{\rm eff}|E|^2=\epsilon_0\chi^{(2)}|E|^2=(8.854\times10^{-12})(4.41\times10^{-12})(1.826\times10^{11})=\SI{7.1e-12}{C/m^2}.
+\]
+Aquí se usó $n=n(1064)=1.459$, el índice del cristal modelo, y así sale el $7\times10^{-12}$ de la hoja de respuestas. Con el $n=2$ del enunciado original del
+Prob.~1.2 sería $|E|=3.65\times10^5$~V/m y $P(2\omega)=5.2\times10^{-12}$~C/m$^2$; con el $\chi^{(2)}$ no resonante, $6.2\times10^{-12}$~C/m$^2$. Es unas 7 veces
+menor que en el Prob.~29(b) ($4.7\times10^{-11}$), porque allí $\chi^{(2)}=4\times10^{-11}$~m/V es 9 veces mayor. En un cristal real 3m el factor angular reduce
+algo más: si la no linealidad entrara por $d_{22}$, el factor sería $\cos\theta_{pm}$, por ejemplo $0.82$ para $B=0.08$.
+\resultado{$P(2\omega)\approx7\times10^{-12}$~C/m$^2$ (con $n=1.459$ y $d_{\rm eff}=\chi^{(2)}/2$).}
+
+\codigo{t4b_p39_integrador.py}
+
+\idea{Toda la cadena con un solo modelo: $\omega_0$ y $N$ dan $n(\lambda)$ y la dispersión normal. Con $a=\omega_0^2/d$ dan $\chi^{(2)}$, y Miller dice cuánto sube cerca
+de la resonancia. Se ajusta fase si la birrefringencia supera la dispersión $n(2\omega)-n(\omega)$, y $d_{\rm eff}$ más $|E|$ dan $P(2\omega)$. Errores típicos: usar
+$I=\frac12n\epsilon_0c|E|^2$ con la amplitud de Boyd (es $2n\epsilon_0c|E|^2$), olvidar que el $n$ que entra en $|E|$ es el del cristal, y despejar
+$\sin^2\theta$ sin comprobar que sea $\le1$.}

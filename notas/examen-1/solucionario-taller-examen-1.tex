@@ -1,0 +1,42 @@
+\documentclass[10pt]{article}
+% Solucionario completo del taller de repaso del Examen 1 (temas 1–4).
+% Compilar con XeLaTeX (dos pasadas) o Tectonic:  tectonic solucionario-taller-examen-1.tex
+% Las soluciones de cada tema están en solucionario/temaN.tex; el código, en solucionario/codigo/.
+\def\solroot{solucionario/}
+\input{solucionario/preambulo}
+
+\title{\color{tema}Solucionario del taller de repaso — Examen 1\\[2pt]\large Temas 1–4: ondas EM, haz gaussiano, absorción y dispersión, pulsos,\\ polarización y cristales, susceptibilidad óptica no lineal}
+\author{Óptica No Lineal · Universidad Nacional de Colombia, Sede Medellín · 2026-II\\
+\small Preparado para Juan E. Rodríguez Ochoa a partir de Saleh \& Teich, \emph{Fundamentals of Photonics}, 2.ª ed. (2007)\\
+\small y Boyd, \emph{Nonlinear Optics}, 3.ª ed. (2008)}
+\date{Noviembre de 2026}
+
+\begin{document}
+\maketitle
+\thispagestyle{fancy}
+
+\section*{Cómo usar este solucionario}
+\begin{itemize}
+\item La numeración coincide con la de \texttt{taller-repaso-examen-1.pdf}. Cada solución repite la idea del enunciado, desarrolla la derivación paso a paso, cita la fuente (página del libro) y termina con el resultado en un recuadro y una \emph{idea clave} para el examen.
+\item Temas 1–3: convención de Saleh ($e^{j\omega t}$, $\mathcal E=\mathrm{Re}\{Ee^{j\omega t}\}$, $I=|E|^2/2\eta$, $\chi''<0$ si absorbe). Tema 4: convención de Boyd ($\tilde E=Ee^{-i\omega t}+\cc$, $I=2n\epsilon_0c|E|^2$, SI).
+\item Los problemas numéricos [N] traen el programa en Python usado (carpeta \texttt{solucionario/codigo/}) y sus figuras. Se corrieron con Python 3.11, numpy, scipy y matplotlib.
+\item Constantes: $c_0=\SI{2.99792458e8}{m/s}$, $\epsilon_0=\SI{8.8541878e-12}{F/m}$, $\mu_0=4\pi\times10^{-7}$ H/m, $e=\SI{1.602177e-19}{C}$, $m_e=\SI{9.10938e-31}{kg}$, $a_0=\SI{0.529177e-10}{m}$.
+\end{itemize}
+
+\tableofcontents
+\clearpage
+
+\section{Tema 1 — Ondas electromagnéticas}
+\InputIfFileExists{solucionario/tema1}{}{\typeout{falta tema1}}
+\clearpage
+\section{Tema 2 — Haz gaussiano, absorción y dispersión, pulsos}
+\InputIfFileExists{solucionario/tema2}{}{\typeout{falta tema2}}
+\clearpage
+\section{Tema 3 — Polarización y cristales ópticos}
+\InputIfFileExists{solucionario/tema3}{}{\typeout{falta tema3}}
+\clearpage
+\section{Tema 4 — Susceptibilidad óptica no lineal}
+\InputIfFileExists{solucionario/tema4a}{}{\typeout{falta tema4a}}
+\InputIfFileExists{solucionario/tema4b}{}{\typeout{falta tema4b}}
+
+\end{document}

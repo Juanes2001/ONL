@@ -1,0 +1,605 @@
+% Solucionario, Tema 1 — Ondas electromagnéticas (Saleh 5.1, 5.2, 5.4, 2.2). Problemas 1 a 7.
+% Convención de Saleh en todo el tema: E(r,t)=Re{E(r)e^{jωt}}, I=|E|^2/2η. El Prob. 4 compara con Boyd.
+
+\noindent\textbf{Convención del tema.} Se usa la de Saleh y Teich: campos reales en caligráfica,
+$\Ec(\rv,t)=\mathrm{Re}\{\E(\rv)e^{j\omega t}\}$, una onda que avanza en $+z$ es $e^{-jkz}$ e
+$I=|E|^2/2\eta$ con $\eta=\eta_0/n$ (Saleh, ecs.~5.3-1 y 5.4-8, pp.~162 y 166). Solo en el
+Problema~4 aparece además la de Boyd, $\tilde E=Ee^{-i\omega t}+\cc$ e $I=2n\epsilon_0c|E|^2$
+(Boyd, ec.~2.2.16, p.~77), y allí se dice explícitamente.
+
+%=====================================================================
+\sol{1}{Ecuación de onda con fuente no lineal}{Saleh §5.1 (pp.~153--154) y §5.2B, ecs.~5.2-16 a 5.2-25 (pp.~159--161); Boyd §2.1, ecs.~2.1.9b--2.1.11 (pp.~71--72).}\label{sol:1}
+
+\inc{a} \textbf{Deducción.} Partimos de las ecuaciones de Maxwell en un medio sin cargas ni
+corrientes libres (Saleh, ecs.~5.1-7 a 5.1-10, p.~154):
+\begin{equation*}
+\nabla\times\Hc=\frac{\partial\Dc}{\partial t},\qquad
+\nabla\times\Ec=-\frac{\partial\Bc}{\partial t},\qquad
+\nabla\cdot\Dc=0,\qquad \nabla\cdot\Bc=0,
+\end{equation*}
+con las relaciones $\Dc=\epsilon_0\Ec+\Pc$ (5.1-11) y, por ser el medio no magnético
+($\boldsymbol{\mathcal M}=0$), $\Bc=\mu_0\Hc$ (5.1-12).
+
+\emph{Paso 1: rotacional de la ley de Faraday.}
+$\nabla\times(\nabla\times\Ec)=-\nabla\times\partial_t\Bc=-\mu_0\,\partial_t(\nabla\times\Hc)$, donde se
+intercambió $\nabla$ con $\partial_t$ (las coordenadas espaciales y el tiempo son independientes) y
+se sacó $\mu_0$ porque es constante.
+
+\emph{Paso 2: ley de Ampère--Maxwell.} Sustituyendo $\nabla\times\Hc=\partial_t\Dc$:
+\begin{equation*}
+\nabla\times(\nabla\times\Ec)=-\mu_0\frac{\partial^2\Dc}{\partial t^2}
+=-\mu_0\epsilon_0\frac{\partial^2\Ec}{\partial t^2}-\mu_0\frac{\partial^2\Pc}{\partial t^2}.
+\end{equation*}
+Esta forma (Boyd, ec.~2.1.9b, p.~71) es completamente general: no supone nada del medio salvo que
+no es magnético.
+
+\emph{Paso 3: identidad vectorial.} Con $\nabla\times(\nabla\times\Ec)=\nabla(\nabla\cdot\Ec)-\nabla^2\Ec$
+(Saleh, p.~153) se obtiene la ec.~5.2-24 (Saleh, p.~161):
+\begin{equation*}
+\nabla(\nabla\cdot\Ec)-\nabla^2\Ec=-\frac{1}{c_0^2}\frac{\partial^2\Ec}{\partial t^2}-\mu_0\frac{\partial^2\Pc}{\partial t^2},
+\qquad \epsilon_0\mu_0=\frac1{c_0^2}.
+\end{equation*}
+
+\emph{Paso 4: aquí se usa que el medio es homogéneo e isótropo.} Hay que eliminar
+$\nabla(\nabla\cdot\Ec)$. La única información sobre $\nabla\cdot\Ec$ es $\nabla\cdot\Dc=0$. En un medio
+lineal $\Dc=\epsilon\Ec$; entonces
+\begin{equation*}
+0=\nabla\cdot(\epsilon\Ec)=\epsilon\,\nabla\cdot\Ec+\nabla\epsilon\cdot\Ec .
+\end{equation*}
+Para concluir $\nabla\cdot\Ec=0$ se necesitan \emph{dos} cosas: que $\epsilon$ sea un escalar (isotropía;
+si fuera un tensor, $\nabla\cdot(\boldsymbol\epsilon\Ec)$ no se factoriza así) y que no dependa de la
+posición, $\nabla\epsilon=0$ (homogeneidad). Con ambas, $\nabla\cdot\Ec=0$ y el término
+$\nabla(\nabla\cdot\Ec)$ desaparece. Cambiando el signo de toda la ecuación:
+\resultado{$\displaystyle \nabla^2\Ec-\frac{1}{c_0^2}\frac{\partial^2\Ec}{\partial t^2}=\mu_0\frac{\partial^2\Pc}{\partial t^2}$
+\quad (Saleh, ec.~5.2-25, p.~161). El paso que exige homogeneidad e isotropía es
+$\nabla\cdot\Dc=0\Rightarrow\nabla\cdot\Ec=0$.}
+\emph{Sutileza.} En un medio \emph{no lineal}, aunque sea homogéneo e isótropo,
+$\nabla\cdot\Ec=-\nabla\cdot\Pc_{NL}/\epsilon$ no es exactamente cero (Boyd, p.~71). Se desprecia
+porque se anula para una onda plana transversal infinita y es pequeño cuando la envolvente varía
+lentamente (Boyd, p.~72). Saleh lo da por cero sin comentarlo.
+
+\inc{b} Escribimos $\Pc=\epsilon_0\chi^{(1)}\Ec+\Pc_{NL}$ (el primer término es la respuesta lineal,
+no dispersiva, con $\chi^{(1)}$ constante) y sustituimos en el lado derecho de (5.2-25):
+\begin{equation*}
+\nabla^2\Ec-\frac{1}{c_0^2}\frac{\partial^2\Ec}{\partial t^2}
+=\mu_0\epsilon_0\chi^{(1)}\frac{\partial^2\Ec}{\partial t^2}+\mu_0\frac{\partial^2\Pc_{NL}}{\partial t^2}
+=\frac{\chi^{(1)}}{c_0^2}\frac{\partial^2\Ec}{\partial t^2}+\mu_0\frac{\partial^2\Pc_{NL}}{\partial t^2}.
+\end{equation*}
+Pasando el término lineal a la izquierda y agrupando:
+\resultado{$\displaystyle \nabla^2\Ec-\frac{n^2}{c_0^2}\frac{\partial^2\Ec}{\partial t^2}=\mu_0\frac{\partial^2\Pc_{NL}}{\partial t^2},
+\qquad n^2=1+\chi^{(1)}$ \quad (es la ec.~1.1.5 de Boyd, p.~4, con $\mu_0=1/\epsilon_0c^2$).}
+\textbf{Interpretación.} El lado izquierdo es el operador de onda del medio lineal, con velocidad
+$c_0/n$: la parte lineal de la polarización solo cambia la velocidad de la luz. El lado derecho es
+un término fuente, igual que la corriente de una antena: $\Pc_{NL}$ es una densidad de dipolos y
+$\partial_t\Pc_{NL}$ una densidad de corriente de polarización; su segunda derivada es la
+\emph{aceleración} de las cargas ligadas, y una carga acelerada radia. Si $\Pc_{NL}$ oscila a
+$2\omega$, $\omega_1+\omega_2$, etc., esos dipolos radian campos a esas frecuencias nuevas, que no
+estaban en la onda incidente. Toda la óptica no lineal (SHG, SFG, efecto Kerr) consiste en resolver
+esta ecuación con la fuente adecuada.
+
+\inc{c} En un medio anisótropo lineal, $D_i=\sum_j\epsilon_{ij}E_j$ (Saleh, ec.~5.2-22, p.~160). Entonces
+\begin{equation*}
+\nabla\cdot\Dc=\sum_{i,j}\epsilon_{ij}\frac{\partial\mathcal E_j}{\partial x_i}=0,
+\qquad\text{mientras que}\qquad
+\nabla\cdot\Ec=\sum_{i}\frac{\partial\mathcal E_i}{\partial x_i}.
+\end{equation*}
+Son combinaciones distintas de derivadas: que la primera se anule no obliga a que lo haga la
+segunda (salvo que $\epsilon_{ij}=\epsilon\,\delta_{ij}$). Para una onda plana $e^{-j\kv\cdot\rv}$:
+$\nabla\cdot\Dc=0\Leftrightarrow\kv\cdot\D=0$, pero $\D$ y $\E$ no son paralelos, así que en general
+$\kv\cdot\E\neq0$: $\E$ tiene una componente longitudinal (a lo largo de $\kv$). Es el origen del
+\emph{walk-off}: el vector de Poynting $\E\times\Hv$ forma un ángulo $\rho$ con $\kv$.
+
+En la práctica se \emph{desprecia el término $\nabla(\nabla\cdot\Ec)$}. Su tamaño relativo es
+$|\nabla(\nabla\cdot\Ec)|/|\nabla^2\Ec|\sim|\kv\cdot\E|/(k|\E|)=\tan\rho$, de modo que la aproximación
+vale cuando la anisotropía es débil, $|n_e-n_o|\ll n$, que es lo que hace pequeño el ángulo de walk-off
+($\rho\lesssim$ unos grados en los cristales usados en ONL), o cuando la onda viaja a lo largo de un
+eje principal ($\rho=0$, el término se anula exactamente). Boyd añade que también es pequeño
+bajo la aproximación de envolvente lentamente variable (p.~72).
+
+\inc{d} Para un medio inhomogéneo con $\epsilon(\rv)$ que varía lentamente frente a $\lambda$, el término
+$\nabla[(1/\epsilon)\nabla\epsilon\cdot\Ec]$ de (5.2-18) es despreciable y queda (Saleh, ec.~5.2-19, p.~159)
+\begin{equation*}
+\nabla^2\Ec-\frac{n^2(\rv)}{c_0^2}\frac{\partial^2\Ec}{\partial t^2}\approx0 .
+\end{equation*}
+Con $n(\rv)=n+\Delta n(\rv)$ y $|\Delta n|\ll n$:
+$n^2(\rv)=n^2+2n\Delta n+(\Delta n)^2\approx n^2+2n\Delta n$. Sustituyendo y pasando el término en
+$\Delta n$ a la derecha:
+\begin{equation*}
+\nabla^2\Ec-\frac{n^2}{c_0^2}\frac{\partial^2\Ec}{\partial t^2}=\frac{2n\Delta n}{c_0^2}\frac{\partial^2\Ec}{\partial t^2}
+=\mu_0\frac{\partial^2}{\partial t^2}\big(2\epsilon_0 n\Delta n\,\Ec\big),
+\end{equation*}
+donde se usó $1/c_0^2=\mu_0\epsilon_0$ y que $\Delta n$ no depende del tiempo. Comparando con la
+forma de (b) ($\mu_0\partial_t^2\Pc_{NL}$):
+\resultado{$\Delta\Pc=2\epsilon_0n\,\Delta n\,\Ec$, que es la ec.~5.2-20 de Saleh (p.~159). Otra forma de
+verlo: $\Pc=\epsilon_0(n^2-1)\Ec\Rightarrow\Delta\Pc=\epsilon_0\Delta(n^2)\Ec=2\epsilon_0 n\Delta n\,\Ec$.}
+Si $\Delta n$ depende de la intensidad ($\Delta n=n_2I$, efecto Kerr), esta misma fuente es una
+polarización no lineal de tercer orden: es la puerta de entrada al cap.~4 de Boyd.
+
+\idea{(5.2-25) vale para cualquier medio homogéneo, isótropo y no magnético, lineal o no; la
+condición se usa \emph{solo} para tirar $\nabla(\nabla\cdot\Ec)$. Cuidado con los prefactores:
+$\mu_0=1/(\epsilon_0c_0^2)$, así que la fuente se escribe igual en Saleh ($\mu_0\partial_t^2\Pc$) que
+en Boyd ($\frac{1}{\epsilon_0c^2}\partial_t^2\tilde P$). Una perturbación del índice $\Delta n$ equivale
+a $\Delta\Pc=2\epsilon_0n\Delta n\Ec$ (factor 2 por derivar $n^2$).}
+
+%=====================================================================
+\sol{2}{Clasificación de medios}{Saleh §5.2, recuadro de definiciones (p.~156), §5.2B (pp.~158--162) y oscilador de Lorentz, ecs.~5.5-15 a 5.5-19 (pp.~176--177); Boyd ec.~1.1.2 (p.~2).}\label{sol:2}
+
+Criterios (Saleh, p.~156): \emph{lineal} si vale la superposición entre $\Pc$ y $\Ec$;
+\emph{no dispersivo} si $\Pc(t)$ depende solo de $\Ec$ en el mismo instante (sin derivadas ni
+integrales temporales); \emph{espacialmente no dispersivo} si $\Pc(\rv)$ depende solo de $\Ec$ en el mismo
+punto (sin derivadas espaciales); \emph{homogéneo} si los coeficientes no dependen de $\rv$.
+
+\begin{center}
+\begin{tabular}{@{}lcccc@{}}\toprule
+Medio & Lineal & Dispersivo (tiempo) & Dispersión espacial & Homogéneo\\\midrule
+(b) $\Pc+a\Pc^2=\epsilon_0\Ec$ & no & no & no & sí\\
+(c) $a_1\ddot{\Pc}+a_2\dot{\Pc}+\Pc=\epsilon_0\chi\Ec$ & sí & sí & no & sí\\
+(d) $\Pc=\epsilon_0\{a_1+a_2e^{-(x^2+y^2)}\}\Ec$ & sí & no & no & no\\\bottomrule
+\end{tabular}
+\end{center}
+Los tres son isótropos (relación escalar, $\Pc\parallel\Ec$).
+
+\inc{b} $\Pc+a\Pc^2=\epsilon_0\Ec$. El término $a\Pc^2$ rompe la superposición (si $\Ec_1\to\Pc_1$ y
+$\Ec_2\to\Pc_2$, entonces $\Ec_1+\Ec_2$ no produce $\Pc_1+\Pc_2$ porque aparece el cruce
+$2a\Pc_1\Pc_2$): es \textbf{no lineal}. No hay derivadas temporales: \textbf{no dispersivo}. No hay
+derivadas espaciales: local. $a$ constante: \textbf{homogéneo}.
+
+\emph{Desarrollo en potencias.} Proponemos $\Pc=c_1\Ec+c_2\Ec^2+c_3\Ec^3+\cdots$ y sustituimos:
+\begin{equation*}
+\Pc^2=c_1^2\Ec^2+2c_1c_2\Ec^3+O(\Ec^4)
+\;\Rightarrow\;
+c_1\Ec+(c_2+ac_1^2)\Ec^2+(c_3+2ac_1c_2)\Ec^3+O(\Ec^4)=\epsilon_0\Ec .
+\end{equation*}
+Igualando coeficientes de cada potencia:
+\begin{align*}
+\Ec^1:&\quad c_1=\epsilon_0,\\
+\Ec^2:&\quad c_2=-ac_1^2=-a\epsilon_0^2,\\
+\Ec^3:&\quad c_3=-2ac_1c_2=-2a\epsilon_0(-a\epsilon_0^2)=2a^2\epsilon_0^3 .
+\end{align*}
+(Comprobación con la solución exacta de la cuadrática:
+$\Pc=\frac{-1+\sqrt{1+4a\epsilon_0\Ec}}{2a}$; con $\sqrt{1+u}=1+\frac u2-\frac{u^2}{8}+\frac{u^3}{16}-\cdots$ y
+$u=4a\epsilon_0\Ec$ se obtiene $\epsilon_0\Ec-a\epsilon_0^2\Ec^2+2a^2\epsilon_0^3\Ec^3-\cdots$. Se eligió la
+raíz con $+$ para que $\Pc\to0$ cuando $\Ec\to0$; la serie converge si $|4a\epsilon_0\Ec|<1$.)
+Comparando con la convención de Boyd, $\Pc=\epsilon_0[\chi^{(1)}\Ec+\chi^{(2)}\Ec^2+\chi^{(3)}\Ec^3]$
+(ec.~1.1.2, p.~2):
+\resultado{$\chi^{(1)}=1,\qquad \chi^{(2)}=-a\epsilon_0,\qquad \chi^{(3)}=2a^2\epsilon_0^2$
+\quad ($\Pc=\epsilon_0\Ec-a\epsilon_0^2\Ec^2+2a^2\epsilon_0^3\Ec^3-\cdots$). Unidades: $a$ en m$^2$/C, de
+modo que $\chi^{(2)}$ queda en m/V y $\chi^{(3)}$ en m$^2$/V$^2$. Coincide con las respuestas del taller.}
+
+\inc{c} $a_1\partial_t^2\Pc+a_2\partial_t\Pc+\Pc=\epsilon_0\chi\Ec$. Es una EDO lineal con coeficientes
+constantes: \textbf{lineal}, \textbf{dispersivo} (las derivadas temporales dan memoria: $\Pc(t)$
+depende de la historia de $\Ec$), local y \textbf{homogéneo}. Es exactamente el oscilador
+armónico forzado amortiguado que Saleh menciona en la p.~160.
+
+\emph{Susceptibilidad.} Con $\Ec=\mathrm{Re}\{Ee^{j\omega t}\}$, $\Pc=\mathrm{Re}\{Pe^{j\omega t}\}$, cada
+$\partial_t$ se vuelve $j\omega$:
+\begin{equation*}
+\big(-a_1\omega^2+ja_2\omega+1\big)P=\epsilon_0\chi E
+\;\Rightarrow\;
+\chi(\nu)=\frac{\chi}{1-a_1\omega^2+ja_2\omega},\qquad \omega=2\pi\nu .
+\end{equation*}
+\emph{Comparación con Lorentz.} Dividiendo numerador y denominador de (5.5-19) (Saleh, p.~177) entre
+$\nu_0^2$:
+\begin{equation*}
+\chi(\nu)=\chi_0\frac{\nu_0^2}{\nu_0^2-\nu^2+j\nu\Delta\nu}=\frac{\chi_0}{1-\dfrac{\nu^2}{\nu_0^2}+j\dfrac{\nu\,\Delta\nu}{\nu_0^2}} .
+\end{equation*}
+Identificando término a término:
+$a_1(2\pi\nu)^2=\nu^2/\nu_0^2\Rightarrow\nu_0=1/(2\pi\sqrt{a_1})$; \
+$a_2(2\pi\nu)=\nu\Delta\nu/\nu_0^2=\nu\Delta\nu\,4\pi^2a_1\Rightarrow\Delta\nu=a_2/(2\pi a_1)$; \ $\chi_0=\chi$.
+\resultado{$\displaystyle\chi(\nu)=\frac{\chi}{1-a_1(2\pi\nu)^2+ja_2(2\pi\nu)}$;\quad
+$\nu_0=\frac{1}{2\pi\sqrt{a_1}}$ (frecuencia de resonancia, $\omega_0=1/\sqrt{a_1}$),\quad
+$\Delta\nu=\frac{a_2}{2\pi a_1}$ (FWHM de $\chi''$, $\sigma=a_2/a_1$),\quad $\chi_0=\chi$ (susceptibilidad de baja frecuencia).}
+Físicamente: dividiendo la EDO entre $a_1$ se obtiene la forma (5.5-15),
+$\ddot{\Pc}+\sigma\dot{\Pc}+\omega_0^2\Pc=\omega_0^2\epsilon_0\chi_0\Ec$, con $\omega_0^2=1/a_1$,
+$\sigma=a_2/a_1$ y $\omega_0^2\chi_0=\chi/a_1$, lo que confirma $\chi_0=\chi$.
+
+\inc{d} $\Pc=\epsilon_0\{a_1+a_2\exp[-(x^2+y^2)]\}\Ec$. Proporcional a $\Ec$: \textbf{lineal}; instantáneo:
+\textbf{no dispersivo}; local; los coeficientes dependen de $x,y$: \textbf{inhomogéneo}. Es un medio
+de índice gradual con $n^2(x,y)=1+a_1+a_2e^{-(x^2+y^2)}$, máximo en el eje y decreciente hacia afuera
+si $a_2>0$: el perfil de una fibra o lente GRIN (Saleh, Fig.~5.2-3, p.~159). (Implícitamente $x,y$ están
+medidos en alguna unidad de longitud, porque el argumento de la exponencial debe ser adimensional.)
+
+\idea{Mire la relación constitutiva: potencias de $\Pc$ o $\Ec$ $\Rightarrow$ no lineal; derivadas en $t$
+$\Rightarrow$ dispersivo; derivadas en $\rv$ $\Rightarrow$ dispersión espacial; coeficientes con $\rv$
+$\Rightarrow$ inhomogéneo; tensor $\Rightarrow$ anisótropo. Al invertir $\Pc(\Ec)$ en serie, el coeficiente de
+$\Ec^3$ recibe contribución del cruce $2c_1c_2$: el error típico es olvidar ese factor 2.}
+
+%=====================================================================
+\sol{3}{Onda estacionaria viajera transversal}{Saleh §5.3, ecs.~5.3-10 y 5.3-13 a 5.3-16 (p.~163); §5.4A (pp.~164--166); §8.1, ecs.~8.1-2 a 8.1-6 (pp.~292--294).}\label{sol:3}
+
+Campo: $\E(\rv)=E_0\cos(\beta x)\,e^{-jk_zz}\,\yh$ en el vacío, $k_0=2\pi/\lambda_0=\omega/c_0$.
+
+\inc{a} \textbf{Relación de dispersión.} Cada componente debe cumplir Helmholtz,
+$\nabla^2U+k_0^2U=0$ (Saleh, ec.~5.3-16, p.~163). Con $U=E_0\cos(\beta x)e^{-jk_zz}$:
+$\partial_x^2U=-\beta^2U$, $\partial_y^2U=0$, $\partial_z^2U=-k_z^2U$, de modo que
+$(-\beta^2-k_z^2+k_0^2)U=0$. Además $\nabla\cdot\E=\partial_yE_y=0$, como exige (5.3-14).
+\resultado{$\beta^2+k_z^2=k_0^2=(2\pi/\lambda_0)^2$. Para que la onda viaje en $z$ ($k_z$ real) hace falta
+$\beta\le k_0$; si $\beta>k_0$, $k_z$ es imaginario y la onda es evanescente en $z$.}
+
+\inc{b} \textbf{Campo magnético.} De $\nabla\times\E=-j\omega\mu_0\Hv$ (5.3-13), $\Hv=-\nabla\times\E/(j\omega\mu_0)$.
+Con $\E=E_y(x,z)\yh$, las componentes del rotacional son
+\begin{align*}
+(\nabla\times\E)_x&=\partial_yE_z-\partial_zE_y=-\partial_zE_y=jk_zE_0\cos(\beta x)e^{-jk_zz},\\
+(\nabla\times\E)_y&=\partial_zE_x-\partial_xE_z=0,\\
+(\nabla\times\E)_z&=\partial_xE_y-\partial_yE_x=-\beta E_0\sin(\beta x)e^{-jk_zz}.
+\end{align*}
+Dividiendo entre $-j\omega\mu_0$ (y usando $1/j=-j$):
+\resultado{$\displaystyle \Hv(\rv)=\frac{E_0}{\omega\mu_0}\Big[-k_z\cos(\beta x)\,\xh-j\beta\sin(\beta x)\,\zh\Big]e^{-jk_zz}$.
+$H_x$ está en fase con $E_y$; $H_z$ está desfasada $90^\circ$ y desplazada un cuarto de periodo en $x$.}
+Comprobación: si $\beta=0$, $\Hv=-(k_0/\omega\mu_0)E_0e^{-jk_0z}\xh=-(E_0/\eta_0)e^{-jk_0z}\xh$, la onda
+plana TEM con $\E\times\Hv\parallel+\zh$ (Saleh, ec.~5.4-5, p.~165). Hay $H_z\neq0$: la onda no es TEM
+respecto a $z$, es TE (el campo eléctrico sí es transversal a $z$).
+
+\inc{c} \textbf{Vector de Poynting complejo} $\Sv=\frac12\E\times\Hv^*$ (Saleh, ec.~5.3-10, p.~163). Con
+$\yh\times\xh=-\zh$ y $\yh\times\zh=\xh$:
+\begin{equation*}
+\Sv=\tfrac12E_y\big(H_z^*\,\xh-H_x^*\,\zh\big).
+\end{equation*}
+Los factores $e^{-jk_zz}$ y $e^{+jk_zz}$ se cancelan. Con
+$H_x^*=-\frac{k_zE_0^*}{\omega\mu_0}\cos\beta x$ y $H_z^*=+j\frac{\beta E_0^*}{\omega\mu_0}\sin\beta x$:
+\begin{align*}
+S_z&=-\tfrac12E_0\cos(\beta x)\Big(-\frac{k_zE_0^*}{\omega\mu_0}\cos\beta x\Big)=\frac{k_z|E_0|^2}{2\omega\mu_0}\cos^2(\beta x),\\
+S_x&=\tfrac12E_0\cos(\beta x)\Big(j\frac{\beta E_0^*}{\omega\mu_0}\sin\beta x\Big)=j\,\frac{\beta|E_0|^2}{4\omega\mu_0}\sin(2\beta x).
+\end{align*}
+\resultado{$\mathrm{Re}\{S_z\}=\dfrac{k_z}{k_0}\dfrac{|E_0|^2}{2\eta_0}\cos^2(\beta x)\ge0$: la potencia media fluye en $+z$,
+concentrada en los vientres de $\cos\beta x$. \quad $\mathrm{Re}\{S_x\}=0$: no hay flujo neto en $x$.
+\quad $\mathrm{Im}\{S_x\}=\dfrac{\beta}{2k_0}\dfrac{|E_0|^2}{2\eta_0}\sin(2\beta x)$: flujo \emph{reactivo}.}
+(Se usó $\omega\mu_0=k_0\eta_0$.) La parte imaginaria del vector de Poynting complejo describe energía
+que va y viene a $2\omega$ entre las regiones de campo eléctrico y magnético sin transporte neto
+(el término en $e^{\pm j2\omega t}$ de la ec.~5.3-8, p.~162): en $x$ la onda es estacionaria. La
+Fig.~\ref{fig:t1p03} lo muestra para $\theta=30^\circ$ ($\beta=k_0/2$).
+
+\inc{d} \textbf{Descomposición en ondas planas.} Con $\cos\beta x=\frac12(e^{j\beta x}+e^{-j\beta x})$:
+\begin{equation*}
+\E=\frac{E_0}{2}\Big[e^{-j(-\beta x+k_zz)}+e^{-j(\beta x+k_zz)}\Big]\yh
+=\frac{E_0}{2}\Big[e^{-j\kv_+\cdot\rv}+e^{-j\kv_-\cdot\rv}\Big]\yh,\qquad \kv_\pm=(\mp\beta,0,k_z).
+\end{equation*}
+Ambos tienen $|\kv_\pm|^2=\beta^2+k_z^2=k_0^2$ (por (a)) y $\E\parallel\yh\perp\kv_\pm$: cada una es una
+onda plana TEM (Saleh, §5.4A, p.~165), con su $\Hv_\pm=\kv_\pm\times\E_\pm/\omega\mu_0$ (5.4-4).
+\resultado{Dos ondas planas TEM de amplitud $E_0/2$ en el plano $x$--$z$, a ángulos $\pm\theta$ del eje $z$ con
+$\sin\theta=\beta/k_0$, $\cos\theta=k_z/k_0$. Cada una lleva $|E_0/2|^2/2\eta_0$ en la dirección $\kv_\pm$; las
+componentes $x$ de sus flujos se cancelan y las $z$ se suman, y su interferencia da la franja
+$\cos^2\beta x$.}
+Esto ilustra por qué $\mathrm{Re}\{S_z\}$ trae el factor $k_z/k_0=\cos\theta$: cada onda plana se
+propaga oblicuamente.
+
+\emph{Relación con la guía de espejos planos (Saleh §8.1).} Si se ponen dos espejos perfectos en
+$x=\pm d/2$, la condición de frontera $E_y=0$ (tangencial) exige $\cos(\beta d/2)=0$, es decir
+$\beta=m\pi/d$ con $m$ impar. Es exactamente el modo TE de orden $m$ de la guía:
+$k_{xm}=m\pi/d$ (8.1-3), $\beta_m^2=k^2-m^2\pi^2/d^2$ (8.1-4, p.~293) y perfil
+$\cos(m\pi x/d)$ (8.1-6, p.~294). Con $\sin(\beta x)$ en lugar de $\cos$ se obtienen los modos de $m$ par.
+Así el modo guiado es la superposición de dos ondas planas que rebotan a $\pm\theta_m$, con
+$\sin\theta_m=m\lambda/2d$ (8.1-2, p.~292). (Saleh usa $y$ como coordenada transversal y $E_x$; aquí los
+papeles de $x$ e $y$ están intercambiados.)
+
+\codigo{t1_p03_onda_estacionaria.py}
+Salida del programa ($\lambda_0=1$ µm, $\theta=30^\circ$): $\beta=3.1416\times10^6$ m$^{-1}$,
+$k_z=5.4414\times10^6$ m$^{-1}$, $\max|\mathrm{Re}\,S_x|=6\times10^{-20}$ W/m$^2$ (cero numérico),
+$\max\mathrm{Re}\,S_z/(|E_0|^2/2\eta_0)=0.866=\cos30^\circ$ y $\max\mathrm{Im}\,S_x/(|E_0|^2/2\eta_0)=0.25=\beta/2k_0$.
+\begin{figure}[H]\centering
+\includegraphics[width=0.95\linewidth]{t1_p03_onda_estacionaria.png}
+\caption{Problema 3 ($\lambda_0=1$ µm, $\theta=30^\circ$). Izquierda: instantánea del campo real
+$\mathcal E_y(x,z,0)/E_0$ y flechas de $\mathrm{Re}\{\mathbf S\}$, que solo apuntan en $+z$ y son máximas en los
+vientres de $\cos\beta x$. Derecha: $\mathrm{Re}\{S_z\}$ y $\mathrm{Im}\{S_x\}$ normalizados a $|E_0|^2/2\eta_0$.}
+\label{fig:t1p03}
+\end{figure}
+
+\idea{La potencia media es $\mathrm{Re}\{\Sv\}$; la parte imaginaria es energía reactiva (onda estacionaria,
+campo evanescente). Un campo con $\cos(\beta x)$ es siempre dos ondas planas a $\pm\theta$: así se
+entienden los modos de guía (y la luz en un anillo o en una guía de SiN). Error típico: olvidar el
+conjugado en $\Hv^*$ o el signo de $\yh\times\xh=-\zh$.}
+
+%=====================================================================
+\sol{4}{Campos de un láser enfocado frente al campo atómico}{Saleh ecs.~3.1-16 (p.~79), 3.1-11 (p.~77), 5.4-6 a 5.4-8 (p.~166); Boyd §1.1, ecs.~1.1.2 a 1.1.6 (pp.~2--4), ec.~2.2.16 (p.~77), §2.10 (pp.~116--122).}\label{sol:4}
+
+Datos: $\lambda_0=1.064$ µm, $\mathcal E_p=10$ mJ, $\tau_p=10$ ns (potencia constante), $n=1.50$,
+$W_0=20$ µm. Constantes: $c_0=2.998\times10^8$ m/s, $\epsilon_0=8.854\times10^{-12}$ F/m,
+$\eta_0=376.7$ $\Omega$.
+
+\inc{a} \textbf{Potencia pico.} Con potencia constante durante el pulso:
+$P=\mathcal E_p/\tau_p=\SI{10e-3}{J}/\SI{10e-9}{s}=\SI{1.00e6}{W}=1$ MW.
+
+\textbf{Intensidad pico.} Para un haz gaussiano (Saleh, ec.~3.1-16, p.~79)
+$I(\rho,z)=\frac{2P}{\pi W^2(z)}e^{-2\rho^2/W^2(z)}$; en el centro del foco ($\rho=0$, $z=0$, $W=W_0$):
+\begin{equation*}
+I_0=\frac{2P}{\pi W_0^2}=\frac{2\times10^6\ \mathrm{W}}{\pi(20\times10^{-6}\ \mathrm m)^2}
+=\frac{2\times10^6}{1.2566\times10^{-9}}\ \mathrm{W/m^2}=1.59\times10^{15}\ \mathrm{W/m^2}=1.59\times10^{11}\ \mathrm{W/cm^2}.
+\end{equation*}
+(El factor 2 viene de que la potencia de una gaussiana es $P=\frac12I_0\pi W_0^2$, ec.~3.1-15.)
+
+\textbf{Fluencia pico} (energía por unidad de área en el centro): $F_0=I_0\tau_p=2\mathcal E_p/\pi W_0^2
+=1.59\times10^{7}$ J/m$^2=1.59\times10^3$ J/cm$^2$.
+\resultado{$P=1$ MW; \ $I_0=1.59\times10^{15}$ W/m$^2=1.59\times10^{11}$ W/cm$^2$; \ $F_0=1.59\times10^3$ J/cm$^2$.}
+La fluencia está muy por encima del umbral de daño típico de un vidrio para pulsos de nanosegundos
+(del orden de decenas de J/cm$^2$; valor orientativo, no del libro): en la práctica el vidrio se
+dañaría. Por eso los experimentos no lineales usan pulsos cortos (ps, fs), que alcanzan
+intensidades altas con poca fluencia.
+
+\inc{b} \textbf{Campo en las dos convenciones.}
+\begin{itemize}
+\item \emph{Saleh} ($\Ec=\mathrm{Re}\{Ee^{j\omega t}\}$, $|E|$ = amplitud de pico del campo real):
+$I=|E|^2/2\eta$, con $\eta=\eta_0/n=376.7/1.50=251.2$ $\Omega$ (ecs.~5.4-6 y 5.4-8, p.~166). Entonces
+\begin{equation*}
+|E_S|=\sqrt{2\eta I_0}=\sqrt{2(251.2)(1.59\times10^{15})}\ \mathrm{V/m}=\sqrt{7.99\times10^{17}}\ \mathrm{V/m}=8.94\times10^8\ \mathrm{V/m}.
+\end{equation*}
+\item \emph{Boyd} ($\tilde E=Ee^{-i\omega t}+\cc$, así que el campo real tiene amplitud $2|E|$):
+$I=2n\epsilon_0c|E|^2$ (ec.~2.2.16, p.~77). Entonces
+\begin{equation*}
+|E_B|=\sqrt{\frac{I_0}{2n\epsilon_0c}}=\sqrt{\frac{1.59\times10^{15}}{2(1.50)(8.854\times10^{-12})(2.998\times10^8)}}\ \mathrm{V/m}
+=\sqrt{2.00\times10^{17}}\ \mathrm{V/m}=4.47\times10^8\ \mathrm{V/m}.
+\end{equation*}
+\end{itemize}
+\emph{Verificación de que dan la misma intensidad.} El campo real es el mismo:
+$\mathrm{Re}\{E_Se^{j\omega t}\}=E_Be^{-i\omega t}+\cc=2\,\mathrm{Re}\{E_Be^{-i\omega t}\}$, luego $|E_S|=2|E_B|$.
+Además $1/(2\eta)=n/(2\eta_0)=n\epsilon_0c/2$ porque $1/\eta_0=\epsilon_0c$. Así
+$\frac{|E_S|^2}{2\eta}=\frac{n\epsilon_0c}{2}(2|E_B|)^2=2n\epsilon_0c|E_B|^2$: idénticas.
+Numéricamente el programa da $1.5915\times10^{15}$ W/m$^2$ en ambos casos.
+\resultado{$|E_S|=8.94\times10^8$ V/m (amplitud de pico); \ $|E_B|=4.47\times10^8$ V/m $=|E_S|/2$.}
+
+\inc{c} \textbf{Campo atómico} (Boyd, p.~3), con $e=1.602\times10^{-19}$ C y $a_0=5.292\times10^{-11}$ m:
+\begin{equation*}
+E_{\rm at}=\frac{e}{4\pi\epsilon_0a_0^2}=\frac{(8.988\times10^9)(1.602\times10^{-19})}{(5.292\times10^{-11})^2}\ \mathrm{V/m}
+=\frac{1.440\times10^{-9}}{2.800\times10^{-21}}\ \mathrm{V/m}=5.14\times10^{11}\ \mathrm{V/m}.
+\end{equation*}
+\textbf{Razones de polarización.} De (1.1.2) (Boyd, p.~2), $|P^{(2)}|/|P^{(1)}|=\chi^{(2)}\tilde E^2/\chi^{(1)}\tilde E
+=(\chi^{(2)}/\chi^{(1)})\tilde E\sim\tilde E/E_{\rm at}$ y $|P^{(3)}|/|P^{(1)}|\sim(\tilde E/E_{\rm at})^2$ (ecs.~1.1.3--1.1.4,
+p.~3). Aquí $\tilde E$ es el \emph{campo real} que entra en la serie de potencias, cuya amplitud es
+$|E_S|=2|E_B|=8.94\times10^8$ V/m (usar $|E_B|$ daría razones dos veces menores: error de convención típico):
+\begin{equation*}
+\frac{|P^{(2)}|}{|P^{(1)}|}\sim\frac{8.94\times10^8}{5.14\times10^{11}}=1.7\times10^{-3},\qquad
+\frac{|P^{(3)}|}{|P^{(1)}|}\sim(1.74\times10^{-3})^2=3.0\times10^{-6}.
+\end{equation*}
+\resultado{$E_{\rm at}=5.14\times10^{11}$ V/m; \ $|P^{(2)}|/|P^{(1)}|\sim1.7\times10^{-3}$; \ $|P^{(3)}|/|P^{(1)}|\sim3\times10^{-6}$.}
+Aunque son razones pequeñas, la polarización no lineal radia coherentemente: si hay ajuste de fases,
+los campos de todos los dipolos se suman en amplitud a lo largo de muchos miles de longitudes de onda
+y la señal generada crece como $L^2$ (Boyd, §2.1--2.2). Por eso un $10^{-3}$ en la fuente basta para
+convertir una fracción apreciable de la potencia. Para que $P^{(2)}\sim P^{(1)}$ se necesitaría
+$I_{\rm at}\approx3.5\times10^{16}$ W/cm$^2$ (Boyd, ec.~1.1.6, p.~4), cinco órdenes por encima.
+
+\inc{d} \textbf{Rango de Rayleigh en el vidrio.} De (3.1-11), $z_0=\pi W_0^2/\lambda$ con $\lambda=\lambda_0/n$ la
+longitud de onda \emph{en el medio} (Saleh, p.~77):
+\begin{equation*}
+z_0=\frac{\pi W_0^2n}{\lambda_0}=\frac{\pi(20\times10^{-6})^2(1.50)}{1.064\times10^{-6}}\ \mathrm m=1.77\times10^{-3}\ \mathrm m=1.77\ \mathrm{mm},
+\qquad 2z_0=3.54\ \mathrm{mm}.
+\end{equation*}
+\resultado{$z_0=1.77$ mm (profundidad de foco $2z_0=3.54$ mm; divergencia en el vidrio
+$\theta_0=\lambda_0/(n\pi W_0)=11.3$ mrad).}
+\textbf{Por qué importa.} La intensidad solo es alta en una longitud $\approx2z_0$ (el parámetro
+confocal $b=2z_0$ de Boyd, §2.10.2, p.~117); fuera de ella cae como $1/[1+(z/z_0)^2]$ (Fig.~\ref{fig:t1p04}).
+En generación de armónicos hay un compromiso: enfocar más fuerte (menor $W_0$) aumenta $I_0\propto1/W_0^2$,
+pero acorta la región útil ($z_0\propto W_0^2$). Además, al cruzar el foco el haz adquiere la fase de
+Gouy ($\pi$ en total), que se suma al desajuste de fases $\Delta k$: con enfoque fuerte la THG en un
+medio con $\Delta k\le0$ se cancela, y el óptimo para SHG es la cintura en el centro del cristal con
+$L/b=2.84$ y $\Delta k=3.2/L$ (Boyd--Kleinman; Boyd, §2.10.3, pp.~119--122). Con $b=3.54$ mm, el
+cristal óptimo mediría unos 10 mm.
+
+\codigo{t1_p04_foco_laser.py}
+\begin{figure}[H]\centering
+\includegraphics[width=0.85\linewidth]{t1_p04_foco.png}
+\caption{Problema 4: intensidad normalizada $I(\rho,z)/I_0$ alrededor del foco dentro del vidrio
+($W_0=20$ µm, $n=1.50$, $\lambda_0=1.064$ µm), con $\pm W(z)$ y la profundidad de foco $2z_0=3.54$ mm.}
+\label{fig:t1p04}
+\end{figure}
+
+\idea{Cadena de cálculo: energía/duración $\to P$; $I_0=2P/\pi W_0^2$ (¡el 2!); $|E|$ con la convención que
+toque. Saleh: $I=|E|^2/2\eta=n\epsilon_0c|E|^2/2$; Boyd: $I=2n\epsilon_0c|E|^2$; por tanto $|E_S|=2|E_B|$. Para
+estimar $P^{(2)}/P^{(1)}\sim E/E_{\rm at}$ use la amplitud del campo real. Dentro de un medio, $z_0=\pi W_0^2n/\lambda_0$
+(se olvida la $n$ con frecuencia).}
+
+%=====================================================================
+\sol{5}{Ondas esféricas y cilíndricas}{Saleh §2.2A--B, ecs.~2.2-7, 2.2-10 y 2.2-15 (pp.~43--46); Probs.~2.2-3 a 2.2-5 (p.~73).}\label{sol:5}
+
+\inc{a} Para una función que solo depende de $r$, el laplaciano en coordenadas esféricas es
+$\nabla^2U=\frac1{r^2}\frac{d}{dr}\Big(r^2\frac{dU}{dr}\Big)$. Con $U=(A_0/r)e^{-jkr}$ (Saleh, ec.~2.2-15, p.~46):
+\begin{align*}
+\frac{dU}{dr}&=A_0\Big(-\frac1{r^2}-\frac{jk}{r}\Big)e^{-jkr},\qquad
+r^2\frac{dU}{dr}=-A_0(1+jkr)e^{-jkr},\\
+\frac{d}{dr}\Big(r^2\frac{dU}{dr}\Big)&=-A_0\big[jk-jk(1+jkr)\big]e^{-jkr}=-A_0\big[jk-jk+k^2r\big]e^{-jkr}=-A_0k^2r\,e^{-jkr}.
+\end{align*}
+Dividiendo entre $r^2$: $\nabla^2U=-k^2\frac{A_0}{r}e^{-jkr}=-k^2U$, es decir:
+\resultado{$\nabla^2U+k^2U=0$ para $r\neq0$ (Helmholtz, ec.~2.2-7, p.~43).}
+(Atajo útil: $\nabla^2U=\frac1r\frac{d^2(rU)}{dr^2}$, y $rU=A_0e^{-jkr}$ da $-k^2rU$ de inmediato. En $r=0$ la
+función es singular: $\nabla^2(1/r)=-4\pi\delta(\rv)$ representa la fuente puntual.)
+
+\inc{b} En óptica escalar $I=|U|^2$ (Saleh, ec.~2.2-10, p.~43), así que $I(r)=|A_0|^2/r^2$. La potencia que
+atraviesa una esfera de radio $r$ es $P=\oint I\,dA=I(r)\,4\pi r^2=4\pi|A_0|^2$, independiente de $r$
+(conservación de la energía). Despejando:
+\begin{equation*}
+I(r)=\frac{P}{4\pi r^2}=\frac{100\ \mathrm W}{4\pi(1\ \mathrm m)^2}=7.96\ \mathrm{W/m^2}=7.96\times10^{-4}\ \mathrm{W/cm^2}.
+\end{equation*}
+\resultado{$I=P/4\pi r^2=7.96$ W/m$^2$ en $r=1$ m para $P=100$ W.}
+Compárese con el Prob.~4: una potencia $10^4$ veces mayor (1 MW), concentrada en una cintura de 20 µm, da una
+intensidad $2\times10^{14}$ veces mayor. La óptica no lineal necesita confinamiento, no solo potencia.
+
+\inc{c} Frentes cilíndricos centrados en el eje $y$: $U=U(\rho)$ con $\rho=\sqrt{x^2+z^2}$, sin dependencia en $y$ ni
+en el ángulo azimutal. El laplaciano en coordenadas cilíndricas (eje $y$) se reduce a
+$\nabla^2U=\frac1\rho\frac{d}{d\rho}\big(\rho\frac{dU}{d\rho}\big)$, y Helmholtz queda
+$U''+\frac1\rho U'+k^2U=0$, la ecuación de Bessel de orden cero. La solución exacta saliente (con $e^{j\omega t}$) es
+la función de Hankel $H_0^{(2)}(k\rho)\approx\sqrt{2/\pi k\rho}\,e^{-j(k\rho-\pi/4)}$ para $k\rho\gg1$.
+
+Sin recurrir a Bessel, probamos el ansatz $U=A\rho^{-1/2}e^{-jk\rho}$:
+\begin{align*}
+U'&=A\Big(-\tfrac12\rho^{-3/2}-jk\rho^{-1/2}\Big)e^{-jk\rho},\qquad
+\rho U'=A\Big(-\tfrac12\rho^{-1/2}-jk\rho^{1/2}\Big)e^{-jk\rho},\\
+(\rho U')'&=A\Big[\tfrac14\rho^{-3/2}-\tfrac{jk}{2}\rho^{-1/2}-jk\Big(-\tfrac12\rho^{-1/2}-jk\rho^{1/2}\Big)\Big]e^{-jk\rho}
+=A\Big[\tfrac14\rho^{-3/2}-k^2\rho^{1/2}\Big]e^{-jk\rho}.
+\end{align*}
+Dividiendo entre $\rho$: $\nabla^2U=-k^2U+\frac{1}{4\rho^2}U$, de modo que $\nabla^2U+k^2U=\frac{U}{4\rho^2}$. El residuo
+relativo es $1/(4k^2\rho^2)$, despreciable si $k\rho\gg1$ (a unas pocas longitudes de onda del eje).
+\resultado{$U(\rho)\approx\dfrac{A}{\sqrt\rho}e^{-jk\rho}$ $(k\rho\gg1)$; \quad $I=|U|^2=\dfrac{|A|^2}{\rho}\propto\dfrac1\rho$.}
+\textbf{Por qué $1/\rho$.} La potencia por unidad de longitud en $y$ que atraviesa un cilindro de radio $\rho$ es
+$P_\ell=I\cdot2\pi\rho=2\pi|A|^2$, constante. Como el área del cilindro crece solo linealmente con $\rho$ (y no
+como $r^2$ en la esfera), la intensidad cae como $1/\rho$ y la amplitud como $1/\sqrt\rho$. Es el campo lejano de
+una rendija larga o de una fuente lineal.
+
+\idea{Conservación de la energía fija el decaimiento: esfera $I\propto1/r^2$ (amplitud $1/r$), cilindro
+$I\propto1/\rho$ (amplitud $1/\sqrt\rho$), plano: constante. Use $\nabla^2U=\frac1r(rU)''$ en esféricas. En esta
+sección Saleh usa $I=|U|^2$ (óptica escalar), no $|E|^2/2\eta$.}
+
+%=====================================================================
+\sol{6}{Helmholtz paraxial y el haz gaussiano}{Saleh §2.2C, ecs.~2.2-20 a 2.2-23 (pp.~47--48); §3.1A, ecs.~3.1-4 a 3.1-11 (pp.~76--77); Ejercicio~3.1-2 (p.~84).}\label{sol:6}
+
+\inc{a} Sustituimos $U=A(\rv)e^{-jkz}$ (2.2-20) en $\nabla^2U+k^2U=0$. Las derivadas transversales solo actúan
+sobre $A$: $\nabla_T^2U=(\nabla_T^2A)e^{-jkz}$. En $z$, con la regla del producto:
+\begin{align*}
+\partial_zU&=(\partial_zA-jkA)e^{-jkz},\\
+\partial_z^2U&=(\partial_z^2A-jk\partial_zA-jk\partial_zA+(-jk)^2A)e^{-jkz}=(\partial_z^2A-2jk\partial_zA-k^2A)e^{-jkz}.
+\end{align*}
+Sumando y añadiendo $k^2U$, el término $-k^2A$ se cancela con $+k^2A$:
+\begin{equation*}
+\big[\nabla_T^2A+\partial_z^2A-2jk\,\partial_zA\big]e^{-jkz}=0 .
+\end{equation*}
+\emph{Aproximación.} (2.2-21) dice que en una distancia $\Delta z=\lambda$ el cambio de $A$ es pequeño:
+$|\partial_zA|\lambda\ll|A|$, o sea $|\partial_zA|\ll k|A|$. Aplicando lo mismo a la función $\partial_zA$ (que también
+varía lentamente) se tiene $|\partial_z^2A|\ll k|\partial_zA|$, que implica (2.2-22). Por tanto
+$\partial_z^2A$ es despreciable frente a $2k\partial_zA$ y queda
+\resultado{$\nabla_T^2A-j2k\,\partial_zA=0$ \quad (ecuación paraxial de Helmholtz, Saleh ec.~2.2-23, p.~48).}
+Ojo: \emph{no} se desprecia $\nabla_T^2A$; la variación transversal puede ser rápida (en una escala $W$), solo la
+longitudinal debe ser lenta. Es la misma SVEA que usa Boyd para las ecuaciones de ondas acopladas.
+
+\inc{b} Sea $A=\frac{A_1}{q}f$, $f=\exp\!\big(-\frac{jk\rho^2}{2q}\big)$, $q=q(z)$, $q'=dq/dz$ (Saleh, ec.~3.1-4, p.~76).
+
+\emph{Laplaciano transversal.} $\partial_xf=-\frac{jkx}{q}f$, \
+$\partial_x^2f=\big[-\frac{jk}{q}+\big(\frac{-jkx}{q}\big)^2\big]f=\big[-\frac{jk}{q}-\frac{k^2x^2}{q^2}\big]f$. Igual en $y$; sumando,
+\begin{equation*}
+\nabla_T^2A=\frac{A_1}{q}f\Big[-\frac{2jk}{q}-\frac{k^2\rho^2}{q^2}\Big].
+\end{equation*}
+\emph{Derivada en $z$.} $\partial_z(1/q)=-q'/q^2$ y $\partial_zf=f\cdot\frac{jk\rho^2}{2q^2}q'$, luego
+\begin{equation*}
+\partial_zA=\frac{A_1}{q}f\Big[-\frac{q'}{q}+\frac{jk\rho^2q'}{2q^2}\Big]
+\;\Rightarrow\;
+-2jk\,\partial_zA=\frac{A_1}{q}f\Big[\frac{2jkq'}{q}+\frac{k^2\rho^2q'}{q^2}\Big]
+\end{equation*}
+(se usó $(-2jk)(jk)/2=k^2$). \emph{Suma.}
+\begin{equation*}
+\nabla_T^2A-2jk\,\partial_zA=\frac{A_1}{q}f\,(q'-1)\Big[\frac{2jk}{q}+\frac{k^2\rho^2}{q^2}\Big].
+\end{equation*}
+El corchete no es idénticamente cero (depende de $\rho$), así que la ecuación se cumple para todo $\rho$ y $z$
+\emph{si y solo si} $q'=1$. Integrando: $q(z)=z+q_0$ con $q_0$ constante (compleja). Si $q_0$ fuera real
+tendríamos la onda paraboloidal centrada en $z=-q_0$; para que el haz tenga un perfil transversal acotado
+se necesita $\mathrm{Im}\{1/q\}<0$, y se elige $q_0=jz_0$ con $z_0>0$ real:
+\resultado{$q(z)=z+jz_0$ (Saleh, ec.~3.1-5, p.~76).}
+\emph{Parámetros del haz.} Racionalizando,
+$\dfrac1q=\dfrac{z-jz_0}{z^2+z_0^2}$. Igualando con $\dfrac1q=\dfrac1R-j\dfrac{\lambda}{\pi W^2}$ (3.1-6):
+\begin{align*}
+\text{Parte real:}&\quad R(z)=\frac{z^2+z_0^2}{z}=z\Big[1+\Big(\frac{z_0}{z}\Big)^2\Big],\\
+\text{Parte imaginaria:}&\quad \frac{\lambda}{\pi W^2}=\frac{z_0}{z^2+z_0^2}\;\Rightarrow\;
+W^2(z)=\frac{\lambda z_0}{\pi}\Big[1+\Big(\frac{z}{z_0}\Big)^2\Big],\\
+&\quad\Rightarrow\;W(z)=W_0\sqrt{1+(z/z_0)^2},\ \ W_0=\sqrt{\lambda z_0/\pi}.
+\end{align*}
+Para la fase de Gouy escribimos el prefactor con $A_0=A_1/jz_0$ (Saleh, p.~77):
+\begin{equation*}
+\frac{A_1}{q}=\frac{jz_0A_0}{z+jz_0}=\frac{A_0}{1-jz/z_0}=\frac{A_0}{\sqrt{1+(z/z_0)^2}\,e^{-j\zeta}}=A_0\frac{W_0}{W(z)}e^{j\zeta(z)},
+\qquad \zeta(z)=\tan^{-1}\frac{z}{z_0}.
+\end{equation*}
+Y el exponente: $-\frac{jk\rho^2}{2q}=-\frac{jk\rho^2}{2R}-\frac{k\lambda\rho^2}{2\pi W^2}=-\frac{jk\rho^2}{2R}-\frac{\rho^2}{W^2}$ (pues $k\lambda=2\pi$).
+\resultado{$W(z)=W_0\sqrt{1+(z/z_0)^2}$, \ $R(z)=z[1+(z_0/z)^2]$, \ $\zeta(z)=\tan^{-1}(z/z_0)$, \ $W_0=\sqrt{\lambda z_0/\pi}$
+(ecs.~3.1-8 a 3.1-11, p.~77); juntando todo se obtiene la amplitud (3.1-7).}
+
+\inc{c} \textbf{Validez paraxial (Ejercicio~3.1-2).} Hay que comparar $|\partial_zA|$ con $k|A|$. De (b),
+\begin{equation*}
+\frac{\partial_zA}{A}=-\frac1q+\frac{jk\rho^2}{2q^2}.
+\end{equation*}
+El primer término vale a lo sumo $1/|q|\le1/z_0$. El segundo, evaluado en el borde del haz $\rho=W(z)$, vale
+$\frac{kW^2}{2|q|^2}=\frac{k}{2}\frac{\lambda z_0}{\pi}\frac{1+(z/z_0)^2}{z_0^2[1+(z/z_0)^2]}=\frac{1}{z_0}$ (usando $|q|^2=z^2+z_0^2$ y $k\lambda=2\pi$).
+Así $|\partial_zA|/|A|\sim1/z_0$, y la condición (2.2-21) es
+\begin{equation*}
+\frac{|\partial_zA|}{k|A|}\sim\frac{1}{kz_0}=\frac{\lambda}{2\pi z_0}=\frac{\lambda^2}{2\pi^2W_0^2}=\frac{\theta_0^2}{2}\ll1,
+\qquad \theta_0=\frac{\lambda}{\pi W_0}.
+\end{equation*}
+Es decir, la aproximación paraxial vale si la divergencia es pequeña, $\theta_0\ll1$. Algunos valores:
+\begin{center}
+\begin{tabular}{@{}cccc@{}}\toprule
+$W_0/\lambda$ & $\theta_0$ (rad) & $\theta_0$ (grados) & $\theta_0^2/2$\\\midrule
+0.5 & 0.64 & 36 & 0.20\\
+1 & 0.32 & 18 & 0.051\\
+2 & 0.16 & 9.1 & 0.013\\
+5 & 0.064 & 3.6 & 0.0020\\\bottomrule
+\end{tabular}
+\end{center}
+\resultado{La aproximación es razonable para $W_0\gtrsim\lambda$ (error relativo $\lesssim5$\,\%, $\theta_0\lesssim0.3$ rad) y falla
+para $W_0\lesssim\lambda/2$ ($\theta_0\gtrsim0.6$ rad, error $\sim20$\,\%).}
+Para guías de SiN con modos de $\sim1$ µm a 1.55 µm se está en el límite: por eso los modos de guías de alto
+contraste se calculan con solvers vectoriales completos (FDE) y no con la teoría paraxial.
+
+\idea{La ecuación paraxial sale de despreciar $\partial_z^2A$ frente a $2k\partial_zA$; nada más. El haz gaussiano es
+la onda paraboloidal con $z\to z+jz_0$: toda la física está en $1/q=1/R-j\lambda/\pi W^2$. La validez paraxial se
+resume en $1/kz_0=\theta_0^2/2\ll1$. Errores típicos: el signo de $\zeta$ (con $e^{j\omega t}$ aparece como $+j\zeta$ en la
+amplitud) y olvidar $\lambda=\lambda_0/n$ en un medio.}
+
+%=====================================================================
+\sol{7}{Pulso con chirp en el vacío}{Saleh §5.1 (ecs.~5.1-2 y 5.1-13, pp.~152--155), §5.4A (ecs.~5.4-5 a 5.4-8, pp.~165--166); frecuencia instantánea y chirp: §22.1A, ecs.~22.1-4 y 22.1-5 (pp.~939--940).}\label{sol:7}
+
+Campo: $\Ec(z,t)=\mathrm{Re}\{f(t-z/c_0)\}\,\xh$, con $f(t)=e^{-t^2/\tau^2}e^{j2\pi\nu_0t+jbt^2}$. El enunciado no da
+amplitud; escribimos $E_0f$ con $E_0$ real en V/m (en el enunciado, $E_0=1$ V/m).
+
+\inc{a} \textbf{Descripción.}
+\begin{itemize}
+\item \emph{Polarización}: lineal en $\xh$ (el vector campo siempre apunta en $\pm\xh$).
+\item \emph{Dirección}: depende de $z$ y $t$ solo a través de $t-z/c_0$; es una onda que viaja en $+z$ a $c_0$ sin
+deformarse (el vacío no es dispersivo). Es una onda plana pulsada (sin dependencia en $x,y$).
+\item \emph{Envolvente}: gaussiana $e^{-(t-z/c_0)^2/\tau^2}$; el campo cae a $1/e$ en $|t-z/c_0|=\tau$ y la intensidad
+($\propto$ envolvente$^2$) a $1/e^2$; su FWHM en intensidad es $\tau\sqrt{2\ln2}=1.18\tau$.
+\item \emph{Portadora}: $\cos[2\pi\nu_0(t-z/c_0)+b(t-z/c_0)^2]$: frecuencia central $\nu_0$ con un \emph{chirp} lineal
+(la fase cuadrática $bt^2$ hace que la frecuencia cambie a lo largo del pulso).
+\end{itemize}
+
+\inc{b} \textbf{Campo magnético.} Como el campo no es monocromático, usamos Maxwell en el dominio del tiempo,
+$\nabla\times\Ec=-\mu_0\partial_t\Hc$ (5.1-2). Sea $u=t-z/c_0$ y $\mathcal E_x(z,t)=E_0\,\mathrm{Re}\{f(u)\}$. Solo hay
+$\mathcal E_x(z,t)$, así que $\nabla\times\Ec=\partial_z\mathcal E_x\,\yh$, y por la regla de la cadena
+$\partial_z=-\frac1{c_0}\frac{d}{du}$:
+\begin{equation*}
+\nabla\times\Ec=-\frac{E_0}{c_0}\mathrm{Re}\{f'(u)\}\,\yh=-\mu_0\frac{\partial\Hc}{\partial t}.
+\end{equation*}
+Como $\partial_t=\frac{d}{du}$, se integra en $u$: $\mathcal H_y=\frac{E_0}{\mu_0c_0}\mathrm{Re}\{f(u)\}$ (la constante de
+integración es cero porque el campo se anula lejos del pulso). Con $\mu_0c_0=\eta_0$:
+\resultado{$\Hc(z,t)=\dfrac{E_0}{\eta_0}\mathrm{Re}\{f(t-z/c_0)\}\,\yh$, \ $\eta_0=\sqrt{\mu_0/\epsilon_0}\approx377$ $\Omega$.}
+Las demás ecuaciones se cumplen: $\nabla\cdot\Ec=\partial_x\mathcal E_x=0$, $\nabla\cdot\Hc=0$, y
+$\nabla\times\Hc=-\partial_z\mathcal H_y\,\xh=\frac{E_0}{\eta_0c_0}\mathrm{Re}\{f'\}\xh=\epsilon_0\partial_t\Ec$ porque
+$1/(\eta_0c_0)=\epsilon_0$. Igual que en la onda plana monocromática (5.4-5): $\Ec\perp\Hc\perp\zh$,
+$|\Ec|/|\Hc|=\eta_0$ instante a instante, y $\Ec\times\Hc\parallel+\zh$.
+
+\inc{c} \textbf{Frecuencia instantánea.} La fase total de $f$ es $\phi(t)=2\pi\nu_0t+bt^2$, así que
+\begin{equation*}
+\nu_i(t)=\frac{1}{2\pi}\frac{d\phi}{dt}=\frac{1}{2\pi}(2\pi\nu_0+2bt)=\nu_0+\frac{b\,t}{\pi}.
+\end{equation*}
+Equivale a (22.1-4) de Saleh (p.~939) con fase de envolvente $\varphi(t)=bt^2$.
+\resultado{$\nu_i(t)=\nu_0+bt/\pi$: con $b>0$ la frecuencia crece con el tiempo, \emph{up-chirp} (el frente del pulso es
+rojo y la cola azul).}
+En la notación de Saleh, $\varphi=at^2/\tau^2$, el parámetro de chirp es $a=\tfrac12\varphi''\tau^2=b\tau^2$ (22.1-5, p.~940);
+$a>0$ es up-chirp, consistente. \emph{Advertencia de convención:} con $e^{-i\omega t}$ (Boyd, Agrawal) el mismo campo real
+se escribe con fase $-bt^2$ en la envolvente, y el signo que indica up-chirp se invierte. Lo que no cambia es la física:
+$\nu_i$ crece en el tiempo.
+
+\inc{d} \textbf{Números.} $\tau=20$ fs, $\nu_0=375$ THz ($\lambda_0=799$ nm, periodo óptico 2.67 fs), $b=5\times10^{27}$ s$^{-2}$:
+\begin{equation*}
+\Delta\nu_i=\nu_i(\tau)-\nu_i(-\tau)=\frac{2b\tau}{\pi}=\frac{2(5\times10^{27}\ \mathrm{s^{-2}})(20\times10^{-15}\ \mathrm s)}{\pi}
+=\frac{2\times10^{14}}{\pi}\ \mathrm{Hz}=63.7\ \mathrm{THz}.
+\end{equation*}
+Es decir, $\nu_i$ va de 343.2 THz (874 nm) en $t=-\tau$ a 406.8 THz (737 nm) en $t=+\tau$: un 17\,\% de $\nu_0$.
+\resultado{$\Delta\nu_i=2b\tau/\pi=63.7$ THz entre $t=-\tau$ y $t=+\tau$.}
+Orden de magnitud: el parámetro de chirp es $a=b\tau^2=2$, así que el espectro es $\sqrt{1+a^2}=2.24$ veces más ancho que
+el de un pulso sin chirp de la misma duración (FWHM espectral de 18.7 THz sin chirp contra 41.9 THz con chirp). Ese
+exceso de ancho de banda es el que permite comprimir el pulso en un medio con la GVD de signo adecuado (Problema~17).
+
+\inc{e} \textbf{Intensidad.} Para una onda plana en el vacío, $I=|E|^2/2\eta_0$ (5.4-8) con $E$ la envolvente compleja,
+promediando en un ciclo óptico (válido porque $\tau=20$ fs $\gg$ 2.67 fs). Aquí $|E_0f|^2=E_0^2e^{-2(t-z/c_0)^2/\tau^2}$; la
+fase (incluido el chirp) desaparece al tomar el módulo:
+\resultado{$I(z,t)=\dfrac{E_0^2}{2\eta_0}\exp\!\Big[-\dfrac{2(t-z/c_0)^2}{\tau^2}\Big]$ \ (con $E_0=1$ V/m, $I_{\rm max}=1.33\times10^{-3}$ W/m$^2$).}
+Equivale a $\langle\Ec\times\Hc\rangle=\frac{E_0^2}{\eta_0}\langle\mathrm{Re}^2\{f\}\rangle\zh$, con
+$\langle\cos^2\rangle=\frac12$. El chirp no cambia $I(t)$, solo el espectro: un medidor de intensidad lento no lo distingue
+de un pulso sin chirp.
+
+\codigo{t1_p07_pulso_chirp.py}
+\begin{figure}[H]\centering
+\includegraphics[width=0.8\linewidth]{t1_p07_pulso_chirp.png}
+\caption{Problema 7. Arriba: campo real $\mathcal E_x(0,t)/E_0$, envolvente $\pm e^{-t^2/\tau^2}$ e intensidad
+$e^{-2t^2/\tau^2}$; los ciclos se aprietan hacia la derecha (up-chirp). Abajo: frecuencia instantánea
+$\nu_i=\nu_0+bt/\pi$ (THz) frente a $t-z/c_0$ (fs), con $\Delta\nu_i=63.7$ THz entre $\pm\tau$.}
+\label{fig:t1p07}
+\end{figure}
+
+\idea{$\nu_i=\frac1{2\pi}d\phi/dt$ con la fase \emph{total}; una fase cuadrática $bt^2$ da $\nu_i$ lineal en $t$ con pendiente
+$b/\pi$ (no $b/2\pi$: el 2 de derivar $t^2$ se cancela con el de $2\pi$). Con $e^{j\omega t}$, $b>0$ es up-chirp; con
+$e^{-i\omega t}$ el signo se invierte. En el vacío $\Hc=\zh\times\Ec/\eta_0$ también para pulsos, y la intensidad solo ve la
+envolvente.}

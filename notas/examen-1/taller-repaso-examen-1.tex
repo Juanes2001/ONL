@@ -208,7 +208,7 @@ Para $\mathbf J=\frac{1}{\sqrt5}(1,\;2e^{j\pi/3})^T$: (a) calcule $\mathsf r$, $
 
 \prob{Goos–Hänchen y medio absorbente [$\star$]}{S Probs.~6.2-7, 6.2-8}
 (a) Para dos ondas TE en RTI a $\theta$ y $\theta+d\theta$, con $d\varphi=\xi d\theta$, halle $\xi$ y argumente que un haz reflejado se desplaza lateralmente una distancia $\propto\xi$. Estime la penetración $1/\gamma$ de la onda evanescente para vidrio–aire a $\theta=1.2\theta_c$ y $\lambda_0=633$ nm.
-(b) Muestre que en incidencia normal sobre un medio de índice $n$ y absorción $\alpha$, $r=[(n-j\alpha c_0/2\omega)-1]/[(n-j\alpha c_0/2\omega)+1]$.
+(b) Muestre que en incidencia normal sobre un medio de índice $n$ y absorción $\alpha$, $r=[(n-j\alpha c_0/2\omega)-1]/[(n-j\alpha c_0/2\omega)+1]$ (así lo escribe Saleh; discuta si es el coeficiente del campo $E$ o del $H$ con la convención de (6.2-8)).
 
 \prob{Cristales uniaxiales: retardo, doble refracción y walk-off}{S Probs.~6.3-1, 6.3-3, 6.3-5}
 \begin{enumerate}[label=(\alph*)]
@@ -350,18 +350,18 @@ Calculadas con $c_0=2.998\times10^8$ m/s, $\epsilon_0=8.854\times10^{-12}$ F/m. 
 \item[5.] (b) $I=P/4\pi r^2=7.96$ W/m². (c) $U\approx\frac{A}{\sqrt\rho}e^{-jk\rho}$, $I\propto1/\rho$.
 \item[7.] $\nu_i=\nu_0+bt/\pi$: \emph{up-chirp}; $\Delta\nu=2b\tau/\pi=63.7$ THz.
 \item[8.] $W_0=0.675$ mm; $2z_0=2.70$ m; $I_0=1.40\times10^6$ W/m² (140 W/cm²); $I(0,1\,\mathrm m)=90.3$ W/cm².
-\item[9.] Cintura a 10.0 cm antes del primer plano; $W_0=0.200$ mm ($z_0=1.19$ cm). Solución única con $W_2>W_1$ y los dos planos del mismo lado.
+\item[9.] Cintura a 10.0 cm antes del primer plano; $W_0=0.200$ mm ($z_0=1.19$ cm). Si se supone la cintura fuera del intervalo entre planos (ambos del mismo lado); hay una segunda solución con la cintura entre ambos planos: $W_0=66.5$ µm, a 3.34 cm del primer plano.
 \item[10.] (a) $z_0=1.61$ m; $f_{\min}=W_0'z_0/W_0=16.1$ cm (con la lente a $z=f$ de la cintura). (b) $0.667$ mrad; $z_0$ crece en un factor $n$.
 \item[12.] (a) $n=1.5000$, $\alpha=4.19\times10^4$ m$^{-1}$ $=419$ cm$^{-1}$ $=1.82\times10^3$ dB/cm (débil: igual). (b) Exacto $n=4.50$, $\alpha=5.58\times10^7$ m$^{-1}$; fuerte: $n\approx4.47$, $\alpha\approx5.62\times10^7$ m$^{-1}$. (c) $\omega_p=2.39\times10^{16}$ rad/s, $\lambda_p=78.7$ nm; $\epsilon_e/\epsilon_0=-383-39.5j$ a 1.55 µm ($-47.8-1.8j$ a 550 nm): buen espejo. (d) $\lambda\approx5.8$ µm.
 \item[14.] Envolvente $\propto1+m\,e^{-j\Phi}\cos(2\pi f_st-\Psi)$, $\Phi=(\beta_1+\beta_2-2\beta_0)z/2$, $\Psi=(\beta_2-\beta_1)z/2$; AM pura si $\Phi=q\pi$: $z_q=2q\pi/(\beta_1+\beta_2-2\beta_0)\approx q/(2\pi\beta''f_s^2)$.
 \item[15.] Sílice: $D_\lambda=0$ en $1.273$ µm; a 0.8 µm $N=1.4671$, $D_\lambda=-106$ ps/(km·nm); a 1.55 µm $N=1.4626$, $D_\lambda=+21.9$ ps/(km·nm), $\beta_2=-28.0$ ps²/km. GaAs: $D_\lambda=0$ en $6.84$ µm ($D_\lambda=-506$ a 2 µm, $+17.3$ a 10 µm).
 \item[16.] $N(0.81\,\mu\mathrm m)=1.000273$; $D_\lambda\approx+0.108$ ps/(km·nm) (unas 200 veces menor que la fibra a 1.55 µm).
-\item[17.] (a) $N=1.4671$; retardo 48.9 ps; $\beta''=36.1$ fs²/mm; 100 fs: $z_0=99.8$ mm, sale con 100.5 fs; 20 fs: $z_0=3.99$ mm, sale con 53.9 fs. (b) $D_\nu=-1.36\times10^{-25}$ s²/m, $z_0=1.66$ km; 60.9 ps (10 km) y 601 ps (100 km). (d) $a=3$ es \emph{down-chirp} en $e^{j\omega t}$; se comprime en dispersión normal a $z=\frac{a}{1+a^2}z_0=0.3z_0$ hasta $\tau_0/\sqrt{10}=0.316\tau_0$.
+\item[17.] (a) $N=1.4671$; retardo 48.9 ps; $\beta''=36.1$ fs²/mm; 100 fs: $z_0=99.8$ mm, sale con 100.5 fs; 20 fs: $z_0=3.99$ mm, sale con 53.9 fs. (b) $D_\nu=-1.36\times10^{-25}$ s²/m, $z_0=1.66$ km; 60.9 ps (10 km) y 601 ps (100 km). (d) Con $a=-3$ y la convención $e^{j\omega t}$ el pulso es \emph{up-chirp}: en dispersión normal se ensancha y se comprime en dispersión \emph{anómala}, a $z=\frac{|a|}{1+a^2}z_0=0.3z_0$, hasta $\tau_0/\sqrt{10}=0.316\tau_0$ (con $a=+3$ sería down-chirp y se comprimiría en dispersión normal).
 \item[18.] $\mathsf r=2$, $\varphi=60^\circ$, $\psi=73.2^\circ$, $\chi=21.9^\circ$ (derecha); $S=(1,-0.6,0.4,0.693)$.
 \item[19.] (c) Retardador a $30^\circ$: modos LP a $30^\circ$ y $120^\circ$, $\mu=1,e^{-j\Gamma}$; rotador: R y L, $e^{\mp j\theta}$; polarizador a $45^\circ$: LP a $45^\circ$ ($\mu=1$) y $135^\circ$ ($\mu=0$). (d) $\sin^2(\Gamma/2)$.
 \item[21.] (b) $\mathcal R_{TE}=0.0920$, $\mathcal R_{TM}=0.0085$, promedio $0.0502$. (c) $\theta_c=41.8^\circ$, $\theta=50.2^\circ$: $\varphi_{TE}=+61.5^\circ$, $\varphi_{TM}=-73.5^\circ$, diferencia $135.0^\circ$ ($=45.0^\circ$ en la convención de Born \& Wolf); (6.2-13) impresa da $\varphi_y=0$ en $\theta_c$, contra la figura ($\pi$): úsese Fresnel directamente. (d) $n=1.51$: $48.6^\circ$ y $54.6^\circ$ (retardo extremo $45.9^\circ$ en $51.3^\circ$). (e) $\theta_B=74.0^\circ$ (Si), $63.3^\circ$ (Si$_3$N$_4$).
 \item[22.] Penetración $1/\gamma=176$ nm.
-\item[23.] (a) $89.3$ rad/mm; $\lambda/4$ en $17.6$, $87.9$, $158$ µm, … (b) Onda o: $\theta_o=18.89^\circ$; onda e: $\kv$ a $18.79^\circ$ ($n=1.5527$), rayo a $18.66^\circ$. (c) $n(45^\circ)=2.2436$, walk-off $2.29^\circ$, desplazamiento $0.40$ mm, retardo $4.33\times10^3$ rad ($\approx689.5$ ondas).
+\item[23.] (a) $89.3$ rad/mm; $\lambda/4$ ($\Gamma=\pi/2+m\pi$) en $17.6$, $52.8$, $87.9$, $123$, $158$ µm, … (en los de $\Gamma=3\pi/2+2m\pi$ se intercambian los ejes rápido y lento) (b) Onda o: $\theta_o=18.89^\circ$; onda e: $\kv$ a $18.79^\circ$ ($n=1.5527$), rayo a $18.66^\circ$. (c) $n(45^\circ)=2.2436$, walk-off $2.29^\circ$, desplazamiento $0.40$ mm, retardo $4.33\times10^3$ rad ($\approx689.5$ ondas).
 \item[24.] $\theta=22.9^\circ$; walk-off $3.19^\circ$ (55.7 mrad), separación $279$ µm en 5 mm; $\Delta k=2.34\times10^5$ m$^{-1}$, $L_c=13.4$ µm.
 \item[25.] $V_z=17.3^\circ$.
 \item[26.] (a) 2.90 mm; rotación neta nula (recíproco). (b) $L=19.6$ mm.
@@ -370,10 +370,10 @@ Calculadas con $c_0=2.998\times10^8$ m/s, $\epsilon_0=8.854\times10^{-12}$ F/m. 
 \item[29.] (a) $5.4\times10^{-11}$ m/V. (b) $|E|=3.65\times10^5$ V/m; $P(2\omega)=4.72\times10^{-11}$ C/m²; $\mu(2\omega)=4.7\times10^{-39}$ C·m $=5.6\times10^{-10}ea_0$; $P(\omega)=9.70\times10^{-6}$ C/m², $\mu(\omega)=1.14\times10^{-4}ea_0$; razón $4.9\times10^{-6}$. (c) $1.94\times10^{-12}$ m/V, $3.78\times10^{-24}$ m²/V², $3.5\times10^{16}$ W/cm². (d) $3.39$ pm/V; $\chi^{(3)}_{\rm Boyd}=4\chi^{(3)}_{\rm Saleh}/\epsilon_0$.
 \item[30.] (d) $\chi^{(2)}\approx6.9\times10^{-12}$ m/V. (e) Picos en $\omega=\omega_0/2$ (resonancia de dos fotones, $D(2\omega)$) y $\omega=\omega_0$ ($D^2(\omega)$).
 \item[33.] (c) Lineal: $\mathbf P=\epsilon_0(A+\frac B2)|E|^2\mathbf E$; circular: $\epsilon_0A|E|^2\mathbf E$; razón $2/3$ ($B/A=1$) y $1/4$ ($B/A=6$).
-\item[35.] (b) $\phi=-30^\circ$ (o $90^\circ$): $|d_{\rm eff}|=d_{22}\cos\theta=2.03$ pm/V. (c) $[100]$: $\mathbf P=0$; $[110]$: $\mathbf P\parallel\hat z$, $|P|=2\epsilon_0d_{36}E^2$; $[111]$: $\mathbf P\parallel\mathbf E$, $d_{\rm eff}=2d_{14}/\sqrt3=427$ pm/V.
+\item[35.] (b) $\phi=30^\circ+60^\circ q$ (todos dan el mismo $|d_{\rm eff}|$, con signo alterno): $|d_{\rm eff}|=d_{22}\cos\theta=2.03$ pm/V. (c) $[100]$: $\mathbf P=0$; $[110]$: $\mathbf P\parallel\hat z$, $|P|=2\epsilon_0d_{36}E^2$; $[111]$: $\mathbf P\parallel\mathbf E$, $d_{\rm eff}=2d_{14}/\sqrt3=427$ pm/V.
 \item[37.] (b) $\chi^{(1)}=\chi_0/(1-i\omega\tau_r)$, polo en $\omega=-i/\tau_r$ (semiplano inferior).
 \item[38.] (a) (1.2.14b) es errata: $n_2=3\chi^{(3)}/(4n_0^2\epsilon_0c)$ por ambos caminos. (b) Sílice $n_2=2.4\times10^{-20}$ m²/W; Si$_3$N$_4$ $\chi^{(3)}=3.4\times10^{-21}$ m²/V²; Si $1.9\times10^{-19}$ m²/V². (c) $\Delta n=2.4\times10^{-7}$; $\phi_{NL}=0.014$ rad.
-\item[39.] (a) $n(1064)=1.459$, $n(532)=1.487$ (sí, normal). (b) $\chi^{(2)}=4.4\times10^{-12}$ m/V completa contra $3.9\times10^{-12}$ no resonante (14\,\% más). (d) Con $d_{\rm eff}=\chi^{(2)}/2$: $P(2\omega)\approx7\times10^{-12}$ C/m².
+\item[39.] (a) $n(1064)=1.459$, $n(532)=1.487$ (sí, normal). (b) $\chi^{(2)}=4.4\times10^{-12}$ m/V completa contra $3.9\times10^{-12}$ no resonante (14\,\% más). (d) Con $d_{\rm eff}=\chi^{(2)}/2$ y el índice del cristal modelo ($n=1.459$): $P(2\omega)\approx7\times10^{-12}$ C/m² (con $n=2$ como en el Prob.~1.2 de Boyd: $5.2\times10^{-12}$).
 \end{description}
 }
 

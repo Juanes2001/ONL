@@ -1,0 +1,63 @@
+(a) F = 0.001, a = 0.3: comparación simulación vs. perturbación
+  línea      W    simulación        teoría  error rel.
+     w1   0.30   1.09831e-03   1.09830e-03    7.97e-07
+     w2   0.42   1.21261e-03   1.21261e-03    9.38e-07
+    2w1   0.60   2.81486e-07   2.81486e-07    3.58e-07
+  w1+w2   0.72   8.20497e-07   8.20497e-07    3.47e-07
+  w2-w1   0.12   4.05352e-07   4.05351e-07    3.27e-06
+     DC   0.00  -4.01504e-07  -4.01503e-07    2.41e-06
+    piso numérico (mediana de |amp|): 1.2e-18
+(b) F = 0.425: el oscilador escapa por encima de la barrera del potencial
+(b) pendiente log-log de la línea w1+w2 para F <= 0.0049: 2.0000
+    ajuste sim/teo = 1 - c F^2 para F <= 0.11: c = 0.373
+    máxima desviación antes del escape: sim/teo = 0.9245 en F = 0.3650
+    desviación > 10 % a partir de F = 0.4200 (sim/teo en F = 0.4200: 1.100)
+    F =   0.0098: sim/teo = 1.0000
+    F =   0.0155: sim/teo = 0.9999
+    F =   0.0244: sim/teo = 0.9998
+    F =   0.0385: sim/teo = 0.9995
+    F =   0.0607: sim/teo = 0.9987
+    F =   0.0959: sim/teo = 0.9965
+    F =   0.1513: sim/teo = 0.9903
+    F =   0.2388: sim/teo = 0.9701
+    F =   0.3025: sim/teo = 0.9455
+    F =   0.3075: sim/teo = 0.9433
+    F =   0.3125: sim/teo = 0.9412
+    F =   0.3175: sim/teo = 0.9390
+    F =   0.3225: sim/teo = 0.9369
+    F =   0.3275: sim/teo = 0.9348
+    F =   0.3325: sim/teo = 0.9328
+    F =   0.3375: sim/teo = 0.9309
+    F =   0.3425: sim/teo = 0.9292
+    F =   0.3475: sim/teo = 0.9276
+    F =   0.3525: sim/teo = 0.9263
+    F =   0.3575: sim/teo = 0.9252
+    F =   0.3625: sim/teo = 0.9246
+    F =   0.3675: sim/teo = 0.9245
+    F =   0.3725: sim/teo = 0.9250
+    F =   0.3775: sim/teo = 0.9264
+    F =   0.3825: sim/teo = 0.9289
+    F =   0.3875: sim/teo = 0.9330
+    F =   0.3925: sim/teo = 0.9393
+    F =   0.3975: sim/teo = 0.9484
+    F =   0.4025: sim/teo = 0.9619
+    F =   0.4075: sim/teo = 0.9818
+    F =   0.4125: sim/teo = 1.0124
+    F =   0.4175: sim/teo = 1.0624
+    F =   0.4225: sim/teo = 1.1530
+    último F sin escape: 0.4225
+(c) F = 0.1: amplitudes (no centrosimétrico a=0.3 | centrosimétrico b=0.3)
+      DC  0.00    4.116e-03 |   1.116e-15
+   w2-w1  0.12    4.191e-03 |   2.292e-15
+      w1  0.30    1.107e-01 |   1.110e-01
+      w2  0.42    1.224e-01 |   1.226e-01
+     2w1  0.60    2.826e-03 |   1.963e-15
+   w1+w2  0.72    8.174e-03 |   2.005e-15
+     2w2  0.84    7.256e-03 |   3.253e-15
+  2w1-w2  0.18    2.544e-04 |   3.569e-04
+  2w2-w1  0.54    5.547e-04 |   5.347e-04
+     3w1  0.90    4.475e-04 |   4.899e-04
+  2w1+w2  1.02    3.403e-03 |   2.934e-03
+     3w2  1.26    4.461e-04 |   2.200e-04
+    3w1: simulación 4.8995e-04, teoría de tercer orden 4.7263e-04
+    máximo de las líneas pares en el caso centrosimétrico: 3.3e-15

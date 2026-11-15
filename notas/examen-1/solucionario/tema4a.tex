@@ -1,0 +1,452 @@
+% Solucionario, Tema 4 (primera parte): Problemas 28 a 33 (Boyd, cap. 1).
+% Convención de Boyd en todo el fragmento: E~(t) = E e^{-i w t} + c.c., P~ = sum_n P(w_n) e^{-i w_n t},
+% I = 2 n eps0 c |E|^2, unidades SI.
+
+\noindent\textbf{Convención de todo este tema (Boyd).} Campo real $\tilde E(t)=Ee^{-i\omega t}+\cc$, de modo que la amplitud compleja $E$ es la \emph{mitad} de la amplitud de pico real; polarización $\tilde P(t)=\sum_nP(\omega_n)e^{-i\omega_nt}$ sumando frecuencias positivas y negativas, con $P(-\omega)=P(\omega)^*$; intensidad $I=2n\epsilon_0c|E|^2$; SI, $\chi^{(2)}$ en m/V y $\chi^{(3)}$ en m$^2$/V$^2$ (Boyd, §1.1, p.~2; ec.~2.2.16). Cuando se compare con Saleh ($e^{j\omega t}$) se dice explícitamente.
+
+%=====================================================================
+\sol{28}{Amplitudes de la polarización no lineal y factores de degeneración}{Boyd §1.2.2, ecs.~(1.2.3)--(1.2.8), pp.~6--7; §1.2.9, ecs.~(1.2.15)--(1.2.17), pp.~12--13; §1.3, ecs.~(1.3.12)--(1.3.21), pp.~19--21}
+\label{sol:28}
+
+\inc{a} Partimos de (Boyd, ecs.~1.2.3--1.2.4, p.~6):
+\[
+\tilde E(t)=E_1e^{-i\omega_1t}+E_2e^{-i\omega_2t}+E_1^*e^{i\omega_1t}+E_2^*e^{i\omega_2t},\qquad \tilde P^{(2)}(t)=\epsilon_0\chi^{(2)}\tilde E^2(t).
+\]
+Llamemos $a=E_1e^{-i\omega_1t}$, $b=E_2e^{-i\omega_2t}$; entonces $\tilde E=a+b+a^*+b^*$ y el cuadrado de una suma de cuatro términos tiene $4$ cuadrados y $\binom42=6$ productos cruzados, cada uno con factor 2:
+\[
+\tilde E^2=a^2+b^2+a^{*2}+b^{*2}+2ab+2ab^*+2aa^*+2a^*b+2bb^*+2a^*b^*.
+\]
+Agrupamos cada término con su complejo conjugado:
+\begin{align*}
+a^2+a^{*2}&=E_1^2e^{-2i\omega_1t}+\cc, & b^2+b^{*2}&=E_2^2e^{-2i\omega_2t}+\cc,\\
+2ab+2a^*b^*&=2E_1E_2e^{-i(\omega_1+\omega_2)t}+\cc, & 2ab^*+2a^*b&=2E_1E_2^*e^{-i(\omega_1-\omega_2)t}+\cc,\\
+2aa^*+2bb^*&=2(E_1E_1^*+E_2E_2^*) &&\text{(no depende de $t$).}
+\end{align*}
+Multiplicando por $\epsilon_0\chi^{(2)}$ se obtiene (Boyd, ec.~1.2.5, p.~6). Comparando término a término con $\tilde P^{(2)}=\sum_nP(\omega_n)e^{-i\omega_nt}$ (ec.~1.2.6) se leen las amplitudes (Boyd, ec.~1.2.7, p.~7):
+\resultado{$P(2\omega_1)=\epsilon_0\chi^{(2)}E_1^2$ (SHG),\quad $P(2\omega_2)=\epsilon_0\chi^{(2)}E_2^2$ (SHG),\\ $P(\omega_1+\omega_2)=2\epsilon_0\chi^{(2)}E_1E_2$ (SFG),\quad $P(\omega_1-\omega_2)=2\epsilon_0\chi^{(2)}E_1E_2^*$ (DFG),\\ $P(0)=2\epsilon_0\chi^{(2)}(E_1E_1^*+E_2E_2^*)$ (OR).}
+Las frecuencias negativas son los conjugados, $P(-\omega)=P(\omega)^*$ (ec.~1.2.8), y no aportan información nueva.
+
+\emph{¿Por qué SFG lleva un 2 y SHG no?} El 2 cuenta cuántos productos \emph{ordenados} de campos dan la misma frecuencia: $\omega_1+\omega_2$ sale de $ab$ y de $ba$ (dos ordenamientos distinguibles), mientras que $2\omega_1$ sale solo de $aa$. Es el factor de degeneración $D$ de la definición tensorial: en (Boyd, ec.~1.3.12, p.~19) la suma $\sum_{(nm)}$ recorre los pares $(\omega_n,\omega_m)$ con $\omega_n+\omega_m$ fijo; para SFG hay dos, $(\omega_1,\omega_2)$ y $(\omega_2,\omega_1)$, y con la permutación intrínseca $\chi_{ijk}(\omega_3,\omega_1,\omega_2)=\chi_{ikj}(\omega_3,\omega_2,\omega_1)$ los dos términos son iguales y se suman, $D=2$ (ec.~1.3.19, p.~21); para SHG solo hay $(\omega_1,\omega_1)$, $D=1$.
+
+El factor no desaparece al hacer $\omega_2\to\omega_1$ porque el límite no es el mismo problema: si $\omega_2=\omega_1$ \emph{exactamente}, los dos campos son una sola componente de Fourier, $E=E_1+E_2$, y $P(2\omega_1)=\epsilon_0\chi^{(2)}(E_1+E_2)^2=\epsilon_0\chi^{(2)}(E_1^2+E_2^2+2E_1E_2)$: el término cruzado vuelve a llevar el 2. Es decir, el 2 de SFG es el término de interferencia $2E_1E_2$. Boyd lo resume así: dos campos distintos de igual amplitud dan más polarización que uno solo porque la intensidad total es mayor (§1.3, p.~21). Además, $\chi^{(2)}(\omega_1+\omega_2,\omega_1,\omega_2)\to\chi^{(2)}(2\omega_1,\omega_1,\omega_1)$ es continua; lo que salta es solo el conteo $D$.
+
+\inc{b} Con la convención alternativa (nota al pie de Boyd, p.~7):
+\[
+\tilde E=\tfrac12\left(E_1'e^{-i\omega_1t}+E_2'e^{-i\omega_2t}+\cc\right),\qquad \tilde P=\tfrac12\sum_nP'(\omega_n)e^{-i\omega_nt}.
+\]
+El campo es el de (a) con $E_j\to E_j'/2$, así que el desarrollo de (a) vale con un factor global $(1/2)^2=1/4$:
+\[
+\epsilon_0\chi^{(2)}\tilde E^2=\frac{\epsilon_0\chi^{(2)}}{4}\Big[E_1'^2e^{-2i\omega_1t}+E_2'^2e^{-2i\omega_2t}+2E_1'E_2'e^{-i(\omega_1+\omega_2)t}+2E_1'E_2'^*e^{-i(\omega_1-\omega_2)t}+\cc\Big]+\frac{\epsilon_0\chi^{(2)}}{4}\,2\big(|E_1'|^2+|E_2'|^2\big).
+\]
+Igualamos con $\tfrac12\sum_nP'(\omega_n)e^{-i\omega_nt}$: el coeficiente de cada exponencial es $\tfrac12P'$, luego $P'=2\times$(coeficiente). Por ejemplo, $\tfrac12P'(2\omega_1)=\tfrac14\epsilon_0\chi^{(2)}E_1'^2$, y lo mismo con las demás (la DC también aparece una sola vez en la suma, $\tfrac12P'(0)=\tfrac12\epsilon_0\chi^{(2)}(|E_1'|^2+|E_2'|^2)$):
+\resultado{$P'(2\omega_j)=\tfrac12\epsilon_0\chi^{(2)}E_j'^2$,\quad $P'(\omega_1+\omega_2)=\epsilon_0\chi^{(2)}E_1'E_2'$,\quad $P'(\omega_1-\omega_2)=\epsilon_0\chi^{(2)}E_1'E_2'^*$,\quad $P'(0)=\epsilon_0\chi^{(2)}(|E_1'|^2+|E_2'|^2)$.\\
+Son las fórmulas de (1.2.7) con $E\to E'$ y un factor $\tfrac12$ delante de cada una.}
+Comprobación directa: como $E'=2E$ y $P'=2P$, $P'(2\omega_1)=2\epsilon_0\chi^{(2)}E_1^2=2\epsilon_0\chi^{(2)}(E_1'/2)^2=\tfrac12\epsilon_0\chi^{(2)}E_1'^2$. Ésta es la convención de Saleh y de muchos artículos: hay que mirar siempre cuál se usa antes de copiar una fórmula.
+
+\inc{c} Con tres frecuencias (Boyd, ecs.~1.2.15, p.~12) escribimos $\tilde E=\sum_kE_ke^{-i\omega_kt}$ con $k\in\{\pm1,\pm2,\pm3\}$, $\omega_{-k}=-\omega_k$, $E_{-k}=E_k^*$. Entonces
+\[
+\tilde E^3=\sum_{k_1,k_2,k_3}E_{k_1}E_{k_2}E_{k_3}\,e^{-i(\omega_{k_1}+\omega_{k_2}+\omega_{k_3})t},
+\]
+una suma sobre $6^3=216$ ternas \emph{ordenadas}. La amplitud $P(\omega)$ es $\epsilon_0\chi^{(3)}$ por la suma de los productos de todas las ternas ordenadas con $\omega_{k_1}+\omega_{k_2}+\omega_{k_3}=\omega$. Si una terna tiene sus tres frecuencias distintas, hay $3!=6$ ordenamientos que dan el mismo producto; si dos son iguales, $3!/2!=3$; si las tres son iguales, 1.
+
+\emph{$P(\omega_1)$.} Con frecuencias inconmensurables, las únicas ternas que suman $\omega_1$ son las que contienen $\omega_1$ y un par $\{\omega_k,-\omega_k\}$:
+\begin{itemize}
+\item $\{\omega_1,\omega_1,-\omega_1\}$: dos iguales, 3 ordenamientos, producto $E_1E_1E_1^*=|E_1|^2E_1$;
+\item $\{\omega_1,\omega_2,-\omega_2\}$: tres distintas, 6 ordenamientos, producto $|E_2|^2E_1$;
+\item $\{\omega_1,\omega_3,-\omega_3\}$: 6 ordenamientos, producto $|E_3|^2E_1$.
+\end{itemize}
+\emph{$P(2\omega_1-\omega_2)$}: solo $\{\omega_1,\omega_1,-\omega_2\}$, 3 ordenamientos ($\omega_1\omega_1(-\omega_2)$, $\omega_1(-\omega_2)\omega_1$, $(-\omega_2)\omega_1\omega_1$).
+\emph{$P(\omega_1+\omega_2-\omega_3)$}: solo $\{\omega_1,\omega_2,-\omega_3\}$, tres distintas, 6 ordenamientos. En suma (Boyd, ec.~1.2.17, p.~13):
+\resultado{$P(\omega_1)=\epsilon_0\chi^{(3)}\big(3|E_1|^2+6|E_2|^2+6|E_3|^2\big)E_1$,\qquad $P(2\omega_1-\omega_2)=3\epsilon_0\chi^{(3)}E_1^2E_2^*$,\qquad $P(\omega_1+\omega_2-\omega_3)=6\epsilon_0\chi^{(3)}E_1E_2E_3^*$.}
+\emph{XPM es el doble de SPM.} En $P(\omega_1)$, el término $3|E_1|^2E_1$ es la automodulación de fase (el haz 1 cambia su propio índice) y $6|E_2|^2E_1$ es la modulación de fase cruzada (el haz 2 cambia el índice que ve el haz 1). A igual intensidad, $|E_2|=|E_1|$, la XPM pesa $6/3=2$ veces más. El origen es el mismo conteo de (a): en la SPM dos de los tres campos son \emph{el mismo} ($\omega_1$ dos veces) y no se pueden distinguir los ordenamientos que los intercambian; en la XPM los tres campos son distinguibles. Físicamente, el haz 2 actúa sobre el 1 por dos caminos: a través de su intensidad $|E_2|^2$ (los campos $\omega_2,-\omega_2$ juntos) y a través de la rejilla de batido $E_1E_2^*$ que luego difracta $E_2$ hacia $\omega_1$; en la SPM ambos caminos son el mismo término. Por eso, para dos haces con la misma polarización, el índice que ve el haz 1 es $n_1=n_0+n_2(I_1+2I_2)$.
+
+\inc{d} \textbf{[N]} El programa enumera las 216 ternas ordenadas con $\omega_1=1$, $\omega_2=\sqrt2$, $\omega_3=\sqrt5$, las agrupa por frecuencia suma y, dentro de cada frecuencia, por multiconjunto (mismo producto de amplitudes); el número de ternas de cada multiconjunto es $D$.
+\codigo{t4a_p28_frecuencias.py}
+Salida (frecuencias positivas; las negativas son las opuestas):
+\begin{Verbatim}
+Ternas ordenadas en total: 216 (debe ser 216)
+Frecuencias distintas: 44  (positivas: 22, negativas: 22, cero: 0)
+      frecuencia     valor   términos  [factor D]
+        w1+w2-w3   0.17815   E1 E2 E3* [6]
+          w3-2w1   0.23607   E1* E1* E3 [3]
+          2w1-w2   0.58579   E1 E1 E2* [3]
+          2w2-w3   0.59236   E2 E2 E3* [3]
+              w1   1.00000   E1 E1 E1* [3], E1 E2 E2* [6], E1 E3 E3* [6]
+              w2   1.41421   E2 E2 E2* [3], E1 E1* E2 [6], E2 E3 E3* [6]
+        w1+w3-w2   1.82185   E1 E2* E3 [6]
+          2w2-w1   1.82843   E1* E2 E2 [3]
+              w3   2.23607   E3 E3 E3* [3], E1 E1* E3 [6], E2 E2* E3 [6]
+        w2+w3-w1   2.65028   E1* E2 E3 [6]
+             3w1   3.00000   E1 E1 E1 [1]
+          2w3-w2   3.05792   E2* E3 E3 [3]
+          2w1+w2   3.41421   E1 E1 E2 [3]
+          2w3-w1   3.47214   E1* E3 E3 [3]
+          w1+2w2   3.82843   E1 E2 E2 [3]
+          2w1+w3   4.23607   E1 E1 E3 [3]
+             3w2   4.24264   E2 E2 E2 [1]
+        w1+w2+w3   4.65028   E1 E2 E3 [6]
+          2w2+w3   5.06450   E2 E2 E3 [3]
+          w1+2w3   5.47214   E1 E3 E3 [3]
+          w2+2w3   5.88635   E2 E3 E3 [3]
+             3w3   6.70820   E3 E3 E3 [1]
+Factores de degeneración que aparecen: [1, 3, 6]
+\end{Verbatim}
+\resultado{Salen exactamente 44 frecuencias distintas (22 positivas y sus 22 opuestas; ninguna es cero) y los únicos factores son 1 (THG, $3\omega_k$), 3 (términos $2\omega_j\pm\omega_k$ y la SPM) y 6 (términos con tres frecuencias distintas y la XPM). La suma de todos los factores es $216=6^3$, como debe.}
+Dos detalles: (i) con $\omega_3=\sqrt5>2\omega_1$, la combinación $2\omega_1-\omega_3$ de la lista de Boyd es negativa y su opuesta $\omega_3-2\omega_1$ aparece entre las positivas; el conteo de 44 no cambia. (ii) $\omega_1$, $\omega_2$, $\omega_3$ son las únicas frecuencias con varios términos, porque los pares $\{\omega_k,-\omega_k\}$ se cancelan en la suma: son los términos de índice no lineal (SPM y XPM).
+
+\inc{e} \emph{Analogía con la Tarea~1, punto 2a.} Allí $i=v^2$ con $v=\cos(2\pi50t)+\cos(2\pi120t)$ (Tarea~1, §2a). Es exactamente $\tilde P^{(2)}=\epsilon_0\chi^{(2)}\tilde E^2$ con $\epsilon_0\chi^{(2)}\to1$ y $\cos\omega t=\tfrac12e^{-i\omega t}+\cc$, es decir, $E_1=E_2=\tfrac12$. Con (1.2.7):
+\begin{itemize}
+\item SHG: $P(2\omega_j)=E_j^2=\tfrac14$. La línea real es $P(2\omega)e^{-2i\omega t}+\cc=2|P|\cos2\omega t$, de amplitud $2\cdot\tfrac14=\tfrac12$.
+\item SFG y DFG: $P=2E_1E_2=\tfrac12$, amplitud real $2\cdot\tfrac12=1$.
+\item OR: $P(0)=2(|E_1|^2+|E_2|^2)=2(\tfrac14+\tfrac14)=1$. La DC aparece una sola vez en la suma (no tiene c.c.\ aparte), así que la línea vale $P(0)=1$, sin factor 2.
+\end{itemize}
+\begin{table}[H]\centering\small
+\begin{tabular}{@{}cccc@{}}\toprule
+$f$ (Hz) & Origen & Proceso & Amplitud: (1.2.7) $=$ FFT de la Tarea 1\\\midrule
+0 & $f_1-f_1$, $f_2-f_2$ & OR & 1\\
+70 & $f_2-f_1$ & DFG & 1\\
+100 & $2f_1$ & SHG & 0.5\\
+170 & $f_1+f_2$ & SFG & 1\\
+240 & $2f_2$ & SHG & 0.5\\\bottomrule
+\end{tabular}
+\caption{Líneas de $i=v^2$ (Tarea 1, punto 2a) identificadas con los procesos de segundo orden.}
+\end{table}
+\resultado{0 Hz (OR, 1), 70 Hz (DFG, 1), 100 y 240 Hz (SHG, 0.5), 170 Hz (SFG, 1). Coinciden con la FFT de la Tarea 1 y con la respuesta publicada.}
+
+\idea{Para no perder factores: (1) la frecuencia de $P$ es la suma de las frecuencias de los campos (conjugado $\Rightarrow$ frecuencia negativa); (2) el factor numérico es el número de permutaciones distinguibles de esas frecuencias (2.º orden: 1 o 2; 3.er orden: 1, 3 o 6); (3) la línea real a $\Omega\neq0$ vale $2|P(\Omega)|$, la DC vale $P(0)$. Errores típicos: usar (1.2.7) con amplitudes de pico ($E'=2E$) sin cambiar los factores; olvidar que XPM = 2$\times$SPM; poner un factor 2 de más en la rectificación óptica.}
+
+%=====================================================================
+\sol{29}{Estimaciones numéricas y unidades}{Boyd §1.1, ecs.~(1.1.3)--(1.1.6), pp.~3--4; Probs.~1.1 y 1.2, p.~63; apéndice C, ec.~(C.11), p.~602; Saleh ec.~(21.1-2), p.~876}
+\label{sol:29}
+
+\inc{a} En el sistema gaussiano $\tilde P=\chi^{(1)}\tilde E[1+\chi^{(2)}\tilde E/\chi^{(1)}+\cdots]$ y en SI $\tilde P=\epsilon_0\chi^{(1)}\tilde E[1+\chi^{(2)}\tilde E/\chi^{(1)}+\cdots]$; los corchetes son razones adimensionales y deben valer lo mismo en ambos sistemas (Boyd, ecs.~C.1$'$, C.4$'$, p.~601). Con $1\text{ statvolt/cm}=300\text{ V}/10^{-2}\text{ m}=3\times10^4$ V/m, es decir $E_{\rm SI}=3\times10^4E_{\rm G}$ (ec.~C.8), y $\chi^{(1)}_{\rm SI}=4\pi\chi^{(1)}_{\rm G}$ (ec.~C.10):
+\[
+\frac{\chi^{(2)}_{\rm SI}E_{\rm SI}}{\chi^{(1)}_{\rm SI}}=\frac{\chi^{(2)}_{\rm G}E_{\rm G}}{\chi^{(1)}_{\rm G}}
+\;\Rightarrow\;
+\chi^{(2)}_{\rm SI}=\chi^{(2)}_{\rm G}\,\frac{\chi^{(1)}_{\rm SI}}{\chi^{(1)}_{\rm G}}\,\frac{E_{\rm G}}{E_{\rm SI}}=\frac{4\pi}{3\times10^4}\chi^{(2)}_{\rm G}=4.189\times10^{-4}\chi^{(2)}_{\rm G}\quad\text{(Boyd, ec.~C.11)}.
+\]
+\resultado{$\chi^{(2)}_{yyy}=4.189\times10^{-4}\times1.3\times10^{-7}=\SI{5.4e-11}{m/V}$ (54 pm/V, es decir $d_{22}=27$ pm/V, del orden del valor $d_{22}=18$ pm/V de la Tabla~1.5.3, p.~50).}
+
+\inc{b} \emph{Intensidad y campo.} Área de la mancha $A=\pi(\SI{15}{\micro m})^2=\SI{7.07e-10}{m^2}$, de modo que $I=\SI{1}{W}/A=\SI{1.41e9}{W/m^2}$ ($\SI{1.4e5}{W/cm^2}$). Con $I=2n\epsilon_0c|E|^2$ (Boyd, ec.~2.2.16):
+\[
+|E(\omega)|=\sqrt{\frac{I}{2n\epsilon_0c}}=\sqrt{\frac{1.415\times10^{9}}{2(2)(8.854\times10^{-12})(2.998\times10^8)}}=\SI{3.65e5}{V/m}
+\]
+(el campo real de pico es $2|E|=\SI{7.3e5}{V/m}$).
+
+\emph{Polarización no lineal.} $P(2\omega)=\epsilon_0\chi^{(2)}E^2$ (ec.~1.2.7, SHG, $D=1$):
+\[
+P(2\omega)=(8.854\times10^{-12})(4\times10^{-11})(3.65\times10^5)^2=\SI{4.72e-11}{C/m^2}.
+\]
+(Las respuestas impresas del Prob.~1.2 dicen C/m$^3$; una polarización es momento dipolar por volumen, C$\cdot$m/m$^3$ = C/m$^2$.)
+
+\emph{Momento dipolar por átomo.} $\mu(2\omega)=P(2\omega)/N=4.72\times10^{-11}/10^{28}=\SI{4.72e-39}{C.m}$. La unidad atómica es $ea_0=(1.602\times10^{-19})(0.529\times10^{-10})=\SI{8.48e-30}{C.m}$, así que $\mu(2\omega)=5.6\times10^{-10}\,ea_0$.
+
+\emph{Respuesta lineal.} $\chi^{(1)}=n^2-1=3$, $P(\omega)=\epsilon_0\chi^{(1)}E=(8.854\times10^{-12})(3)(3.65\times10^5)=\SI{9.70e-6}{C/m^2}$, $\mu(\omega)=\SI{9.70e-34}{C.m}=1.14\times10^{-4}\,ea_0$. La razón
+\[
+\frac{\mu(2\omega)}{\mu(\omega)}=\frac{P(2\omega)}{P(\omega)}=\frac{\chi^{(2)}E}{\chi^{(1)}}=\frac{(4\times10^{-11})(3.65\times10^5)}{3}=4.9\times10^{-6}.
+\]
+\codigo{t4a_p29_estimaciones.py}
+\resultado{$|E|=\SI{3.65e5}{V/m}$; $P(2\omega)=\SI{4.72e-11}{C/m^2}$; $\mu(2\omega)=\SI{4.7e-39}{C.m}=5.6\times10^{-10}ea_0$; $P(\omega)=\SI{9.70e-6}{C/m^2}$, $\mu(\omega)=1.14\times10^{-4}ea_0$; razón $4.9\times10^{-6}$.}
+Orden de magnitud: la razón es $\chi^{(2)}E/\chi^{(1)}\sim E/E_{\rm at}\sim10^{-6}$, como predice §1.1. Aun así, Boyd anota que con estos números casi toda la potencia puede pasar al segundo armónico en un cristal de 1 cm (Prob.~1.2): el efecto por átomo es diminuto, pero se acumula coherentemente a lo largo de $\sim10^4$ longitudes de onda si hay ajuste de fase.
+
+\inc{c} El campo atómico es el que siente el electrón en el átomo de hidrógeno (Boyd, p.~3):
+\[
+E_{\rm at}=\frac{e}{4\pi\epsilon_0a_0^2}=\frac{1.602\times10^{-19}}{4\pi(8.854\times10^{-12})(0.529\times10^{-10})^2}=\SI{5.14e11}{V/m}.
+\]
+La no linealidad es apreciable cuando $E\sim E_{\rm at}$, es decir, cuando $P^{(2)}\sim P^{(1)}$: $\chi^{(2)}E_{\rm at}\sim\chi^{(1)}\sim1$, luego $\chi^{(2)}\sim1/E_{\rm at}$; análogamente $\chi^{(3)}E_{\rm at}^2\sim1$:
+\[
+\chi^{(2)}\sim\frac1{E_{\rm at}}=\SI{1.94e-12}{m/V}\ \text{(ec.~1.1.3)},\qquad \chi^{(3)}\sim\frac1{E_{\rm at}^2}=\SI{3.78e-24}{m^2/V^2}\ \text{(ec.~1.1.4)},
+\]
+\[
+I_{\rm at}=\tfrac12\epsilon_0cE_{\rm at}^2=\tfrac12(8.854\times10^{-12})(2.998\times10^8)(5.14\times10^{11})^2=\SI{3.5e20}{W/m^2}=\SI{3.5e16}{W/cm^2}\ \text{(ec.~1.1.6)}.
+\]
+\emph{¿Por qué el $\tfrac12$?} Aquí $E_{\rm at}$ es la \emph{amplitud de pico} de un campo real $\mathcal E\cos\omega t$, y la intensidad es el promedio temporal del vector de Poynting, $I=\epsilon_0c\langle\mathcal E^2\cos^2\omega t\rangle=\tfrac12\epsilon_0c\mathcal E^2$. En la convención de Boyd, $\mathcal E=2|E|$ y $I=2\epsilon_0c|E|^2=\tfrac12\epsilon_0c(2|E|)^2$: es la misma fórmula. Si se usara $I=2\epsilon_0cE_{\rm at}^2$ (tomando $E_{\rm at}$ como amplitud compleja) se obtendría una intensidad 4 veces mayor.
+\resultado{$E_{\rm at}=\SI{5.14e11}{V/m}$; $\chi^{(2)}\sim\SI{1.94e-12}{m/V}$; $\chi^{(3)}\sim\SI{3.78e-24}{m^2/V^2}$; $I_{\rm at}=\SI{3.5e16}{W/cm^2}$.}
+
+\inc{d} \emph{Saleh $\leftrightarrow$ Boyd.} Saleh escribe $\mathcal P=\epsilon_0\chi\mathcal E+2\mathrm d\,\mathcal E^2+4\chi^{(3)}\mathcal E^3$ (Saleh, ec.~21.1-2, p.~876) con $\mathcal E=\mathrm{Re}\{E_Se^{j\omega t}\}=\tfrac12(E_Se^{j\omega t}+E_S^*e^{-j\omega t})$. Entonces
+\[
+2\mathrm d\,\mathcal E^2=\frac{2\mathrm d}{4}\left(E_S^2e^{2j\omega t}+2|E_S|^2+E_S^{*2}e^{-2j\omega t}\right)=\mathrm d|E_S|^2+\mathrm{Re}\{\mathrm dE_S^2e^{2j\omega t}\}.
+\]
+Como Saleh define la amplitud a $2\omega$ por $\mathcal P_{NL}(2\omega)=\mathrm{Re}\{P_S(2\omega)e^{j2\omega t}\}$, se lee $P_S(2\omega)=\mathrm dE_S^2$.
+
+Boyd escribe el mismo campo como $\mathcal E=E_Be^{-i\omega t}+\cc$. Comparando, $\tfrac12E_S=E_B$ si se identifica $j\to-i$ (en rigor $E_S=2E_B^*$ con $j=i$; las magnitudes cumplen $|E_S|=2|E_B|$ en cualquier caso). Lo mismo para la polarización: $P_S=2P_B$. Sustituyendo en $P_S=\mathrm dE_S^2$:
+\[
+2P_B=\mathrm d(2E_B)^2\;\Rightarrow\;P_B(2\omega)=2\mathrm d\,E_B^2.
+\]
+Comparando con $P_B(2\omega)=\epsilon_0\chi^{(2)}E_B^2$ (Boyd, ec.~1.2.7):
+\resultado{$\mathrm d_{\rm Saleh}=\tfrac12\epsilon_0\chi^{(2)}=\epsilon_0d_{\rm Boyd}$ (con $d_{\rm Boyd}=\chi^{(2)}/2$). Para $\mathrm d=\SI{3e-23}{C/V^2}$: $d_{\rm Boyd}=\mathrm d/\epsilon_0=3\times10^{-23}/8.854\times10^{-12}=\SI{3.39e-12}{m/V}=\SI{3.39}{pm/V}$ ($\chi^{(2)}=6.78$ pm/V).}
+Atajo: los dos libros describen el mismo campo real en el dominio del tiempo, así que basta comparar las series: $2\mathrm d\mathcal E^2=\epsilon_0\chi^{(2)}\mathcal E^2\Rightarrow\mathrm d=\epsilon_0\chi^{(2)}/2$. Para el tercer orden, igual: $4\chi^{(3)}_{\rm Saleh}\mathcal E^3=\epsilon_0\chi^{(3)}_{\rm Boyd}\mathcal E^3$, luego
+\resultado{$\chi^{(3)}_{\rm Boyd}=4\chi^{(3)}_{\rm Saleh}/\epsilon_0$ \ (C$\cdot$m/V$^3$ $\to$ m$^2$/V$^2$). Ej.: $\chi^{(3)}_{\rm Saleh}=10^{-33}$ C$\cdot$m/V$^3$ $\Rightarrow$ $\chi^{(3)}_{\rm Boyd}=\SI{4.5e-22}{m^2/V^2}$.}
+Comprobación con amplitudes: $P_S(\omega)=3\chi^{(3)}_S|E_S|^2E_S$ y $P_B(\omega)=3\epsilon_0\chi^{(3)}_B|E_B|^2E_B$; con $E_S=2E_B$, $P_S=2P_B$: $2P_B=3\chi^{(3)}_S\cdot8|E_B|^2E_B\Rightarrow P_B=12\chi^{(3)}_S|E_B|^2E_B$, y $3\epsilon_0\chi^{(3)}_B=12\chi^{(3)}_S$ da lo mismo.
+
+\idea{Antes de usar un número de $\chi^{(2)}$ o $d$, preguntarse: ¿gaussiano o SI? ¿$d$ o $\chi^{(2)}=2d$? ¿amplitud compleja de Boyd ($E$) o de pico ($2E$)? La regla rápida: comparar los dos libros en el dominio del tiempo (donde no hay ambigüedad de amplitudes). Errores típicos: olvidar el $\tfrac12$ de $I_{\rm at}$; usar $I=\tfrac12n\epsilon_0c|E|^2$ con la $E$ de Boyd (el correcto es $2n\epsilon_0c|E|^2$); dar $P$ en C/m$^3$.}
+
+%=====================================================================
+\sol{30}{Oscilador anarmónico no centrosimétrico}{Boyd §1.4.1, ecs.~(1.4.1)--(1.4.27), pp.~22--27; §1.4.2, ecs.~(1.4.28)--(1.4.32), pp.~27--28; Prob.~1.3, p.~63}
+\label{sol:30}
+
+\inc{a} El modelo es (Boyd, ec.~1.4.1, p.~22)
+\[
+\ddot{\tilde x}+2\gamma\dot{\tilde x}+\omega_0^2\tilde x+a\tilde x^2=-e\tilde E(t)/m,
+\]
+fuerza restauradora $-m\omega_0^2\tilde x-ma\tilde x^2$ y potencial $U=\tfrac12m\omega_0^2\tilde x^2+\tfrac13ma\tilde x^3$, asimétrico ante $\tilde x\to-\tilde x$ (por eso describe un medio no centrosimétrico). Se reemplaza $\tilde E\to\lambda\tilde E$ (ec.~1.4.5) y se busca $\tilde x=\lambda\tilde x^{(1)}+\lambda^2\tilde x^{(2)}+\lambda^3\tilde x^{(3)}+\cdots$ (ec.~1.4.6). Al sustituir, $a\tilde x^2=a[\lambda^2(\tilde x^{(1)})^2+2\lambda^3\tilde x^{(1)}\tilde x^{(2)}+O(\lambda^4)]$, y como la ecuación debe valer para todo $\lambda$, los coeficientes de cada potencia se anulan por separado:
+\begin{align*}
+\lambda^1:&\quad \ddot{\tilde x}^{(1)}+2\gamma\dot{\tilde x}^{(1)}+\omega_0^2\tilde x^{(1)}=-e\tilde E(t)/m, &&\text{(1.4.7a)}\\
+\lambda^2:&\quad \ddot{\tilde x}^{(2)}+2\gamma\dot{\tilde x}^{(2)}+\omega_0^2\tilde x^{(2)}+a[\tilde x^{(1)}]^2=0, &&\text{(1.4.7b)}\\
+\lambda^3:&\quad \ddot{\tilde x}^{(3)}+2\gamma\dot{\tilde x}^{(3)}+\omega_0^2\tilde x^{(3)}+2a\tilde x^{(1)}\tilde x^{(2)}=0. &&\text{(1.4.7c)}
+\end{align*}
+Cada orden es un oscilador \emph{lineal} forzado por los órdenes anteriores: la no linealidad se convierte en una cascada de problemas lineales.
+
+\emph{¿Por qué no hace falta $\lambda^0\tilde x^{(0)}$? (Prob.~1.3).} Si se incluyera, la ecuación de orden $\lambda^0$ sería $\ddot{\tilde x}^{(0)}+2\gamma\dot{\tilde x}^{(0)}+\omega_0^2\tilde x^{(0)}+a[\tilde x^{(0)}]^2=0$: no tiene campo, porque el campo entra multiplicado por $\lambda$. Describe al átomo sin luz. Sus soluciones son (i) transitorios que decaen como $e^{-\gamma t}$ hacia el equilibrio, irrelevantes en estado estacionario, o (ii) los puntos fijos $\tilde x^{(0)}=0$ y $\tilde x^{(0)}=-\omega_0^2/a$. El segundo es el máximo del potencial cúbico (inestable, a una distancia $\sim d$ del núcleo, fuera de la física de un electrón ligado). Escogiendo el origen en el equilibrio estable, $\tilde x^{(0)}=0$. Así, $\lambda=0$ (sin campo) da $\tilde x=0$ y la serie empieza en $\lambda^1$. Si hubiera un desplazamiento estático $x_0\neq0$, bastaría expandir $U$ alrededor de $x_0$ y redefinir $\omega_0$ y $a$.
+
+\inc{b} \emph{Primer orden.} Con $\tilde E=E_1e^{-i\omega_1t}+E_2e^{-i\omega_2t}+\cc$ (ec.~1.4.4), probamos $\tilde x^{(1)}=x^{(1)}(\omega_1)e^{-i\omega_1t}+x^{(1)}(\omega_2)e^{-i\omega_2t}+\cc$ (ec.~1.4.8). Cada derivada temporal de $e^{-i\omega_jt}$ da un factor $-i\omega_j$, así que (1.4.7a) para la componente $\omega_j$ queda
+\[(-\omega_j^2-2i\omega_j\gamma+\omega_0^2)\,x^{(1)}(\omega_j)=-eE_j/m\quad\Rightarrow\]
+\[
+x^{(1)}(\omega_j)=-\frac{e}{m}\frac{E_j}{D(\omega_j)},\qquad D(\omega_j)=\omega_0^2-\omega_j^2-2i\omega_j\gamma\qquad\text{(Boyd, ecs.~1.4.9--1.4.10, p.~24)}.
+\]
+Con $P^{(1)}(\omega_j)=-Nex^{(1)}(\omega_j)=\epsilon_0\chi^{(1)}(\omega_j)E_j$ (ecs.~1.4.15--1.4.16):
+\resultado{$\chi^{(1)}(\omega)=\dfrac{N e^2/m}{\epsilon_0D(\omega)}$ \quad (Boyd, ec.~1.4.17, p.~25). Nótese $D(-\omega)=D(\omega)^*$, de modo que $x^{(1)}(-\omega_j)=x^{(1)}(\omega_j)^*$.}
+
+\emph{Segundo orden.} Escribamos $\tilde x^{(1)}=\sum_{k}x^{(1)}(\omega_k)e^{-i\omega_kt}$ con $k\in\{\pm1,\pm2\}$. Entonces
+\[
+[\tilde x^{(1)}]^2=\sum_{k,l}x^{(1)}(\omega_k)x^{(1)}(\omega_l)e^{-i(\omega_k+\omega_l)t},
+\]
+y agrupando por frecuencia suma (igual que en el Prob.~28a):
+\begin{align*}
+2\omega_1:&\ [x^{(1)}(\omega_1)]^2, & \omega_1+\omega_2:&\ 2x^{(1)}(\omega_1)x^{(1)}(\omega_2),\\
+\omega_1-\omega_2:&\ 2x^{(1)}(\omega_1)x^{(1)}(-\omega_2), & 0:&\ 2|x^{(1)}(\omega_1)|^2+2|x^{(1)}(\omega_2)|^2.
+\end{align*}
+Para una fuente $-aCe^{-i\Omega t}$ en (1.4.7b), la respuesta estacionaria es $x^{(2)}(\Omega)=-aC/D(\Omega)$. Sustituyendo $x^{(1)}$:
+\begin{align*}
+x^{(2)}(2\omega_1)&=\frac{-a(e/m)^2E_1^2}{D(2\omega_1)D^2(\omega_1)}, &\text{(1.4.13)}\\
+x^{(2)}(\omega_1+\omega_2)&=\frac{-2a(e/m)^2E_1E_2}{D(\omega_1+\omega_2)D(\omega_1)D(\omega_2)}, &\text{(1.4.14b)}\\
+x^{(2)}(\omega_1-\omega_2)&=\frac{-2a(e/m)^2E_1E_2^*}{D(\omega_1-\omega_2)D(\omega_1)D(-\omega_2)}, &\text{(1.4.14c)}\\
+x^{(2)}(0)&=\frac{-2a(e/m)^2|E_1|^2}{D(0)D(\omega_1)D(-\omega_1)}+\frac{-2a(e/m)^2|E_2|^2}{D(0)D(\omega_2)D(-\omega_2)}. &\text{(1.4.14d)}
+\end{align*}
+(Los signos: $[x^{(1)}]^2$ lleva $(-e/m)^2=+(e/m)^2$, y la respuesta lleva $-a$; Boyd, pp.~24--25.)
+
+\emph{Identificación de $\chi^{(2)}$.} La polarización es $P^{(2)}(\Omega)=-Nex^{(2)}(\Omega)$, y la definición (Boyd, ec.~1.3.12 / 1.3.19) es $P(\omega_n+\omega_m)=\epsilon_0D\,\chi^{(2)}(\omega_n+\omega_m,\omega_n,\omega_m)E(\omega_n)E(\omega_m)$, con $D=1$ si $\omega_n=\omega_m$ y $D=2$ si son distintas. Así:
+\begin{itemize}
+\item SHG ($D=1$): $\epsilon_0\chi^{(2)}E_1^2=-Nex^{(2)}(2\omega_1)$ $\Rightarrow$ $\chi^{(2)}(2\omega_1,\omega_1,\omega_1)=\dfrac{N(e^3/m^2)a}{\epsilon_0D(2\omega_1)D^2(\omega_1)}$ (ec.~1.4.20).
+\item SFG ($D=2$): $2\epsilon_0\chi^{(2)}E_1E_2=-Nex^{(2)}(\omega_1+\omega_2)$; el 2 de la definición se cancela con el 2 de $x^{(2)}$: $\chi^{(2)}(\omega_1+\omega_2,\omega_1,\omega_2)=\dfrac{N(e^3/m^2)a}{\epsilon_0D(\omega_1+\omega_2)D(\omega_1)D(\omega_2)}$ (ec.~1.4.24).
+\item DFG ($D=2$): $\chi^{(2)}(\omega_1-\omega_2,\omega_1,-\omega_2)=\dfrac{N(e^3/m^2)a}{\epsilon_0D(\omega_1-\omega_2)D(\omega_1)D(-\omega_2)}$ (ec.~1.4.26).
+\item OR ($D=2$: pares $(\omega_1,-\omega_1)$ y $(-\omega_1,\omega_1)$): $P(0)=2\epsilon_0\chi^{(2)}(0,\omega_1,-\omega_1)|E_1|^2+\ldots$ $\Rightarrow$ $\chi^{(2)}(0,\omega_1,-\omega_1)=\dfrac{N(e^3/m^2)a}{\epsilon_0D(0)D(\omega_1)D(-\omega_1)}$ (ec.~1.4.27).
+\end{itemize}
+\resultado{Todas tienen la misma forma: $\chi^{(2)}(\omega_3,\omega_1,\omega_2)=\dfrac{Ne^3a}{\epsilon_0m^2\,D(\omega_3)D(\omega_1)D(\omega_2)}$, un factor $1/D$ por cada frecuencia (las dos de entrada y la generada). Con el $D$ correcto, el $\chi^{(2)}$ es continuo: (1.4.24) $\to$ (1.4.20) cuando $\omega_2\to\omega_1$.}
+
+\inc{c} De (1.4.17), $1/D(\omega)=\epsilon_0m\chi^{(1)}(\omega)/(Ne^2)$. Sustituyendo tres veces en (1.4.24):
+\[
+\chi^{(2)}(\omega_1+\omega_2,\omega_1,\omega_2)=\frac{Ne^3a}{\epsilon_0m^2}\left(\frac{\epsilon_0m}{Ne^2}\right)^3\chi^{(1)}(\omega_1+\omega_2)\chi^{(1)}(\omega_1)\chi^{(1)}(\omega_2)
+=\frac{\epsilon_0^2ma}{N^2e^3}\,\chi^{(1)}(\omega_1+\omega_2)\chi^{(1)}(\omega_1)\chi^{(1)}(\omega_2)
+\]
+(Boyd, ec.~1.4.25, p.~26).
+\resultado{\textbf{Regla de Miller} (1964): el cociente $\dfrac{\chi^{(2)}(\omega_1+\omega_2,\omega_1,\omega_2)}{\chi^{(1)}(\omega_1+\omega_2)\chi^{(1)}(\omega_1)\chi^{(1)}(\omega_2)}$ es casi el mismo para todos los cristales no centrosimétricos (Boyd, ec.~1.4.28, p.~27). En el modelo vale $\epsilon_0^2ma/(N^2e^3)$ (ec.~1.4.29).}
+\emph{¿Por qué casi universal?} $m$, $e$ y $\epsilon_0$ son constantes fundamentales. Lo que depende del material es $a/N^2$. Pero $N\approx1/d^3$ ($d$ = separación atómica) y, si las fuerzas lineal y no lineal se igualan cuando el desplazamiento es del orden de $d$, $m\omega_0^2d=mad^2$, es decir, $a\approx\omega_0^2/d$ (ec.~1.4.30). Entonces $\epsilon_0^2ma/(N^2e^3)\approx\epsilon_0^2m\omega_0^2d^5/e^3$, y $d$ ($\sim$ Å) y $\omega_0$ (UV) varían poco de un sólido a otro. Consecuencia práctica: los materiales con índice alto (dispersión grande, $\chi^{(1)}$ grande) tienden a tener $\chi^{(2)}$ grande ($\propto[\chi^{(1)}]^3$); con esto se estima $\chi^{(2)}$ de un cristal nuevo a partir de su índice.
+
+\inc{d} Sin resonancia, $D(\omega)\approx\omega_0^2$ para las tres frecuencias, y con $N=1/d^3$, $a=\omega_0^2/d$ en (1.4.24):
+\[
+\chi^{(2)}=\frac{Ne^3a}{\epsilon_0m^2\omega_0^6}=\frac{(1/d^3)e^3(\omega_0^2/d)}{\epsilon_0m^2\omega_0^6}=\frac{e^3}{\epsilon_0m^2\omega_0^4d^4}\qquad\text{(Boyd, ec.~1.4.31, p.~28)}.
+\]
+Con $e=\SI{1.602e-19}{C}$, $m=\SI{9.109e-31}{kg}$, $\omega_0=\SI{e16}{rad/s}$, $d=\SI{3e-10}{m}$:
+\[
+\chi^{(2)}=\frac{(1.602\times10^{-19})^3}{(8.854\times10^{-12})(9.109\times10^{-31})^2(10^{16})^4(3\times10^{-10})^4}=\frac{4.11\times10^{-57}}{5.95\times10^{-46}}=\SI{6.9e-12}{m/V}.
+\]
+\codigo{t4a_p30_oscilador_chi2.py}
+Salida relevante: $N=\SI{3.70e28}{m^{-3}}$, $\chi^{(1)}=1.18$ ($n=1.48$, razonable para un dieléctrico), $\chi^{(2)}=\SI{6.91e-12}{m/V}$, $d=\chi^{(2)}/2=3.46$ pm/V; constante de Miller $\epsilon_0^2ma/(N^2e^3)=\SI{4.22e-12}{m/V}$, que por $[\chi^{(1)}]^3=1.64$ reproduce el mismo $\chi^{(2)}$.
+\resultado{$\chi^{(2)}\approx\SI{6.9e-12}{m/V}$ ($d\approx3.5$ pm/V). En la Tabla~1.5.3 (p.~50), los $d$ van de 0.3 pm/V (cuarzo) a 370 pm/V (GaAs); el valor estimado es del orden de BBO ($d_{22}=2.2$), LiIO$_3$ ($d_{31}=-7$) o LiNbO$_3$ ($d_{31}=-5.9$): buen acuerdo en orden de magnitud. También concuerda con $1/E_{\rm at}=1.94$ pm/V del Prob.~29(c).}
+
+\inc{e} De (1.4.20), $|\chi^{(2)}(2\omega;\omega,\omega)|\propto1/|D(2\omega)D^2(\omega)|$. Es grande cuando algún factor se hace pequeño. Como $|D(\Omega)|^2=(\omega_0^2-\Omega^2)^2+4\gamma^2\Omega^2$ es mínimo cerca de $\Omega=\omega_0$, hay dos resonancias:
+\begin{itemize}
+\item $\omega=\omega_0/2$: $D(2\omega)\to-2i\omega_0\gamma$. Es la \emph{resonancia de dos fotones}: dos fotones de $\omega$ suman la energía de la transición, o, equivalentemente, la frecuencia generada $2\omega$ coincide con $\omega_0$. Sólo un factor $D$ resuena.
+\item $\omega=\omega_0$: $D(\omega)\to-2i\omega_0\gamma$ aparece \emph{al cuadrado}, porque $D^2(\omega)$ viene de los dos campos de entrada. Es la resonancia de un fotón, más fuerte.
+\end{itemize}
+Altura de los picos, normalizada al valor no resonante $1/\omega_0^6$, con $\gamma=0.02\omega_0$:
+\begin{gather*}
+\omega=\tfrac{\omega_0}2:\quad \frac{\omega_0^6}{|D(\omega_0)||D(\omega_0/2)|^2}=\frac{1}{(2)(0.02)\,|0.75-0.02i|^2}=44.4;\\
+\omega=\omega_0:\quad \frac{\omega_0^6}{|D(2\omega_0)||D(\omega_0)|^2}=\frac{1}{|{-3}-0.08i|\,(0.04)^2}=208.
+\end{gather*}
+\begin{figure}[H]\centering
+\includegraphics[width=0.8\linewidth]{t4a_p30_chi2_resonancias.png}
+\caption{$|\chi^{(2)}(2\omega;\omega,\omega)|$ del oscilador anarmónico (ec.~1.4.20), normalizada al valor no resonante $Ne^3a/(\epsilon_0m^2\omega_0^6)$, con $\gamma=0.02\,\omega_0$. Pico en $\omega_0/2$ (dos fotones, factor $D(2\omega)$) de altura 44 y pico en $\omega_0$ (un fotón, factor $D^2(\omega)$) de altura 208. Para $\omega\gg\omega_0$ cae como $\omega^{-6}$.}
+\end{figure}
+\resultado{Resonancias en $\omega=\omega_0/2$ (dos fotones, $D(2\omega)$, $|\chi^{(2)}|/\chi^{(2)}_{\rm nr}=44$) y en $\omega=\omega_0$ (un fotón, $D^2(\omega)$, $=208$, más alto y más ancho porque el factor resonante va al cuadrado).}
+En la práctica se trabaja lejos de ambas (cristal transparente en $\omega$ y en $2\omega$), porque cerca de la resonancia de un fotón el material absorbe la fundamental, y cerca de la de dos fotones absorbe el armónico.
+
+\idea{$\chi^{(2)}\propto a\prod 1/D$ con un $1/D$ por cada una de las tres frecuencias, incluida la generada; la regla de Miller es la misma frase escrita con $\chi^{(1)}\propto1/D$. El 2 de SFG/DFG/OR está en $x^{(2)}$ y en la definición (1.3.19), y se cancela: $\chi^{(2)}$ no lleva el 2. Error típico: identificar $\chi^{(2)}$ de SFG sin el factor $D=2$, lo que da un $\chi^{(2)}$ el doble del correcto y discontinuo en $\omega_2\to\omega_1$.}
+
+%=====================================================================
+\sol{31}{Contribución de tercer orden del oscilador no centrosimétrico [$\star$]}{Boyd Prob.~1.5, p.~63; ecs.~(1.4.7c), p.~24; (1.4.48)--(1.4.52), pp.~31--32; (1.4.54)--(1.4.55), pp.~32--33}
+\label{sol:31}
+
+\emph{Planteamiento.} Usamos un campo general $\tilde E(t)=\sum_nE(\omega_n)e^{-i\omega_nt}$ (suma sobre frecuencias positivas y negativas, $E(-\omega_n)=E(\omega_n)^*$, como en Boyd, ec.~1.4.38). El tercer orden de (1.4.1) es (1.4.7c):
+\[
+\ddot{\tilde x}^{(3)}+2\gamma\dot{\tilde x}^{(3)}+\omega_0^2\tilde x^{(3)}=-2a\,\tilde x^{(1)}\tilde x^{(2)}.
+\]
+\emph{Paso 1: primer orden.} Como en (1.4.9), $\tilde x^{(1)}=\sum_px^{(1)}(\omega_p)e^{-i\omega_pt}$ con $x^{(1)}(\omega_p)=-\dfrac{e}{m}\dfrac{E(\omega_p)}{D(\omega_p)}$.
+
+\emph{Paso 2: segundo orden con campo general.} De (1.4.7b),
+\[\ddot{\tilde x}^{(2)}+2\gamma\dot{\tilde x}^{(2)}+\omega_0^2\tilde x^{(2)}=-a[\tilde x^{(1)}]^2=-a\sum_{m,n}x^{(1)}(\omega_m)x^{(1)}(\omega_n)e^{-i(\omega_m+\omega_n)t}.\]
+Cada término (suma sobre pares \emph{ordenados}, que lleva automáticamente los factores 2 de los términos cruzados) se resuelve dividiendo por $D(\omega_m+\omega_n)$:
+\begin{align*}
+\tilde x^{(2)}(t)&=\sum_{m,n}\frac{-a\,x^{(1)}(\omega_m)x^{(1)}(\omega_n)}{D(\omega_m+\omega_n)}e^{-i(\omega_m+\omega_n)t}\\
+&=-a\Big(\frac em\Big)^2\sum_{m,n}\frac{E(\omega_m)E(\omega_n)}{D(\omega_m+\omega_n)D(\omega_m)D(\omega_n)}e^{-i(\omega_m+\omega_n)t}.
+\end{align*}
+Cuando $\omega_n=-\omega_m$ aparece $1/D(0)=1/\omega_0^2$: es el desplazamiento estático (rectificación óptica) del Prob.~30.
+
+\emph{Paso 3: fuente de tercer orden.} Multiplicando,
+\[
+-2a\tilde x^{(1)}\tilde x^{(2)}=-2a\sum_p\sum_{m,n}\Big[-\frac em\frac{E(\omega_p)}{D(\omega_p)}\Big]\Big[-a\Big(\frac em\Big)^2\frac{E(\omega_m)E(\omega_n)}{D(\omega_m+\omega_n)D(\omega_m)D(\omega_n)}\Big]e^{-i(\omega_m+\omega_n+\omega_p)t}.
+\]
+Los dos signos menos dan $+$, así que la fuente es $-2a^2(e/m)^3\sum_{mnp}\dfrac{E(\omega_m)E(\omega_n)E(\omega_p)}{D(\omega_m+\omega_n)D(\omega_m)D(\omega_n)D(\omega_p)}e^{-i\omega_qt}$, con $\omega_q=\omega_m+\omega_n+\omega_p$.
+
+\emph{Paso 4: respuesta.} Con $\tilde x^{(3)}=\sum_qx^{(3)}(\omega_q)e^{-i\omega_qt}$, el lado izquierdo da $D(\omega_q)x^{(3)}(\omega_q)$:
+\resultado{$x^{(3)}(\omega_q)=-2a^2\Big(\dfrac em\Big)^3\displaystyle\sum_{(mnp)}\frac{E(\omega_m)E(\omega_n)E(\omega_p)}{D(\omega_q)\,D(\omega_m+\omega_n)\,D(\omega_m)D(\omega_n)D(\omega_p)}$, \quad suma sobre las ternas ordenadas con $\omega_m+\omega_n+\omega_p=\omega_q$.}
+
+\emph{Paso 5: susceptibilidad.} $P^{(3)}(\omega_q)=-Nex^{(3)}(\omega_q)=\dfrac{2Na^2e^4}{m^3}\sum_{(mnp)}\dfrac{E_mE_nE_p}{D(\omega_q)D(\omega_m+\omega_n)D_mD_nD_p}$. La definición (ec.~1.4.50 en 1D) es $P^{(3)}(\omega_q)=\epsilon_0\sum_{(mnp)}\chi^{(3)}_{1111}(\omega_q,\omega_m,\omega_n,\omega_p)E_mE_nE_p$. Una elección que la cumple es $2Na^2e^4/[\epsilon_0m^3D(\omega_q)D(\omega_m+\omega_n)D_mD_nD_p]$, pero no tiene simetría de permutación intrínseca: el factor $1/D(\omega_m+\omega_n)$ distingue el par $(m,n)$, que se sumó primero en $x^{(2)}$, del tercer campo $p$. Igual que Boyd hace con (1.4.51) $\to$ (1.4.52), se define $\chi^{(3)}$ como el promedio sobre las $3!=6$ permutaciones de $(\omega_m,\omega_n,\omega_p)$. El producto $D_mD_nD_p$ no cambia; el factor de par toma los valores $1/D(\omega_m+\omega_n)$, $1/D(\omega_n+\omega_p)$, $1/D(\omega_p+\omega_m)$, cada uno en dos de las seis permutaciones:
+\resultado{$\chi^{(3)}_{1111}(\omega_q,\omega_m,\omega_n,\omega_p)=\dfrac{2Na^2e^4}{3\epsilon_0m^3}\,\dfrac{\dfrac1{D(\omega_m+\omega_n)}+\dfrac1{D(\omega_n+\omega_p)}+\dfrac1{D(\omega_p+\omega_m)}}{D(\omega_q)D(\omega_m)D(\omega_n)D(\omega_p)}\ \propto a^2.$}
+Ejemplo: para el índice no lineal, $\chi^{(3)}(\omega;\omega,\omega,-\omega)$, las tres sumas de pares son $2\omega$, $0$ y $0$, y el corchete vale $1/D(2\omega)+2/D(0)$. Aparece $1/D(0)$ (el electrón se desplaza estáticamente por rectificación y en esa posición ve un resorte distinto) y también una resonancia en $2\omega=\omega_0$ que el modelo centrosimétrico no tiene.
+
+\emph{Comparación con el medio centrosimétrico.} (Boyd, ec.~1.4.52, p.~32), para $i=j=k=l=1$, con $[\delta_{11}\delta_{11}+\delta_{11}\delta_{11}+\delta_{11}\delta_{11}]/3=1$:
+\[
+\chi^{(3)}_{1111,b}=\frac{Nbe^4}{\epsilon_0m^3D(\omega_q)D(\omega_m)D(\omega_n)D(\omega_p)}.
+\]
+Diferencias: (i) la contribución $b$ es un proceso directo (el término cuártico del potencial actúa una vez) y sólo tiene cuatro factores $1/D$; la contribución $a^2$ es una \emph{cascada} de dos procesos de segundo orden (el término cúbico actúa dos veces, pasando por el armónico o la rectificación intermedios) y tiene un quinto factor $1/D(\omega_m+\omega_n)$; (ii) la $a^2$ existe sólo si $a\neq0$, es decir, en medios no centrosimétricos, donde ambas coexisten si el potencial tiene términos cúbico y cuártico; (iii) los dos términos son positivos para $D$ reales: el término $a$ ablanda el potencial hacia un lado y el promedio sobre una oscilación es un ablandamiento neto, igual que $b>0$ en $U=\tfrac12m\omega_0^2x^2-\tfrac14mbx^4$.
+
+\emph{Estimación.} Lejos de resonancia, todos los $D\to\omega_0^2$ (incluidos $D(0)=\omega_0^2$ y $D(2\omega)\approx\omega_0^2$), y el corchete vale $3/\omega_0^2$:
+\[
+\chi^{(3)}_a\simeq\frac{2Na^2e^4}{3\epsilon_0m^3}\cdot\frac{3/\omega_0^2}{\omega_0^8}=\frac{2Na^2e^4}{\epsilon_0m^3\omega_0^{10}},\qquad \chi^{(3)}_b\simeq\frac{Nbe^4}{\epsilon_0m^3\omega_0^8}.
+\]
+Con $a=\omega_0^2/d$ (ec.~1.4.30) y $b=\omega_0^2/d^2$ (ec.~1.4.54): $a^2=\omega_0^4/d^2=\omega_0^2b$, luego
+\[
+\frac{\chi^{(3)}_a}{\chi^{(3)}_b}=\frac{2a^2}{b\,\omega_0^2}=\frac{2\omega_0^4/d^2}{\omega_0^4/d^2}=2.
+\]
+\codigo{t4a_p31_chi3_estimacion.py}
+Con $d=3$ Å, $N=1/d^3$: para $\omega_0=\SI{e16}{rad/s}$, $\chi^{(3)}_a=\SI{8.1e-23}{m^2/V^2}$ y $\chi^{(3)}_b=\SI{4.1e-23}{m^2/V^2}$; para $\omega_0=\SI{7e15}{rad/s}$ (valor de Boyd en ec.~1.4.56), $\chi^{(3)}_b=\SI{3.4e-22}{m^2/V^2}$ (coincide con los 344 pm$^2$/V$^2$ del libro) y $\chi^{(3)}_a=\SI{6.9e-22}{m^2/V^2}$. Para $\chi^{(3)}(\omega;\omega,\omega,-\omega)$ el corchete $[1/D(2\omega)+2/D(0)]\omega_0^2$ sube de 3 (no resonante) a 3.56 en $\omega=0.3\omega_0$ y a 7.3 en $\omega=0.45\omega_0$.
+\resultado{Con las estimaciones $a=\omega_0^2/d$ y $b=\omega_0^2/d^2$, la contribución en cascada $\propto a^2$ es del mismo orden que la directa $\propto b$, y unas \textbf{2 veces mayor} lejos de resonancia; además crece más cerca de $2\omega=\omega_0$. En un medio no centrosimétrico no se puede despreciar: domina (ligeramente) la $a^2$.}
+
+\idea{Una no linealidad de segundo orden, actuando dos veces, imita una de tercer orden (``$\chi^{(2)}$ en cascada''). En el modelo esto se ve en el factor extra $1/D(\omega_m+\omega_n)$, y hay que simetrizar sobre las permutaciones para tener permutación intrínseca. Errores típicos: olvidar el 2 de $2a\tilde x^{(1)}\tilde x^{(2)}$; olvidar el término con $D(0)$ (rectificación intermedia); comparar los dos modelos sin poner $a$ y $b$ en las mismas unidades ($a^2/\omega_0^2$ tiene las unidades de $b$).}
+
+%=====================================================================
+\sol{32}{Simulación numérica del oscilador anarmónico}{Boyd §1.4.1, ecs.~(1.4.9)--(1.4.14), pp.~24--25; §1.4.3 y Fig.~1.5.2; análogo a la Tarea~1, punto 2}
+\label{sol:32}
+
+\emph{Planteamiento.} En unidades normalizadas ($\omega_0=1$, $e/m=1$),
+\[
+\ddot x+2\gamma\dot x+x+ax^2=-F[\cos\omega_1t+\cos\omega_2t],\qquad \gamma=0.05,\ a=0.3,\ \omega_1=0.3,\ \omega_2=0.42.
+\]
+Es (1.4.1) con $\tilde E=F\cos\omega_1t+F\cos\omega_2t$. Como $F\cos\omega t=\tfrac F2e^{-i\omega t}+\cc$, en la convención de Boyd $E_1=E_2=F/2$. Con (1.4.9) y (1.4.13)--(1.4.14), las amplitudes \emph{reales} de las líneas (la línea a $\Omega\neq0$ es $x(\Omega)e^{-i\Omega t}+\cc=2|x(\Omega)|\cos(\ldots)$; la DC es $x(0)$) son:
+\begin{align*}
+\omega_j:&\ \frac{F}{|D(\omega_j)|}, & 2\omega_1:&\ \frac{aF^2}{2|D(2\omega_1)||D(\omega_1)|^2}, & \omega_1\pm\omega_2:&\ \frac{aF^2}{|D(\omega_1\pm\omega_2)||D(\omega_1)||D(\omega_2)|},\\
+&& \text{DC}:&\ -\frac{aF^2}{2}\Big[\frac{1}{|D(\omega_1)|^2}+\frac{1}{|D(\omega_2)|^2}\Big] &&(D(0)=1).
+\end{align*}
+Ejemplo del paso de (1.4.14b) a la línea real: $2|x^{(2)}(\omega_1+\omega_2)|=2\cdot2a(F/2)^2/|DDD|=aF^2/|DDD|$.
+
+\emph{Numérica.} Como $\omega_1=5\times0.06$ y $\omega_2=7\times0.06$, la respuesta estacionaria es periódica con $\Omega_0=0.06$, $T_0=2\pi/\Omega_0=104.7$, y todas las líneas son múltiplos de $\Omega_0$. Se integra con \texttt{solve\_ivp} (DOP853, \texttt{rtol}$=10^{-12}$, \texttt{atol}$=10^{-16}$, necesario porque las líneas de segundo orden valen $\sim10^{-7}$). Se descartan $20T_0$ de transitorio (decae como $e^{-\gamma t}$: $e^{-0.05\cdot2094}\sim10^{-45}$) y se toma la FFT sobre una ventana de exactamente $10T_0$ con 10240 muestras. Al ser un número entero de periodos no hay fuga espectral (ni ventana) y cada línea cae en un solo bin.
+\codigo{t4a_p32_simulacion_oscilador.py}
+
+\inc{a} Salida para $F=10^{-3}$:
+\begin{Verbatim}
+  línea      W    simulación        teoría  error rel.
+     w1   0.30   1.09831e-03   1.09830e-03    7.97e-07
+     w2   0.42   1.21261e-03   1.21261e-03    9.38e-07
+    2w1   0.60   2.81486e-07   2.81486e-07    3.58e-07
+  w1+w2   0.72   8.20497e-07   8.20497e-07    3.47e-07
+  w2-w1   0.12   4.05352e-07   4.05351e-07    3.27e-06
+     DC   0.00  -4.01504e-07  -4.01503e-07    2.41e-06
+    piso numérico (mediana de |amp|): 1.2e-18
+\end{Verbatim}
+\begin{figure}[H]\centering
+\includegraphics[width=0.8\linewidth]{t4a_p32a_espectro.png}
+\caption{Espectro de amplitud de $x(t)$ para $F=10^{-3}$ (FFT de la simulación, línea) y predicciones de la teoría de perturbaciones (círculos). Las líneas lineales ($\sim10^{-3}$) están 3--4 órdenes por encima de las de segundo orden ($\sim10^{-7}$); las de tercer orden ($\sim10^{-10}$, p.~ej. $2\omega_1-\omega_2$, $3\omega_1$) también son visibles por encima del piso numérico ($\sim10^{-18}$).}
+\end{figure}
+\resultado{Para $F=10^{-3}$, simulación y teoría de perturbaciones coinciden en las seis líneas con error relativo $\lesssim3\times10^{-6}$. El DC es \emph{negativo}: el potencial $\tfrac12x^2+\tfrac13ax^3$ es más blando hacia $x<0$ y el electrón pasa más tiempo de ese lado (rectificación óptica).}
+El error residual no es numérico (el piso es $10^{-18}$) sino físico: es la corrección del orden siguiente, relativa $\sim(aF)^2\sim10^{-7}$--$10^{-6}$. Por ejemplo, la línea $\omega_1$ recibe una corrección de tercer orden $\propto a^2F^3$.
+
+\inc{b} Barrido de $F$ de $10^{-3}$ a 0.3 en escala logarítmica, más una malla fina (paso 0.0025) hasta el umbral de escape. Resultados:
+\begin{itemize}
+\item Pendiente log--log de la línea $\omega_1+\omega_2$ para $F\le5\times10^{-3}$: \textbf{2.0000}.
+\item La razón simulación/teoría se ajusta a $1-cF^2$ con $c=0.37$ para $F\le0.11$. Es decir, la primera corrección a la amplitud de SFG es $\propto F^4$ (cuarto orden) y \emph{reduce} la amplitud.
+\item La razón tiene un mínimo de $0.9245$ en $F=0.365$ (desviación máxima del 7.5\,\%) y después \emph{sube} bruscamente, cruza 1 en $F\approx0.41$ y pasa de $+10$\,\% en $F=0.420$. Para $F\ge0.425$ el electrón escapa: supera la barrera del potencial cúbico, en $x=-1/a=-3.3$ con altura $U_{\rm max}=1/(6a^2)=1.85$, y la trayectoria diverge.
+\end{itemize}
+\begin{figure}[H]\centering
+\includegraphics[width=0.8\linewidth]{t4a_p32b_barrido_F.png}
+\caption{Arriba: amplitud de la línea $\omega_1+\omega_2$ frente a la amplitud de la fuerza $F$ (simulación, puntos; teoría de segundo orden, recta de pendiente 2). Abajo: cociente simulación/teoría, con la franja de $\pm10$\,\% y el valor de $F$ en que se supera el 10\,\%.}
+\end{figure}
+\resultado{La amplitud de SFG crece como $F^2$ (pendiente 2.000). La teoría de segundo orden se desvía menos del 10\,\% hasta $F=0.420$; la desviación supera el 10\,\% sólo justo antes de que el oscilador escape por encima de la barrera ($F=0.425$).}
+\emph{Lectura física.} A diferencia de la serie de Taylor del diodo en la Tarea~1, donde la razón $V_1/V_T=7.7$ hacía fallar la serie desde el principio, aquí la serie perturbativa funciona muy bien mientras el desplazamiento sea pequeño frente a la escala de la no linealidad, $|x|\ll1/a$. El parámetro de expansión es $a|x^{(1)}|\sim aF/|D|\approx0.3F$. El fallo no es gradual: a $F$ pequeño la primera corrección ($\propto F^4$) reduce un poco la amplitud, pero cerca del umbral de escape las correcciones de orden alto crecen sin control; ese umbral marca, en la práctica, el límite de validez de la serie. En óptica, el análogo es que la expansión en $\chi^{(n)}$ sirve hasta campos $\sim E_{\rm at}$, donde aparecen la ionización y los armónicos altos (Boyd, §1.1, p.~4; cap.~13).
+
+\inc{c} Se cambia $+ax^2$ por $-bx^3$ (Boyd, ec.~1.4.36 en 1D), con $b=0.3$ y $F=0.1$, y se compara con el caso $a=0.3$ con la misma $F$:
+\begin{figure}[H]\centering
+\includegraphics[width=0.8\linewidth]{t4a_p32c_centrosimetrico.png}
+\caption{Espectros de $x(t)$ para $F=0.1$. Arriba: no centrosimétrico ($+ax^2$), con líneas en todas las combinaciones $p\omega_1+q\omega_2$. Abajo: centrosimétrico ($-bx^3$): sólo sobreviven las combinaciones con $|p|+|q|$ impar ($\omega_j$, $2\omega_1\pm\omega_2$, $3\omega_j$, \ldots); DC, $\omega_2-\omega_1$, $2\omega_j$ y $\omega_1+\omega_2$ caen al piso numérico. Líneas punteadas: frecuencias de la tabla del texto.}
+\end{figure}
+La salida del programa (tabla de amplitudes de cada línea en los dos casos) se reproduce abajo. Las líneas pares (DC, $\omega_2-\omega_1$, $2\omega_1$, $\omega_1+\omega_2$, $2\omega_2$) del caso centrosimétrico caen al nivel del ruido de redondeo, más de diez órdenes por debajo de las del caso $a\neq0$. La línea $3\omega_1$ ($4.90\times10^{-4}$ simulada) concuerda con la predicción de tercer orden ($4.73\times10^{-4}$; la diferencia de 3.7\,\% es la corrección de quinto orden, que relativa a la de tercer orden crece como $F^2$) $x^{(3)}(3\omega_1)=-bE_1^3/[D(3\omega_1)D^3(\omega_1)]$ (ec.~1.4.48 en 1D, con $E_1=F/2$; amplitud real $bF^3/(4|D(3\omega_1)||D(\omega_1)|^3)$).
+
+\emph{Por qué desaparecen.} Con $-bx^3$ la ecuación es invariante ante $x\to-x$, $F\to-F$. El potencial es par, $U=\tfrac12x^2-\tfrac14bx^4$, y por lo tanto $x$ es una función impar de la fuerza: sólo aparecen productos de un número impar de campos (Boyd, §1.4.3, ec.~1.4.44: $\tilde r^{(2)}=0$; §1.5.10, ecs.~1.5.31--1.5.35). Un producto de un número impar de exponenciales $e^{\mp i\omega_jt}$ tiene frecuencia $p\omega_1+q\omega_2$ con $|p|+|q|$ impar; DC, $2\omega_j$ y $\omega_1\pm\omega_2$ tienen $|p|+|q|$ par y quedan prohibidas. Es lo mismo que la Fig.~1.5.2 de Boyd (pp.~44--46): la respuesta de un medio centrosimétrico a una onda sinusoidal sólo contiene armónicos impares.
+\resultado{En el caso centrosimétrico desaparecen el DC y todos los armónicos pares y mezclas pares; sólo quedan las líneas con $|p|+|q|$ impar, y la de $3\omega_1$ sigue la teoría de tercer orden.}
+
+\noindent\textbf{Salida completa del programa:}
+\VerbatimInput{\solroot codigo/t4a_p32_salida.txt}
+
+\idea{La FFT de una simulación es la mejor prueba de las fórmulas de perturbación: cada línea escala como $F^{|p|+|q|}$ (pendiente 2 para las de segundo orden), y una línea real vale $2|x(\Omega)|$ porque $F\cos\omega t$ corresponde a $E=F/2$. Para que la FFT sea exacta: integrar con tolerancias muy por debajo de la línea más débil, descartar el transitorio ($\gg1/\gamma$) y usar una ventana con un número entero de periodos. Error típico: comparar con la teoría usando $E=F$ (sale un factor 4 en las líneas de segundo orden).}
+
+%=====================================================================
+\sol{33}{Tensor $\chi^{(3)}$ isótropo y polarización elíptica}{Boyd Prob.~1.4, p.~63; ec.~(1.4.52), p.~32; Tabla~1.5.4, p.~53; §4.2, ecs.~(4.2.1)--(4.2.10), pp.~211--215, y (4.2.29)--(4.2.30), p.~221}
+\label{sol:33}
+
+\inc{a} De (Boyd, ec.~1.4.52, p.~32),
+\[
+\chi^{(3)}_{ijkl}=K\,[\delta_{ij}\delta_{kl}+\delta_{ik}\delta_{jl}+\delta_{il}\delta_{jk}],\qquad K=\frac{Nbe^4}{3\epsilon_0m^3D(\omega_q)D(\omega_m)D(\omega_n)D(\omega_p)}.
+\]
+El corchete cuenta cuántos de los tres emparejamientos posibles de los índices $(ij)(kl)$, $(ik)(jl)$, $(il)(jk)$ unen índices iguales:
+\begin{itemize}
+\item $\chi_{1111}$: los tres emparejamientos valen 1, así que $\chi_{1111}=3K$.
+\item $\chi_{1122}$: $\delta_{11}\delta_{22}=1$, $\delta_{12}\delta_{12}=0$, $\delta_{12}\delta_{21}=0$, luego $\chi_{1122}=K$.
+\item $\chi_{1212}$: $\delta_{12}\delta_{12}=0$, $\delta_{11}\delta_{22}=1$, $\delta_{12}\delta_{21}=0$, luego $\chi_{1212}=K$.
+\item $\chi_{1221}$: $\delta_{12}\delta_{21}=0$, $\delta_{12}\delta_{21}=0$, $\delta_{11}\delta_{22}=1$, luego $\chi_{1221}=K$.
+\end{itemize}
+Como $K$ no depende de los índices, lo mismo vale al cambiar $1,2$ por cualquier par distinto de $\{1,2,3\}$, y $\chi_{2222}=\chi_{3333}=3K$.
+\resultado{$\chi_{1122}=\chi_{1212}=\chi_{1221}=\chi_{1133}=\cdots=\chi_{3223}=\tfrac13\chi_{1111}=\tfrac13\chi_{2222}=\tfrac13\chi_{3333}$ (18 elementos con dos pares de índices distintos más los 3 diagonales: 21 no nulos).}
+\emph{Los demás son nulos.} Si algún índice aparece un número impar de veces (p.~ej. $\chi_{1112}$, $\chi_{1222}$, $\chi_{1123}$), ningún emparejamiento puede unir todos los índices en pares iguales y cada producto de deltas se anula: $\chi_{1112}=K[\delta_{11}\delta_{12}+\delta_{11}\delta_{12}+\delta_{12}\delta_{11}]=0$. \emph{Argumento físico:} $\chi_{1112}$ daría $P_x\propto E_xE_xE_y$. Una reflexión $y\to-y$ deja el medio isótropo igual (es una simetría suya), cambia $E_y\to-E_y$ y deja $P_x$ y $E_x$ iguales; para que $P_x$ no cambie hace falta $\chi_{1112}=-\chi_{1112}=0$. En palabras: un campo en $\yh$ no tiene forma de decidir hacia qué lado de $\xh$ empujar, porque el medio no distingue $+\yh$ de $-\yh$ (Boyd, §4.2, p.~213).
+
+\emph{¿Por qué hay elementos fuera de la diagonal en un medio isótropo?} Isotropía no significa que cada componente de $\E$ actúe sola: significa que la respuesta sólo puede depender de invariantes de rotación, como $\E\cdot\E$ y $|\E|^2$. En el oscilador, la fuerza no lineal $mb(\rv\cdot\rv)\rv$ (ec.~1.4.35) hace que el desplazamiento en $y$ (producido por $E_y$) cambie el ``resorte'' que siente el movimiento en $x$, porque el potencial depende de $|\rv|^2=x^2+y^2+z^2$. Así, $E_y^2$ modifica la respuesta a $E_x$, y eso es $\chi_{1122}\neq0$. El término $(\E\cdot\E)\E$ es un vector isótropo, pero mezcla componentes.
+
+\inc{b} Para un medio isótropo general, los elementos no nulos son $\chi_{1111}$, $\chi_{1122}$, $\chi_{1212}$, $\chi_{1221}$ y sus equivalentes por intercambio de ejes (Boyd, ecs.~4.2.1, p.~213); aún falta una relación entre ellos. Un tensor de rango 4 se transforma como
+\[
+\chi'_{ijkl}=\sum_{abcd}R_{ia}R_{jb}R_{kc}R_{ld}\,\chi_{abcd},
+\]
+y en un medio isótropo debe valer $\chi'=\chi$ para \emph{toda} rotación. Tomamos la rotación de $45^\circ$ alrededor de $z$: $\hat{\mathbf x}'=(\xh+\yh)/\sqrt2$, es decir $R_{1a}=\tfrac1{\sqrt2}(1,1,0)$. Entonces
+\[
+\chi'_{1111}=\sum_{abcd}R_{1a}R_{1b}R_{1c}R_{1d}\chi_{abcd}=\Big(\frac{1}{\sqrt2}\Big)^4\sum_{a,b,c,d\in\{1,2\}}\chi_{abcd}=\frac14\sum_{a,b,c,d\in\{1,2\}}\chi_{abcd}.
+\]
+De los $2^4=16$ términos, sólo sobreviven los que tienen un número par de unos y de doses: $\chi_{1111}$, $\chi_{2222}$ (iguales a $\chi_{1111}$); $\chi_{1122}$, $\chi_{2211}$ (iguales a $\chi_{1122}$); $\chi_{1212}$, $\chi_{2121}$ (iguales a $\chi_{1212}$); $\chi_{1221}$, $\chi_{2112}$ (iguales a $\chi_{1221}$). Luego
+\[
+\chi'_{1111}=\frac14\left[2\chi_{1111}+2\chi_{1122}+2\chi_{1212}+2\chi_{1221}\right]=\frac12\left[\chi_{1111}+\chi_{1122}+\chi_{1212}+\chi_{1221}\right].
+\]
+Imponiendo $\chi'_{1111}=\chi_{1111}$ (isotropía):
+\resultado{$\chi_{1111}=\chi_{1122}+\chi_{1212}+\chi_{1221}$ \qquad (Boyd, ec.~4.2.2, p.~214; Tabla~1.5.4, p.~53). Equivalentemente, $\chi_{ijkl}=\chi_{1122}\delta_{ij}\delta_{kl}+\chi_{1212}\delta_{ik}\delta_{jl}+\chi_{1221}\delta_{il}\delta_{jk}$ (ec.~4.2.3): tres constantes independientes.}
+Comprobación con (a): $K+K+K=3K=\chi_{1111}$, se cumple. \emph{Interpretación:} un campo a $45^\circ$, $\E=E(\xh+\yh)/\sqrt2$, debe producir la misma respuesta a lo largo de sí mismo que un campo a lo largo de $\xh$; la respuesta ``diagonal'' en ejes rotados se construye con los elementos cruzados en los ejes originales.
+
+\inc{c} Con la forma de Maker y Terhune (Boyd, ec.~4.2.10, p.~215), $A=6\chi_{1122}$, $B=6\chi_{1221}$ (para $\chi(\omega=\omega+\omega-\omega)$, donde la permutación intrínseca da $\chi_{1122}=\chi_{1212}$):
+\[
+\mathbf P=\epsilon_0A(\E\cdot\E^*)\E+\tfrac12\epsilon_0B(\E\cdot\E)\E^*.
+\]
+\emph{Luz lineal:} $\E=E\xh$. Entonces $\E\cdot\E^*=|E|^2$, $\E\cdot\E=E^2$ y $(\E\cdot\E)\E^*=E^2E^*\xh=|E|^2E\xh=|E|^2\E$:
+\[
+\mathbf P_{\rm lin}=\epsilon_0\big(A+\tfrac12B\big)|E|^2\E.
+\]
+\emph{Luz circular:} $\E=E\hat{\boldsymbol\sigma}_+$, con $\hat{\boldsymbol\sigma}_\pm=(\xh\pm i\yh)/\sqrt2$ (ec.~4.2.16). Entonces $\E\cdot\E^*=|E|^2\,\frac{(\xh+i\yh)\cdot(\xh-i\yh)}{2}=|E|^2\frac{1+1}{2}=|E|^2$, y $\E\cdot\E=E^2\frac{(\xh+i\yh)\cdot(\xh+i\yh)}{2}=E^2\frac{1+i^2}{2}=0$:
+\[
+\mathbf P_{\rm circ}=\epsilon_0A|E|^2\E.
+\]
+En ambos casos $\mathbf P$ es paralelo a $\E$, así que la luz se propaga con un índice efectivo $n=n_0+\delta n$ con $\delta n=\chi_{\rm NL}/(2n_0)$, donde $\mathbf P=\epsilon_0\chi_{\rm NL}\E$ (Boyd, ecs.~4.2.29--4.2.30, p.~221): $\delta n_{\rm lin}=(A+\tfrac12B)|E|^2/2n_0$ y $\delta n_{\rm circ}=A|E|^2/2n_0$. A igual intensidad (igual $|E|^2$):
+\[
+\frac{\delta n_{\rm circ}}{\delta n_{\rm lin}}=\frac{A}{A+B/2}=\frac{1}{1+\frac12(B/A)}.
+\]
+\resultado{Lineal: $\mathbf P=\epsilon_0(A+\tfrac B2)|E|^2\E$; circular: $\mathbf P=\epsilon_0A|E|^2\E$. Razón $\delta n_{\rm circ}/\delta n_{\rm lin}=A/(A+B/2)$:\\
+\quad respuesta electrónica no resonante ($B/A=1$): $1/(1+\tfrac12)=\mathbf{2/3}$;\qquad orientación molecular ($B/A=6$): $1/(1+3)=\mathbf{1/4}$.}
+\emph{Interpretación.} El término $B$ se anula para luz circular porque $\E\cdot\E=0$: no hay ningún ``eje'' fijo en el espacio al que las moléculas puedan alinearse (el campo gira), así que el mecanismo de orientación molecular, que es casi todo $B$, se apaga casi del todo con luz circular ($1/4$). En la respuesta electrónica no resonante (Kleinman, $A=B$) la reducción es sólo a $2/3$. Medir $\delta n$ con las dos polarizaciones permite identificar el mecanismo de la no linealidad. Para luz elíptica general, $\E\cdot\E\neq0$ y además las dos componentes circulares ven índices distintos, $\Delta n=B(|E_-|^2-|E_+|^2)/2n_0$ (ec.~4.2.24): la elipse rota al propagarse.
+
+(Nota de consistencia: el apunte \texttt{notas/boyd/cap01} dice en su complemento ``$n_2^{\rm circ}/n_2^{\rm lin}=A/(A+B)$'', escrito de memoria y no del libro; lo correcto, de (4.2.29)--(4.2.30), es $A/(A+B/2)$.)
+
+\idea{Isótropo $\Rightarrow$ sólo sobreviven los elementos con índices en pares, con la relación $\chi_{1111}=\chi_{1122}+\chi_{1212}+\chi_{1221}$ (que sale de una rotación de $45^\circ$). Para el índice no lineal, dos constantes, $A$ y $B$. Con luz circular $\E\cdot\E=0$ y se apaga el término $B$. Errores típicos: olvidar el $\tfrac12$ delante de $B$ (da la razón $A/(A+B)$, que es incorrecta); creer que ``isótropo'' implica tensor diagonal; perder los factores $|\hat{\boldsymbol\sigma}_+|^2=1$ y $\hat{\boldsymbol\sigma}_+\cdot\hat{\boldsymbol\sigma}_+=0$.}

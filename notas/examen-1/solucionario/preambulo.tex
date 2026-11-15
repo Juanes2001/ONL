@@ -1,0 +1,65 @@
+% Preámbulo común del solucionario (lo usan el documento maestro y las pruebas por tema).
+% \solroot debe definirse ANTES de \input{preambulo}: "solucionario/" en el maestro, vacío en las pruebas.
+\usepackage[spanish,es-noshorthands,es-nodecimaldot,es-tabla]{babel}
+\usepackage{fontspec}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{booktabs,array}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{siunitx}
+\usepackage{fancyvrb}
+\usepackage[letterpaper,margin=2.2cm]{geometry}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=black,urlcolor=black}
+\sisetup{output-decimal-marker={.}, per-mode=symbol, range-phrase={--}}
+\graphicspath{{\solroot figuras/}}
+\fvset{fontsize=\scriptsize, frame=single, numbers=left, numbersep=5pt}
+
+\definecolor{tema}{RGB}{20,60,120}
+\definecolor{gris}{RGB}{90,90,90}
+\definecolor{caja}{RGB}{235,241,250}
+\titleformat{\section}{\Large\bfseries\color{tema}}{\thesection}{0.6em}{}
+\titleformat{\subsection}{\large\bfseries\color{tema}}{}{0em}{}
+\setlist{itemsep=1pt,topsep=2pt}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.6ex}
+\pagestyle{fancy}\fancyhf{}
+\lhead{\small Óptica No Lineal 2026-II — Solucionario del taller de repaso, Examen 1}
+\rhead{\small p.~\thepage}
+
+% Encabezado de cada solución: \sol{número}{título}{fuente}
+\newcommand{\sol}[3]{\subsection{Problema #1. #2}\noindent{\small\color{gris}#3}\par}
+% Inciso: \inc{a}
+\newcommand{\inc}[1]{\par\smallskip\noindent\textbf{(#1)}\ }
+% Resultado destacado
+\newcommand{\resultado}[1]{\par\smallskip\noindent\colorbox{caja}{\parbox{\dimexpr\linewidth-2\fboxsep}{#1}}\par\smallskip}
+% Idea clave / para entender
+\newcommand{\idea}[1]{\par\noindent{\color{tema}\textbf{Idea clave.}} #1\par}
+% Código: \codigo{archivo.py}  (se toma de solucionario/codigo/)
+\newcommand{\codigo}[1]{\VerbatimInput{\solroot codigo/#1}}
+
+\newcommand{\E}{\mathbf E}
+\newcommand{\Hv}{\mathbf H}
+\newcommand{\D}{\mathbf D}
+\newcommand{\kv}{\mathbf k}
+\newcommand{\rv}{\mathbf r}
+\newcommand{\J}{\mathbf J}
+\newcommand{\T}{\mathbf T}
+\newcommand{\R}{\mathbf R}
+\newcommand{\Sv}{\mathbf S}
+\newcommand{\ud}{\hat{\mathbf u}}
+\newcommand{\xh}{\hat{\mathbf x}}
+\newcommand{\yh}{\hat{\mathbf y}}
+\newcommand{\zh}{\hat{\mathbf z}}
+\newcommand{\Ec}{\boldsymbol{\mathcal E}}
+\newcommand{\Hc}{\boldsymbol{\mathcal H}}
+\newcommand{\Dc}{\boldsymbol{\mathcal D}}
+\newcommand{\Bc}{\boldsymbol{\mathcal B}}
+\newcommand{\Pc}{\boldsymbol{\mathcal P}}
+\newcommand{\cc}{\text{c.c.}}
+\newcommand{\dd}{\,\mathrm{d}}
+\newcommand{\um}{\si{\micro\metre}}
