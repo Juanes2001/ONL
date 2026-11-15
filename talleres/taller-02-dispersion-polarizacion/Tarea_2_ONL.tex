@@ -914,7 +914,65 @@ extraordinaria. Como $\Dv\perp\kv$ y $\Ev\perp\Sv$, y los cuatro vectores están
 ángulo entre $\Dv$ y $\Ev$.
 
 Sea $z$ el eje óptico y $\kv=k(\sin\theta\,\yh+\cos\theta\,\zh)$ en el plano $y$--$z$, con
-$\theta$ el ángulo entre $\kv$ y el eje óptico. Para la onda extraordinaria $\Dv$ está en el plano
+$\theta$ el ángulo entre $\kv$ y el eje óptico. La Fig.~\ref{fig:p7_esquema} muestra la
+geometría. Todo ocurre en el plano $y$--$z$, que contiene a $\kv$ y al eje óptico; el eje $x$
+sale del papel. Los ángulos que se usan son estos:
+\begin{itemize}
+\item $\theta$, de $\zh$ (eje óptico) a $\kv$, y $\theta_S$, de $\zh$ al rayo $\Sv$;
+\item $\rho=\theta-\theta_S$, el walk-off, que es el ángulo entre $\kv$ y $\Sv$;
+\item $\alpha_D$ y $\alpha_E$, las direcciones de $\Dv$ y $\Ev$ medidas desde el eje $y$. Son
+  negativas, es decir, se miden en sentido horario por debajo del eje $y$.
+\end{itemize}
+Como $\Dv\perp\kv$ y $\Ev\perp\Sv$, se tiene $\alpha_D=-\theta$ y $\alpha_E=-\theta_S$, y el par
+$(\Dv,\Ev)$ forma el mismo ángulo $\rho$ que el par $(\kv,\Sv)$.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[scale=1.05,>={Stealth[length=3mm]},
+    lab/.style={font=\small}, ang/.style={thin}]
+  % ejes
+  \draw[->,thick,gray!70!black] (-1.2,0) -- (5.2,0) node[right,black] {$y$};
+  \draw[->,thick,gray!70!black] (0,-4.4) -- (0,5.0) node[above,black,align=center]
+       {$z$\\[-1pt]\footnotesize eje óptico};
+  \draw[very thick,gray!40,dashed] (0,-4.4) -- (0,5.0);
+  \draw[thick] (-0.45,0.35) circle (0.13); \fill (-0.45,0.35) circle (0.035);
+  \node[lab,left] at (-0.6,0.35) {$x$};
+  % vectores
+  \draw[->,very thick,blue!75!black]  (0,0) -- (40:4.4) node[above right] {$\kv$};
+  \draw[->,very thick,red!75!black]   (0,0) -- (55:4.4) node[above] {$\Sv$ (rayo)};
+  \draw[->,very thick,blue!55!cyan]   (0,0) -- (-50:3.9) node[below] {$\Dv$};
+  \draw[->,very thick,orange!85!black] (0,0) -- (-35:3.6) node[right] {$\Ev$};
+  % ángulos rectos k-D y S-E
+  \draw[thin,blue!75!black] (40:0.32) -- ($(40:0.32)+(-50:0.32)$) -- (-50:0.32);
+  \draw[thin,red!75!black]  (55:0.55) -- ($(55:0.55)+(-35:0.55)$) -- (-35:0.55);
+  % theta y theta_S desde el eje óptico
+  \draw[ang,->,blue!75!black] (90:2.3) arc[start angle=90,end angle=40,radius=2.3];
+  \node[lab,blue!75!black] at (66:2.65) {$\theta$};
+  \draw[ang,->,red!75!black] (90:1.45) arc[start angle=90,end angle=55,radius=1.45];
+  \node[lab,red!75!black] at (74:1.8) {$\theta_S$};
+  % walk-off entre k y S
+  \draw[thick,->,green!45!black] (40:3.4) arc[start angle=40,end angle=55,radius=3.4];
+  \node[lab,green!45!black] at (47.5:3.75) {$\rho$};
+  % alpha_D y alpha_E desde el eje y
+  \draw[ang,->,blue!55!cyan] (0:2.3) arc[start angle=0,end angle=-50,radius=2.3];
+  \node[lab,blue!55!cyan] at (-27:2.7) {$\alpha_D$};
+  \draw[ang,->,orange!85!black] (0:1.45) arc[start angle=0,end angle=-35,radius=1.45];
+  \node[lab,orange!85!black] at (-14:1.9) {$\alpha_E$};
+  % walk-off entre D y E
+  \draw[thick,->,green!45!black] (-50:3.1) arc[start angle=-50,end angle=-35,radius=3.1];
+  \node[lab,green!45!black] at (-42.5:3.45) {$\rho$};
+\end{tikzpicture}
+\caption{Geometría de la onda extraordinaria en un cristal uniáxico positivo ($n_e>n_o$),
+dibujada en el plano $y$--$z$ que contiene a $\kv$ y al eje óptico $z$ (el eje $x$ sale del
+papel). $\kv$ forma el ángulo $\theta$ con el eje óptico y el rayo $\Sv$ el ángulo
+$\theta_S<\theta$. El walk-off es $\rho=\theta-\theta_S$. $\Dv\perp\kv$ y $\Ev\perp\Sv$, de
+modo que $\alpha_D=-\theta$, $\alpha_E=-\theta_S$ (medidos desde $y$, negativos por debajo) y
+el ángulo entre $\Dv$ y $\Ev$ también es $\rho$. Los ángulos están exagerados
+($\theta=50^\circ$, $\rho=15^\circ$); en el cuarzo $\rho\le0.33^\circ$.}
+\label{fig:p7_esquema}
+\end{figure}
+
+Para la onda extraordinaria $\Dv$ está en el plano
 $k$--$z$ y es perpendicular a $\kv$:
 \[
 \Dv=D\left(\cos\theta\,\yh-\sin\theta\,\zh\right),
