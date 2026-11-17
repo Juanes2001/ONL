@@ -153,7 +153,18 @@ Se mira el campo real cerca de un instante $t$: $\mathrm{Re}\{f\}=e^{-t^2/\tau^2
 \]
 Es la misma idea que la velocidad: la derivada de la posición da la velocidad, y la derivada de la fase da la frecuencia. Equivale a decir que \textbf{entre dos crestas consecutivas pasa un tiempo} $T_i(t)\simeq1/\nu_i(t)$.
 
-La Fig.~\ref{fig:inst} lo muestra. En (c1)--(c3) cada ventana tiene 12 fs y se ve el mismo número de ciclos, pero con periodos distintos: $2.98$ fs en $t=-25$ fs (335 THz), $2.67$ fs en el centro (375 THz) y $2.41$ fs en $t=+25$ fs (415 THz). Entre $t=-\tau$ y $t=+\tau$ la frecuencia pasa de $343.2$ a $406.8$ THz, un barrido de $2b\tau/\pi=63.7$ THz.
+La Fig.~\ref{fig:inst} lo muestra. En (c1)--(c3) las tres ventanas duran lo mismo (12 fs) pero caben \textbf{distinto número de ciclos}, porque los periodos son distintos: $2.98$ fs en $t=-25$ fs (335 THz, 4.0 ciclos), $2.67$ fs en el centro (375 THz, 4.5 ciclos) y $2.41$ fs en $t=+25$ fs (415 THz, 5.0 ciclos). Entre $t=-\tau$ y $t=+\tau$ la frecuencia pasa de $343.2$ a $406.8$ THz, un barrido de $2b\tau/\pi=63.7$ THz.
+
+\begin{clave}[title={Cómo se calcula la duración de un ciclo y el número de ciclos}]
+\begin{itemize}[leftmargin=1.2em]
+\item \textbf{Periodo óptico}: $T_0=1/\nu_0=1/(375\ \mathrm{THz})=2.667$ fs. Número de ciclos en $\tau$: $\tau/T_0=7.5$.
+\item \textbf{Periodo local}: $T_i(t)=1/\nu_i(t)$. Por ejemplo, en $t=-25$ fs:
+$\nu_i=375\ \mathrm{THz}+(5\times10^{27}\ \mathrm{s^{-2}})(-25\ \mathrm{fs})/\pi=335.2$ THz, luego $T_i=1/335.2\ \mathrm{THz}=2.98$ fs.
+\item \textbf{Ciclos en un intervalo} $[t_1,t_2]$: un ciclo es un avance de fase de $2\pi$, así que
+$N=[\phi(t_2)-\phi(t_1)]/2\pi=\int_{t_1}^{t_2}\nu_i\,dt$. Entre $-\tau$ y $+\tau$: el término $bt^2$ es par y se cancela, y queda $N=2\nu_0\tau=15$ ciclos exactos. En una ventana de 12 fs: $12\ \mathrm{fs}\times\nu_i$.
+\item \textbf{Qué tan exacto es $1/\nu_i$}: el tiempo $T$ que tarda la fase en avanzar $2\pi$ a partir de $t$ cumple $\phi(t+T)-\phi(t)=2\pi$, es decir, $2\pi\nu_0T+b(2tT+T^2)=2\pi$. Desde $t=-25$ fs da $T=2.962$ fs, y $1/\nu_i$ evaluada \emph{a mitad de ese ciclo} ($t=-23.5$ fs) da exactamente $2.962$ fs, porque la fase es cuadrática. Evaluada al inicio ($t=-25$ fs) da $2.983$ fs, un error de 0.7\,\%.
+\end{itemize}
+\end{clave}
 
 \begin{figure}[H]\centering
 \includegraphics[width=\linewidth]{figuras/fig01_campo_y_frecuencia_instantanea.pdf}
